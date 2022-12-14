@@ -9,7 +9,7 @@
     <title>Kafka Cluster Urp란?</title>
     <link>http://redjen8.github.io/posts/dec2022/kafka-cluster-urp%EB%9E%80/</link>
     <pubDate>Wed, 14 Dec 2022 16:17:18 &#43;0900</pubDate>
-    <author>Author</author>
+    <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/kafka-cluster-urp%EB%9E%80/</guid>
     <description><![CDATA[Kafka Cluster URP란? 사내 Github의 운영 Issue 노하우를 읽다가 카프카 클러스터 운영 중 흔히 접할 수 있는 메시지라고 하셔서 찾아봤습니다. 참고한 문서 Replica]]></description>
 </item>
@@ -17,7 +17,7 @@
     <title>Java String이 Immutable한 이유</title>
     <link>http://redjen8.github.io/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</link>
     <pubDate>Tue, 13 Dec 2022 16:45:27 &#43;0900</pubDate>
-    <author>Author</author>
+    <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</guid>
     <description><![CDATA[Java String이 Immutable한 이유 원문 링크 3줄 요약 캐싱 보안 동기 성능 1. 캐싱했을 때 이점이 있어서 String은 가장 많이 쓰이는 data structure 그래서 캐싱했]]></description>
 </item>
