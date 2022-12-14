@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>All Posts - Redjen TIL</title>
-        <link>http://redjen8.github.io/posts/</link>
+        <link>http://redjen8.github.io/TIL/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 13 Dec 2022 16:45:27 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 13 Dec 2022 16:45:27 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/TIL/posts/" rel="self" type="application/rss+xml" /><item>
     <title>Java String이 Immutable한 이유</title>
-    <link>http://redjen8.github.io/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</link>
+    <link>http://redjen8.github.io/TIL/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</link>
     <pubDate>Tue, 13 Dec 2022 16:45:27 &#43;0900</pubDate>
     <author>Author</author>
-    <guid>http://redjen8.github.io/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</guid>
+    <guid>http://redjen8.github.io/TIL/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</guid>
     <description><![CDATA[Java String이 Immutable한 이유 원문 링크 3줄 요약 캐싱 보안 동기 성능 1. 캐싱했을 때 이점이 있어서 String은 가장 많이 쓰이는 data structure 그래서 캐싱했]]></description>
 </item>
 </channel>
