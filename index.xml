@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 14 Dec 2022 16:17:18 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 15 Dec 2022 18:00:28 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>왜 Python은 GIL을 사용할까?</title>
+    <link>http://redjen8.github.io/posts/dec2022/%EC%99%9C-python%EC%9D%80-gil%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C/</link>
+    <pubDate>Thu, 15 Dec 2022 18:00:28 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/%EC%99%9C-python%EC%9D%80-gil%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C/</guid>
+    <description><![CDATA[왜 Python은 GIL을 사용할까? 원문 들어가기 전에 파이썬은 사실상 언어라기 보단 명세서에 가깝다. 여러 파이썬 구현체 중에서 가장 널리 사용되는 것은 CPy]]></description>
+</item>
+<item>
     <title>Kafka Cluster Urp란?</title>
     <link>http://redjen8.github.io/posts/dec2022/kafka-cluster-urp%EB%9E%80/</link>
     <pubDate>Wed, 14 Dec 2022 16:17:18 &#43;0900</pubDate>
