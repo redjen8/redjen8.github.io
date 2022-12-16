@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 15 Dec 2022 18:00:28 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 16 Dec 2022 15:19:18 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Oauth란?</title>
+    <link>http://redjen8.github.io/posts/dec2022/oauth%EB%9E%80/</link>
+    <pubDate>Fri, 16 Dec 2022 15:19:18 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/oauth%EB%9E%80/</guid>
+    <description><![CDATA[OAuth란? OAuth에 대해 인터넷 사용자들이 비밀번호 제공 없이 다른 웹 사이트 상의 자신들의 정보에 대해 웹 사이트나 어플리케이션의 접근 권한을 부여할 수 있]]></description>
+</item>
+<item>
     <title>왜 Python은 GIL을 사용할까?</title>
     <link>http://redjen8.github.io/posts/dec2022/%EC%99%9C-python%EC%9D%80-gil%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C/</link>
     <pubDate>Thu, 15 Dec 2022 18:00:28 &#43;0900</pubDate>
