@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java Main Method는 왜 Psvm일까? - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Java Main Method는 왜 Psvm일까?" />
+<meta property="og:description" content="Java Main Method는 왜 public static void main 일까? 원문 링크 1. main 메서드가 public이어야 하는 이유 JVM이 클래스 바깥에서 호출할 수 있도록 해야 하기 때문 2. main 메서드가" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-17T21:01:43+09:00" />
+<meta property="article:modified_time" content="2022-12-17T21:01:43+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Main Method는 왜 Psvm일까?"/>
+<meta name="twitter:description" content="Java Main Method는 왜 public static void main 일까? 원문 링크 1. main 메서드가 public이어야 하는 이유 JVM이 클래스 바깥에서 호출할 수 있도록 해야 하기 때문 2. main 메서드가"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" /><link rel="prev" href="http://redjen8.github.io/posts/dec2022/oauth%EB%9E%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java Main Method는 왜 Psvm일까?",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/dec2022\/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C\/"
+        },"genre": "posts","wordcount":  988 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/dec2022\/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C\/","datePublished": "2022-12-17T21:01:43+09:00","dateModified": "2022-12-17T21:01:43+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Java Main Method는 왜 Psvm일까?</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-17">2022-12-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;988 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-main-메서드가-public이어야-하는-이유">1. main 메서드가 public이어야 하는 이유</a></li>
+    <li><a href="#2-main-메서드가-static이어야-하는-이유">2. main 메서드가 static이어야 하는 이유</a></li>
+    <li><a href="#3-main-메서드가-void여야-하는-이유">3. main 메서드가 void여야 하는 이유</a></li>
+    <li><a href="#4-main-메서드가-main-이름이어야-하는-이유">4. main 메서드가 main 이름이어야 하는 이유</a></li>
+    <li><a href="#5-main-메서드가-string-args-를-인자로-받는-이유">5. main 메서드가 String[] args 를 인자로 받는 이유</a></li>
+    <li><a href="#6-번외--main-메서드-없이도-실행이-될까">6. 번외 : main 메서드 없이도 실행이 될까?</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="java-main-method는-왜-public-static-void-main-일까">Java Main Method는 왜 public static void main 일까?</h1>
+<p><a href="https://www.geeksforgeeks.org/java-main-method-public-static-void-main-string-args/" target="_blank" rel="noopener noreffer ">원문 링크</a></p>
+<h2 id="1-main-메서드가-public이어야-하는-이유">1. main 메서드가 public이어야 하는 이유</h2>
+<p>JVM이 클래스 바깥에서 호출할 수 있도록 해야 하기 때문</p>
+<h2 id="2-main-메서드가-static이어야-하는-이유">2. main 메서드가 static이어야 하는 이유</h2>
+<p>static 키워드는 무엇인가? - static 키워드의 특성.
+static 키워드를 붙이면 자바 클래스의 인스턴스 생성 필요 없이 바로 호출 가능
+이는 main 메서드를 JVM이 실행할 때 굳이 인스턴스를 생성할 필요 없이 불필요한 메모리 낭비를 줄이기 위함임</p>
+<h2 id="3-main-메서드가-void여야-하는-이유">3. main 메서드가 void여야 하는 이유</h2>
+<p>C/C++ 의 경우 main 함수를 관례상 int를 리턴하는 함수로도 많이 사용한다
+하지만 Java에서는 좀 다르다 - 이는 JVM 위에서 굴러가는 자바 언어의 특성 때문
+C/C++의 경우 컴파일 한 결과물을 실행 파일의 형태로 바로 실행할 수 있다
+이렇게 실행된 실행 파일은 프로세스로써 운영체제의 커널단에서 관리된다.
+하지만 자바는 어떤가?
+자바는 JVM위에서 동작하는 언어&hellip;
+javac로 클래스 파일 생성한 후 java 명령어 통해 컴파일 된 클래스 파일을 실행한다
+JVM은 main 메서드를 main 쓰레드로써 돌리는데, 이는 운영체제 레벨에서 어떤 자바 파일이 실행되고 있는지 모르게 한다. 자바 프로그램은 운영체제의 프로세스로 관리되는 것이 아니기 때문이다
+자바 프로그램에 리소스를 직접적으로 할당하지도 않고, 프로세스 테이블에도 들어가 있지 않는다.</p>
+<p>자바 main 메서드가 리턴 값을 가진다면 누구에게 리턴 값을 전달할 것인가?
+JVM에게 전달할 필요가 있나? 어차피 JVM은 자바 프로그램을 main 메소드가 끝나는 대로 종료할 텐데 -&gt; 불필요하다.
+하지만 JVM은 운영체제의 프로세스로 동작한다. 운영체제는 JVM 프로세스에게 리소스를 할당하고, 관리한다
+따라서 JVM은 종료될 때 운영체제에게 알려줘야 할 의무가 있고, 이게 JVM이 exit status를 가지는 이유
+exit status를 int형으로 리턴한다.. java.lang.Runtime.exit 이나 System.exit 등으로 운영체제야 나 이렇게 끝났어 하고 알려준다</p>
+<h2 id="4-main-메서드가-main-이름이어야-하는-이유">4. main 메서드가 main 이름이어야 하는 이유</h2>
+<p>관례. JVM이 메인 쓰레드로 돌리기 위해 찾아야 할 단 하나의 메서드 이름을 main으로 정하기로 했기 때문</p>
+<h2 id="5-main-메서드가-string-args-를-인자로-받는-이유">5. main 메서드가 String[] args 를 인자로 받는 이유</h2>
+<p>CLI에서 받는 입력을 문자열로 받기 때문
+CLI에서 문자열로 받는 파라미터 이름을 args로 한다는 의미
+public static void main (String&hellip; choonsik) 도 됨.. 파라미터 니 이름은 이제부터 춘식이여</p>
+<h2 id="6-번외--main-메서드-없이도-실행이-될까">6. 번외 : main 메서드 없이도 실행이 될까?</h2>
+<pre tabindex="0"><code>class Test {
+
+        static {
+
+                System.out.println(&#34;Test&#34;);
+
+                System.exit(0);
+
+        }
+
+}
+</code></pre><p>Java 11에서 테스트 해봤는데 안된다..
+Test 클래스에서 기본 메소드를 찾을 수 없습니다. 다음 형식으로 기본 메소드를 정의하십시오~
+Java 7에서부터는 main 메서드를 기본으로 스캔하기 때문에 안된다!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-17</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" data-title="Java Main Method는 왜 Psvm일까?"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" data-title="Java Main Method는 왜 Psvm일까?"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" data-title="Java Main Method는 왜 Psvm일까?"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" data-title="Java Main Method는 왜 Psvm일까?"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dec2022/oauth%EB%9E%80/" class="prev" rel="prev" title="Oauth란?"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Oauth란?</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

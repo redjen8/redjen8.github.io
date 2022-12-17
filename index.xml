@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 16 Dec 2022 15:19:18 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 17 Dec 2022 21:01:43 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Java Main Method는 왜 Psvm일까?</title>
+    <link>http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/</link>
+    <pubDate>Sat, 17 Dec 2022 21:01:43 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/</guid>
+    <description><![CDATA[Java Main Method는 왜 public static void main 일까? 원문 링크 1. main 메서드가 public이어야 하는 이유 JVM이 클래스 바깥에서 호출할 수 있도록 해야 하기 때문 2. main 메서드가]]></description>
+</item>
+<item>
     <title>Oauth란?</title>
     <link>http://redjen8.github.io/posts/dec2022/oauth%EB%9E%80/</link>
     <pubDate>Fri, 16 Dec 2022 15:19:18 &#43;0900</pubDate>
