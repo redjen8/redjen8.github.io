@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Http의 이해 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Http의 이해" />
+<meta property="og:description" content="HTTP의 이해 HTTP 어플리케이션 레벨의 프로토콜 신뢰할만한 전송 / 세션 레이어의 연결을 통해 메시지를 주고 받는 무상태 요청 / 응답 프로토콜 HTTP 클라이언트는 서버와" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-18T19:50:18+09:00" />
+<meta property="article:modified_time" content="2022-12-18T19:50:18+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Http의 이해"/>
+<meta name="twitter:description" content="HTTP의 이해 HTTP 어플리케이션 레벨의 프로토콜 신뢰할만한 전송 / 세션 레이어의 연결을 통해 메시지를 주고 받는 무상태 요청 / 응답 프로토콜 HTTP 클라이언트는 서버와"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/" /><link rel="prev" href="http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Http의 이해",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/dec2022\/http%EC%9D%98-%EC%9D%B4%ED%95%B4\/"
+        },"genre": "posts","wordcount":  2017 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/dec2022\/http%EC%9D%98-%EC%9D%B4%ED%95%B4\/","datePublished": "2022-12-18T19:50:18+09:00","dateModified": "2022-12-18T19:50:18+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Http의 이해</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-18">2022-12-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2017 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#http">HTTP</a></li>
+    <li><a href="#http의-동작-방식">HTTP의 동작 방식</a>
+      <ul>
+        <li><a href="#http-메시지의-구조">HTTP 메시지의 구조</a></li>
+        <li><a href="#상태-코드">상태 코드</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache">Cache</a></li>
+    <li><a href="#cookie">Cookie</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="http의-이해">HTTP의 이해</h1>
+<h2 id="http">HTTP</h2>
+<ul>
+<li>어플리케이션 레벨의 프로토콜</li>
+<li>신뢰할만한 전송 / 세션 레이어의 <strong>연결</strong>을 통해 메시지를 주고 받는 무상태 요청 / 응답 프로토콜</li>
+<li>HTTP 클라이언트는 서버와 연결을 맺고 하나 이상의 HTTP 메시지를 보내는 프로그램</li>
+<li>HTTP 서버는 클라이언트의 연결을 수락하고, HTTP 요청을 처리하여 응답 전송하는 프로그램</li>
+</ul>
+<p>HyperText Transfer Protocol</p>
+<p>생각나는 응답코드들..</p>
+<ul>
+<li>200 (ok)</li>
+<li>201 (created)</li>
+<li>401 (unauthorized)</li>
+<li>403(forbidden)</li>
+<li>404(not found)</li>
+<li>500 (internal server error)</li>
+<li>502 (bad gateway)</li>
+</ul>
+<p>HTTP 0.9 (1991)
+HTTP 1.0 (1996) - <a href="https://www.rfc-editor.org/rfc/rfc1945" target="_blank" rel="noopener noreffer ">RFC 1945</a>
+HTTP 1.1 (1999) - <a href="https://www.rfc-editor.org/rfc/rfc2616" target="_blank" rel="noopener noreffer ">RFC 2616</a></p>
+<p>URI / URL 차이점 ??
+URI : 식별자
+URL : URI의 한 종류
+HTTP URL 이라고 표현하는 것이 맞다.
+URI는 ftp, http.. 등 전부 포함하는 개념</p>
+<p><a href="https://httpwg.org/specs" target="_blank" rel="noopener noreffer ">https://httpwg.org/specs</a> 에서 HTTP 프로토콜 관련 규약 상세 확인 가능</p>
+<p>브라우저에 naver.com 을 입력하면 벌어지는 일??</p>
+<ol>
+<li>naver.com 도메인을 IP로 변환 (DNS 질의)</li>
+<li>가져온 IP 주소에 TCP 연결 시도 (3 way handshake SYN 패킷 전송)</li>
+<li>전송한 패킷이 라우팅 알고리즘에 의해 최적의 경로로 서버에 전달</li>
+<li>SYN 패킷 받은 서버가 ACK 패킷 다시 클라이언트가 위치한 호스트로 전달</li>
+<li>다시 SYNACK..</li>
+<li>TCP Connection 수립.</li>
+<li>HTTPS 사용한다면, 클라이언트가 사용할 대칭키를 서버에게 전달 및 TLS 암호화 적용</li>
+<li>클라이언트가 HTTP GET 요청을 서버에게 전달</li>
+<li>TCP 연결로부터 받은 메시지를 알맞은 포트 바인딩되어 있는 어플리케이션에 전달</li>
+<li>어플리케이션은 GET 요청에 따른 동작 수행 - HTTP 문서 반환</li>
+<li>클라이언트가 HTTP 문서 다운로드</li>
+<li>화면 짠</li>
+</ol>
+<p>Root DNS, Proxy, Gateway, CDN 키워드에 대해 찾아보자..</p>
+<p>User Agent는 request 날리면 Origin은 request에 대한 response를 반환한다..</p>
+<h2 id="http의-동작-방식">HTTP의 동작 방식</h2>
+<p>HTTP/0.9에서는 GET 메소드 밖에 없었다
+쓸만하게 바뀐건 HTTP/1.0 부터, POST의 등장</p>
+<h3 id="http-메시지의-구조">HTTP 메시지의 구조</h3>
+<p>재미있는 프로토콜 - Plain ASCII 기반한 프로토콜
+그 당시에는 메시지 비용이 비쌌지만 메시지 비용이 저렴해진 요즘에는 우월한 프로토콜 되었음
+왜 이렇게 만들었을까? Human Readable 하게 만든 이유가 궁금..
+Start Line - Header - Blank Line - Body의 구조.</p>
+<ul>
+<li>송신할 때에는 Request-Line이라고 부름</li>
+<li>수신할 때에는 Status-Line이라고 부름</li>
+</ul>
+<p>HTTP 입장에서 Encoding : 압축 방식 정의, 최근에는 br 알고리즘이 효율이 좋다더라
+Header 중에 X 붙이는 시리즈 : 커스텀 헤더일 가능성 높음
+request header의 q는 accept 하는 형식의 우선순위를 나타낸다</p>
+<p>다국어를 지원하는 페이지들은 헤더를 보고 언어 간 우선순위를 적용한 리소스로 보여준다
+사용자 입장에서는 불편한 경우도 있음
+bilingual, 여러 개의 언어를 사용하는 사용자들은 language 선택할 때 좀 더 자연스러움</p>
+<p>이전에는 Pragma 헤더를 사용해서 캐시 컨트롤했었음
+지금은 Cache-Control 헤더를 사용하는 추세, 둘 다 있다면 호환성을 위해 사용하는 것</p>
+<p><strong>HTTP는 Stateless한 프로토콜</strong></p>
+<p>커넥션을 끊지 않고 계속 통신하고 싶어 - Connection : keep-alive로 설정
+그런데 대규모 서비스를 운영하는 입장에서는 소켓 여러 개를 점유하고 있는 상태를 계속 유지해야..
+-&gt; 튜닝 포인트!! Connection: keep-alive를 키는 게 좋을까? 끄는 게 좋을까?</p>
+<ul>
+<li>껐더니
+<ul>
+<li>유효한 소켓 내에서 처리 다 하고 TCP 연결 종료.</li>
+<li>짧은 시간 내 더 많은 클라이언트들을 처리할 수 있게 함</li>
+<li>page는 떴는데 image는 엑박뜨거나, 로그인 버튼을 눌렀는데 처리 안되는 경우가 생김</li>
+</ul>
+</li>
+</ul>
+<p>절대값이 있는 것은 아니지만..</p>
+<ul>
+<li>짧은 시간 내에 사용자의 동작까지 받는 것을 목적한다면 timeout을 늘리는 방향으로 변화</li>
+<li>더 심한 대용량 트래픽을 감당해야 하는 경우 1초 timeout을 사용하는 경우도 있음
+<ul>
+<li>접속해서 일을 처리하고 나가는데 걸리는 시간을 timeout으로 설정하는 것이 중요</li>
+</ul>
+</li>
+</ul>
+<p>POST / PUT의 차이점</p>
+<ul>
+<li>PUT는 리소스의 location을 주도록 설정되어 있음.
+<ul>
+<li>정확한 location을 알아야 호출 가능함</li>
+</ul>
+</li>
+<li>PATCH도 리소스의 위치를 알고 있다고 가정하고 받아야</li>
+</ul>
+<p>OPTIONS : preflight로 accept 하는 옵션을 미리 확인하고 싶을 떄 사용
+HEAD : head만 먼저 알고 싶을 때 (e-tag만 알고 싶을 때), 어떤 리소스에 대한 정보만 알고 싶을 때
+TRACE : 중간에 거쳐간 프록시가 어떤 것이 있는지 확인할 수 있음</p>
+<p>Idempotent : 여러 번 호출해도 의도한 효과는 한번 호출한 것과 같은 성질
+Safe : 근본적으로 read-only 인 효과를 의도한 요청 (GET, HEAD 등)</p>
+<h3 id="상태-코드">상태 코드</h3>
+<ul>
+<li>1xx : informational. 정보를 알려줌</li>
+<li>2xx : successful. 성공했다</li>
+<li>3xx : redirection. 다른 데를 봐라</li>
+<li>4xx : client error. 클라이언트가 잘못함</li>
+<li>5xx : server error. 서버가 잘못함</li>
+</ul>
+<h2 id="cache">Cache</h2>
+<p>언제 사용하는가?</p>
+<ul>
+<li>Conditional Get 사용해서 트래픽 줄일 수는 있지만, Round Trip은 줄일 수 없다</li>
+<li>어떤 리소스에 변경이 있었는지 확인하려면 반드시 원 서버에 요청 보내고 응답 올 때까지 대기해야만..</li>
+<li>원 서버가 먼 곳에 있다면 해당 지연이 수백 ms 될수도</li>
+<li>사용자가 오래 기다리지 않고 빨리 리소스 받게 하려면?</li>
+</ul>
+<p>Cache : 사용자가 이전과 같은 요청을 하면 이전과 같은 응답을 준다</p>
+<p>fresh와 stale</p>
+<ul>
+<li>fresh : freshness_lifetime &gt; current_age 이면 fresh
+<ul>
+<li>freshness_lifetime = expires_value - date_value</li>
+<li>current_age = 캐시에서 머무른 시간 + 응답 오는데 걸린 시간 + 기타 다양한 보정</li>
+</ul>
+</li>
+<li>stale : freshness lifetime 지나면 다 stale</li>
+</ul>
+<p>캐시 기본 동작</p>
+<ul>
+<li>몇 가지 예외 빼면 캐시는 성공한 모든 응답 저장</li>
+<li>fresh한 entity의 경우, validation 없이 반환 가능</li>
+<li>stale한 entity의 경우, validation에 성공했다면 반환
+<ul>
+<li>실패해도 반환하는 경우 - 인터넷 접속 끊긴 경우</li>
+</ul>
+</li>
+<li>Expires 헤더 없는 경우 캐시는 적당히 Freshness Lifetime 계산</li>
+<li>상기 기본 동작 수정하려면 Cache-Control 헤더 사용</li>
+</ul>
+<p>Cache-Control : no-cache == Pragma : no-cache
+Expires의 절대 시각 대신 상대 시간 표시 가능</p>
+<h2 id="cookie">Cookie</h2>
+<p>Set-Cookie 응답 헤더를 통해 쿠키를 서버에서 클라이언트로 전송
+클라이언트는 쿠키를 보관하고 있다가 필요 시 Cookie 헤더를 통해 서버에 전송</p>
+<ul>
+<li>Session Cookie : 브라우저 닫으면 사라짐</li>
+<li>Persistent Cookie : 도메인 지정 여부에 따라 동작 상이</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-18</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/" data-title="Http의 이해"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/" data-title="Http의 이해"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/" data-title="Http의 이해"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/" data-title="Http의 이해"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/" class="prev" rel="prev" title="Java Main Method는 왜 Psvm일까?"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Main Method는 왜 Psvm일까?</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

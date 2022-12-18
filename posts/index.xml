@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 17 Dec 2022 21:01:43 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 18 Dec 2022 19:50:18 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Http의 이해</title>
+    <link>http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/</link>
+    <pubDate>Sun, 18 Dec 2022 19:50:18 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/</guid>
+    <description><![CDATA[HTTP의 이해 HTTP 어플리케이션 레벨의 프로토콜 신뢰할만한 전송 / 세션 레이어의 연결을 통해 메시지를 주고 받는 무상태 요청 / 응답 프로토콜 HTTP 클라이언트는 서버와]]></description>
+</item>
+<item>
     <title>Java Main Method는 왜 Psvm일까?</title>
     <link>http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/</link>
     <pubDate>Sat, 17 Dec 2022 21:01:43 &#43;0900</pubDate>
