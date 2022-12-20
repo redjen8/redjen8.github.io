@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spring Event vs Aspect - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Spring Event vs Aspect" />
+<meta property="og:description" content="Spring Event vs Aspects Spring Event 회사 코드를 보던 중 @EventListener 어노테이션을 보게 되었고, Spring 프레임워크에서도 비동기적으로 이벤트를 invoke할 수 있다는 것을 찾아볼 수 있었다. Spr" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/dec2022/spring-event-vs-aspect/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-20T20:11:17+09:00" />
+<meta property="article:modified_time" content="2022-12-20T20:11:17+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Event vs Aspect"/>
+<meta name="twitter:description" content="Spring Event vs Aspects Spring Event 회사 코드를 보던 중 @EventListener 어노테이션을 보게 되었고, Spring 프레임워크에서도 비동기적으로 이벤트를 invoke할 수 있다는 것을 찾아볼 수 있었다. Spr"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/dec2022/spring-event-vs-aspect/" /><link rel="prev" href="http://redjen8.github.io/posts/dec2022/spring-5-reactive-%EC%9B%B9%EA%B0%9C%EB%B0%9C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring Event vs Aspect",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/dec2022\/spring-event-vs-aspect\/"
+        },"genre": "posts","wordcount":  1349 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/dec2022\/spring-event-vs-aspect\/","datePublished": "2022-12-20T20:11:17+09:00","dateModified": "2022-12-20T20:11:17+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Spring Event vs Aspect</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-20">2022-12-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1349 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#spring-event">Spring Event</a>
+      <ul>
+        <li><a href="#event-발생하기-publish">Event 발생하기 (Publish)</a></li>
+        <li><a href="#event-수신하고-처리하기-listen">Event 수신하고 처리하기 (Listen)</a></li>
+        <li><a href="#eventlistener-어노테이션-기반">@EventListener 어노테이션 기반</a></li>
+        <li><a href="#처리할-핸들러에-순서-부여하려면">처리할 핸들러에 순서 부여하려면?</a></li>
+        <li><a href="#결국-핵심은-비동기">결국 핵심은 비동기</a></li>
+      </ul>
+    </li>
+    <li><a href="#aspect">Aspect</a></li>
+    <li><a href="#그래서-차이점이-뭔데">그래서 차이점이 뭔데?</a>
+      <ul>
+        <li><a href="#aop는-코드-안에-로직을-주입할-수-있게-해준다">AOP는 코드 안에 로직을 주입할 수 있게 해준다.</a></li>
+        <li><a href="#event-handling은-listener에게-알려주는-것을-목적으로-한다">Event Handling은 Listener에게 알려주는 것을 목적으로 한다.</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="spring-event-vs-aspects">Spring Event vs Aspects</h1>
+<h2 id="spring-event">Spring Event</h2>
+<p>회사 코드를 보던 중 @EventListener 어노테이션을 보게 되었고,
+Spring 프레임워크에서도 비동기적으로 이벤트를 invoke할 수 있다는 것을 찾아볼 수 있었다.</p>
+<p>Spring에서는 데이터를 DI를 통해서 전달할 수도 있지만
+Bean과 Bean 사이에 데이터를 Event를 통해 전달할 수 있는 방법을 제공해준다.</p>
+<h3 id="event-발생하기-publish">Event 발생하기 (Publish)</h3>
+<p>ApplicationContext가 상속하는 인터페이스 중 하나인 ApplicationEventPublisher를 사용하여 이벤트를 Publish 한다.</p>
+<h3 id="event-수신하고-처리하기-listen">Event 수신하고 처리하기 (Listen)</h3>
+<p>ApplicationListener&lt;T&gt;를 상속하여 ApplicaionContext 안에서 전달되는 이벤트를 소비할 수 있다.</p>
+<h3 id="eventlistener-어노테이션-기반">@EventListener 어노테이션 기반</h3>
+<p>@EventListener 어노테이션을 이벤트를 Listen하고 처리할 메소드에 붙여서 파라미터 값으로 이벤트 객체를 받도록 설정할 수 있다.
+보내질 이벤트 객체는 어떤 추가 객체 의존 관계 없이 EventListener에게 전달된다는 점이 신기하다</p>
+<h3 id="처리할-핸들러에-순서-부여하려면">처리할 핸들러에 순서 부여하려면?</h3>
+<p>@Order 어노테이션을 통해 이벤트 리스너 간 우선순위를 지정해줄 수 있다.
+Order 어노테이션을 통해 설정되는 우선순위 값이 클수록 우선 순위가 낮아진다 (더 나중에 처리된다)</p>
+<h3 id="결국-핵심은-비동기">결국 핵심은 비동기</h3>
+<p>이벤트 핸들러는 기본적으로는 비동기로 실행된다 - 그럼 이벤트 처리를 위한 쓰레드가 홀드 될 수도 있나??
+이벤트 처리 메소드에 @Async 어노테이션을 붙여서, 이벤트를 이벤트답게 사용할 수 있도록 설정하자.</p>
+<h2 id="aspect">Aspect</h2>
+<p>이 EventListener와 Spring Event에 대해 공부하다보니, Spring의 Aspect와도 많이 비슷하다는 생각이 들었다.
+기본적으로 어떤 코드가 실행되면 - 그 코드 실행 전 후 시점에 추가적인 코드를 실행시킨다는 점에서 특히 비슷하다고 느껴졌다.</p>
+<p><a href="https://stackoverflow.com/questions/38437389/spring-events-vs-aspects" target="_blank" rel="noopener noreffer ">그래서 찾아보니</a> 다음과 같은 차이점이 있었다.</p>
+<h2 id="그래서-차이점이-뭔데">그래서 차이점이 뭔데?</h2>
+<h3 id="aop는-코드-안에-로직을-주입할-수-있게-해준다">AOP는 코드 안에 로직을 주입할 수 있게 해준다.</h3>
+<p>pointcut을 통해 로직이 주입될 위치를 설정한다. Aspect는 로직이 주입될 위치 자체는 달라질 수가 있지만 기본적으로 모든 위치에서 동일한 로직이 실행된다.
+대표적으로 Logback이나 Log4j와 같은 로깅 구현체를 사용하는 것이 그렇다.
+로그를 남길 대상과 그 설정은 다르게 할 수가 있지만, 로그를 남긴다는 로직 자체는 전부 동일하다.</p>
+<h3 id="event-handling은-listener에게-알려주는-것을-목적으로-한다">Event Handling은 Listener에게 알려주는 것을 목적으로 한다.</h3>
+<p>Listener가 로직을 수행하지만, 어플리케이션 전체의 관점에서 바라보았을 때에는 서로 다른 로직을 수행할 수 있다는 점이 장점이다.
+하지만 코드 전체에 걸쳐 관심사를 분리할 수 있도록 해주는 Aspect와는 달리 Event Handling은 그 적용 범위가 Application context나 HTTP request에 한정된다는 차이점도 있다.</p>
+<p>두 기술의 행동적인 관점에서 보았을 때 (Behavioral Perspective) Aspect와 Event는 정반대이다.</p>
+<ul>
+<li>Aspects는 로직 실행 시점이 되었을 때 코드 조각을 <strong>주입</strong>한다.</li>
+<li>Event는 로직 실행 시점이 되었을 때의 <strong>응답</strong>으로 코드 조각을 실행한다.</li>
+</ul>
+<p>전체 어플리케이션의 관점에서는</p>
+<ul>
+<li>동일한 Aspect는 여러 번 실행될 수 있다. (로깅처럼)</li>
+<li>하지만 EventHandler는 특정한 Event가 발생되었을 때에만 실행된다. 동일한 이벤트여도 여러 EventHandler에 의해 처리될 수 있다.</li>
+</ul>
+<p>HTTPRequest에 한정해서 발생하는 Aspect와 Event는 비슷하다고 느껴진다.
+하지만 전반적으로 AOP가 Listener 패턴보다 훨씬 더 강력하다. 다만 Listener 패턴이 더 dynamic 하게 비즈니스 로직을 수행할 수 있다고 느껴진다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-20</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/dec2022/spring-event-vs-aspect/" data-title="Spring Event vs Aspect"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/dec2022/spring-event-vs-aspect/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/dec2022/spring-event-vs-aspect/" data-title="Spring Event vs Aspect"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/dec2022/spring-event-vs-aspect/" data-title="Spring Event vs Aspect"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/dec2022/spring-event-vs-aspect/" data-title="Spring Event vs Aspect"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dec2022/spring-5-reactive-%EC%9B%B9%EA%B0%9C%EB%B0%9C/" class="prev" rel="prev" title="Spring 5 Reactive 웹개발"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Spring 5 Reactive 웹개발</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
