@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 22 Dec 2022 16:43:14 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 23 Dec 2022 21:29:44 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Base64 인코딩이란?</title>
+    <link>http://redjen8.github.io/posts/dec2022/base64-%EC%9D%B8%EC%BD%94%EB%94%A9%EC%9D%B4%EB%9E%80/</link>
+    <pubDate>Fri, 23 Dec 2022 21:29:44 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/base64-%EC%9D%B8%EC%BD%94%EB%94%A9%EC%9D%B4%EB%9E%80/</guid>
+    <description><![CDATA[Base64 인코딩이란? https://en.wikipedia.org/wiki/Base64 바이너리 데이터를 텍스트 데이터로 인코딩하는 방법 중 하나. 왜 필요할까? https://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for 네트워크 등을 통해서 바이너리 데이터를 송신하고 수신할 때, 비트 단]]></description>
+</item>
+<item>
     <title>Webhook이란?</title>
     <link>http://redjen8.github.io/posts/dec2022/webhook%EC%9D%B4%EB%9E%80/</link>
     <pubDate>Thu, 22 Dec 2022 16:43:14 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/kafka-cluster-urp%EB%9E%80/</guid>
     <description><![CDATA[Kafka Cluster URP란? 사내 Github의 운영 Issue 노하우를 읽다가 카프카 클러스터 운영 중 흔히 접할 수 있는 메시지라고 하셔서 찾아봤습니다. 참고한 문서 Replica]]></description>
-</item>
-<item>
-    <title>Java String이 Immutable한 이유</title>
-    <link>http://redjen8.github.io/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</link>
-    <pubDate>Tue, 13 Dec 2022 16:45:27 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/java-string%EC%9D%B4-immutable%ED%95%9C-%EC%9D%B4%EC%9C%A0/</guid>
-    <description><![CDATA[Java String이 Immutable한 이유 원문 링크 3줄 요약 캐싱 보안 동기 성능 1. 캐싱했을 때 이점이 있어서 String은 가장 많이 쓰이는 data structure 그래서 캐싱했]]></description>
 </item>
 </channel>
 </rss>
