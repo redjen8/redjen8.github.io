@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>클린코드 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="클린코드" />
+<meta property="og:description" content="나쁜 코드는 개발 속도를 크게 떨어뜨린다. 코드를 고칠 때마다 엉뚱한 곳에서 문제가 생긴다 Boy Scout Rule : 캠핑장은 처음 왔을 때보다 더 깨끗하게 해놓고 떠나라 클린 코드는 단" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-24T23:05:02+09:00" />
+<meta property="article:modified_time" content="2022-12-24T23:05:02+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="클린코드"/>
+<meta name="twitter:description" content="나쁜 코드는 개발 속도를 크게 떨어뜨린다. 코드를 고칠 때마다 엉뚱한 곳에서 문제가 생긴다 Boy Scout Rule : 캠핑장은 처음 왔을 때보다 더 깨끗하게 해놓고 떠나라 클린 코드는 단"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" /><link rel="prev" href="http://redjen8.github.io/posts/dec2022/base64-%EC%9D%B8%EC%BD%94%EB%94%A9%EC%9D%B4%EB%9E%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "클린코드",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/dec2022\/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C\/"
+        },"genre": "posts","wordcount":  2559 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/dec2022\/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C\/","datePublished": "2022-12-24T23:05:02+09:00","dateModified": "2022-12-24T23:05:02+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">클린코드</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-24">2022-12-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2559 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#meaningful-names">Meaningful Names</a></li>
+      </ul>
+    </li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#comments">Comments</a>
+      <ul>
+        <li><a href="#좋은-주석">좋은 주석</a></li>
+        <li><a href="#나쁜-주석">나쁜 주석</a></li>
+      </ul>
+    </li>
+    <li><a href="#formatting">Formatting</a></li>
+    <li><a href="#objects-and-data-structures">Objects and Data Structures</a></li>
+    <li><a href="#error-handling">Error Handling</a></li>
+    <li><a href="#unit-test">Unit Test</a></li>
+    <li><a href="#classes">Classes</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>나쁜 코드는 개발 속도를 크게 떨어뜨린다.</p>
+<p>코드를 고칠 때마다 엉뚱한 곳에서 문제가 생긴다</p>
+<p>Boy Scout Rule : 캠핑장은 처음 왔을 때보다 더 깨끗하게 해놓고 떠나라</p>
+<p>클린 코드는 단순하고 직접적이다 - 잘 쓴 문장처럼 읽힌다
+클린 코드는 읽기 좋아야 한다 - 문학적이어야 한다</p>
+<h3 id="meaningful-names">Meaningful Names</h3>
+<p>의도가 드러나는 이름들을 사용하자</p>
+<ul>
+<li>list1 -&gt; flaggedCells</li>
+<li>theList -&gt; gameBoard</li>
+</ul>
+<p>그릇된 정보를 피하자</p>
+<ul>
+<li>l이나 O는 가급적 피하자</li>
+</ul>
+<p>의미 있게 구분하자</p>
+<ul>
+<li>copyChars() 메서드 파리미터의 a1 , a2 배열은 각각 무엇인지?</li>
+</ul>
+<p>발음하기 쉬운 이름을 사용하자</p>
+<ul>
+<li>DtaRcrd -&gt; generationTimestamp</li>
+<li>pszqint -&gt; recordId</li>
+</ul>
+<p>검색하기 쉬운 이름을 사용하자</p>
+<ul>
+<li>i, j, t[j] -&gt; 코드 상 의미 있는 변수 (NUMBER_OF_TASKS 등)</li>
+</ul>
+<p>헝가리식 표기법 인코딩을 피하자</p>
+<ul>
+<li>phoneString -&gt; phone</li>
+<li>과거에는 변수 타입을 찾기 어려워서 이런 네이밍 차용했지만 이제는 IDE가 해줌</li>
+</ul>
+<p>멤버 변수 접두어 인코딩을 피하자</p>
+<ul>
+<li>m_dsc -&gt; description</li>
+<li>멤버 변수 또한 이제는 IDE가 해줌</li>
+</ul>
+<p>자신의 기억력을 자랑하지 말자</p>
+<ul>
+<li>for문의 a, b -&gt; i, j</li>
+</ul>
+<p>클래스 이름은 명사나 명사구로 하자</p>
+<ul>
+<li>Manager, Processor, Data, Info -&gt; Customer, WikiPage, Account, AddressParser</li>
+</ul>
+<p>메소드 이름은 동사나 동사구로 하자</p>
+<ul>
+<li>getName(), fromRealNumber()</li>
+</ul>
+<p>개념 하나에 단어 하나를 사용하자</p>
+<ul>
+<li>fetch, retrieve, get, controller, manager, driver -&gt; 하나로 통일하는게 좋음</li>
+</ul>
+<p>말장난을 하지 말자</p>
+<ul>
+<li>add -&gt; 하나의 단어로 여러 기능을 사용하는 것보다는 insert, append 등 다른 단어로 사용 권장</li>
+</ul>
+<p>도메인 영역에서 사용하는 이름을 사용하자</p>
+<ul>
+<li>Visitor 패턴, JobQueue 용어는 친숙하다</li>
+</ul>
+<p>의미 있는 컨텍스트를 추가하자</p>
+<ul>
+<li>state -&gt; 하나만 보고서는 주소의 일부라는 것을 알기 어렵다</li>
+<li>접두어 addr을 붙인다면?</li>
+<li>Address 클래스를 생성하고 위 변수들을 필드로 넣는다면?</li>
+</ul>
+<p>불필요한 컨텍스트를 제거하자</p>
+<ul>
+<li>AccountAddress, CustomerAddress -&gt; 클래스 이름으로는 부적합</li>
+<li>MAC addresses, port addresses, Web addresses -&gt; PostalAddress, MAC, URI</li>
+</ul>
+<h2 id="functions">Functions</h2>
+<p>작게 만들자</p>
+<ul>
+<li>가로 &lt; 150자, 세로 &lt; 20줄</li>
+</ul>
+<p>한 가지만 하자</p>
+<ul>
+<li>함수는 한 가지를 해야 한다. 그 한 가지를 잘 해야 한다.</li>
+</ul>
+<p>함수 당 추상화 수준은 하나로 하자</p>
+<ul>
+<li>getHtml() -&gt; 고수준의 추상화</li>
+<li>PathParser.render(pagePath) -&gt; 중간 정도의 추상화</li>
+<li>.append(&quot;\n&quot;) -&gt; 저수준의 추상화</li>
+</ul>
+<p>위에서 아래로 코드가 읽히도록 하자</p>
+<ul>
+<li>코드는 위에서 아래로 이야기처럼 읽혀야 한다</li>
+<li>한 함수 다음에는 추상화 수준이 한 단계 낮은 함수가 온다</li>
+</ul>
+<p>Switch문</p>
+<ul>
+<li>사용 자제</li>
+<li>근본적으로 길 수 밖에 없고, 다양한 케이스를 핸들링</li>
+<li>switch 문에서 수행해야 할 역할을 객체로 추상화하여 구성</li>
+</ul>
+<p>서술적인 이름을 사용하자</p>
+<ul>
+<li>testableHtml -&gt; includeSetupAndTeardownPages</li>
+</ul>
+<p>함수 인자에 관하여</p>
+<ul>
+<li>함수에서 이상적인 개수는 0개</li>
+<li>그 다음은 1개, 그 다음은 2개</li>
+<li>3개는 가능한 피하는 게 좋고, 4개는 지양하자</li>
+</ul>
+<p>인수 객체</p>
+<ul>
+<li>함수에 argument로 들어가는 객체로 개념을 표현해 인수를 줄일 수 있다</li>
+</ul>
+<p>동사와 키워드</p>
+<ul>
+<li>write -&gt; writeField</li>
+<li>assertEquals -&gt; assertExpectedEqualsActual</li>
+</ul>
+<p>부수 효과를 일으키지 말자</p>
+<ul>
+<li>어떤 동작을 하던지 어떤 결과값을 내던지 하자.</li>
+<li>둘 모두 하진 말자</li>
+</ul>
+<p>반복하지 말자</p>
+<ul>
+<li>DRY, Don&rsquo;t Repeat Yourself</li>
+<li>duplication은 소프트웨어에서 악의 근원일 것이다</li>
+</ul>
+<p>구조적 프로그래밍</p>
+<ul>
+<li>하나의 entry, 하나의 exit</li>
+</ul>
+<h2 id="comments">Comments</h2>
+<p>주석은 나쁜 코드를 보완하지 못한다.</p>
+<ul>
+<li>나쁜 코드를 주석하지 말고, 새로 쓰자</li>
+</ul>
+<p>코드로 의도를 표현하자</p>
+<ul>
+<li>&lsquo;\\직원에게 복지 혜택을 받을 자격이 있는지 검사한다&rsquo; 주석 -&gt; employee.isEligibleForFullBenefits() 메소드로 변경</li>
+</ul>
+<h3 id="좋은-주석">좋은 주석</h3>
+<ul>
+<li>법적인 주석 (라이선스 등)</li>
+<li>정보를 제공하는 주석 (테스트 중인 Responder 인스턴스를 반환한다 등)</li>
+<li>의미를 설명하는 주석</li>
+<li>의미를 명료하게 밝히는 주석</li>
+<li>결과를 경고하는 주석 (~가 쓰레드 세이프하지 않으니 인스턴스 생성한다 등)</li>
+<li>TODO 주석</li>
+<li>중요성을 강조하는 주석</li>
+<li>공개 API에서의 Javadocs</li>
+</ul>
+<h3 id="나쁜-주석">나쁜 주석</h3>
+<ul>
+<li>주절거리는 주석 (주석을 봤는데 다시 코드를 봐야 하는 주석)</li>
+<li>같은 이야기를 중복하는 주석</li>
+<li>의무적으로 다는 주석</li>
+<li>이력을 기록하는 주석 (버전 관리 시스템으로 다 관리하기 때문에 필요 없음)</li>
+<li>있으나 마나 한 주석</li>
+<li>함수나 변수로 표현할 수 있다면 주석을 달지 말자</li>
+<li>위치를 표시하는 주석</li>
+<li>닫는 괄호에 다는 주석 (IDE 수준에서 지원)</li>
+<li>공로를 돌리거나 저자를 표시하는 주석 (개인적으로 이건 좀 찔린다..)</li>
+<li>주석처리해둔 코드</li>
+<li>HTML 주석</li>
+<li>전역 정보 (포트 기본 값등)</li>
+<li>너무 많은 정보 (RFC 내용은 레퍼런스로 대체 등)</li>
+<li>모호한 관계 (주석 내용의 필터 바이트가 무엇인지?)</li>
+<li>함수 헤더 - 짧은 함수는 긴 설명이 필요 없다.</li>
+<li>비공개 코드에서의 Javadocs</li>
+</ul>
+<h2 id="formatting">Formatting</h2>
+<p>형식을 맞추는 목적은? - 의사 소통
+신문 기사처럼 작성하자 - 고수준 추상화 -&gt; 상세 내용
+개념은 빈 행으로 분리하자 - 빈 행은 새로운 개념을 시작한다는 시각적 단서</p>
+<p>세로 밀집도는?</p>
+<ul>
+<li>세로 밀집도는 연관성을 나타낸다</li>
+<li>의미 없는 주석으로 두 인스턴스 변수를 떨어뜨려 놓으면 연관 없어 보임, bad!</li>
+</ul>
+<p>수직 거리</p>
+<ul>
+<li>변수는 사용하는 위치에 최대한 가까이 선언하자</li>
+<li>인스턴스 변수는 클래스 맨 처음에 선언하자</li>
+<li>종속 함수
+<ul>
+<li>만약 한 함수가 다른 함수를 호출한다면 두 함수는 세로로 가까이 배치</li>
+<li>또한 가능하다면 호출하는 함수를 호출되는 함수보다 먼저 배치한다</li>
+</ul>
+</li>
+<li>개념적 유사성
+<ul>
+<li>친화도 높을 수록 코드를 가까이 배치</li>
+</ul>
+</li>
+</ul>
+<p>가로 공백과 밀집도</p>
+<ul>
+<li>할당 문은 왼쪽 요소와 오른쪽 요소가 분명히 나뉜다</li>
+<li>함수와 인자는 밀접하기에 붙인다</li>
+<li>연산자 우선 순위에 따라 계산되는 그룹끼리 붙인다</li>
+</ul>
+<p>가로 정렬 - 크게 의미 없음
+들여쓰기를 무시해서는 안됨.. 회사나 특정 언어의 컨벤션을 따라 가야 함</p>
+<p>팀 규칙</p>
+<ul>
+<li>모든 프로그래머는 자신이 선호하는 규칙이 있음</li>
+<li>하지만 팀에 속한다면 자신이 선호해야 할 규칙은 팀 규칙</li>
+<li>팀은 한 가지 규칙에 합의해야 한다</li>
+</ul>
+<h2 id="objects-and-data-structures">Objects and Data Structures</h2>
+<p>데이터 추상화</p>
+<ul>
+<li>구현을 노출하는 것보다는 가급적 은닉하는 것이 좋다</li>
+<li>구체적인 숫자값으로 반환하는 것보다는 백분율이라는 추상적 개념으로 알려주는 게 낫다</li>
+</ul>
+<p>자료 / 객체 비대칭</p>
+<ul>
+<li>객체는 추상화 뒤로 자료를 숨긴 채 자료를 다루는 함수만 공개한다</li>
+<li>자료 구조는 자료를 그대로 공개하며 별다른 함수를 제공하지 않는다</li>
+</ul>
+<p>디미터 법칙</p>
+<ul>
+<li>ctxt.getOptions().getScratchDir().getAbsolutePath() 와 같은 사용 지양 (기차 충돌)</li>
+<li>위 코드는 4줄로 풀어쓴다면 기차 충돌 해결할 수 있어 좋음</li>
+</ul>
+<h2 id="error-handling">Error Handling</h2>
+<p>오류 코드보다 예외를 사용하라</p>
+<ul>
+<li>E_OK와 같은 코드 사용 지양</li>
+</ul>
+<p>Try / Catch 블럭을 추출하자</p>
+<ul>
+<li>서로 다른 목적을 가진 코드이기 때문에 추출하는 방법이 좀 더 나은 구조</li>
+</ul>
+<p>정상 흐름을 정의하자</p>
+<p>Null을 반환하지 말자</p>
+<ul>
+<li>Collections.emptyList() 반환이나 Optional 사용</li>
+</ul>
+<p>Null을 전달하지 말자</p>
+<ul>
+<li>아예 null이 인자로 들어오지 않도록 전달하지 않는것이 중요</li>
+</ul>
+<h2 id="unit-test">Unit Test</h2>
+<p>TDD 법칙 세 가지</p>
+<ol>
+<li>실패하는 단위 테스트를 작성할 때까지 실제 코드를 작성하지 않는다</li>
+<li>컴파일은 실패하지 않으면서 실행이 실패하는 정도로만 단위 테스트를 작성한다</li>
+<li>현재 실패하는 테스트를 통과할 정도로만 실제 코드를 작성한다</li>
+</ol>
+<p>클린 테스트 코드 유지하기 - 테스트 코드 또한 실제 코드 못지 않게 중요하다</p>
+<p>클린 테스트 코드 - 어떻게 만드나?</p>
+<ol>
+<li>가독성</li>
+<li>가독성</li>
+<li>가독성</li>
+</ol>
+<p>테스트 당 assert 하나</p>
+<ul>
+<li>assert 문이 단 하나인 함수는 결론이 하나</li>
+<li>코드를 이해하기 쉽고 빠르다</li>
+</ul>
+<p>테스트 당 개념 하나</p>
+<ul>
+<li>테스트 함수마다 개념 하나만 테스트하자</li>
+</ul>
+<h2 id="classes">Classes</h2>
+<p>클래스 체계</p>
+<ol>
+<li>public static constants</li>
+<li>private static variables</li>
+<li>private instance variables</li>
+<li>public functions</li>
+<li>private utilities called by a public function right after</li>
+</ol>
+<p>클래스는 작게 만들자</p>
+<ul>
+<li>클래스 생성 시 첫 번째 규칙은 크기</li>
+<li>클래스는 작아야 한다</li>
+<li>두 번째 규칙도 크기 - 더 작아야 한다</li>
+</ul>
+<p>단일 책임 원칙 (SRP)</p>
+<ul>
+<li>클래스나 모듈을 변경할 이유가 단 하나 뿐이어야 한다</li>
+<li>SRP는 객체지향 디자인에서 가장 중요한 컨셉 중 하나</li>
+</ul>
+<p>응집도 (Cohesion)</p>
+<ul>
+<li>응집도가 높아지도록 변수와 메소드를 적절히 분리</li>
+<li>새로운 클래스 두 세 개로 쪼개주자</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" data-title="클린코드"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" data-title="클린코드"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" data-title="클린코드"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" data-title="클린코드"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dec2022/base64-%EC%9D%B8%EC%BD%94%EB%94%A9%EC%9D%B4%EB%9E%80/" class="prev" rel="prev" title="Base64 인코딩이란?"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Base64 인코딩이란?</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

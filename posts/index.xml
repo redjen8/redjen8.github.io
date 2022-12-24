@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 23 Dec 2022 21:29:44 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 24 Dec 2022 23:05:02 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>클린코드</title>
+    <link>http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/</link>
+    <pubDate>Sat, 24 Dec 2022 23:05:02 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/</guid>
+    <description><![CDATA[나쁜 코드는 개발 속도를 크게 떨어뜨린다. 코드를 고칠 때마다 엉뚱한 곳에서 문제가 생긴다 Boy Scout Rule : 캠핑장은 처음 왔을 때보다 더 깨끗하게 해놓고 떠나라 클린 코드는 단]]></description>
+</item>
+<item>
     <title>Base64 인코딩이란?</title>
     <link>http://redjen8.github.io/posts/dec2022/base64-%EC%9D%B8%EC%BD%94%EB%94%A9%EC%9D%B4%EB%9E%80/</link>
     <pubDate>Fri, 23 Dec 2022 21:29:44 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/%EC%99%9C-python%EC%9D%80-gil%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%A0%EA%B9%8C/</guid>
     <description><![CDATA[왜 Python은 GIL을 사용할까? 원문 들어가기 전에 파이썬은 사실상 언어라기 보단 명세서에 가깝다. 여러 파이썬 구현체 중에서 가장 널리 사용되는 것은 CPy]]></description>
-</item>
-<item>
-    <title>Kafka Cluster Urp란?</title>
-    <link>http://redjen8.github.io/posts/dec2022/kafka-cluster-urp%EB%9E%80/</link>
-    <pubDate>Wed, 14 Dec 2022 16:17:18 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/kafka-cluster-urp%EB%9E%80/</guid>
-    <description><![CDATA[Kafka Cluster URP란? 사내 Github의 운영 Issue 노하우를 읽다가 카프카 클러스터 운영 중 흔히 접할 수 있는 메시지라고 하셔서 찾아봤습니다. 참고한 문서 Replica]]></description>
 </item>
 </channel>
 </rss>
