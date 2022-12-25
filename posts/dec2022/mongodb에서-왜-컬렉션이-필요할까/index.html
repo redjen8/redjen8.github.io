@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mongodb에서 왜 컬렉션이 필요할까? - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Mongodb에서 왜 컬렉션이 필요할까?" />
+<meta property="og:description" content="MongoDB에서 왜 컬렉션 개념이 필요할까? MongoDB에서는 다른 구조의 document도 동일한 컬렉션에 저장할 수 있다. 그럼 왜 컬렉션이란 개념이" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/dec2022/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-25T21:29:27+09:00" />
+<meta property="article:modified_time" content="2022-12-25T21:29:27+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mongodb에서 왜 컬렉션이 필요할까?"/>
+<meta name="twitter:description" content="MongoDB에서 왜 컬렉션 개념이 필요할까? MongoDB에서는 다른 구조의 document도 동일한 컬렉션에 저장할 수 있다. 그럼 왜 컬렉션이란 개념이"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/dec2022/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C/" /><link rel="prev" href="http://redjen8.github.io/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mongodb에서 왜 컬렉션이 필요할까?",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/dec2022\/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C\/"
+        },"genre": "posts","wordcount":  637 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/dec2022\/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C\/","datePublished": "2022-12-25T21:29:27+09:00","dateModified": "2022-12-25T21:29:27+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mongodb에서 왜 컬렉션이 필요할까?</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-25">2022-12-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;637 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#개발하는-입장에서-더-편하게-사용하기-위해서">개발하는 입장에서 더 편하게 사용하기 위해서</a></li>
+    <li><a href="#컬렉션-별로-list-up-하는-것이-특정-데이터-type-별로-쿼리해서-list-up할-때보다-훨씬-빠르기-때문">컬렉션 별로 list up 하는 것이 특정 데이터 type 별로 쿼리해서 list up할 때보다 훨씬 빠르기 때문</a></li>
+    <li><a href="#같은-종류의-데이터를-하나의-컬렉션에-모아두면-data-locality를-유지할-수-있기-때문">같은 종류의 데이터를 하나의 컬렉션에 모아두면 data locality를 유지할 수 있기 때문</a></li>
+    <li><a href="#컬렉션을-효율적으로-인덱싱하기-위해서">컬렉션을 효율적으로 인덱싱하기 위해서</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="mongodb에서-왜-컬렉션-개념이-필요할까">MongoDB에서 왜 컬렉션 개념이 필요할까?</h1>
+<p>MongoDB에서는 다른 구조의 document도 동일한 컬렉션에 저장할 수 있다.
+그럼 왜 컬렉션이란 개념이 있을까? 필요하지 않을 것 같은데.
+document에 별도의 schema가 필요 없는데 왜 하나 이상의 컬렉션이 필요할까?</p>
+<h2 id="개발하는-입장에서-더-편하게-사용하기-위해서">개발하는 입장에서 더 편하게 사용하기 위해서</h2>
+<p>각 쿼리가 특정 schema를 고수하는 document를 반환하는지,
+또는 쿼리한 코드가 다른 구조의 document를 다룰 수 있는지 확실히 확인해야 한다.
+컬렉션을 동일한 schema 구조로 작성한다면 번거로운 일을 줄일 수 있기 때문이다.</p>
+<ul>
+<li>블로그 게시물을 쿼리한 데이터 중 &lsquo;작성자&rsquo; 데이터만 제거하는 일은 번거롭다.</li>
+</ul>
+<h2 id="컬렉션-별로-list-up-하는-것이-특정-데이터-type-별로-쿼리해서-list-up할-때보다-훨씬-빠르기-때문">컬렉션 별로 list up 하는 것이 특정 데이터 type 별로 쿼리해서 list up할 때보다 훨씬 빠르기 때문</h2>
+<p>&ldquo;요약&rdquo;, &ldquo;전체&rdquo;, &ldquo;뚱뚱이 원숭이&quot;와 같은 컬렉션형을 값으로 하는 &ldquo;type&rdquo; 키가 document 내에 있다면
+단일 컬렉션에 들어 있는 값을 찾기보다 세 컬렉션 중에서 올바른 컬렉션을 쿼리하는 것이 훨씬 빠르다</p>
+<h2 id="같은-종류의-데이터를-하나의-컬렉션에-모아두면-data-locality를-유지할-수-있기-때문">같은 종류의 데이터를 하나의 컬렉션에 모아두면 data locality를 유지할 수 있기 때문</h2>
+<p>블로그 게시물 여러 개를 뽑을 때, 게시물 + 저자 정보가 들어 있는 컬렉션보다 게시물만 있는 컬렉션에서 뽑을 때 디스크 탐색 시간이 짧다 (더 빠르다)</p>
+<h2 id="컬렉션을-효율적으로-인덱싱하기-위해서">컬렉션을 효율적으로 인덱싱하기 위해서</h2>
+<p>인덱스 생성 시 도큐먼트는 특정 구조를 가져야 한다.
+인덱스는 컬렉션 별로 정의하는데, 같은 유형의 도큐먼트를 하나의 컬렉션에 넣음으로써 컬렉션을 효율적으로 인덱싱할 수 있다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-25</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/dec2022/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C/" data-title="Mongodb에서 왜 컬렉션이 필요할까?"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/dec2022/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/dec2022/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C/" data-title="Mongodb에서 왜 컬렉션이 필요할까?"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/dec2022/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C/" data-title="Mongodb에서 왜 컬렉션이 필요할까?"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/dec2022/mongodb%EC%97%90%EC%84%9C-%EC%99%9C-%EC%BB%AC%EB%A0%89%EC%85%98%EC%9D%B4-%ED%95%84%EC%9A%94%ED%95%A0%EA%B9%8C/" data-title="Mongodb에서 왜 컬렉션이 필요할까?"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dec2022/%ED%81%B4%EB%A6%B0%EC%BD%94%EB%93%9C/" class="prev" rel="prev" title="클린코드"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>클린코드</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
