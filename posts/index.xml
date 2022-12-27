@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 26 Dec 2022 19:25:51 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 27 Dec 2022 16:47:33 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Spring Cloud Open Feign이란?</title>
+    <link>http://redjen8.github.io/posts/dec2022/spring-cloud-open-feign%EC%9D%B4%EB%9E%80/</link>
+    <pubDate>Tue, 27 Dec 2022 16:47:33 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/spring-cloud-open-feign%EC%9D%B4%EB%9E%80/</guid>
+    <description><![CDATA[Spring Cloud Open Feign이란? https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/ Feign은 Netflix에서 개발한 Http client binder Feign interface 작성 후 어노테이션 선언만 하면 웹 서비스 클라이언트를 뚝딱 MSA 사용할 때에는 하나의]]></description>
+</item>
+<item>
     <title>Type Inference vs Dynamic Typing</title>
     <link>http://redjen8.github.io/posts/dec2022/type-inference-vs-dynamic-typing/</link>
     <pubDate>Mon, 26 Dec 2022 19:25:51 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/</guid>
     <description><![CDATA[HTTP의 이해 HTTP 어플리케이션 레벨의 프로토콜 신뢰할만한 전송 / 세션 레이어의 연결을 통해 메시지를 주고 받는 무상태 요청 / 응답 프로토콜 HTTP 클라이언트는 서버와]]></description>
-</item>
-<item>
-    <title>Java Main Method는 왜 Psvm일까?</title>
-    <link>http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/</link>
-    <pubDate>Sat, 17 Dec 2022 21:01:43 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/java-main-method%EB%8A%94-%EC%99%9C-psvm%EC%9D%BC%EA%B9%8C/</guid>
-    <description><![CDATA[Java Main Method는 왜 public static void main 일까? 원문 링크 1. main 메서드가 public이어야 하는 이유 JVM이 클래스 바깥에서 호출할 수 있도록 해야 하기 때문 2. main 메서드가]]></description>
 </item>
 </channel>
 </rss>
