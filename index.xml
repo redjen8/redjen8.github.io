@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 27 Dec 2022 16:47:33 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 28 Dec 2022 21:02:45 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Linux Shell Scripting</title>
+    <link>http://redjen8.github.io/posts/dec2022/linux-shell-scripting/</link>
+    <pubDate>Wed, 28 Dec 2022 21:02:45 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/dec2022/linux-shell-scripting/</guid>
+    <description><![CDATA[개요 사용자와 OS 간의 간교 역할 Linux에서 기본적으로 사용하는 shell은 bash 복잡한 일들 -&gt; 작은 단위 나누어 처리 여러 요소들과 유틸을 묶어 처리하는 고전적인]]></description>
+</item>
+<item>
     <title>Spring Cloud Open Feign이란?</title>
     <link>http://redjen8.github.io/posts/dec2022/spring-cloud-open-feign%EC%9D%B4%EB%9E%80/</link>
     <pubDate>Tue, 27 Dec 2022 16:47:33 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/spring-5-reactive-%EC%9B%B9%EA%B0%9C%EB%B0%9C/</guid>
     <description><![CDATA[스프링 5 리액티브 웹 개발 17년 강의라 현재와는 조금 다른 부분 있을수도 WebFlux 소개 WebFlux의 핵심 = 비동기 논블로킹 방식의 웹 서버 어플리케이션 (구 Spring-Web-Reactive) 메인 테]]></description>
-</item>
-<item>
-    <title>Http의 이해</title>
-    <link>http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/</link>
-    <pubDate>Sun, 18 Dec 2022 19:50:18 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/http%EC%9D%98-%EC%9D%B4%ED%95%B4/</guid>
-    <description><![CDATA[HTTP의 이해 HTTP 어플리케이션 레벨의 프로토콜 신뢰할만한 전송 / 세션 레이어의 연결을 통해 메시지를 주고 받는 무상태 요청 / 응답 프로토콜 HTTP 클라이언트는 서버와]]></description>
 </item>
 </channel>
 </rss>
