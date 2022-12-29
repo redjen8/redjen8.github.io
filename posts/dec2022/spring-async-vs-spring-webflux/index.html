@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spring Async vs Spring Webflux - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Spring Async vs Spring Webflux" />
+<meta property="og:description" content="Spring Async vs Spring Webflux https://www.baeldung.com/spring-mvc-async-vs-webflux 기존 스프링 MVC에서는 Blocking 방식을 사용하고 있었고, Java 8에서 Future, CompletableFuture 와 같은 비동기 지원을 통해 한정적으로 비동기 요청 처리를 할 수 있었다. MVC에서" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-29T16:21:15+09:00" />
+<meta property="article:modified_time" content="2022-12-29T16:21:15+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Async vs Spring Webflux"/>
+<meta name="twitter:description" content="Spring Async vs Spring Webflux https://www.baeldung.com/spring-mvc-async-vs-webflux 기존 스프링 MVC에서는 Blocking 방식을 사용하고 있었고, Java 8에서 Future, CompletableFuture 와 같은 비동기 지원을 통해 한정적으로 비동기 요청 처리를 할 수 있었다. MVC에서"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/" /><link rel="prev" href="http://redjen8.github.io/posts/dec2022/linux-shell-scripting/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring Async vs Spring Webflux",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/dec2022\/spring-async-vs-spring-webflux\/"
+        },"genre": "posts","wordcount":  848 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/dec2022\/spring-async-vs-spring-webflux\/","datePublished": "2022-12-29T16:21:15+09:00","dateModified": "2022-12-29T16:21:15+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Spring Async vs Spring Webflux</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-29">2022-12-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;848 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#spring-webflux와의-차이점">Spring Webflux와의 차이점</a></li>
+    <li><a href="#webflux의-단점">Webflux의 단점</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="spring-async-vs-spring-webflux">Spring Async vs Spring Webflux</h1>
+<p><a href="https://www.baeldung.com/spring-mvc-async-vs-webflux" target="_blank" rel="noopener noreffer ">https://www.baeldung.com/spring-mvc-async-vs-webflux</a></p>
+<p>기존 스프링 MVC에서는 Blocking 방식을 사용하고 있었고, Java 8에서 Future, CompletableFuture 와 같은 비동기 지원을 통해 한정적으로 비동기 요청 처리를 할 수 있었다.</p>
+<p>MVC에서는 Servlet이 요청의 비동기적 dispatch를 맡는다. 기존 Servlet Filter들도 동일하게 동작한다.</p>
+<h2 id="spring-webflux와의-차이점">Spring Webflux와의 차이점</h2>
+<p>Spring Async는 서블릿 3.0 스펙을 지원한다.
+Spring Webflux는 서블릿 3.1 + 스펙을 지원한다.</p>
+<ul>
+<li>스프링 Async IO 모델은 클라이언트가 블로킹 상태를 유지한채로 통신한다. 때문에 클라이언트의 성능에 영향을 받을 수 있다. 스프링 Webflux는 논브로킹 IO 모델을 제공한다.</li>
+<li>Spring Async에서 Request body나 request parts와 같이 요청에 딸려들어오는 데이터들을 읽는 동작이 blocking이다. Webflux에서는 non-blocking이다.</li>
+<li>Spring Async에서 Filter와 Servlet들은 동기적으로 동작한다. Webflux에서는 전체 통신 과정에 대해 비동기적으로 수행한다.</li>
+<li>Webflux는 Spring Async보다 더 넓은 웹 어플리케이션 서버에 대한 지원을 제공한다. (Netty, Undertow와 같은)</li>
+</ul>
+<p><a href="https://itembase.com/resources/blog/tech/spring-boot-2-spring-webflux" target="_blank" rel="noopener noreffer ">https://itembase.com/resources/blog/tech/spring-boot-2-spring-webflux</a></p>
+<h2 id="webflux의-단점">Webflux의 단점</h2>
+<ul>
+<li>많은 현대의 라이브러리들이 reactive 스택을 상정하고 만들어지지 않는다. reactive web stack을 위한 새로운 라이브러리가 필요한데 공식 라이브러리가 아닌 경우도 있고 아예 없는 경우도 있다 (R2DBC도 최근 들어 공식이 되었으며, Reactive feign도 현재 공식이 아님)</li>
+<li>reactive 스택 프로그래밍은 난이도가 높다. 전통적인 명령형 프로그래밍 방식에 익숙한 사람들에게는 이해에 필요한 충분한 시간이 필요하다.
+<ul>
+<li>디버깅하기 까다롭다는 단점도 있다. stack trace들이 엄청 길어지고, 문제를 일으키는 코드를 정확히 찾기 어렵다.</li>
+</ul>
+</li>
+<li>대부분의 문제는 비동기 non blocking 방식으로 바꾼다고 해서 해결되는 문제가 아닌 경우가 많다. 현실 세계의 많은 문제는 이미 Spring MVC 모델로도 충분히 풀 수 있는 경우가 많지만 webflux가 이들을 마법처럼 해결해주지는 않는다. 오히려 문제를 더 복잡하고 심각하게 꼬게 할 수도 있다.</li>
+</ul>
+<p>개인적으로는 Project Loom이 실현되어 Java에서도 경량 쓰레드를 자유롭게 사용할 수 있다면 자바 생태계에 또 다른 혁명이 오지 않을까 생각한다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/" data-title="Spring Async vs Spring Webflux"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/" data-title="Spring Async vs Spring Webflux"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/" data-title="Spring Async vs Spring Webflux"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/" data-title="Spring Async vs Spring Webflux"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dec2022/linux-shell-scripting/" class="prev" rel="prev" title="Linux Shell Scripting"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Linux Shell Scripting</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
