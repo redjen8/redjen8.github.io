@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java Stream 이란 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Java Stream 이란" />
+<meta property="og:description" content="Java Stream이란? Java 8 API에서 새로 추가된 기능으로, 스트림을 사용하면 선언형으로 컬렉션 데이터를 처리할 수 있다. 스트림을 사용하면 멀티 쓰레드 코드를" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-31T16:30:45+09:00" />
+<meta property="article:modified_time" content="2022-12-31T16:30:45+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Stream 이란"/>
+<meta name="twitter:description" content="Java Stream이란? Java 8 API에서 새로 추가된 기능으로, 스트림을 사용하면 선언형으로 컬렉션 데이터를 처리할 수 있다. 스트림을 사용하면 멀티 쓰레드 코드를"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/" /><link rel="prev" href="http://redjen8.github.io/posts/dec2022/java-predicate%EB%9E%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java Stream 이란",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/dec2022\/java-stream-%EC%9D%B4%EB%9E%80\/"
+        },"genre": "posts","wordcount":  1192 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/dec2022\/java-stream-%EC%9D%B4%EB%9E%80\/","datePublished": "2022-12-31T16:30:45+09:00","dateModified": "2022-12-31T16:30:45+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Java Stream 이란</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-12-31">2022-12-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1192 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#장점">장점</a></li>
+        <li><a href="#단점">단점</a></li>
+        <li><a href="#stream이-재사용-불가능한-이유">Stream이 재사용 불가능한 이유?</a></li>
+      </ul>
+    </li>
+    <li><a href="#stream이란">Stream이란</a>
+      <ul>
+        <li><a href="#스트림의-중요-특징">스트림의 중요 특징</a></li>
+      </ul>
+    </li>
+    <li><a href="#stream의-주요-연산">Stream의 주요 연산</a></li>
+    <li><a href="#스트림과-컬렉션의-차이">스트림과 컬렉션의 차이</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="java-stream이란">Java Stream이란?</h1>
+<p>Java 8 API에서 새로 추가된 기능으로, 스트림을 사용하면 선언형으로 컬렉션 데이터를 처리할 수 있다. 스트림을 사용하면 멀티 쓰레드 코드를 구현하지 않아도 데이터를 투명하게 병렬로 처리할 수 있다는 장점이 있다.</p>
+<p>선언형 : 데이터를 처리하는 임시 구현 코드 대신 질의로 표현 가능한 데이터 형</p>
+<h3 id="장점">장점</h3>
+<ul>
+<li>선언형 : 더 간결하고 가독성 좋은 코드 작성</li>
+<li>조립 가능 : 유연성 좋은 코드 작성</li>
+<li>병렬화 : 성능 향상 관점에서의 이득</li>
+</ul>
+<h3 id="단점">단점</h3>
+<ul>
+<li>디버깅이 힘들다</li>
+<li>재사용 불가능</li>
+</ul>
+<h3 id="stream이-재사용-불가능한-이유">Stream이 재사용 불가능한 이유?</h3>
+<p>Stream은 다운로드 받은 동영상을 재생하는 것이 아니라 유튜브와 같은 플랫폼에서 동영상을 스트리밍하는 것에 가깝다. 설계 철학 자체가 생산자 중심이 아니라 소비자 중심의 데이터 처리를 목적으로 하다보니 재사용이 불가능하도록 설계되었을 것.</p>
+<p><a href="https://stackoverflow.com/questions/28459498/why-are-java-streams-once-off/28513908#28513908" target="_blank" rel="noopener noreffer ">찾아보니</a> 이유를 더 자세히 알 수 있었다.
+여러 개의 내부 반복자를 두어서 Stream을 재사용 가능하게 만드는 것은 정말 좋은 방법인지에 대한 의문이 있었고 예측하지 못한 결과를 낳을 수 있다는 결과를 도출했기 때문이다.
+예시로 들었던 반복 가능한 것들은 컬렉션으로 처리 가능하지만,
+네트워크를 통해서 데이터를 읽어오는 것들은 다시 요청을 하지 않는 한 다시 일어나지 않는다. 파일에서 순차적으로 큰 데이터를 읽는 경우에도 이전 데이터를 다시 읽기 위해서는 메모리에 따로 저장하지 않았다면 다시 파일을 읽어야 한다.</p>
+<h2 id="stream이란">Stream이란</h2>
+<p>데이터 처리 연산을 지원하도록 소스에서 추출된 연속된 요소</p>
+<ul>
+<li>연속된 요소 : 특정 요소 형식으로 이뤄진 연속된 값 집합의 인터페이스 제공. 컬렉션의 주제는 <strong>데이터</strong>이고 스트림의 주제는 <strong>계산</strong>이다.</li>
+<li>소스 : 컬렉션, 배열, IO 자원 등의 데이터 제공 소스로부터 데이터를 소비한다. 정렬된 컬렉션으로 스트림 생성하면 -&gt; 정렬 유지 (순서가 불변)</li>
+<li>데이터 처리 연산 : 함수형 프로그래밍 언어에서 일반적으로 지원하는 연산과 DB와 비슷한 연산을 지원한다.</li>
+</ul>
+<h3 id="스트림의-중요-특징">스트림의 중요 특징</h3>
+<ol>
+<li>파이프라이닝 : 대부분의 스트림 연산은 스트림 연산끼리 연결해서 커다란 파이프라인을 구성할 수 있도록 스트림 자신을 반환. Laziness와 Short circuit와 같은 최적화가 가능한 이유</li>
+<li>내부 반복 : iterator를 사용하여 명시적으로 반복하는 컬렉션과 달리 스트림은 내부 반복을 지원</li>
+</ol>
+<h2 id="stream의-주요-연산">Stream의 주요 연산</h2>
+<ul>
+<li>filter : 람다를 인수로 받아 스트림에서 특정 요소 제외</li>
+<li>map : 람다를 이용해서 한 요소를 다른 요소로 변환하거나 정보 추출</li>
+<li>limit : 정해진 개수 이상의 요소가 스트림에 저장되지 못하게 스트림 크기를 truncate</li>
+<li>collect : 스트림을 다른 형식으로 변환.</li>
+</ul>
+<h2 id="스트림과-컬렉션의-차이">스트림과 컬렉션의 차이</h2>
+<p><strong>데이터를 언제 계산하느냐?</strong> 에서 큰 차이를 가진다.</p>
+<p>컬렉션은 현재 자료구조가 포함하는 모든 값을 메모리에 저장하는 자료 구조.</p>
+<ul>
+<li>컬렉션의 모든 요소는 <strong>컬렉션에 추가하기 전에 계산</strong>되어야 함</li>
+<li>컬렉션은 생산자 중심 (supplier-driven)</li>
+<li>컬렉션은 특정 시간에 모든 것이 존재하는 공간에 흩어진 값</li>
+</ul>
+<p>반면 스트림은 이론적으로 <strong>요청할 때에만 요소를 계산하는</strong> 고정된 자료 구조.</p>
+<ul>
+<li>사용자가 요청하는 값만 스트림에서 추출하고, 결과적으로 producer - consumer 관계를 형성하게 됨</li>
+<li>스트림은 소비자 중심 (demand-driven manufacturing)</li>
+<li>스트림은 시간적으로 흩어진 값의 집합.</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2022-12-31</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/" data-title="Java Stream 이란"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/" data-title="Java Stream 이란"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/" data-title="Java Stream 이란"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/" data-title="Java Stream 이란"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/dec2022/java-predicate%EB%9E%80/" class="prev" rel="prev" title="Java Predicate란?"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Predicate란?</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
