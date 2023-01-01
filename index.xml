@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 31 Dec 2022 16:30:45 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 01 Jan 2023 21:48:24 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Rxjava vs Webflux</title>
+    <link>http://redjen8.github.io/posts/jan2023/rxjava-vs-webflux/</link>
+    <pubDate>Sun, 01 Jan 2023 21:48:24 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/rxjava-vs-webflux/</guid>
+    <description><![CDATA[RxJava vs Spring Webflux 리액티브 프로그래밍 == 프로그래밍 패러다임. 객체 지향 프로그래밍, 함수형 프로그래밍, 절차형 (procedural) 프로그래밍처럼 리액티브 프로그래밍 역시 하나의 패러]]></description>
+</item>
+<item>
     <title>Java Stream 이란</title>
     <link>http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/</link>
     <pubDate>Sat, 31 Dec 2022 16:30:45 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/base64-%EC%9D%B8%EC%BD%94%EB%94%A9%EC%9D%B4%EB%9E%80/</guid>
     <description><![CDATA[Base64 인코딩이란? https://en.wikipedia.org/wiki/Base64 바이너리 데이터를 텍스트 데이터로 인코딩하는 방법 중 하나. 왜 필요할까? https://stackoverflow.com/questions/201479/what-is-base-64-encoding-used-for 네트워크 등을 통해서 바이너리 데이터를 송신하고 수신할 때, 비트 단]]></description>
-</item>
-<item>
-    <title>Webhook이란?</title>
-    <link>http://redjen8.github.io/posts/dec2022/webhook%EC%9D%B4%EB%9E%80/</link>
-    <pubDate>Thu, 22 Dec 2022 16:43:14 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/webhook%EC%9D%B4%EB%9E%80/</guid>
-    <description><![CDATA[Webhook이란? 개요 Webhook은 2개의 웹 API 간에 이벤트 기반 통신을 가능하게 하는 HTTP 콜백 기능 웹 어플리케이션이 다른 어플리케이션이 보낸 데이터 조금]]></description>
 </item>
 </channel>
 </rss>
