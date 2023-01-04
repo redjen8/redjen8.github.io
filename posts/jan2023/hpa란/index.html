@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Hpa란 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Hpa란" />
+<meta property="og:description" content="장애 대응 wiki를 읽다가 HPA 가동 혹은 발동이라는 말이 많이 나와서 찾아봤습니다. https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/ 참고 HPA란, Horizontal Pod Autoscaling의 줄임말 워크로드 크기를 수요" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-04T22:28:35+09:00" />
+<meta property="article:modified_time" content="2023-01-04T22:28:35+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Hpa란"/>
+<meta name="twitter:description" content="장애 대응 wiki를 읽다가 HPA 가동 혹은 발동이라는 말이 많이 나와서 찾아봤습니다. https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/ 참고 HPA란, Horizontal Pod Autoscaling의 줄임말 워크로드 크기를 수요"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/spring-webflux%EC%99%80-mediatype/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hpa란",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/hpa%EB%9E%80\/"
+        },"genre": "posts","wordcount":  694 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/hpa%EB%9E%80\/","datePublished": "2023-01-04T22:28:35+09:00","dateModified": "2023-01-04T22:28:35+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Hpa란</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-04">2023-01-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;694 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content"><p>장애 대응 wiki를 읽다가 HPA 가동 혹은 발동이라는 말이 많이 나와서 찾아봤습니다.</p>
+<p><a href="https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/" target="_blank" rel="noopener noreffer ">https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/</a> 참고</p>
+<p>HPA란, Horizontal Pod Autoscaling의 줄임말
+워크로드 크기를 수요에 맞게 자동으로 스케일링하는 쿠버네티스의 기능
+근데 Horizontal 이라는 말이 붙었네? - 수평 스케일링</p>
+<p>수평 스케일링 == 부하 증가에 대해 pod를 더 배치하는 것</p>
+<p>수직 스케일링 == 이미 실행 중인 pod에 더 많은 리소스를 할당하는 것</p>
+<p>크기 조절이 불가능한 DaemonSet에는 적용 불가능
+kube-controller-manager의 &ndash;horizontal-pod-autoscaler-sync-period 파라미터에 의해 HPA 체크 주기를 설정</p>
+<p>컨트롤러 매니저는 타겟 리소스를 찾고, pod를 선택하여 리소스 메트릭 API를 통해 메트릭을 수집한다.</p>
+<ul>
+<li>pod 단위 리소스 메트릭의 경우 컨트롤러는 대상으로 하는 각 pod에 대한 리소스 메트릭 API에서 메트릭 가져온다</li>
+<li>그 후 목표 사용률 값 설정되면 - 각 pod의 컨테이너에 대한 동등한 자우너 요청을 퍼센트 단위로 사용률 값 계산</li>
+<li>그 후 모든 대상 pod에서 사용된 사용률의 평균 또는 primitive value를 가져와서 원하는 레플리카의 개수를 스케일하는데 사용되는 비율 생성</li>
+</ul>
+<p>HPA 컨트롤러는 원하는 메트릭 값과 현재 메트릭 값 사이의 비율로 HPA를 작동시킨다.</p>
+<p>원하는 레플리카 수 = ceil [현재 레플리카 수 * ( 현재 메트릭 값 / 원하는 메트릭 값) ]</p>
+<p>즉, 원하는 메트릭 값에 비해 현재 메트릭 값이 높다면 레플리카 수가 증가할 것이고
+반대로 현재 메트릭 값이 원하는 메트릭 값에 비해 낮다면 레플리카 수가 감소한다.</p>
+<p>HPA 대상은 스케일링 대상에서 리소스 사용량을 기준으로 스케일링 가능
+예) pod의 평균 사용률을 60%으로 유지하도록 설정 가능</p>
+<p>kubectl의 HPA 지원 : kubectl create 명령어로 새 오토스케일러 생성 가능</p>
+<ul>
+<li>kubectl get hpa : 오토스케일러 목록 조회</li>
+<li>kubectl describe hpa : 오토스케일러 세부 사항 확인 가능</li>
+<li>kubectl delete hpa : 오토스케일러 삭제</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/" data-title="Hpa란"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/" data-title="Hpa란"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/" data-title="Hpa란"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/" data-title="Hpa란"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/spring-webflux%EC%99%80-mediatype/" class="prev" rel="prev" title="Spring Webflux와 Mediatype"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Spring Webflux와 Mediatype</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
