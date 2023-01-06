@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 05 Jan 2023 20:37:17 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 06 Jan 2023 15:49:16 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Clustered Mongodb 환경 세팅 시 트러블 슈팅</title>
+    <link>http://redjen8.github.io/posts/jan2023/clustered-mongodb-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EC%8B%9C-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85/</link>
+    <pubDate>Fri, 06 Jan 2023 15:49:16 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/clustered-mongodb-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EC%8B%9C-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85/</guid>
+    <description><![CDATA[문제 상황 MongoDB 기존 스키마에서 변경되어야 할 부분이 있어 (스키마 개념은 따로 없지만 새 필드를 추가하는 의미에서 워딩을 이렇게 가져갔다) 개발 서버에서 테스트하기 전]]></description>
+</item>
+<item>
     <title>Cap정리와 Pacelc표기법</title>
     <link>http://redjen8.github.io/posts/jan2023/cap%EC%A0%95%EB%A6%AC%EC%99%80-pacelc%ED%91%9C%EA%B8%B0%EB%B2%95/</link>
     <pubDate>Thu, 05 Jan 2023 20:37:17 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/linux-shell-scripting/</guid>
     <description><![CDATA[개요 사용자와 OS 간의 간교 역할 Linux에서 기본적으로 사용하는 shell은 bash 복잡한 일들 -&gt; 작은 단위 나누어 처리 여러 요소들과 유틸을 묶어 처리하는 고전적인]]></description>
-</item>
-<item>
-    <title>Spring Cloud Open Feign이란?</title>
-    <link>http://redjen8.github.io/posts/dec2022/spring-cloud-open-feign%EC%9D%B4%EB%9E%80/</link>
-    <pubDate>Tue, 27 Dec 2022 16:47:33 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/spring-cloud-open-feign%EC%9D%B4%EB%9E%80/</guid>
-    <description><![CDATA[Spring Cloud Open Feign이란? https://docs.spring.io/spring-cloud-openfeign/docs/current/reference/html/ Feign은 Netflix에서 개발한 Http client binder Feign interface 작성 후 어노테이션 선언만 하면 웹 서비스 클라이언트를 뚝딱 MSA 사용할 때에는 하나의]]></description>
 </item>
 </channel>
 </rss>
