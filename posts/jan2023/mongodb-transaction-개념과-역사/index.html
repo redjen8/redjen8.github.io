@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mongodb Transaction 개념과 역사 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Mongodb Transaction 개념과 역사" />
+<meta property="og:description" content="MongoDB에는 원래 Transaction 개념이 없었다. (4.0 버전부터 트랜잭션을 지원하기 시작했다.) 그렇다면 왜 없었으며, 무슨 바람이 들어서 최근에서야 생기게 된 것일까?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-07T00:23:12+09:00" />
+<meta property="article:modified_time" content="2023-01-07T00:23:12+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mongodb Transaction 개념과 역사"/>
+<meta name="twitter:description" content="MongoDB에는 원래 Transaction 개념이 없었다. (4.0 버전부터 트랜잭션을 지원하기 시작했다.) 그렇다면 왜 없었으며, 무슨 바람이 들어서 최근에서야 생기게 된 것일까?"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/clustered-mongodb-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EC%8B%9C-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mongodb Transaction 개념과 역사",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC\/"
+        },"genre": "posts","wordcount":  1519 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC\/","datePublished": "2023-01-07T00:23:12+09:00","dateModified": "2023-01-07T00:23:12+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mongodb Transaction 개념과 역사</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-07">2023-01-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1519 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#40-버전-이전의-mongodb">4.0 버전 이전의 MongoDB</a></li>
+    <li><a href="#40-버전-이상의-mongodb">4.0 버전 이상의 MongoDB</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>MongoDB에는 원래 Transaction 개념이 없었다. (4.0 버전부터 트랜잭션을 지원하기 시작했다.)</p>
+<p><strong>그렇다면 왜 없었으며, 무슨 바람이 들어서 최근에서야 생기게 된 것일까?</strong></p>
+<h2 id="40-버전-이전의-mongodb">4.0 버전 이전의 MongoDB</h2>
+<p><a href="https://stackoverflow.com/questions/18042255/why-doesnt-mongodb-have-transactions-pre-v4-0" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/18042255/why-doesnt-mongodb-have-transactions-pre-v4-0</a></p>
+<blockquote>
+<p>MongoDB가 처음 탄생했을 때에는 트랜잭션 개념이 MongoDB를 확장 가능한 구조를 허용하는데 제약을 주었기 때문이다.</p>
+</blockquote>
+<p>트랜잭션은 여러 작업이 이뤄지는 동안 전체 데이터베이스를 일관성 있게 유지하는 것을 목적으로 한다. 전통적인 RDB와는 다르게, MongoDB에서는 Standalone 형태로 구동되는 것을 목적으로 하지 않는다. MongoDB는 다수의 샤드를 가진 분산 클러스터 서버 형태로 구성되는 것이 이상적이다. (각 샤드는 다수 서버의 Replica Set 구조를 유지한다.)</p>
+<p>트랜잭션은 분산 데이터베이스에서 잠재적으로 큰 영향을 끼친다. 분산되어 있는 클러스터에서 트랜잭션을 보장하기 위해서는 모든 클러스터들이 동기화 되어야 하고 이는 꽤 많은 오버헤드와 비용을 요구할 뿐만 아니라 데이터베이스가 수평 확장될 때 상황을 훨씬 악화시킨다.</p>
+<p>때문에 태어났을 때부터 분산 클러스터였던 MongoDB가 트랜잭션을 지원하지 않는 것은 어떻게 보면 당연하게 느껴진다.</p>
+<h2 id="40-버전-이상의-mongodb">4.0 버전 이상의 MongoDB</h2>
+<p>최신 버전의 (4.0 버전 이상의) MongoDB는 여러 document에 대한 R/W 연산의 원자성을 필요로 하는 상황에서 트랜잭션을 지원한다.
+이 분산 트랜잭션을 사용하면 여러 작업, 컬렉션, 데이터베이스, document와 샤드에 걸쳐 트랜잭션을 사용할 수 있게 된다.</p>
+<p>그럼 왜 최근 버전의 MongoDB에서는 트랜잭션을 지원하게 된 것일까?
+앞서 기술한 것처럼 트랜잭션은 분산 기반 데이터베이스에서 지원하기에는 너무 비싼 작업인데..</p>
+<p><a href="https://www.mongodb.com/docs/manual/core/transactions/" target="_blank" rel="noopener noreffer ">https://www.mongodb.com/docs/manual/core/transactions/</a></p>
+<p>4.0 버전 미만에서도 MongoDB의 단일 Document에 대한 모든 연산은 atomic했다.
+데이터베이스를 RDB처럼 정규화해서 사용하는 것 대신 MongoDB에서는 Embedded document와 Array를 적극적으로 사용해서 document 안에서 데이터 간의 관계를 표현한다.</p>
+<blockquote>
+<p>그런데 MongoDB가 지원하는 이 단일 document에 대한 atomic한 연산은 MongoDB가 데이터를 정규화해서 사용하지 않기 때문에 실제로는 많이 사용하지 않게 되었다.</p>
+</blockquote>
+<p>실무에서는 훨씬 복잡한 비즈니스 요구사항을 구현하기 위해서 단일 document가 아닌 훨씬 다양한 document의 데이터를 접근하고 저장해야 할 필요가 생겼다.</p>
+<p>그래서 많은 개발자들이 MongoDB를 사용하면서 document가 여러 컬렉션에 나눠서 저장되면 편할 것 같다고 생각했고, 이렇게 된다면 기존 4.0 미만의 버전의 MongoDB에서는 복잡한 비즈니스 로직을 여러 document에 나눠 구현할 때 작업의 원자성이 보장되지 않기 때문에 곤란한 경우가 생겼을 것으로 추측된다.</p>
+<p>때문에 MongoDB는 WiredTiger 스토리지 엔진을 사용하면서 RDB와 비슷한 (똑같지는 않다!) ACID 개념을 지원하게 되었다. 다만 MongoDB의 ACID 개념은 RDB의 그것과는 약간 다르다.</p>
+<p><a href="https://rastalion.me/mongodb-transaction-management/" target="_blank" rel="noopener noreffer ">https://rastalion.me/mongodb-transaction-management/</a></p>
+<ul>
+<li>최고 레벨의 isolation은 REPEATABLE_READ로 구성</li>
+<li>트랜잭션의 Commit과 Checkpoint을 통해 영속성을 보장</li>
+<li>Commit되지 않은 변경 데이터는 공유 캐시 크기보다 작아야 함</li>
+</ul>
+<p>또, MongoDB에서 트랜잭션 구현은 세션을 통해 이뤄지기 때문에 WriteConflict 상황이 발생하긴 한다. 여러 사용자가 동시에 동일한 document를 수정하는 일종의 race condition이다.</p>
+<p>MongoDB는 변경하려는 document가 이미 다른 connection에 의해 lock이 걸려 있다면 바로 업데이트 작업을 취소하고 WriteConflictException 에러를 띄운다.</p>
+<p>업데이트 시도한 세션은 해당 에러를 받았을 때 MongoDB의 스토리지 엔진 레벨에서 동일한 업데이트 명령을 재시도하기 때문에 어플리케이션 사용자는 이 Conflict 상황을 모르는 것이 특징이다.</p>
+<p>결론적으로는 4.0 버전 이상의 MongoDB 부터는 단일 document가 아닌 다수 document에 대한 트랜잭션만을 지원하게 되었다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/" data-title="Mongodb Transaction 개념과 역사"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/" data-title="Mongodb Transaction 개념과 역사"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/" data-title="Mongodb Transaction 개념과 역사"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/" data-title="Mongodb Transaction 개념과 역사"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/clustered-mongodb-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EC%8B%9C-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85/" class="prev" rel="prev" title="Clustered Mongodb 환경 세팅 시 트러블 슈팅"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Clustered Mongodb 환경 세팅 시 트러블 슈팅</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
