@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 07 Jan 2023 00:23:12 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 08 Jan 2023 18:21:00 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>동기 비동기 블로킹 논블로킹</title>
+    <link>http://redjen8.github.io/posts/jan2023/%EB%8F%99%EA%B8%B0-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B8%94%EB%A1%9C%ED%82%B9-%EB%85%BC%EB%B8%94%EB%A1%9C%ED%82%B9/</link>
+    <pubDate>Sun, 08 Jan 2023 18:21:00 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/%EB%8F%99%EA%B8%B0-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B8%94%EB%A1%9C%ED%82%B9-%EB%85%BC%EB%B8%94%EB%A1%9C%ED%82%B9/</guid>
+    <description><![CDATA[운영체제, 어플리케이션에서는 한정된 리소스를 효율적으로 사용하고 커널 - 어플리케이션 간 통신에서 효율적으로 데이터를 교환하기 위한 몇 가지 방식이 있다. 동기]]></description>
+</item>
+<item>
     <title>Mongodb Transaction 개념과 역사</title>
     <link>http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/</link>
     <pubDate>Sat, 07 Jan 2023 00:23:12 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/dec2022/java-predicate%EB%9E%80/</guid>
     <description><![CDATA[Java Predicate란? 함수형 인터페이스 추상 메서드가 단 하나인 인터페이스. 추상 메서드가 두 개 이상이 되면 어떤 메서드를 실행해야 할 지 모르기 때문에 오류 발]]></description>
-</item>
-<item>
-    <title>Spring Async vs Spring Webflux</title>
-    <link>http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/</link>
-    <pubDate>Thu, 29 Dec 2022 16:21:15 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/spring-async-vs-spring-webflux/</guid>
-    <description><![CDATA[Spring Async vs Spring Webflux https://www.baeldung.com/spring-mvc-async-vs-webflux 기존 스프링 MVC에서는 Blocking 방식을 사용하고 있었고, Java 8에서 Future, CompletableFuture 와 같은 비동기 지원을 통해 한정적으로 비동기 요청 처리를 할 수 있었다. MVC에서]]></description>
 </item>
 </channel>
 </rss>
