@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mongodb Update Operations in Java - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Mongodb Update Operations in Java" />
+<meta property="og:description" content="Java에서 MongoDB를 다룰 때에는 여러 update 관련 operation들을 제공해준다. 각각의 operation 들에는 어떤 차이점이 있을까? https://medium.com/geekculture/types-of-update-operations-in-mongodb-using-spring-boot-11d5d4ce88cf save() save() 메서드는 crite" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-09T19:46:20+09:00" />
+<meta property="article:modified_time" content="2023-01-09T19:46:20+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mongodb Update Operations in Java"/>
+<meta name="twitter:description" content="Java에서 MongoDB를 다룰 때에는 여러 update 관련 operation들을 제공해준다. 각각의 operation 들에는 어떤 차이점이 있을까? https://medium.com/geekculture/types-of-update-operations-in-mongodb-using-spring-boot-11d5d4ce88cf save() save() 메서드는 crite"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/%EB%8F%99%EA%B8%B0-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B8%94%EB%A1%9C%ED%82%B9-%EB%85%BC%EB%B8%94%EB%A1%9C%ED%82%B9/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mongodb Update Operations in Java",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/mongodb-update-operations-in-java\/"
+        },"genre": "posts","wordcount":  1849 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/mongodb-update-operations-in-java\/","datePublished": "2023-01-09T19:46:20+09:00","dateModified": "2023-01-09T19:46:20+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mongodb Update Operations in Java</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-09">2023-01-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1849 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#save">save()</a></li>
+    <li><a href="#saveall">saveAll()</a></li>
+    <li><a href="#upsert">upsert()</a></li>
+    <li><a href="#findandmodify">findAndModify()</a></li>
+    <li><a href="#findandreplace">findAndReplace()</a></li>
+    <li><a href="#updatefirst">updateFirst()</a></li>
+    <li><a href="#updatemulti">updateMulti()</a></li>
+    <li><a href="#updateone을-사용한-bulkops">UpdateOne()을 사용한 BulkOps</a></li>
+    <li><a href="#updatemulti를-사용한-bulkops">UpdateMulti()를 사용한 BulkOps</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Java에서 MongoDB를 다룰 때에는 여러 update 관련 operation들을 제공해준다.</p>
+<p>각각의 operation 들에는 어떤 차이점이 있을까?</p>
+<p><a href="https://medium.com/geekculture/types-of-update-operations-in-mongodb-using-spring-boot-11d5d4ce88cf" target="_blank" rel="noopener noreffer ">https://medium.com/geekculture/types-of-update-operations-in-mongodb-using-spring-boot-11d5d4ce88cf</a></p>
+<h2 id="save">save()</h2>
+<p>save() 메서드는 criteria나 파라미터를 받지 않는다.
+단지 <code>_id</code> 값으로 document 객체를 검색하는 것이 기본 동작이다.</p>
+<p>document를 찾았다면, save() 메서드는 새로 document를 생성하는 대신 update한다.
+save() 메서드는 새로 생성되거나 업데이트된 document 객체를 반환한다.</p>
+<p>save() 메서드의 단점으로는, 항상 전체 document 객체를 입력 파라미터로 입력해야 한다는 것이다.
+만약 20 필드 중에서 1개나 2개의 필드만을 업데이트하고 싶어도 (delta update) 할 수 없다.
+이는 메모리 상 사소한 낭비를 일으킨다.</p>
+<h2 id="saveall">saveAll()</h2>
+<p>save() 메서드와 두 가지를 제외하고는 정확히 똑같다.</p>
+<ol>
+<li>document 객체 대신 document 객체들의 collection을 입력 파라미터로 받는다.</li>
+<li>document 객체 대신 document 객체들의 collection을 리턴한다.</li>
+</ol>
+<h2 id="upsert">upsert()</h2>
+<p>upsert() 메서드는 save() 메서드와 동일하다고 느껴진다.</p>
+<ul>
+<li>document가 존재한다면 업데이트하고,</li>
+<li>존재하지 않는다면 새로운 document를 생성한다.</li>
+</ul>
+<p>하지만 upsert()와 save() 메서드는 여러 차이점이 있다.</p>
+<ul>
+<li>upsert() 메서드는 <code>_id</code> 이외의 criteria를 통해 document를 검색할 수 있다.</li>
+<li>upsert() 메서드는 document 객체가 아닌 update 작업의 디테일에 대한 정보를 반환한다.</li>
+<li>upsert() 메서드는 업데이트 대상이 되는 디테일한 필드만 입력 파라미터로 입력할 수 있다.</li>
+</ul>
+<p>이러한 방식은 다음과 같은 장점이 있다.</p>
+<ul>
+<li>delta update (여러 개의 필드 중 한 두 개만을 업데이트) 가 가능하다.</li>
+</ul>
+<p>하지만 이런 단점도 있다.</p>
+<ul>
+<li>해당 기준으로 검색했을 때 일치하는 document가 존재하지 않는다면 새 객체를 생성한다.</li>
+<li>이는 데이터베이스에 불완전하거나 정합성이 떨어지는 데이터를 삽입할 잠재적 가능성이 있다.</li>
+</ul>
+<h2 id="findandmodify">findAndModify()</h2>
+<p>findAndModify() 메서드는 save()와 upsert() 메서드의 장점을 섞은 메서드이다.</p>
+<p>upsert() 메서드처럼,</p>
+<ul>
+<li><code>_id</code> 이외의 criteria를 통해 document 객체를 검색할 수 있다.</li>
+<li>delta update가 가능하다.</li>
+</ul>
+<p>save() 메서드처럼,</p>
+<ul>
+<li>전체 document 객체를 반환한다.</li>
+<li>업데이트 이전의 document 객체를 가져오거나, 새로이 업데이트된 document 객체를 가져올 수 있는 옵션을 제공한다.</li>
+</ul>
+<p>findAndModify()는 <code>upsert(boolean)</code> 옵션을 통해서 조건에 만족하는 document가 존재하지 않을 경우 새 document를 생성할지에 대한 여부를 지정할 수 있다.</p>
+<h2 id="findandreplace">findAndReplace()</h2>
+<p>findAndReplace를 사용하면 어떤 필드로도 document를 검색할 수 있다.
+document를 찾았다면, 요청에 사용된 새 document로 교체한다.</p>
+<p><code>upsert()</code> 옵션을 지정하여 일치하는 document가 없을 때의 동작을 정의할 수 있다.
+<code>returnNew()</code> 옵션을 지정하여 업데이트된 document를 리턴 받을지 말지를 정의할 수 있다.</p>
+<p>전체 document를 입력 파라미터로 입력하기 때문에 findAndReplace()를 통한 delta update는 불가능하다.</p>
+<h2 id="updatefirst">updateFirst()</h2>
+<p>updateFirst()는 <code>_id</code> 이외의 필드를 통해 업데이트 대상이 되는 document를 정할 수 있다.
+또한 upsert 처럼</p>
+<ul>
+<li>delta update가 가능하다.</li>
+<li>업데이트가 일어났을 때 업데이트에 관련한 정보를 리턴한다.</li>
+</ul>
+<p>하지만 조건에 일치하는 document가 없을 경우, 새 document를 생성하지는 않는다.</p>
+<p>updateFirst()와 다른 delta update를 지원하는 작업들의 유일한 차이점은 updateFirst()는 update 조건을 만족하는 가장 처음의 문서만 업데이트한다는 점이다. 나머지 작업들은 모든 document를 업데이트한다.</p>
+<h2 id="updatemulti">updateMulti()</h2>
+<p>updateFirst()와 유사하지만, updateFirst()와는 달리 update 조건을 만족하는 모든 document를 업데이트한다.</p>
+<h2 id="updateone을-사용한-bulkops">UpdateOne()을 사용한 BulkOps</h2>
+<p>여러 쿼리들을 하나 이상의 입력 파라미터롤 받는다.
+또한, 검색 조건과 업데이트 작업 정의를 한 쌍으로 묶어서 제공해줘야 한다.</p>
+<p>save()나 findAndReplace()를 사용하여 데이터를 대량으로 업데이트할 때와는 달리 전체 document를 input으로 받지는 않는다.</p>
+<p>각각의 쿼리를 만족하는 첫번째 document가 업데이트된다.</p>
+<p>조건을 만족하는 document가 없을 경우, 업데이트 작업 정의에 명세된 정보를 가지고 새 document를 만들지는 않는다.
+모든 쿼리들에 대한 업데이트 작업은 상호 배제적이다. (단일 document가 여러 쿼리를 만족해야 할 필요는 없다)</p>
+<p>updateFirst()와 유사하게 UpdateOne()을 사용한 대량의 업데이트 작업은 업데이트 작업에 관련한 정보들을 리턴한다.</p>
+<h2 id="updatemulti를-사용한-bulkops">UpdateMulti()를 사용한 BulkOps</h2>
+<p>UpdateOne()을 사용한 대량 업데이트 작업과 거의 유사하지만,
+업데이트 조건을 만족하는 첫번째 document를 업데이트하는 대신 조건을 만족하는 모든 document들을 업데이트한다는 점이 다르다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/" data-title="Mongodb Update Operations in Java"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/" data-title="Mongodb Update Operations in Java"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/" data-title="Mongodb Update Operations in Java"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/" data-title="Mongodb Update Operations in Java"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/%EB%8F%99%EA%B8%B0-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B8%94%EB%A1%9C%ED%82%B9-%EB%85%BC%EB%B8%94%EB%A1%9C%ED%82%B9/" class="prev" rel="prev" title="동기 비동기 블로킹 논블로킹"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>동기 비동기 블로킹 논블로킹</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
