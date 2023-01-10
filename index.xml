@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 09 Jan 2023 19:46:20 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 10 Jan 2023 20:37:34 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Mono Void와 then()의 사용</title>
+    <link>http://redjen8.github.io/posts/jan2023/mono-void%EC%99%80-then%EC%9D%98-%EC%82%AC%EC%9A%A9/</link>
+    <pubDate>Tue, 10 Jan 2023 20:37:34 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/mono-void%EC%99%80-then%EC%9D%98-%EC%82%AC%EC%9A%A9/</guid>
+    <description><![CDATA[deleteMapping으로 리소스를 삭제하는 API들은 .then()을 사용해서 Mono&lt;Void&gt; 를 반환한다. Mono&lt;Void&gt;는 뭐고, 왜 사용]]></description>
+</item>
+<item>
     <title>Mongodb Update Operations in Java</title>
     <link>http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/</link>
     <pubDate>Mon, 09 Jan 2023 19:46:20 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/rxjava-vs-webflux/</guid>
     <description><![CDATA[RxJava vs Spring Webflux 리액티브 프로그래밍 == 프로그래밍 패러다임. 객체 지향 프로그래밍, 함수형 프로그래밍, 절차형 (procedural) 프로그래밍처럼 리액티브 프로그래밍 역시 하나의 패러]]></description>
-</item>
-<item>
-    <title>Java Stream 이란</title>
-    <link>http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/</link>
-    <pubDate>Sat, 31 Dec 2022 16:30:45 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/dec2022/java-stream-%EC%9D%B4%EB%9E%80/</guid>
-    <description><![CDATA[Java Stream이란? Java 8 API에서 새로 추가된 기능으로, 스트림을 사용하면 선언형으로 컬렉션 데이터를 처리할 수 있다. 스트림을 사용하면 멀티 쓰레드 코드를]]></description>
 </item>
 </channel>
 </rss>
