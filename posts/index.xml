@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 10 Jan 2023 20:37:34 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 11 Jan 2023 22:22:06 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Webflux에서 두 Publisher를 합칠때</title>
+    <link>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-%EB%91%90-publisher%EB%A5%BC-%ED%95%A9%EC%B9%A0%EB%95%8C/</link>
+    <pubDate>Wed, 11 Jan 2023 22:22:06 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-%EB%91%90-publisher%EB%A5%BC-%ED%95%A9%EC%B9%A0%EB%95%8C/</guid>
+    <description><![CDATA[주로 사용하는 연산자인 concat, merge, zip의 차이점은 무엇일까? http://www.vinsguru.com/reactive-programming-reactor-combining-multiple-sources-of-flux-mono/ concat() concat은 말 그대로 source1의 데이터 뒤에 source2의 데이터를 이어서 합친다.]]></description>
+</item>
+<item>
     <title>Mono Void와 then()의 사용</title>
     <link>http://redjen8.github.io/posts/jan2023/mono-void%EC%99%80-then%EC%9D%98-%EC%82%AC%EC%9A%A9/</link>
     <pubDate>Tue, 10 Jan 2023 20:37:34 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-responseentity-%EB%A6%AC%ED%84%B4-%EC%8B%9C-%EC%9C%A0%EC%9D%98%ED%95%B4%EC%95%BC-%ED%95%A0-%EC%A0%90/</guid>
     <description><![CDATA[Webflux에서 ResponseEntity 리턴 시 유의해야 할 점 Webflux를 사용할 때, Controller에서 ResponseEntity 형태로 dto를 리턴하고 싶을 때가 있다. 이 때, Mono&lt;ResponseEntity&gt; 와 ResponseEntity&lt;Mono&gt; 는]]></description>
-</item>
-<item>
-    <title>Rxjava vs Webflux</title>
-    <link>http://redjen8.github.io/posts/jan2023/rxjava-vs-webflux/</link>
-    <pubDate>Sun, 01 Jan 2023 21:48:24 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/rxjava-vs-webflux/</guid>
-    <description><![CDATA[RxJava vs Spring Webflux 리액티브 프로그래밍 == 프로그래밍 패러다임. 객체 지향 프로그래밍, 함수형 프로그래밍, 절차형 (procedural) 프로그래밍처럼 리액티브 프로그래밍 역시 하나의 패러]]></description>
 </item>
 </channel>
 </rss>
