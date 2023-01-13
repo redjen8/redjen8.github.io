@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spring Data Jpa의 Query생성 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Spring Data Jpa의 Query생성" />
+<meta property="og:description" content="Spring data JPA에는 interface repository의 메서드로만 선언하면 메서드의 이름을 보고 해석하여 자동으로 쿼리를 생성해주는 편리한 기능이 있다. 현재 사용 중인 Mo" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-13T18:21:15+09:00" />
+<meta property="article:modified_time" content="2023-01-13T18:21:15+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Data Jpa의 Query생성"/>
+<meta name="twitter:description" content="Spring data JPA에는 interface repository의 메서드로만 선언하면 메서드의 이름을 보고 해석하여 자동으로 쿼리를 생성해주는 편리한 기능이 있다. 현재 사용 중인 Mo"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-blocking-%EC%BD%94%EB%93%9C-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EB%B2%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring Data Jpa의 Query생성",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1\/"
+        },"genre": "posts","wordcount":  825 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1\/","datePublished": "2023-01-13T18:21:15+09:00","dateModified": "2023-01-13T18:21:15+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Spring Data Jpa의 Query생성</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-13">2023-01-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;825 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#spring-data-jpa의-파싱-개념">Spring Data JPA의 파싱 개념</a>
+      <ul>
+        <li><a href="#subject">Subject</a></li>
+        <li><a href="#predicate">Predicate</a></li>
+      </ul>
+    </li>
+    <li><a href="#애매한-코드에-대한-처리">애매한 코드에 대한 처리</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Spring data JPA에는 interface repository의 메서드로만 선언하면 메서드의 이름을 보고 해석하여 자동으로 쿼리를 생성해주는 편리한 기능이 있다.</p>
+<p>현재 사용 중인 MongoRepository에서는 이런 Spring Data JPA의 편리한 기능이 존재해서 사용중에 찾아보게 되었다.</p>
+<p>Spring Data JPA에서는 어떻게 내부적으로 메서드의 이름만 보고 쿼리를 만들 수 있는 것일까?</p>
+<p><a href="https://github.com/spring-projects/spring-data-commons/tree/main/src/main/java/org/springframework/data/repository/query/parser" target="_blank" rel="noopener noreffer ">https://github.com/spring-projects/spring-data-commons/tree/main/src/main/java/org/springframework/data/repository/query/parser</a></p>
+<p><a href="https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation" target="_blank" rel="noopener noreffer ">https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation</a></p>
+<p>이루고자 하는 바는 명확하다.</p>
+<ul>
+<li>입력 : 메서드 이름</li>
+<li>출력 : 그에 맞는 역할을 수행하는 쿼리</li>
+</ul>
+<h2 id="spring-data-jpa의-파싱-개념">Spring Data JPA의 파싱 개념</h2>
+<p>Spring Data JPA에서는 이를 subject와 predicate로 나누어서 파싱한다.</p>
+<h3 id="subject">Subject</h3>
+<p>find&hellip;By나 exists&hellip;By에 해당하는 메서드 이름의 첫번째 부분을 Subject라고 한다.
+Subject는 말 그대로 쿼리의 subject, 주제를 정의한다.
+Subject는 추가적인 표현을 포함할 수 있다.
+find와 By 사이에 존재하는 모든 텍스트들은 descriptive한 것으로 간주된다.
+단, 여기에는 예외가 있는데:</p>
+<ul>
+<li>Top / First와 같은 쿼리 결과를 제한하기 위한 키워드가 포함되어 있거나,</li>
+<li>Distinct 키워드를 통해서 distinct flag를 켜야 하는 경우
+해당 키워드가 포함되어 있다면 descriptive한 것으로 간주하지 않는다.</li>
+</ul>
+<h3 id="predicate">Predicate</h3>
+<p>subject 이외의 나머지 부분이 predicate이다.</p>
+<h2 id="애매한-코드에-대한-처리">애매한 코드에 대한 처리</h2>
+<p>Person 엔티티가 ZipCode와 관련한 Address를 가지고 있을 때,
+<code>x.address.zipCode</code> property를 찾는 것이 기본 동작이다. AddressZipCode를 전체 부분으로 도메인 클래스에서 찾다가 성공하면 그 property를 그대로 사용한다.</p>
+<p>찾지 못한다면 (애매한 경우)
+소스코드를 camel case 부분으로 쪼개서 오른쪽으로부터 파싱한다.
+이 알고리즘은 AddressZipCode를 AddressZip이랑 Code로 분리한다.
+여기서 찾으면 그것을 쓰는데, 또 찾지 못하면 다시 head - tail 분리 시행.
+다음은 Address랑 ZipCode&hellip; 이런식으로 계속 찾는데</p>
+<p>이런 ambiguity를 해소하기 위해서 메소드 이름에 <code>_</code>를 넣어서 잘못된 속성을 선택하는 일을 미연에 방지할 수도 있다.
+<code>List&lt;Person&gt; findByAddress_ZipCode(Zipcode zipCode)</code> 와 같은 코드가 예시.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/" data-title="Spring Data Jpa의 Query생성"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/" data-title="Spring Data Jpa의 Query생성"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/" data-title="Spring Data Jpa의 Query생성"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/" data-title="Spring Data Jpa의 Query생성"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/webflux%EC%97%90%EC%84%9C-blocking-%EC%BD%94%EB%93%9C-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EB%B2%95/" class="prev" rel="prev" title="Webflux에서 Blocking 코드 제거하는 법"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Webflux에서 Blocking 코드 제거하는 법</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
