@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 13 Jan 2023 18:21:15 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 14 Jan 2023 00:01:54 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Mono의 여러가지 생성방법</title>
+    <link>http://redjen8.github.io/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/</link>
+    <pubDate>Sat, 14 Jan 2023 00:01:54 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/</guid>
+    <description><![CDATA[Mono의 몇 가지 instantiation 방법들 간에는 어떤 차이가 있을까? https://stackoverflow.com/questions/56115447/mono-defer-vs-mono-create-vs-mono-just Mono.just() Mono.just는 Mono를 생성하는 가장 primitive한 방법이다. 객체를 그냥 Mon]]></description>
+</item>
+<item>
     <title>Spring Data Jpa의 Query생성</title>
     <link>http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/</link>
     <pubDate>Fri, 13 Jan 2023 18:21:15 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/cap%EC%A0%95%EB%A6%AC%EC%99%80-pacelc%ED%91%9C%EA%B8%B0%EB%B2%95/</guid>
     <description><![CDATA[CAP 정리 분산 시스템에서 3마리 토끼를 한번에 잡을 수 없다는 정리이다. Consistency (일관성) : 어떤 노드에 연결되었는지와는 무관하게 모든 클라이언트가 동시에 똑같은 데이]]></description>
-</item>
-<item>
-    <title>Hpa란</title>
-    <link>http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/</link>
-    <pubDate>Wed, 04 Jan 2023 22:28:35 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/hpa%EB%9E%80/</guid>
-    <description><![CDATA[장애 대응 wiki를 읽다가 HPA 가동 혹은 발동이라는 말이 많이 나와서 찾아봤습니다. https://kubernetes.io/ko/docs/tasks/run-application/horizontal-pod-autoscale/ 참고 HPA란, Horizontal Pod Autoscaling의 줄임말 워크로드 크기를 수요]]></description>
 </item>
 </channel>
 </rss>
