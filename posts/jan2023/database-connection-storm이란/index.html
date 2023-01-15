@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Database Connection Storm이란? - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Database Connection Storm이란?" />
+<meta property="og:description" content="오라클 19 데이터베이스 개발 가이드 - 데이터베이스 어플리케이션의 커넥션 전략 개요 웹 어플리케이션에서 데이터베이스를 연결할 때에는 TCP 통신을 기반으로 한 데이터" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-15T21:39:49+09:00" />
+<meta property="article:modified_time" content="2023-01-15T21:39:49+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Database Connection Storm이란?"/>
+<meta name="twitter:description" content="오라클 19 데이터베이스 개발 가이드 - 데이터베이스 어플리케이션의 커넥션 전략 개요 웹 어플리케이션에서 데이터베이스를 연결할 때에는 TCP 통신을 기반으로 한 데이터"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Database Connection Storm이란?",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/database-connection-storm%EC%9D%B4%EB%9E%80\/"
+        },"genre": "posts","wordcount":  1359 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/database-connection-storm%EC%9D%B4%EB%9E%80\/","datePublished": "2023-01-15T21:39:49+09:00","dateModified": "2023-01-15T21:39:49+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Database Connection Storm이란?</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-15">2023-01-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1359 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#db-커넥션에-대해">DB 커넥션에 대해</a>
+      <ul>
+        <li><a href="#정적-커넥션-풀">정적 커넥션 풀</a></li>
+        <li><a href="#동적-커넥션-풀">동적 커넥션 풀</a></li>
+      </ul>
+    </li>
+    <li><a href="#connection-storm">Connection storm</a></li>
+    <li><a href="#예방하려면">예방하려면?</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://docs.oracle.com/en/database/oracle/oracle-database/19/adfns/connection_strategies.html#GUID-22A9F0BE-987E-4C50-B006-4CF5336C61F4" target="_blank" rel="noopener noreffer ">오라클 19 데이터베이스 개발 가이드 - 데이터베이스 어플리케이션의 커넥션 전략</a></p>
+<h2 id="개요">개요</h2>
+<p>웹 어플리케이션에서 데이터베이스를 연결할 때에는 TCP 통신을 기반으로 한 데이터베이스 커넥션을 생성한다.
+데이터베이스 세션은 DB에 로그인한 사용자의 현재 상태를 나타내는, DB 인스턴스 메모리에 위치하는 논리적인 존재다.
+이 세션은 사용자가 DB에 인증한 시점으로부터 연결을 종료하거나 DB 어플리케이션을 종료하기 전까지 유지된다. 단일 커넥션은 여러 개의 세션을 가질 수 있다.</p>
+<h2 id="db-커넥션에-대해">DB 커넥션에 대해</h2>
+<p>커넥션 풀은 커넥션에 대한 캐싱이다. 어플리케이션이 데이터베이스 작업을 요청하는 과정을 절차적으로 설명하면 아래와 같다.</p>
+<ol>
+<li>어플리케이션은 런타임에 커넥션 풀에게 요청한다.</li>
+<li>커넥션 풀이 요청을 만족시킬 수 있는 커넥션을 가지고 있다면 어플리케이션에게 커넥션을 반환한다.</li>
+<li>어플리케이션이 해당 커넥션을 사용하여 DB 작업을 하고, 작업이 완료되면 커넥션을 풀에 반환한다.</li>
+<li>반환횐 커넥션은 이후 다음 커넥션 요청을 받았을 때 재사용가능해진다.</li>
+</ol>
+<h3 id="정적-커넥션-풀">정적 커넥션 풀</h3>
+<p>정적 커넥션 풀(static connection pool)은 정해진 숫자의 커넥션을 포함하고, 추가적인 요구 사항을 충족시키기 이해 커넥션을 더 생성하지는 못한다.
+그렇기 때문에 커넥션 풀이 만약 어플리케이션의 새 커넥션 요청을 만족시킬 수 있는 유휴 상태의 커넥션을 찾지 못한다면 해당 요청은 큐잉되거나, 에러가 반환된다.</p>
+<h3 id="동적-커넥션-풀">동적 커넥션 풀</h3>
+<p>동적 커넥션 풀(dynamic connection pool)은 커넥션 풀이 새 커넥션을 생성하고, 어플리케이션에게 돌려주는 형태를 띈다. 이론적으로는 동적 커넥션 풀을 통한다면 커넥션 풀 안에 있는 커넥션의 개수를 늘리거나 줄여서 운영 과정에 있어서 불필요한 리소스 낭비를 줄일 수 있다. 하지만 동적 커넥션 풀 전략은 connection storm이나 over subscription 문제를 일으킬 가능성이 있다.</p>
+<h2 id="connection-storm">Connection storm</h2>
+<p>커넥션 스톰은 데이터베이스가 어플리케이션의 커넥션 요청 증가에 따른 경쟁 상태에 빠져 데이터베이스 서버 CPU가 늘어난 요청들을 즉시 스케쥴링할 수 없기 때문에 어플리케이션이 더 많은 커넥션을 요청하는 상태를 의미한다.</p>
+<p>커넥션 스톰 동안에는 데이터베이스 커넥션 개수가 1분도 안되는 순간에 백개에서 천개까지 늘어날 수 있다.</p>
+<p>동적 커넥션 풀은 이런 커넥션 스톰 문제에 취약하다. 커넥션 요청이 증가함에 따라 DB 서버는 CPU 코어 개수와 비교하였을 때 더 많은 요청을 핸들링해야 한다. 32코어의 CPU를 가진 DB 서버라면 동시에 32개의 프로세스만 한번에 동작할 수 있다.</p>
+<p>데이터베이스 내부적으로는 활성화된 DB 세션 개수가 증가함에 따라 대기 상태의 작업이 증가한다. 오라클 데이터베이스에서는 ASH나 AWR 리포트를 통해 대기 중인 작업 (액티비티)를 확인할 수 있다.</p>
+<h2 id="예방하려면">예방하려면?</h2>
+<p>커넥션 스톰을 예방하려면 정적 커넥션 풀을 사용해야 한다.</p>
+<p>동적 커넥션 풀은 시스템을 빠르게 불안정하게 만들기 때문에 오라클에서는 정적 커넥션 풀을 쓰라고 권고한다.</p>
+<p>커넥션 개수를 줄인다면 CPU에 가해지는 부하를 줄이는 것이고, 이는 결국 더 빠른 반응 시간과 throughput을 증가하게 해준다.</p>
+<ul>
+<li>적은 개수의 DB 세션은 DB 내부의 경쟁 관련 대기 중인 이벤트 수가 적다는 것을 의미한다. 커넥션 개수를 줄인다면 CPU가 latch와 경쟁 상태를 조정하는데 사용되지 않고 DB 트랜잭션을 처리하는데 더 많은 시간을 사용할 수 있기 때문이다.</li>
+<li>커넥션 개수가 줄어든다면 커넥션은 더 오랜 기간 CPU에 의해 스케쥴링될 수 있다. 결과적으로 이 일련의 과정에 연관된 모든 메모리 페이지가 CPU 캐시에 머물게 되고 스케쥴링에 있어서 엄청나게 효율적이게 될 뿐만 아니라 메모리 스톨을 줄인다.</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-15</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/" data-title="Database Connection Storm이란?"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/" data-title="Database Connection Storm이란?"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/" data-title="Database Connection Storm이란?"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/" data-title="Database Connection Storm이란?"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/" class="prev" rel="prev" title="Mono의 여러가지 생성방법"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Mono의 여러가지 생성방법</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.108.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 14 Jan 2023 00:01:54 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 15 Jan 2023 21:39:49 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Database Connection Storm이란?</title>
+    <link>http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/</link>
+    <pubDate>Sun, 15 Jan 2023 21:39:49 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/</guid>
+    <description><![CDATA[오라클 19 데이터베이스 개발 가이드 - 데이터베이스 어플리케이션의 커넥션 전략 개요 웹 어플리케이션에서 데이터베이스를 연결할 때에는 TCP 통신을 기반으로 한 데이터]]></description>
+</item>
+<item>
     <title>Mono의 여러가지 생성방법</title>
     <link>http://redjen8.github.io/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/</link>
     <pubDate>Sat, 14 Jan 2023 00:01:54 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/clustered-mongodb-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EC%8B%9C-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85/</guid>
     <description><![CDATA[문제 상황 MongoDB 기존 스키마에서 변경되어야 할 부분이 있어 (스키마 개념은 따로 없지만 새 필드를 추가하는 의미에서 워딩을 이렇게 가져갔다) 개발 서버에서 테스트하기 전]]></description>
-</item>
-<item>
-    <title>Cap정리와 Pacelc표기법</title>
-    <link>http://redjen8.github.io/posts/jan2023/cap%EC%A0%95%EB%A6%AC%EC%99%80-pacelc%ED%91%9C%EA%B8%B0%EB%B2%95/</link>
-    <pubDate>Thu, 05 Jan 2023 20:37:17 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/cap%EC%A0%95%EB%A6%AC%EC%99%80-pacelc%ED%91%9C%EA%B8%B0%EB%B2%95/</guid>
-    <description><![CDATA[CAP 정리 분산 시스템에서 3마리 토끼를 한번에 잡을 수 없다는 정리이다. Consistency (일관성) : 어떤 노드에 연결되었는지와는 무관하게 모든 클라이언트가 동시에 똑같은 데이]]></description>
 </item>
 </channel>
 </rss>
