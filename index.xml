@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 15 Jan 2023 21:39:49 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 16 Jan 2023 20:11:51 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Webflux의 Hot Cold Publisher 개념</title>
+    <link>http://redjen8.github.io/posts/jan2023/webflux%EC%9D%98-hot-cold-publisher-%EA%B0%9C%EB%85%90/</link>
+    <pubDate>Mon, 16 Jan 2023 20:11:51 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%9D%98-hot-cold-publisher-%EA%B0%9C%EB%85%90/</guid>
+    <description><![CDATA[https://www.vinsguru.com/reactor-hot-publisher-vs-cold-publisher/ Reactor에는 두 가지 Publisher 인터페이스의 구현체가 있다. Mono와 Flux. 두 구현체 모두 비동기적으로 데이터를 쏴주지만, Flux는 0~N개의 원소를, Mo]]></description>
+</item>
+<item>
     <title>Database Connection Storm이란?</title>
     <link>http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/</link>
     <pubDate>Sun, 15 Jan 2023 21:39:49 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/</guid>
     <description><![CDATA[MongoDB에는 원래 Transaction 개념이 없었다. (4.0 버전부터 트랜잭션을 지원하기 시작했다.) 그렇다면 왜 없었으며, 무슨 바람이 들어서 최근에서야 생기게 된 것일까?]]></description>
-</item>
-<item>
-    <title>Clustered Mongodb 환경 세팅 시 트러블 슈팅</title>
-    <link>http://redjen8.github.io/posts/jan2023/clustered-mongodb-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EC%8B%9C-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85/</link>
-    <pubDate>Fri, 06 Jan 2023 15:49:16 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/clustered-mongodb-%ED%99%98%EA%B2%BD-%EC%84%B8%ED%8C%85-%EC%8B%9C-%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85/</guid>
-    <description><![CDATA[문제 상황 MongoDB 기존 스키마에서 변경되어야 할 부분이 있어 (스키마 개념은 따로 없지만 새 필드를 추가하는 의미에서 워딩을 이렇게 가져갔다) 개발 서버에서 테스트하기 전]]></description>
 </item>
 </channel>
 </rss>
