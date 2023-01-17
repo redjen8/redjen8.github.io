@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 16 Jan 2023 20:11:51 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 17 Jan 2023 22:09:25 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Mockito의 Mock, Mockbean 어노테이션의 차이</title>
+    <link>http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/</link>
+    <pubDate>Tue, 17 Jan 2023 22:09:25 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/</guid>
+    <description><![CDATA[junit 테스트 수행 도중 @MockBean 어노테이션이 없어서 테스트에 필요한 서비스 의존성 주입에 실패한 트러블 슈팅을 하였다. Mockito 라이브러리의 @Mock과 @MockBean은]]></description>
+</item>
+<item>
     <title>Webflux의 Hot Cold Publisher 개념</title>
     <link>http://redjen8.github.io/posts/jan2023/webflux%EC%9D%98-hot-cold-publisher-%EA%B0%9C%EB%85%90/</link>
     <pubDate>Mon, 16 Jan 2023 20:11:51 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/%EB%8F%99%EA%B8%B0-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B8%94%EB%A1%9C%ED%82%B9-%EB%85%BC%EB%B8%94%EB%A1%9C%ED%82%B9/</guid>
     <description><![CDATA[운영체제, 어플리케이션에서는 한정된 리소스를 효율적으로 사용하고 커널 - 어플리케이션 간 통신에서 효율적으로 데이터를 교환하기 위한 몇 가지 방식이 있다. 동기]]></description>
-</item>
-<item>
-    <title>Mongodb Transaction 개념과 역사</title>
-    <link>http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/</link>
-    <pubDate>Sat, 07 Jan 2023 00:23:12 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/mongodb-transaction-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%97%AD%EC%82%AC/</guid>
-    <description><![CDATA[MongoDB에는 원래 Transaction 개념이 없었다. (4.0 버전부터 트랜잭션을 지원하기 시작했다.) 그렇다면 왜 없었으며, 무슨 바람이 들어서 최근에서야 생기게 된 것일까?]]></description>
 </item>
 </channel>
 </rss>

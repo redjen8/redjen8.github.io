@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mockito의 Mock, Mockbean 어노테이션의 차이 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Mockito의 Mock, Mockbean 어노테이션의 차이" />
+<meta property="og:description" content="junit 테스트 수행 도중 @MockBean 어노테이션이 없어서 테스트에 필요한 서비스 의존성 주입에 실패한 트러블 슈팅을 하였다. Mockito 라이브러리의 @Mock과 @MockBean은" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-17T22:09:25+09:00" />
+<meta property="article:modified_time" content="2023-01-17T22:09:25+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mockito의 Mock, Mockbean 어노테이션의 차이"/>
+<meta name="twitter:description" content="junit 테스트 수행 도중 @MockBean 어노테이션이 없어서 테스트에 필요한 서비스 의존성 주입에 실패한 트러블 슈팅을 하였다. Mockito 라이브러리의 @Mock과 @MockBean은"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/webflux%EC%9D%98-hot-cold-publisher-%EA%B0%9C%EB%85%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mockito의 Mock, Mockbean 어노테이션의 차이",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4\/"
+        },"genre": "posts","wordcount":  1186 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4\/","datePublished": "2023-01-17T22:09:25+09:00","dateModified": "2023-01-17T22:09:25+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mockito의 Mock, Mockbean 어노테이션의 차이</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-17">2023-01-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1186 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#mock과-mockitomocksomeserviceclass"><code>@Mock</code>과 <code>Mockito.mock(someService.class)</code></a></li>
+    <li><a href="#스프링-부트의-mockbean에-대하여">스프링 부트의 <code>@MockBean</code>에 대하여</a></li>
+    <li><a href="#차이점-정리--언제-무엇을-써야-할까">차이점 정리 : 언제, 무엇을 써야 할까?</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>junit 테스트 수행 도중 <code>@MockBean</code> 어노테이션이 없어서 테스트에 필요한 서비스 의존성 주입에 실패한 트러블 슈팅을 하였다.</p>
+<p>Mockito 라이브러리의 <code>@Mock</code>과 <code>@MockBean</code>은 어떤 차이가 있을까?</p>
+<p><a href="https://stackoverflow.com/questions/44200720/difference-between-mock-mockbean-and-mockito-mock" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/44200720/difference-between-mock-mockbean-and-mockito-mock</a></p>
+<h2 id="mock과-mockitomocksomeserviceclass"><code>@Mock</code>과 <code>Mockito.mock(someService.class)</code></h2>
+<p><code>@Mock</code>과 <code>Mockito.mock(someService.class)</code>는 모두 Mockito 라이브러리의 기능이다.
+클래스나 인터페이스를 mocking하여 행동을 검증하고 기록하기 위한 용도로 사용된다.
+어노테이션인 <code>@Mock</code>은 단지 더 짧기 때문에 더 많이 사용되는 경향이 있다.</p>
+<p>테스트 실행을 위해 Mockito의 <code>@Mock</code> 어노테이션을 사용한다면 테스트 도중에 <code>MockitoAnnotation.initMocks(this)</code> 정적 메서드가 실행된다.</p>
+<p>테스트 간 충돌하는 것을 막기 위해서 테스트 실행 전에 <code>@Before</code> 를 통해서 Mockito 객체의 정적 메서드를 전역으로 사전에 실행하는 것이 권고 된다.</p>
+<p>Mockito 어노테이션을 활성화하는 다른 방법으로는 테스트 클래스를 <code>@Runwith</code> 어노테이션으로 <code>MockitoJUnitRunner</code>로 지정하여 상기의 정적 메서드 외의 다른 유용한 작업도 동시에 할 수 있게 할 수 있다.</p>
+<h2 id="스프링-부트의-mockbean에-대하여">스프링 부트의 <code>@MockBean</code>에 대하여</h2>
+<p><code>@MockBean</code>에 대한 내용은 spring-boot-test 라이브러리 안에 포함되어 있다.
+Mockito의 컴포넌트 mocking을 Spring의 ApplicationContext에 추가할 수 있게 해주는 기능이다.
+추가하려는 대상이 어플리케이션의 컨텍스트에 있다면 해당 빈을 Mock으로 replace(!) 하는 마법과도 같은 작업을 한다.
+만약 추가하려는 대상이 어플리케이션 컨텍스트에 없다면 해당 mock을 컨텍스트에 빈으로 등록한다.</p>
+<h2 id="차이점-정리--언제-무엇을-써야-할까">차이점 정리 : 언제, 무엇을 써야 할까?</h2>
+<p>유닛 테스트는 다른 컴포넌트에 영향을 받지 않는 환경에서 컴포넌트를 테스트하기 위한 목적을 가진다.
+이를 위해서는 개발자의 개인 환경에서 얼마든지 여러 번 거리낌 없이 반복적으로 실행할 수 있도록 빠른 테스트 시간이 충족되어야 한다.</p>
+<p>스프링 부트의 컨테이너의 어떠한 의존성도 필요로 하지 않는 테스트를 작성한다면 클래식하고 plain한 Mockito를 사용하면 된다. 이렇게 된다면 두 가지 장점이 있다.</p>
+<ol>
+<li>필요 없는 인스턴스 생성과 의존성 주입이 일어나지 않기 때문에 테스트를 굉장히 빠르게 만들 수 있다.</li>
+<li>테스트 대상 컴포넌트의 기능에 대한 테스트가 가능하다.</li>
+</ol>
+<p>하지만 만약 스프링 부트 컨테이너에 의존한 테스트를 수행하거나 테스트 도중에 다른 컨테이너 빈을 Mocking해야 한다면 <code>@MockBean</code>을 사용해야 한다.</p>
+<p><code>@MockBean</code>을 사용해야 하는 대표적인 케이스가 <code>@WebMvcTest</code>를 사용한 컨트롤러 컴포넌트 테스트를 수행할 때이다. 테스트 대상 컨트롤러 뿐만 아니라 웹 클라이언트에 대한 의존성도 주입받아야 하기 때문이다. 사실 이 경우에는 컨트롤러 단일 컴포넌트에 대한 완벽한 격리 테스트 환경을 만들기 불가능한 케이스에 보는 것이 맞다는 생각이 든다.</p>
+<p>나는 <code>WebTestClient</code>를 사용한 컨트롤러 테스트를 수행하려 했었는데, <code>@MockBean</code> 을 사용하지 않고 <code>@Mock</code>을 사용했기 때문에 스프링 어플리케이션의 컨텍스트에서 의존성을 찾을 수 없다는 에러 메시지와 함께 테스트가 실행되지 못한 것이었다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-17</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/" data-title="Mockito의 Mock, Mockbean 어노테이션의 차이"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/" data-title="Mockito의 Mock, Mockbean 어노테이션의 차이"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/" data-title="Mockito의 Mock, Mockbean 어노테이션의 차이"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/" data-title="Mockito의 Mock, Mockbean 어노테이션의 차이"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/webflux%EC%9D%98-hot-cold-publisher-%EA%B0%9C%EB%85%90/" class="prev" rel="prev" title="Webflux의 Hot Cold Publisher 개념"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Webflux의 Hot Cold Publisher 개념</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
