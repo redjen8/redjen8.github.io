@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 17 Jan 2023 22:09:25 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 18 Jan 2023 22:30:23 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Javascript의 메모리 구조</title>
+    <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/</link>
+    <pubDate>Wed, 18 Jan 2023 22:30:23 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/</guid>
+    <description><![CDATA[개요 자바스크립트도 자바와 같이 가비지 컬렉션을 지원하는 언어이다. 자동으로 메모리를 관리해준다는 점이 편하긴 하지만 잘못 알고 사용하게 된다면 메모리 leak]]></description>
+</item>
+<item>
     <title>Mockito의 Mock, Mockbean 어노테이션의 차이</title>
     <link>http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/</link>
     <pubDate>Tue, 17 Jan 2023 22:09:25 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/</guid>
     <description><![CDATA[Java에서 MongoDB를 다룰 때에는 여러 update 관련 operation들을 제공해준다. 각각의 operation 들에는 어떤 차이점이 있을까? https://medium.com/geekculture/types-of-update-operations-in-mongodb-using-spring-boot-11d5d4ce88cf save() save() 메서드는 crite]]></description>
-</item>
-<item>
-    <title>동기 비동기 블로킹 논블로킹</title>
-    <link>http://redjen8.github.io/posts/jan2023/%EB%8F%99%EA%B8%B0-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B8%94%EB%A1%9C%ED%82%B9-%EB%85%BC%EB%B8%94%EB%A1%9C%ED%82%B9/</link>
-    <pubDate>Sun, 08 Jan 2023 18:21:00 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/%EB%8F%99%EA%B8%B0-%EB%B9%84%EB%8F%99%EA%B8%B0-%EB%B8%94%EB%A1%9C%ED%82%B9-%EB%85%BC%EB%B8%94%EB%A1%9C%ED%82%B9/</guid>
-    <description><![CDATA[운영체제, 어플리케이션에서는 한정된 리소스를 효율적으로 사용하고 커널 - 어플리케이션 간 통신에서 효율적으로 데이터를 교환하기 위한 몇 가지 방식이 있다. 동기]]></description>
 </item>
 </channel>
 </rss>
