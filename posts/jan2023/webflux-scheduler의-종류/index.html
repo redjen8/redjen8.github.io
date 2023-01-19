@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Webflux Scheduler의 종류 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Webflux Scheduler의 종류" />
+<meta property="og:description" content="Webflux에서는 parallel() 기능을 통해 Flux 등을 ParallelFlux 로 변환하여 쓰레드 간 병렬적으로 작업을 할 수 있도록 지원한다. runOn(someScheduler)는 어떤" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-19T19:24:44+09:00" />
+<meta property="article:modified_time" content="2023-01-19T19:24:44+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Webflux Scheduler의 종류"/>
+<meta name="twitter:description" content="Webflux에서는 parallel() 기능을 통해 Flux 등을 ParallelFlux 로 변환하여 쓰레드 간 병렬적으로 작업을 할 수 있도록 지원한다. runOn(someScheduler)는 어떤"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Webflux Scheduler의 종류",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98\/"
+        },"genre": "posts","wordcount":  1275 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98\/","datePublished": "2023-01-19T19:24:44+09:00","dateModified": "2023-01-19T19:24:44+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Webflux Scheduler의 종류</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-19">2023-01-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1275 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#webflux의-threading-모델">Webflux의 Threading 모델</a></li>
+    <li><a href="#webflux의-scheduler-모델">Webflux의 Scheduler 모델</a>
+      <ul>
+        <li><a href="#schedulersimmediate">Schedulers.immediate()</a></li>
+        <li><a href="#schedulerssingle">Schedulers.single()</a></li>
+        <li><a href="#schedulerselastic">Schedulers.elastic()</a></li>
+        <li><a href="#schedulersboundedelastic">Schedulers.boundedElastic()</a></li>
+        <li><a href="#schedulersparallel">Schedulers.parallel()</a></li>
+        <li><a href="#보다-다양한-스케쥴러-인스턴스-사용">보다 다양한 스케쥴러 인스턴스 사용</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Webflux에서는 <code>parallel()</code> 기능을 통해 <code>Flux</code> 등을 <code>ParallelFlux</code> 로 변환하여 쓰레드 간 병렬적으로 작업을 할 수 있도록 지원한다.
+<code>runOn(someScheduler)</code>는 어떤 역할을 하는지 찾아봤다.</p>
+<p><a href="https://godekdls.github.io/Reactor%20Core/reactorcorefeatures/#45-threading-and-schedulers" target="_blank" rel="noopener noreffer ">https://godekdls.github.io/Reactor%20Core/reactorcorefeatures/#45-threading-and-schedulers</a></p>
+<p><a href="https://www.baeldung.com/spring-webflux-concurrency" target="_blank" rel="noopener noreffer ">3번 봤는데, 앞으로 297번 더 봐야할 정리 글</a></p>
+<h2 id="webflux의-threading-모델">Webflux의 Threading 모델</h2>
+<p>Webflux 기반 웹 어플리케이션에서 임의의 쓰레드를 생성하여 <code>Mono</code>의 처리를 맡기면 어떨까?
+연산자의 대부분은 이전 연산자를 실행했던 쓰레드에서 작업을 계속해 나간다.</p>
+<p>개발자가 별도로 작업할 쓰레드를 지정하지않았다면 최상단의 연산자는 <code>subscribe()</code>를 호출한 쓰레드에서 실행한다.</p>
+<p>즉, Controller - Service - Repository - Service - Controller로 이어지는 데이터 흐름에서, Controller를 통해 이벤트 루프가 지정한 워커 쓰레드가 Repository에서 데이터를 조회하는 메서드를 실행하게 되는 흐름이다.</p>
+<blockquote>
+<p>새 쓰레드를 생성하더라도 <code>subscribe()</code>를 호출하는 쓰레드가 다른 쓰레드라면 모든 콜백함수는 <code>subscribe()</code>를 호출한 쓰레드에서 실행된다.</p>
+</blockquote>
+<h2 id="webflux의-scheduler-모델">Webflux의 Scheduler 모델</h2>
+<p>Webflux에서 코드 실행 모델과 위치는 어떤 Scheduler를 사용했는지에 따라 달라진다.</p>
+<h3 id="schedulersimmediate">Schedulers.immediate()</h3>
+<p>실행 컨텍스트가 없는 경우이다. 제출한 <code>Runnable</code>을 즉시 실행하는 모델이다.</p>
+<p>사실상 현재 쓰레드에서 실행하기 때문에 아무 일도 하지 않는 스케쥴러와 같다.</p>
+<h3 id="schedulerssingle">Schedulers.single()</h3>
+<p>재사용할 수 있는 단일 쓰레드 모델이다. 스케쥴러를 폐기하기 전까지 여러 번 호출해도 이전에 사용했던, 동일한 쓰레드를 재사용한다.</p>
+<p>호출할 때마다 전용 쓰레드를 사용해야 할 필요가 있다면 이 스케쥴러를 사용한다.</p>
+<h3 id="schedulerselastic">Schedulers.elastic()</h3>
+<p>Unbounded 쓰레드 풀을 사용하는 모델이다. backpressure에 대한 이슈를 감추고 너무 많은 쓰레드를 사용하기 때문에 잘 사용하지 않는다. (<code>elastic()</code>은 풀에 생성할 수 있는 쓰레드 수를 제한하지 않는다)</p>
+<p>이 스케쥴러를 사용할 일이 있다면 대신 <code>boundedElastic</code>을 사용한다.</p>
+<h3 id="schedulersboundedelastic">Schedulers.boundedElastic()</h3>
+<p>Bounded 쓰레드 풀을 사용하는 모델이다. 이전의 <code>elastic()</code>처럼 필요한 경우 새 워커 풀을 만들거나 풀에서 여유 있는 쓰레드가 있다면 재사용한다.</p>
+<p>이 워커 풀들은 관리된다. 너무 오랫동안 (default 60초) 유휴상태에 있는 워커 풀이 있다면 폐기한다.</p>
+<p><code>elastic()</code>과는 달리 풀에 생성할 수 있는 쓰레드 개수를 제한한다. (default CPU core # * 10) 쓰레드 개수가 한계점에 다다른 이후에 제출한 작업들은 100,000개까지 큐에 담고 쓰레드에 여유가 생기면 다시 스케쥴링한다.</p>
+<p>보통 블로킹 I/O가 필요한 상황에 사용한다. <code>boundedElastic()</code>을 사용하면 블로킹 프로세스에 대한 별도 쓰레드를 할당할 수 있기 때문에 다른 리소스들이 블로킹 로직에 영향을 받지 않도록 할 수 있다.</p>
+<p>다만 <code>boundedElastic()</code>은 별도의 워커 풀들을 생성해서 작업을 할당시키는 것이기 때문에 너무 많은 쓰레드를 사용할 경우 시스템에 무리를 줄 수 있다. 따라서 사용 시 주의를 요한다.</p>
+<h3 id="schedulersparallel">Schedulers.parallel()</h3>
+<p>고정 크기의 워커 풀을 생성하여 작업을 병렬적으로 실행하는 모델이다. (default CPU Core #)</p>
+<h3 id="보다-다양한-스케쥴러-인스턴스-사용">보다 다양한 스케쥴러 인스턴스 사용</h3>
+<p><code>Schedulers.newParallel(newSchedulerClass)</code> 은 <code>newSchedulerClass</code>라는 이름의 새 병렬 스케쥴러를 생성한다. 경우에 따라 다양한 스케쥴러 인스턴스를 커스터마이징할 수 있으나 시스템 리소스인 쓰레드 / 워커 풀을 직접 제어하는 것이기 때문에 주의를 요한다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/" data-title="Webflux Scheduler의 종류"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/" data-title="Webflux Scheduler의 종류"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/" data-title="Webflux Scheduler의 종류"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/" data-title="Webflux Scheduler의 종류"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/" class="prev" rel="prev" title="Javascript의 메모리 구조"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Javascript의 메모리 구조</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

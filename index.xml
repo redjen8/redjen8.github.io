@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 18 Jan 2023 22:30:23 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 19 Jan 2023 19:24:44 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Webflux Scheduler의 종류</title>
+    <link>http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/</link>
+    <pubDate>Thu, 19 Jan 2023 19:24:44 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/</guid>
+    <description><![CDATA[Webflux에서는 parallel() 기능을 통해 Flux 등을 ParallelFlux 로 변환하여 쓰레드 간 병렬적으로 작업을 할 수 있도록 지원한다. runOn(someScheduler)는 어떤]]></description>
+</item>
+<item>
     <title>Javascript의 메모리 구조</title>
     <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/</link>
     <pubDate>Wed, 18 Jan 2023 22:30:23 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/mono-void%EC%99%80-then%EC%9D%98-%EC%82%AC%EC%9A%A9/</guid>
     <description><![CDATA[deleteMapping으로 리소스를 삭제하는 API들은 .then()을 사용해서 Mono&lt;Void&gt; 를 반환한다. Mono&lt;Void&gt;는 뭐고, 왜 사용]]></description>
-</item>
-<item>
-    <title>Mongodb Update Operations in Java</title>
-    <link>http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/</link>
-    <pubDate>Mon, 09 Jan 2023 19:46:20 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/mongodb-update-operations-in-java/</guid>
-    <description><![CDATA[Java에서 MongoDB를 다룰 때에는 여러 update 관련 operation들을 제공해준다. 각각의 operation 들에는 어떤 차이점이 있을까? https://medium.com/geekculture/types-of-update-operations-in-mongodb-using-spring-boot-11d5d4ce88cf save() save() 메서드는 crite]]></description>
 </item>
 </channel>
 </rss>
