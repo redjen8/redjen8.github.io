@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 19 Jan 2023 19:24:44 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 20 Jan 2023 16:56:13 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Javascript의 This (1)</title>
+    <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-1/</link>
+    <pubDate>Fri, 20 Jan 2023 16:56:13 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-1/</guid>
+    <description><![CDATA[Javascript에서 this 키워드는 다른 언어와 달리 호출한 위치에 따라서 가르키는 대상이 달라진다. 스크립트가 실행 중일 때에는 할당해서 설정할 수 없고, 호출]]></description>
+</item>
+<item>
     <title>Webflux Scheduler의 종류</title>
     <link>http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/</link>
     <pubDate>Thu, 19 Jan 2023 19:24:44 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-%EB%91%90-publisher%EB%A5%BC-%ED%95%A9%EC%B9%A0%EB%95%8C/</guid>
     <description><![CDATA[주로 사용하는 연산자인 concat, merge, zip의 차이점은 무엇일까? http://www.vinsguru.com/reactive-programming-reactor-combining-multiple-sources-of-flux-mono/ concat() concat은 말 그대로 source1의 데이터 뒤에 source2의 데이터를 이어서 합친다.]]></description>
-</item>
-<item>
-    <title>Mono Void와 then()의 사용</title>
-    <link>http://redjen8.github.io/posts/jan2023/mono-void%EC%99%80-then%EC%9D%98-%EC%82%AC%EC%9A%A9/</link>
-    <pubDate>Tue, 10 Jan 2023 20:37:34 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/mono-void%EC%99%80-then%EC%9D%98-%EC%82%AC%EC%9A%A9/</guid>
-    <description><![CDATA[deleteMapping으로 리소스를 삭제하는 API들은 .then()을 사용해서 Mono&lt;Void&gt; 를 반환한다. Mono&lt;Void&gt;는 뭐고, 왜 사용]]></description>
 </item>
 </channel>
 </rss>
