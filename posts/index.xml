@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 20 Jan 2023 16:56:13 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 21 Jan 2023 16:49:14 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Javascript의 This (2)</title>
+    <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-2/</link>
+    <pubDate>Sat, 21 Jan 2023 16:49:14 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-2/</guid>
+    <description><![CDATA[생성자에서의 this 함수가 new 키워드를 통해서 생성자로 사용될 때, this는 새로 생성되는 객체를 가르킨다. 이 때, 생성자 함수가 접근하는 객체가 어떤 객체인지는 상]]></description>
+</item>
+<item>
     <title>Javascript의 This (1)</title>
     <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-1/</link>
     <pubDate>Fri, 20 Jan 2023 16:56:13 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-blocking-%EC%BD%94%EB%93%9C-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EB%B2%95/</guid>
     <description><![CDATA[문제 상황 webflux를 사용하여 reactive한 어플리케이션을 작성하는 것은 어렵다. 어플리케이션의 실행 컨텍스트가 reactive stream인 상태에서 block() 메]]></description>
-</item>
-<item>
-    <title>Webflux에서 두 Publisher를 합칠때</title>
-    <link>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-%EB%91%90-publisher%EB%A5%BC-%ED%95%A9%EC%B9%A0%EB%95%8C/</link>
-    <pubDate>Wed, 11 Jan 2023 22:22:06 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-%EB%91%90-publisher%EB%A5%BC-%ED%95%A9%EC%B9%A0%EB%95%8C/</guid>
-    <description><![CDATA[주로 사용하는 연산자인 concat, merge, zip의 차이점은 무엇일까? http://www.vinsguru.com/reactive-programming-reactor-combining-multiple-sources-of-flux-mono/ concat() concat은 말 그대로 source1의 데이터 뒤에 source2의 데이터를 이어서 합친다.]]></description>
 </item>
 </channel>
 </rss>
