@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 21 Jan 2023 16:49:14 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 22 Jan 2023 22:14:22 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Mongodb State Should Be Open 트러블슈팅</title>
+    <link>http://redjen8.github.io/posts/jan2023/mongodb-state-should-be-open-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</link>
+    <pubDate>Sun, 22 Jan 2023 22:14:22 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/mongodb-state-should-be-open-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</guid>
+    <description><![CDATA[개발 중 JUnit 기반 테스트를 돌리는데 다음과 같은 에러를 마주쳤다. java.lang.IllegalStateException: state should be: open 찾아보다가 좀 허무하게 해결했던 경험이지만 원인을 해결한 과정을 써보려 한다. 원인 원인]]></description>
+</item>
+<item>
     <title>Javascript의 This (2)</title>
     <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-2/</link>
     <pubDate>Sat, 21 Jan 2023 16:49:14 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/</guid>
     <description><![CDATA[Spring data JPA에는 interface repository의 메서드로만 선언하면 메서드의 이름을 보고 해석하여 자동으로 쿼리를 생성해주는 편리한 기능이 있다. 현재 사용 중인 Mo]]></description>
-</item>
-<item>
-    <title>Webflux에서 Blocking 코드 제거하는 법</title>
-    <link>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-blocking-%EC%BD%94%EB%93%9C-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EB%B2%95/</link>
-    <pubDate>Thu, 12 Jan 2023 20:46:49 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%97%90%EC%84%9C-blocking-%EC%BD%94%EB%93%9C-%EC%A0%9C%EA%B1%B0%ED%95%98%EB%8A%94-%EB%B2%95/</guid>
-    <description><![CDATA[문제 상황 webflux를 사용하여 reactive한 어플리케이션을 작성하는 것은 어렵다. 어플리케이션의 실행 컨텍스트가 reactive stream인 상태에서 block() 메]]></description>
 </item>
 </channel>
 </rss>
