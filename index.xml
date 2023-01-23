@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 22 Jan 2023 22:14:22 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 23 Jan 2023 20:47:33 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Java Optional의 메소드</title>
+    <link>http://redjen8.github.io/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/</link>
+    <pubDate>Mon, 23 Jan 2023 20:47:33 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/</guid>
+    <description><![CDATA[Java 8부터 Java를 null safe하게 사용할 수 있게 해주는 Optional의 메소드에 대해 정리해봤다. https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html 객체를 Optional로 래핑 of와 ofNull]]></description>
+</item>
+<item>
     <title>Mongodb State Should Be Open 트러블슈팅</title>
     <link>http://redjen8.github.io/posts/jan2023/mongodb-state-should-be-open-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</link>
     <pubDate>Sun, 22 Jan 2023 22:14:22 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/</guid>
     <description><![CDATA[Mono의 몇 가지 instantiation 방법들 간에는 어떤 차이가 있을까? https://stackoverflow.com/questions/56115447/mono-defer-vs-mono-create-vs-mono-just Mono.just() Mono.just는 Mono를 생성하는 가장 primitive한 방법이다. 객체를 그냥 Mon]]></description>
-</item>
-<item>
-    <title>Spring Data Jpa의 Query생성</title>
-    <link>http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/</link>
-    <pubDate>Fri, 13 Jan 2023 18:21:15 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/spring-data-jpa%EC%9D%98-query%EC%83%9D%EC%84%B1/</guid>
-    <description><![CDATA[Spring data JPA에는 interface repository의 메서드로만 선언하면 메서드의 이름을 보고 해석하여 자동으로 쿼리를 생성해주는 편리한 기능이 있다. 현재 사용 중인 Mo]]></description>
 </item>
 </channel>
 </rss>
