@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 23 Jan 2023 20:47:33 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 24 Jan 2023 20:00:40 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Spring Lazy Initialization</title>
+    <link>http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/</link>
+    <pubDate>Tue, 24 Jan 2023 20:00:40 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/</guid>
+    <description><![CDATA[Spring boot 2에서는 Spring bean에 Lazy Initialization을 적용할 수 있도록 지원한다. Lazy initialization이 무엇인지, 어떨 때 사용해야 하는]]></description>
+</item>
+<item>
     <title>Java Optional의 메소드</title>
     <link>http://redjen8.github.io/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/</link>
     <pubDate>Mon, 23 Jan 2023 20:47:33 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/</guid>
     <description><![CDATA[오라클 19 데이터베이스 개발 가이드 - 데이터베이스 어플리케이션의 커넥션 전략 개요 웹 어플리케이션에서 데이터베이스를 연결할 때에는 TCP 통신을 기반으로 한 데이터]]></description>
-</item>
-<item>
-    <title>Mono의 여러가지 생성방법</title>
-    <link>http://redjen8.github.io/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/</link>
-    <pubDate>Sat, 14 Jan 2023 00:01:54 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/mono%EC%9D%98-%EC%97%AC%EB%9F%AC%EA%B0%80%EC%A7%80-%EC%83%9D%EC%84%B1%EB%B0%A9%EB%B2%95/</guid>
-    <description><![CDATA[Mono의 몇 가지 instantiation 방법들 간에는 어떤 차이가 있을까? https://stackoverflow.com/questions/56115447/mono-defer-vs-mono-create-vs-mono-just Mono.just() Mono.just는 Mono를 생성하는 가장 primitive한 방법이다. 객체를 그냥 Mon]]></description>
 </item>
 </channel>
 </rss>

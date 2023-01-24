@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spring Lazy Initialization - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Spring Lazy Initialization" />
+<meta property="og:description" content="Spring boot 2에서는 Spring bean에 Lazy Initialization을 적용할 수 있도록 지원한다. Lazy initialization이 무엇인지, 어떨 때 사용해야 하는" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-24T20:00:40+09:00" />
+<meta property="article:modified_time" content="2023-01-24T20:00:40+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Lazy Initialization"/>
+<meta name="twitter:description" content="Spring boot 2에서는 Spring bean에 Lazy Initialization을 적용할 수 있도록 지원한다. Lazy initialization이 무엇인지, 어떨 때 사용해야 하는"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring Lazy Initialization",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/spring-lazy-initialization\/"
+        },"genre": "posts","wordcount":  1009 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/spring-lazy-initialization\/","datePublished": "2023-01-24T20:00:40+09:00","dateModified": "2023-01-24T20:00:40+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Spring Lazy Initialization</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-24">2023-01-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1009 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#스프링-프레임워크에서의-싱글턴-패턴">스프링 프레임워크에서의 싱글턴 패턴</a></li>
+    <li><a href="#lazy-initialization-vs-eager-initialization">Lazy initialization vs Eager initialization</a></li>
+    <li><a href="#lazy-어노테이션">@Lazy 어노테이션</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Spring boot 2에서는 Spring bean에 Lazy Initialization을 적용할 수 있도록 지원한다.
+Lazy initialization이 무엇인지, 어떨 때 사용해야 하는지 정리해봤다.</p>
+<p><a href="https://www.baeldung.com/spring-lazy-annotation" target="_blank" rel="noopener noreffer ">https://www.baeldung.com/spring-lazy-annotation</a></p>
+<h2 id="스프링-프레임워크에서의-싱글턴-패턴">스프링 프레임워크에서의 싱글턴 패턴</h2>
+<p>스프링은 모든 싱글턴 빈들을 어플리케이션 컨텍스트가 초기화되고 부트스트랩되는 기간에 eager하게 생성하는 것이 default 설정이다.</p>
+<p>런타임에 싱글턴 빈들을 생성하게 된다면 부트스트랩 시간에 미리 예방할 수 있는 에러를 피할 수 없기 때문에 기본값으로는 lazy가 아닌 eager하게 빈들을 생성하는 것이다.</p>
+<h2 id="lazy-initialization-vs-eager-initialization">Lazy initialization vs Eager initialization</h2>
+<p>싱글턴 패턴은 객체를 단 한번 생성하는 것을 원칙으로 한다.</p>
+<p>여기서 문제가 발생하게 되는데, <strong>그럼 객체는 언제 생성해야 할까?</strong>
+객체가 꼭 필요하게 되는 시점에 생성하는 것이 Lazy initialization,
+객체가 필요하지 않아도 초기에 전부 생성하는 것이 Eager initialization이다.</p>
+<p>Lazy initialization을 사용한다면 당장 사용하지 않을 객체에 대해 메모리를 사용하지 않아도 되므로 리소스적인 면에서 경제적이다. 다만 나중에 빈을 생성하게 되면 빈 생성 시점의 초기 설정 값에 이상이 있어도 부트스트랩 시간이 아닌 어플리케이션의 런타임에 이를 알 수 있다는 단점이 있다.</p>
+<p>때문에 많은 경우 생성 비용과 관리가 비싼 객체는 Lazy하게 생성하는 것이 이득이다.</p>
+<h2 id="lazy-어노테이션">@Lazy 어노테이션</h2>
+<p><a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Lazy.html" target="_blank" rel="noopener noreffer ">https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Lazy.html</a></p>
+<p>스프링 프레임워크에서는 스프링 빈에 대해 편리하게 어노테이션을 통한 Lazy initialization을 지원한다. 즉 <code>@Component</code> 나 <code>@Bean</code> 어노테이션이 아니라면 스프링이 그 생명 주기를 관리할 수 없기 때문에 해당 객체는 Eager하게 초기화 된다.</p>
+<p><code>@Bean</code> 어노테이션이 붙은 스프링 빈 객체는 다른 빈에 의해 참조되거나 명시적으로 <code>BeanFactory</code>에 의해 생성되지 않는다면 초기화되지 않는다.</p>
+<p><code>@Bean</code> 어노테이션이 <code>@Configuration</code> 클래스와 같이 사용될 경우, 모든 <code>@Configuration</code>안에 들어 있는 모든 <code>@Bean</code>의 메서드들이 lazy하게 초기화된다.</p>
+<p>컴포넌트의 초기화 시점 설정 외에도 <code>@Lazy</code> 어노테이션은 <code>@Autowired</code>나 <code>@Inject</code> 로 마킹된 의존성 주입 포인트들에서도 사용될 수 있다. 해당 컨텍스트 안에서 <code>@Lazy</code> 어노테이션은 모든 의존성에 대한 lazy-resolution 프록시를 생성한다.</p>
+<p>이 lazy-resolution 프록시는 항상 의존성이 주입된다. 만약 대상 의존성이 존재하지 않는다면 실행 중에 발생하는 예외를 통해서만 대상을 알 수 있기 때문이다.</p>
+<p>결과적으로 의존성 주입의 포인트들은 선택적 의존성에 대한 직관적이지 않은 행동을 불러 일으킬 수 있다. 만약 프로그래밍적으로 lazy initialization을 통해 동일한 기능적 이득을 얻고자 한다면 <code>ObjectProvider</code>를 사용하는 것이 좋다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/" data-title="Spring Lazy Initialization"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/" data-title="Spring Lazy Initialization"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/" data-title="Spring Lazy Initialization"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/" data-title="Spring Lazy Initialization"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/" class="prev" rel="prev" title="Java Optional의 메소드"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Optional의 메소드</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
