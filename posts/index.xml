@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 24 Jan 2023 20:00:40 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 25 Jan 2023 20:32:27 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Javascript Spread Operator에 대해</title>
+    <link>http://redjen8.github.io/posts/jan2023/javascript-spread-operator%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Wed, 25 Jan 2023 20:32:27 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/javascript-spread-operator%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[개요 Typescript로 Map&lt;string, someObject&gt; 형태의 데이터를 가공하며 고민을 해봤던 기록이다. 아래 코드는 someObject 안의 boolean 타입 필드로 필터링한 데이터의 키 값을 배열로 가져오기 위]]></description>
+</item>
+<item>
     <title>Spring Lazy Initialization</title>
     <link>http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/</link>
     <pubDate>Tue, 24 Jan 2023 20:00:40 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/webflux%EC%9D%98-hot-cold-publisher-%EA%B0%9C%EB%85%90/</guid>
     <description><![CDATA[https://www.vinsguru.com/reactor-hot-publisher-vs-cold-publisher/ Reactor에는 두 가지 Publisher 인터페이스의 구현체가 있다. Mono와 Flux. 두 구현체 모두 비동기적으로 데이터를 쏴주지만, Flux는 0~N개의 원소를, Mo]]></description>
-</item>
-<item>
-    <title>Database Connection Storm이란?</title>
-    <link>http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/</link>
-    <pubDate>Sun, 15 Jan 2023 21:39:49 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/database-connection-storm%EC%9D%B4%EB%9E%80/</guid>
-    <description><![CDATA[오라클 19 데이터베이스 개발 가이드 - 데이터베이스 어플리케이션의 커넥션 전략 개요 웹 어플리케이션에서 데이터베이스를 연결할 때에는 TCP 통신을 기반으로 한 데이터]]></description>
 </item>
 </channel>
 </rss>
