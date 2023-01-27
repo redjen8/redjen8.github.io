@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 26 Jan 2023 22:31:19 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 27 Jan 2023 18:42:46 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java의 Threadlocal</title>
+    <link>http://redjen8.github.io/posts/jan2023/java%EC%9D%98-threadlocal/</link>
+    <pubDate>Fri, 27 Jan 2023 18:42:46 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/java%EC%9D%98-threadlocal/</guid>
+    <description><![CDATA[Java의 ThreadLocal에 대해 알아보았다. https://www.baeldung.com/java-threadlocal ThreadLocal API란? ThreadLocal은 특정 쓰레드에서만 접근할 수 있는 데이터를 저장할 수 있도록 도]]></description>
+</item>
+<item>
     <title>Typescript에서 Any를 쓰면 안되는 이유</title>
     <link>http://redjen8.github.io/posts/jan2023/typescript%EC%97%90%EC%84%9C-any%EB%A5%BC-%EC%93%B0%EB%A9%B4-%EC%95%88%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0/</link>
     <pubDate>Thu, 26 Jan 2023 22:31:19 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/</guid>
     <description><![CDATA[개요 자바스크립트도 자바와 같이 가비지 컬렉션을 지원하는 언어이다. 자동으로 메모리를 관리해준다는 점이 편하긴 하지만 잘못 알고 사용하게 된다면 메모리 leak]]></description>
-</item>
-<item>
-    <title>Mockito의 Mock, Mockbean 어노테이션의 차이</title>
-    <link>http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/</link>
-    <pubDate>Tue, 17 Jan 2023 22:09:25 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/mockito-mock-mockbean-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98%EC%9D%98-%EC%B0%A8%EC%9D%B4/</guid>
-    <description><![CDATA[junit 테스트 수행 도중 @MockBean 어노테이션이 없어서 테스트에 필요한 서비스 의존성 주입에 실패한 트러블 슈팅을 하였다. Mockito 라이브러리의 @Mock과 @MockBean은]]></description>
 </item>
 </channel>
 </rss>
