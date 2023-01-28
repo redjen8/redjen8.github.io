@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Webflux 알고 써야 하는 몇 가지 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Webflux 알고 써야 하는 몇 가지" />
+<meta property="og:description" content="PR 커멘트 받았던 내용 중 Webflux를 정말로 잘 사용하기 위해서는 알아야 할 것들에 대해 정리한 내용입니다. 공식 문서 flatMap은 컨텍스트 스위칭을 야기" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-01-28T21:36:19+09:00" />
+<meta property="article:modified_time" content="2023-01-28T21:36:19+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Webflux 알고 써야 하는 몇 가지"/>
+<meta name="twitter:description" content="PR 커멘트 받았던 내용 중 Webflux를 정말로 잘 사용하기 위해서는 알아야 할 것들에 대해 정리한 내용입니다. 공식 문서 flatMap은 컨텍스트 스위칭을 야기"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/java%EC%9D%98-threadlocal/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Webflux 알고 써야 하는 몇 가지",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80\/"
+        },"genre": "posts","wordcount":  792 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80\/","datePublished": "2023-01-28T21:36:19+09:00","dateModified": "2023-01-28T21:36:19+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Webflux 알고 써야 하는 몇 가지</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-28">2023-01-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;792 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#flatmap은-컨텍스트-스위칭을-야기할-수-있다"><code>flatMap</code>은 컨텍스트 스위칭을 야기할 수 있다</a></li>
+    <li><a href="#monozip은-롤백이-필요한-트랜잭션-상황에서-정상적으로-작동하지-않는-경우가-있다"><code>Mono.zip</code>은 롤백이 필요한 트랜잭션 상황에서 정상적으로 작동하지 않는 경우가 있다</a></li>
+    <li><a href="#결론">결론</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>PR 커멘트 받았던 내용 중 Webflux를 정말로 잘 사용하기 위해서는 알아야 할 것들에 대해 정리한 내용입니다.</p>
+<p><a href="https://projectreactor.io/docs/core/release/reference/#faq" target="_blank" rel="noopener noreffer ">공식 문서</a></p>
+<h2 id="flatmap은-컨텍스트-스위칭을-야기할-수-있다"><code>flatMap</code>은 컨텍스트 스위칭을 야기할 수 있다</h2>
+<p><a href="https://techblog.woowahan.com/2673/" target="_blank" rel="noopener noreffer ">https://techblog.woowahan.com/2673/</a></p>
+<p>위 글에서도 언급되었듯 <code>flatMap</code>은 단순히 데이터의 depth를 flatten하는 용도로 사용되는 것뿐만 아니라 <code>map</code>과는 달리 asynchronous하게 함수를 적용시킨다.</p>
+<p>즉 <code>flatMap</code>을 사용하게 되면 시그널을 다른 event loop group에 넘기는 과정에서 컨텍스트 스위칭 비용을 요구한다.</p>
+<p>또한 <code>flatMap</code> 사용의 depth가 늘어나는 것도 주의해야 한다. inner flatMap 사용은 의도하지 않은 동작을 유발시킬 가능성이 있다.</p>
+<p>때문에 단순히 객체의 값을 수정하거나 타입을 변환할 때 항상 <code>flatMap</code>을 통해 해결하려 하는 접근은 성능을 떨어뜨리고, webflux를 제대로 사용하지 않는 방식이다.</p>
+<h2 id="monozip은-롤백이-필요한-트랜잭션-상황에서-정상적으로-작동하지-않는-경우가-있다"><code>Mono.zip</code>은 롤백이 필요한 트랜잭션 상황에서 정상적으로 작동하지 않는 경우가 있다</h2>
+<p>우선, <code>Mono.zip</code>은 인자에 들어간 <code>Mono</code> 작업들이 완료되면 하나의 <code>Tuple</code> 객체로 묶어서 체이닝할 수 있도록 리턴해주는 메서드이다.</p>
+<p><code>Mono.zip</code>은 각각의 <code>Mono</code> 작업이 병렬적으로 처리되도록 할 수 있기 때문에 병렬처리에서 얻을 수 있는 이득이 크다면 유용하다. 반면 병렬 처리에서 얻을 수 있는 이득이 적다면 굳이 사용할 필요가 없다. <code>Tuples.of()</code>를 사용하는 것이 낫다.</p>
+<p>그런데 <code>transactional</code> 처리 시 첫 실행에 <code>Mono.zip</code>의 사용이 context를 잃어버리게 할 수 있다는 리포트가 있는 것 같다.</p>
+<p><a href="https://github.com/spring-projects/spring-framework/issues/28782" target="_blank" rel="noopener noreffer ">https://github.com/spring-projects/spring-framework/issues/28782</a></p>
+<p><code>transactional</code> 사용 시에는</p>
+<ul>
+<li>첫 실행에서 <code>Mono.zip</code>을 사용하지 않고</li>
+<li>transaction number를 최초 데이터 처리에서 받아</li>
+<li>context에서 가질 수 있도록 하는 것이 좋다.</li>
+</ul>
+<h2 id="결론">결론</h2>
+<p>나는 <code>flatMap</code>으로 펼친 데이터를 다시 <code>Mono.zip</code>으로 묶어서 리턴하였는데, 지금 생각해보면 유의해야 할 점만 모은 방법으로 문제를 해결했던 것이었다.. ㅋㅋ</p>
+<p>항상 코드를 작성할 때에는 내 코드가 하는 일에 대해 명확하게 인지한 상태에서 작성하는 것이 중요한 것 같다.</p>
+<p>그래서 webflux가 너무 어렵다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-01-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/" data-title="Webflux 알고 써야 하는 몇 가지"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/" data-title="Webflux 알고 써야 하는 몇 가지"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/" data-title="Webflux 알고 써야 하는 몇 가지"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/" data-title="Webflux 알고 써야 하는 몇 가지"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jan2023/java%EC%9D%98-threadlocal/" class="prev" rel="prev" title="Java의 Threadlocal"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java의 Threadlocal</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

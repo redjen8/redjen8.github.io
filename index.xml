@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 27 Jan 2023 18:42:46 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 28 Jan 2023 21:36:19 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Webflux 알고 써야 하는 몇 가지</title>
+    <link>http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/</link>
+    <pubDate>Sat, 28 Jan 2023 21:36:19 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/</guid>
+    <description><![CDATA[PR 커멘트 받았던 내용 중 Webflux를 정말로 잘 사용하기 위해서는 알아야 할 것들에 대해 정리한 내용입니다. 공식 문서 flatMap은 컨텍스트 스위칭을 야기]]></description>
+</item>
+<item>
     <title>Java의 Threadlocal</title>
     <link>http://redjen8.github.io/posts/jan2023/java%EC%9D%98-threadlocal/</link>
     <pubDate>Fri, 27 Jan 2023 18:42:46 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/</guid>
     <description><![CDATA[Webflux에서는 parallel() 기능을 통해 Flux 등을 ParallelFlux 로 변환하여 쓰레드 간 병렬적으로 작업을 할 수 있도록 지원한다. runOn(someScheduler)는 어떤]]></description>
-</item>
-<item>
-    <title>Javascript의 메모리 구조</title>
-    <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/</link>
-    <pubDate>Wed, 18 Jan 2023 22:30:23 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-%EB%A9%94%EB%AA%A8%EB%A6%AC-%EA%B5%AC%EC%A1%B0/</guid>
-    <description><![CDATA[개요 자바스크립트도 자바와 같이 가비지 컬렉션을 지원하는 언어이다. 자동으로 메모리를 관리해준다는 점이 편하긴 하지만 잘못 알고 사용하게 된다면 메모리 leak]]></description>
 </item>
 </channel>
 </rss>
