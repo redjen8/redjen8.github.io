@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 28 Jan 2023 21:36:19 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 29 Jan 2023 16:28:08 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Spring Security 개요</title>
+    <link>http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/</link>
+    <pubDate>Sun, 29 Jan 2023 16:28:08 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/</guid>
+    <description><![CDATA[리액티브 기반 스프링 웹 어플리케이션에서 스프링 시큐리티는 어떻게 동작할까? 그런데 서블릿 기반의 스프링 시큐리티도 잘 모르기 때문에, 먼저 서블릿 기반의 스프링]]></description>
+</item>
+<item>
     <title>Webflux 알고 써야 하는 몇 가지</title>
     <link>http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/</link>
     <pubDate>Sat, 28 Jan 2023 21:36:19 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-1/</guid>
     <description><![CDATA[Javascript에서 this 키워드는 다른 언어와 달리 호출한 위치에 따라서 가르키는 대상이 달라진다. 스크립트가 실행 중일 때에는 할당해서 설정할 수 없고, 호출]]></description>
-</item>
-<item>
-    <title>Webflux Scheduler의 종류</title>
-    <link>http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/</link>
-    <pubDate>Thu, 19 Jan 2023 19:24:44 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/webflux-scheduler%EC%9D%98-%EC%A2%85%EB%A5%98/</guid>
-    <description><![CDATA[Webflux에서는 parallel() 기능을 통해 Flux 등을 ParallelFlux 로 변환하여 쓰레드 간 병렬적으로 작업을 할 수 있도록 지원한다. runOn(someScheduler)는 어떤]]></description>
 </item>
 </channel>
 </rss>
