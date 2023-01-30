@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 29 Jan 2023 16:28:08 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 30 Jan 2023 19:43:38 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>앵귤러의 의존성 주입</title>
+    <link>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/</link>
+    <pubDate>Mon, 30 Jan 2023 19:43:38 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/</guid>
+    <description><![CDATA[의존성 주입 개요 https://angular.kr/guide/dependency-injection 앵귤러 프레임워크에서는 스프링에서처럼 의존성 주입의 개념을 지원한다. 앵귤러 프레임워크가 제공하는 컴포넌트, 디렉티브, 파이프, 데코레]]></description>
+</item>
+<item>
     <title>Spring Security 개요</title>
     <link>http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/</link>
     <pubDate>Sun, 29 Jan 2023 16:28:08 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-2/</guid>
     <description><![CDATA[생성자에서의 this 함수가 new 키워드를 통해서 생성자로 사용될 때, this는 새로 생성되는 객체를 가르킨다. 이 때, 생성자 함수가 접근하는 객체가 어떤 객체인지는 상]]></description>
-</item>
-<item>
-    <title>Javascript의 This (1)</title>
-    <link>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-1/</link>
-    <pubDate>Fri, 20 Jan 2023 16:56:13 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/javascript%EC%9D%98-this-1/</guid>
-    <description><![CDATA[Javascript에서 this 키워드는 다른 언어와 달리 호출한 위치에 따라서 가르키는 대상이 달라진다. 스크립트가 실행 중일 때에는 할당해서 설정할 수 없고, 호출]]></description>
 </item>
 </channel>
 </rss>
