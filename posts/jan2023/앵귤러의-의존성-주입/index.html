@@ -16,7 +16,7 @@
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/" /><link rel="prev" href="http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/" /><link rel="next" href="http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%9E%90%EC%8B%9D-%EB%B6%80%EB%AA%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/redjen8.github.io\/posts\/jan2023\/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85\/"
-        },"genre": "posts","wordcount":  878 ,
+        },"genre": "posts","wordcount":  896 ,
         "url": "http:\/\/redjen8.github.io\/posts\/jan2023\/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85\/","datePublished": "2023-01-30T19:43:38+09:00","dateModified": "2023-01-30T19:43:38+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
@@ -69,7 +69,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">앵귤러의 의존성 주입</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-30">2023-01-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;878 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-01-30">2023-01-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;896 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -87,7 +87,7 @@
             </div><div class="content" id="content"><h2 id="의존성-주입-개요">의존성 주입 개요</h2>
 <p><a href="https://angular.kr/guide/dependency-injection" target="_blank" rel="noopener noreffer ">https://angular.kr/guide/dependency-injection</a></p>
 <p>앵귤러 프레임워크에서는 스프링에서처럼 의존성 주입의 개념을 지원한다.
-앵귤러 프레임워크가 제공하는 컴포넌트, 디렉티브, 파이프, 데코레이터를 사용해서 원하는 곳과 연결 가능</p>
+앵귤러 프레임워크가 제공하는 컴포넌트, 디렉티브, 파이프, 데코레이터를 사용해서 원하는 곳과 연결 가능하다.</p>
 <h2 id="인젝터">인젝터</h2>
 <p>의존성 객체가 요청되면</p>
 <ul>
@@ -105,11 +105,11 @@
 </ul>
 </li>
 </ul>
-<p>앵귤러는 어플리케이션 부트스트랩 시 root 인젝터 (앱 전역이 스코프)를 생성
-필요할 때마다 하위 계층에 인젝터 생성
-일반적으로 인젝터를 개발자가 직접 생성하지는 않음 (프레임워크 레벨에서 관리)</p>
+<p>앵귤러는 어플리케이션 부트스트랩 시 root 인젝터 (앱 전역이 스코프)를 생성한다.
+이후 필요할 때마다 하위 계층에 인젝터 생성.</p>
+<p>일반적으로 인젝터를 개발자가 직접 생성하지는 않는다. (프레임워크 레벨에서 관리)</p>
 <h2 id="의존성-등록">의존성 등록</h2>
-<p>의존성 주입의 대상이 되는 클래스에 <code>@Injectable</code> 데코레이터 추가해야 함</p>
+<p>의존성 주입의 대상이 되는 클래스에 <code>@Injectable</code> 데코레이터 추가해야 함.</p>
 <p>의존성 주입의 방법에는 크게 3가지</p>
 <ol>
 <li>컴포넌트 계층에서 의존성 주입
@@ -134,14 +134,14 @@
 </li>
 </ol>
 <h2 id="의존성-객체-주입하기">의존성 객체 주입하기</h2>
-<p>가장 많이 사용하는 방법은 <strong>클래스 생성자에서 의존성 객체를 요청</strong>하는 것
+<p>가장 많이 사용하는 방법은 <strong>클래스 생성자에서 의존성 객체를 요청</strong>하는 것이다.
 앵귤러는 컴포넌트, 디렉티브, 파이프 클래스의 인스턴스 생성 시</p>
 <ul>
 <li>생성자에 등록된 객체의 타입을 보고</li>
 <li>어떤 의존성 객체가 필요한지 결정</li>
 </ul>
-<p>프레임워크가 생성자의 등록된 파라미터들을 보고 어떤 의존성 객체가 필요한지 결정(스프링에서처럼 생성자를 통해 의존성을 주입하는 것이 일반적)
-이 때 서비스 인스턴스가 존재하지 않으면</p>
+<p>프레임워크가 생성자의 등록된 파라미터들을 보고 어떤 의존성 객체가 필요한지 결정한다.(스프링에서처럼 생성자를 통해 의존성을 주입하는 것이 일반적)</p>
+<p>이 때 서비스 인스턴스가 존재하지 않으면</p>
 <ul>
 <li>인젝터가 등록된 프로바이더로 인스턴스 생성</li>
 <li>해당 인스턴스를 인젝터에 추가</li>
@@ -168,7 +168,8 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/" class="prev" rel="prev" title="Spring Security 개요"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Spring Security 개요</a></div>
+    <div class="post-nav"><a href="/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/" class="prev" rel="prev" title="Spring Security 개요"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Spring Security 개요</a>
+            <a href="/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%9E%90%EC%8B%9D-%EB%B6%80%EB%AA%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/" class="next" rel="next" title="앵귤러 자식 부모 컴포넌트 간 데이터 전달">앵귤러 자식 부모 컴포넌트 간 데이터 전달<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 </article></div>
             </main><footer class="footer">
