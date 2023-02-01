@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 31 Jan 2023 21:08:03 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 01 Feb 2023 19:46:57 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>앵귤러의 모듈과 컴포넌트</title>
+    <link>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</link>
+    <pubDate>Wed, 01 Feb 2023 19:46:57 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</guid>
+    <description><![CDATA[앵귤러를 사용해서 개발하던 중.. 모듈과 컴포넌트의 정확한 차이가 뭔지 궁금해져서 찾아보았다. https://medium.com/swlh/angular-component-vs-module-b8c7347c604e Module 모든 앵귤러 어플리케이션은 AppModule이라 부르는]]></description>
+</item>
+<item>
     <title>앵귤러 자식 부모 컴포넌트 간 데이터 전달</title>
     <link>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%9E%90%EC%8B%9D-%EB%B6%80%EB%AA%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/</link>
     <pubDate>Tue, 31 Jan 2023 21:08:03 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/</guid>
     <description><![CDATA[Java 8부터 Java를 null safe하게 사용할 수 있게 해주는 Optional의 메소드에 대해 정리해봤다. https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html 객체를 Optional로 래핑 of와 ofNull]]></description>
-</item>
-<item>
-    <title>Mongodb State Should Be Open 트러블슈팅</title>
-    <link>http://redjen8.github.io/posts/jan2023/mongodb-state-should-be-open-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</link>
-    <pubDate>Sun, 22 Jan 2023 22:14:22 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/mongodb-state-should-be-open-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</guid>
-    <description><![CDATA[개발 중 JUnit 기반 테스트를 돌리는데 다음과 같은 에러를 마주쳤다. java.lang.IllegalStateException: state should be: open 찾아보다가 좀 허무하게 해결했던 경험이지만 원인을 해결한 과정을 써보려 한다. 원인 원인]]></description>
 </item>
 </channel>
 </rss>
