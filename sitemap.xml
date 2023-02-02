@@ -2,8 +2,9 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-02-01T19:46:57&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2023-02-01T19:46:57&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-1/</loc><lastmod>2023-02-02T22:28:57&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-02-02T22:28:57&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2023-02-02T22:28:57&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</loc><lastmod>2023-02-01T19:46:57&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%9E%90%EC%8B%9D-%EB%B6%80%EB%AA%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/</loc><lastmod>2023-01-31T21:08:03&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/</loc><lastmod>2023-01-30T19:43:38&#43;09:00</lastmod></url><url>

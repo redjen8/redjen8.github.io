@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 01 Feb 2023 19:46:57 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 02 Feb 2023 22:28:57 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Kubernetes Anti Pattern 1</title>
+    <link>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-1/</link>
+    <pubDate>Thu, 02 Feb 2023 22:28:57 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-1/</guid>
+    <description><![CDATA[리더님께서 공유해주신 글을 정리하고 되새기는 용도로 정리했다. https://betterprogramming.pub/10-antipatterns-for-kubernetes-deployments-e97ce1199f2d 글이 좀 오래되긴 했지만 (3년 전) 근본적으로 내가 올바르게 쿠버네티스를 사용하고 있는가?에]]></description>
+</item>
+<item>
     <title>앵귤러의 모듈과 컴포넌트</title>
     <link>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</link>
     <pubDate>Wed, 01 Feb 2023 19:46:57 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/</guid>
     <description><![CDATA[Spring boot 2에서는 Spring bean에 Lazy Initialization을 적용할 수 있도록 지원한다. Lazy initialization이 무엇인지, 어떨 때 사용해야 하는]]></description>
-</item>
-<item>
-    <title>Java Optional의 메소드</title>
-    <link>http://redjen8.github.io/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/</link>
-    <pubDate>Mon, 23 Jan 2023 20:47:33 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/java-optional%EC%9D%98-%EB%A9%94%EC%86%8C%EB%93%9C/</guid>
-    <description><![CDATA[Java 8부터 Java를 null safe하게 사용할 수 있게 해주는 Optional의 메소드에 대해 정리해봤다. https://docs.oracle.com/javase/8/docs/api/java/util/Optional.html 객체를 Optional로 래핑 of와 ofNull]]></description>
 </item>
 </channel>
 </rss>
