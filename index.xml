@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 02 Feb 2023 22:28:57 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 03 Feb 2023 16:05:34 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Kubernetes Anti Pattern 2</title>
+    <link>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-2/</link>
+    <pubDate>Fri, 03 Feb 2023 16:05:34 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-2/</guid>
+    <description><![CDATA[6. 업데이트나 수정 사항들을 파드를 죽여서 재시작 과정에서 새 도커 이미지를 받아오도록 하는 배포 방식을 사용하는 것 latest 태그를 사용해서 업데이트를 하는 것과 마찬가지]]></description>
+</item>
+<item>
     <title>Kubernetes Anti Pattern 1</title>
     <link>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-1/</link>
     <pubDate>Thu, 02 Feb 2023 22:28:57 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/javascript-spread-operator%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[개요 Typescript로 Map&lt;string, someObject&gt; 형태의 데이터를 가공하며 고민을 해봤던 기록이다. 아래 코드는 someObject 안의 boolean 타입 필드로 필터링한 데이터의 키 값을 배열로 가져오기 위]]></description>
-</item>
-<item>
-    <title>Spring Lazy Initialization</title>
-    <link>http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/</link>
-    <pubDate>Tue, 24 Jan 2023 20:00:40 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/spring-lazy-initialization/</guid>
-    <description><![CDATA[Spring boot 2에서는 Spring bean에 Lazy Initialization을 적용할 수 있도록 지원한다. Lazy initialization이 무엇인지, 어떨 때 사용해야 하는]]></description>
 </item>
 </channel>
 </rss>
