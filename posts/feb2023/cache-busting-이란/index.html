@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Cache Busting 이란 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Cache Busting 이란" />
+<meta property="og:description" content="Cache Busting이란 무엇이고, 왜 발생할까? https://www.keycdn.com/support/what-is-cache-busting 정적 파일을 빠르게 제공하기 위해 고려할 수 있는 여러 방법 중 하나는 캐시이고, 실제로 많은 서비스들에서 빠르게 정" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-04T20:42:10+09:00" />
+<meta property="article:modified_time" content="2023-02-04T20:42:10+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Cache Busting 이란"/>
+<meta name="twitter:description" content="Cache Busting이란 무엇이고, 왜 발생할까? https://www.keycdn.com/support/what-is-cache-busting 정적 파일을 빠르게 제공하기 위해 고려할 수 있는 여러 방법 중 하나는 캐시이고, 실제로 많은 서비스들에서 빠르게 정"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-2/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Cache Busting 이란",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/cache-busting-%EC%9D%B4%EB%9E%80\/"
+        },"genre": "posts","wordcount":  1351 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/cache-busting-%EC%9D%B4%EB%9E%80\/","datePublished": "2023-02-04T20:42:10+09:00","dateModified": "2023-02-04T20:42:10+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Cache Busting 이란</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-04">2023-02-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1351 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#cache-busting이란-무엇이고-왜-발생할까">Cache Busting이란 무엇이고, 왜 발생할까?</a></li>
+    <li><a href="#왜-그리고-어떻게-cache-busting을-사용할까">왜, 그리고 어떻게 Cache busting을 사용할까?</a></li>
+    <li><a href="#cdn을-통해-cache-busting-사용하기">CDN을 통해 Cache busting 사용하기</a></li>
+    <li><a href="#예시">예시</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="cache-busting이란-무엇이고-왜-발생할까">Cache Busting이란 무엇이고, 왜 발생할까?</h2>
+<p><a href="https://www.keycdn.com/support/what-is-cache-busting" target="_blank" rel="noopener noreffer ">https://www.keycdn.com/support/what-is-cache-busting</a></p>
+<p>정적 파일을 빠르게 제공하기 위해 고려할 수 있는 여러 방법 중 하나는 캐시이고, 실제로 많은 서비스들에서 빠르게 정적 파일을 제공하기 위해 캐싱을 사용한다. 정적 파일이 캐시되는 케이스에서는 캐시가 만료되기 전까지 해당 파일은 오랜 기간 동안 저장될 수 있다.</p>
+<p>사이트를 업데이트할 경우에는 캐시된 버전의 파일이 사용자의 브라우저에 저장되어 있기 때문에 사용자는 변경한 내용을 즉각적으로 볼 수 없다. 웹 사이트가 브라우저 캐시를 기본적으로 사용하도록 구성되어 있기 때문에, 사용자의 브라우저가 정적 리소스의 캐시된 복사본을 로컬에 저장하기 때문이다.</p>
+<p>Cache busting은 유니크한 파일 버전 식별자를 사용하여 브라우저에게 새 파일 버전이 가용하다는 것을 알려줌으로써 브라우저 캐시 이슈를 해결한다.</p>
+<h2 id="왜-그리고-어떻게-cache-busting을-사용할까">왜, 그리고 어떻게 Cache busting을 사용할까?</h2>
+<p>Cache busting은 사용자들에게 가장 최근에 업데이트된 파일을 받도록 허용하여 브라우저 캐시를 비우는 강력 새로고침을 하지 않아도 되기 때문에 유용하다. 개발자의 관점에서 바라보면 cache busting을 사용하는 것은 가장 최근의 변경 사항이 실제로 모두에게 보여지게 될 것이기 때문에 좋다.</p>
+<p>Cache busting을 사용할 수 있는 몇 가지 방법들은 아래와 같다.</p>
+<ol>
+<li>파일 이름 버저닝 (<code>style.v2.css</code>)</li>
+<li>파일 경로 버저닝 (<code>v2/style.css</code>)</li>
+<li>쿼리 스트링 (<code>style.css?ver=2</code>)</li>
+</ol>
+<p>Cache busting을 사용할 때에는 파일 이름 버저닝과 파일 경로 버저닝을 사용하는 것이 권고된다. 캐싱 메커니즘을 방해하지 않으면서도 변경된 파일을 쉽게 반영할 수 있기 때문이다.</p>
+<p>하지만 쿼리 스트링 방법은 몇 가지 캐싱 이슈를 일으키는 것으로 알려져 있다.</p>
+<ul>
+<li>어떤 프록시나 CDN들은 쿼리 스트링이 포함된 파일을 캐시하지 않고, 사용하지 않는 것을 권고한다.</li>
+<li>사이트에 대한 속도 테스트를 수행할 때 쿼리 스트링들을 삭제하는 것이 권고된다.</li>
+</ul>
+<blockquote>
+<p>따라서 cache busting을 사용할 때에는 파일 이름이나 파일 경로 버저닝을 사용해야 한다.</p>
+</blockquote>
+<p>둘 중 어떤 방법을 사용하더라도, 파일 이름이나 경로가 변경된 이후에는 해당 참조를 사용하는 HTML 파일 또한 업데이트해야 한다는 것을 잊지 말아야 한다.</p>
+<h2 id="cdn을-통해-cache-busting-사용하기">CDN을 통해 Cache busting 사용하기</h2>
+<p>파일 이름이나 경로 버저닝을 통해 사용한다면 CDN을 cache busting과 함께 사용할 때 따로 설정할 것이 없다.</p>
+<p>하지만 쿼리 스트링을 사용해서 cache busting을 사용한다면 몇 가지 옵션들을 설정해야 한다.</p>
+<p>쿼리 스트링을 사용한 cache busting을 사용한다면 CDN에게 해당 요청 안에는 어떤 쿼리 스트링도 존재하지 않는 것처럼 보라고 미리 말해줘야 한다.
+그렇지 않으면 CDN이 쿼리 스트링이 변경되어도 캐시된 버전의 리소스를 반환할 것이기 때문이다.</p>
+<p>해당 설정이 꺼져있다면 CDN은 모든 쿼리 스트링 바리에이션에 대해 각각 별도의 파일로 보게 된다.</p>
+<h2 id="예시">예시</h2>
+<ol>
+<li>CSS 파일이 있고, 해당 타입의 파일은 1년 이후에 만료되도록 설정했다고 가정하자. 이 말은 곧 이 파일이 한번 사용자의 브라우저의 로컬에 캐시된 이후에는 1년 동안 오리진 서버에 대해 업데이트가 있는지 체크하지 않겠다는 의미이다.</li>
+<li>3달 후에 <code>style.css</code> 파일을 수정해야 하는 일이 생겼다. 변경 사항을 만들고 서버에 동일한 이름으로 재업로드하면 브라우저는 차이를 알아채지 못하고 원래 자신이 가지고 있던 <code>style.css</code> 파일을 서빙한다.</li>
+<li>Cache busting을 사용하면 <code>style.v2.css</code>와 같은 다른 이름의 파일을 재업로드하게 될 것이다. 때문에 한번 페이지의 HTML 파일을 수정 사항을 반영하도록 수정하면 브라우저가 새로운 파일을 받아야 한다는 것을 그제서야 알게 되고 새롭게 업데이트된 파일을 받아 사용한다.</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" data-title="Cache Busting 이란"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" data-title="Cache Busting 이란"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" data-title="Cache Busting 이란"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" data-title="Cache Busting 이란"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/feb2023/kubernetes-anti-pattern-2/" class="prev" rel="prev" title="Kubernetes Anti Pattern 2"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Kubernetes Anti Pattern 2</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 03 Feb 2023 16:05:34 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 04 Feb 2023 20:42:10 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Cache Busting 이란</title>
+    <link>http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/</link>
+    <pubDate>Sat, 04 Feb 2023 20:42:10 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/</guid>
+    <description><![CDATA[Cache Busting이란 무엇이고, 왜 발생할까? https://www.keycdn.com/support/what-is-cache-busting 정적 파일을 빠르게 제공하기 위해 고려할 수 있는 여러 방법 중 하나는 캐시이고, 실제로 많은 서비스들에서 빠르게 정]]></description>
+</item>
+<item>
     <title>Kubernetes Anti Pattern 2</title>
     <link>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-2/</link>
     <pubDate>Fri, 03 Feb 2023 16:05:34 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/typescript%EC%97%90%EC%84%9C-any%EB%A5%BC-%EC%93%B0%EB%A9%B4-%EC%95%88%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0/</guid>
     <description><![CDATA[타입스크립트는 코드를 작성할 때 자바스크립트와는 달리 올바른 타입을 사용하도록 강제한다. 그런데, 타입스크립트에는 any라는 특별한 타입이 존재한다. an]]></description>
-</item>
-<item>
-    <title>Javascript Spread Operator에 대해</title>
-    <link>http://redjen8.github.io/posts/jan2023/javascript-spread-operator%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Wed, 25 Jan 2023 20:32:27 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/javascript-spread-operator%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[개요 Typescript로 Map&lt;string, someObject&gt; 형태의 데이터를 가공하며 고민을 해봤던 기록이다. 아래 코드는 someObject 안의 boolean 타입 필드로 필터링한 데이터의 키 값을 배열로 가져오기 위]]></description>
 </item>
 </channel>
 </rss>
