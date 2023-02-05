@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Optional Chaining 이란 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Optional Chaining 이란" />
+<meta property="og:description" content="자바스크립트를 사용해서 개발하다보면 undefined나 null에 대한 검사를 계속해서 하게 되는 경우가 많다. 좀 더 편하게 nullish 한지 체크하기 위해서 Optional Cha" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-05T13:53:44+09:00" />
+<meta property="article:modified_time" content="2023-02-05T13:53:44+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Optional Chaining 이란"/>
+<meta name="twitter:description" content="자바스크립트를 사용해서 개발하다보면 undefined나 null에 대한 검사를 계속해서 하게 되는 경우가 많다. 좀 더 편하게 nullish 한지 체크하기 위해서 Optional Cha"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Optional Chaining 이란",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/optional-chaining-%EC%9D%B4%EB%9E%80\/"
+        },"genre": "posts","wordcount":  900 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/optional-chaining-%EC%9D%B4%EB%9E%80\/","datePublished": "2023-02-05T13:53:44+09:00","dateModified": "2023-02-05T13:53:44+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Optional Chaining 이란</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-05">2023-02-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;900 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#기본-사용법">기본 사용법</a></li>
+    <li><a href="#의의와-동작">의의와 동작</a>
+      <ul>
+        <li><a href="#함수의-호출과-optional-chaining">함수의 호출과 Optional chaining</a></li>
+        <li><a href="#표현식에서의-optional-chaining">표현식에서의 Optional chaining</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>자바스크립트를 사용해서 개발하다보면 <code>undefined</code>나 <code>null</code>에 대한 검사를 계속해서 하게 되는 경우가 많다.
+좀 더 편하게 <code>nullish</code> 한지 체크하기 위해서 Optional Chaining이란 개념을 알게 되었다.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining</a></p>
+<h2 id="기본-사용법">기본 사용법</h2>
+<p>Optional chaining은 <code>?.</code> 연산자를 사용한다.</p>
+<p><code>.</code> 체이닝 연산자와 유사하게 작동하지만, 이전 참조가 <code>null</code> 또는 <code>undefined</code> 일 경우에는</p>
+<ul>
+<li>에러가 발생하는 것 대신 (<code>.</code> 연산자를 사용할 경우)</li>
+<li>표현식의 리턴 값을 <code>undefined</code>로 바꾼다.</li>
+<li>함수 호출에서 주어진 함수가 존재하지 않는 경우 <code>undefined</code>를 리턴한다.</li>
+</ul>
+<p>선언되지 않은 루트 객체에 <code>?.</code>를 사용할 수는 없지만, 정의되지 않은 루트 객체에는 사용할 수 있다.</p>
+<h2 id="의의와-동작">의의와 동작</h2>
+<p>Optional Chaining 연산자는 참조가 기능이 <code>nullish</code>일 수 있을 때 사용하며, 연결된 객체의 값에 접근해서 에러를 발생하는 대신 단순화하는 방법을 제공하는 것에 의의가 있다.</p>
+<p>중첩된 구조를 가진 객체 <code>obj</code>가 다음과 같이 사용된다고 가정하자.
+<code>let nestedProp = obj.first &amp;&amp; obj.first.second;</code></p>
+<p><code>obj.first</code> 값은 <code>obj.first.second</code> 값에 접근하기 전에 <code>null</code>이 아니라는 것을 검증히기 위한 코드이다.
+만약 <code>obj.first</code> 값에 대한 nullish 테스트 없이 사용할 때 발생할 수 있는 에러를 막기 위한 코드인 것이다.</p>
+<p>위 예제는 optional chaining을 사용하지 않은 케이스이다. 만약 optional chaining을 사용한다면 아래와 같이 바뀔 수 있다.
+<code>let nestedProp = obj.first?.second;</code></p>
+<p><code>.</code> 대신에 <code>?.</code> 연산자를 사용해서 <code>obj.first.second</code>에 접근하기 전에 <code>obj.first</code> 상태에 따라 명시적으로 nullish를 테스트하지 않아도 된다는 간편함이 있다.
+<code>obj.first</code>가 <code>null</code> 또는 <code>undefined</code>이라면 <code>obj.first.second</code> 표현식은 자동으로 <code>undefined</code>가 된다.</p>
+<h3 id="함수의-호출과-optional-chaining">함수의 호출과 Optional chaining</h3>
+<p>존재하지 않는 함수를 호출할 때 optional chaining을 사용할 수 있다.
+함수 호출에서 optional chaining을 사용하면 찾을 수 없는 함수에 대해 에러를 발생시키지 않고 자동으로 <code>undefined</code>를 반환하도록 할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doSomething</span>(<span style="color:#a6e22e">onContent</span>, <span style="color:#a6e22e">onError</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 특정 작업 수행
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">onError</span>) { <span style="color:#75715e">// onError가 실제로 존재할 때의 테스트
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">onError</span>(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">message</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>위 코드는 Optional chaining을 사용한다면 아래와 같이 바뀔 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">doSomething</span>(<span style="color:#a6e22e">onContent</span>, <span style="color:#a6e22e">onError</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 특정 작업 수행
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">err</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">onError</span><span style="color:#f92672">?</span>.(<span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">message</span>); <span style="color:#75715e">// onError가 undefined여도 에러가 발생하지 않음
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="표현식에서의-optional-chaining">표현식에서의 Optional chaining</h3>
+<p>아래 예시처럼 optional chaining 연산자를 속성의 표현식으로 접근할 때 대괄호 표기법을 사용할 수 있다.
+<code>let nestedProp = obj?.['prop' + 'Name'];</code></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-05</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/" data-title="Optional Chaining 이란"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="http://redjen8.github.io/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/" data-title="Optional Chaining 이란"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/" data-title="Optional Chaining 이란"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/" data-title="Optional Chaining 이란"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/" class="prev" rel="prev" title="Cache Busting 이란"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Cache Busting 이란</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
