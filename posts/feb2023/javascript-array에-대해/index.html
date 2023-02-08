@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Javascript Array에 대해 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Javascript Array에 대해" />
+<meta property="og:description" content="배열은 모든 프로그래밍 언어에서 사용하는 가장 기본적인 자료구조이다. 그런데 자바스크립트에서의 배열은 다른 언어들과는 약간 다른 면모를 보이는데&helli" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-08T20:37:53+09:00" />
+<meta property="article:modified_time" content="2023-02-08T20:37:53+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Javascript Array에 대해"/>
+<meta name="twitter:description" content="배열은 모든 프로그래밍 언어에서 사용하는 가장 기본적인 자료구조이다. 그런데 자바스크립트에서의 배열은 다른 언어들과는 약간 다른 면모를 보이는데&helli"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/javascript-dollar-sign%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Javascript Array에 대해",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4\/"
+        },"genre": "posts","wordcount":  2778 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4\/","datePublished": "2023-02-08T20:37:53+09:00","dateModified": "2023-02-08T20:37:53+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Javascript Array에 대해</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-08">2023-02-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2778 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#배열이란">배열이란</a></li>
+    <li><a href="#자바스크립트에서의-배열-객체">자바스크립트에서의 배열 객체</a>
+      <ul>
+        <li><a href="#dense-array">Dense Array</a></li>
+        <li><a href="#sparse-array">Sparse Array</a></li>
+      </ul>
+    </li>
+    <li><a href="#자바스크립트의-array가-특별하게-만들어진-이유">자바스크립트의 Array가 특별하게 만들어진 이유</a>
+      <ul>
+        <li><a href="#메모리-구조에-따른-상이한-동작">메모리 구조에 따른 상이한 동작?</a></li>
+        <li><a href="#최적화에-대한-단상">최적화에 대한 단상</a></li>
+      </ul>
+    </li>
+    <li><a href="#typed-array에-대해">Typed Array에 대해</a>
+      <ul>
+        <li><a href="#typed-array란">Typed Array란</a></li>
+        <li><a href="#typed-array의-아키텍쳐">Typed Array의 아키텍쳐</a></li>
+        <li><a href="#typed-array-views">Typed Array Views</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>배열은 모든 프로그래밍 언어에서 사용하는 가장 기본적인 자료구조이다.
+그런데 자바스크립트에서의 배열은 다른 언어들과는 약간 다른 면모를 보이는데&hellip;</p>
+<p><a href="https://blog.devgenius.io/arrays-and-array-in-javascript-345b4f87a232" target="_blank" rel="noopener noreffer ">https://blog.devgenius.io/arrays-and-array-in-javascript-345b4f87a232</a></p>
+<h2 id="배열이란">배열이란</h2>
+<blockquote>
+<p>배열은 성질이 동일한 구성 요소들을 고정 크기만큼 모아놓은 집합이다.</p>
+</blockquote>
+<p>배열은 다음과 같은 특징들을 가지고 있다.</p>
+<ul>
+<li>배열은 미리 정의된 고정 크기를 가질 수 있다.</li>
+<li>배열 안의 모든 원소들은 동일한 데이터 타입을 가진다.</li>
+<li>모든 원소들은 0부터 시작해서 N-1으로 끝나는 인덱스를 할당 받는다. (N은 배열의 크기)</li>
+<li>배열은 연속된 메모리 공간을 사용할 수 있다. (아닌 경우도 있다)</li>
+<li>삽입과 랜덤 액세스에 O(1) 시간 복잡도를 가진다.</li>
+<li>삭제와 검색에 O(N) 시간 복잡도를 가진다.</li>
+</ul>
+<h2 id="자바스크립트에서의-배열-객체">자바스크립트에서의 배열 객체</h2>
+<p>자바스크립트에서의 배열은 좀 다르다. 리스트처럼 생긴 전역 객체이다.</p>
+<blockquote>
+<p>자바스크립트에서의 배열은 C나 자바에서처럼 연속된 메모리 공간을 가지는, primitive한 배열 자료구조를 가지는 것처럼 생겼지만, 실제로는 해시 테이블을 구현한 API이다. (!)</p>
+</blockquote>
+<p>자바스크립트의 배열은 일반적으로 생각하는 &lsquo;배열&rsquo;이라고 보기엔 다음과 같은 특성을 가지기 때문에 좀 다르다.</p>
+<ul>
+<li>가변 길이를 가진다. 초기 크기 설정을 할 수도 있지만, 필수는 아니다.</li>
+<li>동일한 배열 안에 서로 다른 데이터 타입을 가지는 원소들이 들어갈 수 있다.</li>
+<li>자바스크립트는 dense array와, sparse array 모두 지원한다.</li>
+</ul>
+<h3 id="dense-array">Dense Array</h3>
+<p>Dense Array는 연속된 메모리 블럭을 할당 받는 배열이다.</p>
+<h3 id="sparse-array">Sparse Array</h3>
+<p>Sparse Array는 연속된 메모리 블럭을 할당받지 않을 수 있는 배열이다.</p>
+<h2 id="자바스크립트의-array가-특별하게-만들어진-이유">자바스크립트의 Array가 특별하게 만들어진 이유</h2>
+<p>Sparse array를 지원하면</p>
+<ol>
+<li>고정된 배열 크기를 가지지 않고</li>
+<li>다양한 데이터 타입을 한 배열 내에 담읋 수 있고</li>
+<li>무엇보다 메모리 활용을 효율적으로 할 수 있기 때문이다.</li>
+</ol>
+<p>아래의 코드는 어떻게 동작할까?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>];
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">50</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">50</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">41</span>]);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">length</span>);
+</span></span></code></pre></div><p><code>arr[41]</code>은 <code>undefined</code>, <code>arr.length</code>는 51을 출력한다.
+또 3부터 49까지의 원소들에 대해서는 모두 <code>undefined</code>를 출력한다.</p>
+<p>위 예제에서, 자바스크립트는 절대로 선언되지 않은 3부터 49까지의 인덱스에 대해 메모리를 할당하지 않는다.
+<code>let arr = new Array(100000)</code> 으로 10만의 크기를 가진 배열을 선언해도, 실제로는 아무런 메모리를 할당하지 않는 것이다.</p>
+<p>자바스크립트의 배열은 객체이다. (사실 primitive한 값을 제외한 자바스크립트의 모든 것은 객체이다. 심지어는 함수도!) <code>let arr = new Array(100000)</code>은 <code>Array</code> 객체 내부의 length 속성을 10만으로만 설정한다. 사용하지 않는 원소들에 대한 메모리를 할당하지 않음으로써 메모리 사용량을 현저히 아낄 수 있다는 장점이 있다. 또 자바스크립트의 배열은 가변 길이를 가지기 때문에 실제로는 <code>let arr = new Array(100000)</code> 처럼 사용할 필요가 하나도 없다.</p>
+<p>그럼 <code>arr.length</code>는 왜 51일까?
+자바스크립트는 선언되지 않은 인덱스에 대해서는 &lsquo;구멍을 뚫음으로써&rsquo; 인덱스를 consistent하게 유지한다. 이 편이 개발하는 입장에서는 더 편하기도 하다.</p>
+<h3 id="메모리-구조에-따른-상이한-동작">메모리 구조에 따른 상이한 동작?</h3>
+<p>자바스크립트의 배열은 저장하는 것이 어떤 것인지에 따라 내부 동작이 조금 상이하다.</p>
+<p><a href="https://stackoverflow.com/questions/20321047/how-are-javascript-arrays-represented-in-physical-memory" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/20321047/how-are-javascript-arrays-represented-in-physical-memory</a></p>
+<ul>
+<li>배열에 할당된 primitive한 값을 변경해도 값 별로 저장되기 때문에 배열에 저장된 값은 변하지 않는다.</li>
+<li>하지만 배열에 할당된 객체를 변경하면 해당 배열이 저장하고 있는 객체에 변경 내용이 반영된다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;John&#34;</span> };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">isBool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">obj</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">isBool</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>]); <span style="color:#75715e">// {name: &#34;John&#34;}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>]); <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">40</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">isBool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">0</span>]); <span style="color:#75715e">// {name: &#34;John&#34;, age: 40}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">1</span>]); <span style="color:#75715e">// true
+</span></span></span></code></pre></div><h3 id="최적화에-대한-단상">최적화에 대한 단상</h3>
+<p>지금까지 알아봤듯이 자바스크립트의 배열은 sparse 할 수 있다. 그렇다면 <code>delete</code> 를 통해서 배열의 원소를 삭제하면 어떻게 될까?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">arr</span> <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>];
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>); <span style="color:#75715e">// [1, 2, 3, 4, 5]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">delete</span> <span style="color:#a6e22e">arr</span>[<span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">arr</span>); <span style="color:#75715e">// [1, 2, 4, 5]
+</span></span></span></code></pre></div><p>예상했듯이, 1 다음에는 2가 오지만 (숫자 2가 아닌 2번째 원소를 삭제했기 때문에) 그 사이의 메모리는 비어있게 된다.</p>
+<p>자바스크립트의 배열은 그 특성 때문에 엔진이 최적화를 시도하는 대상이지만 이렇게 삭제나 중간 삽입 등의 연산으로 인해 메모리가 여기저기 흩어지게 되면 &ndash;</p>
+<h4 id="branch-prediction">Branch Prediction</h4>
+<p><a href="https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array</a></p>
+<p>여담이지만 10년 가까이 되는 기간 동안 스택 오버 플로우를 봤지만 이렇게 많은 수의 vote는 보지 못했다.</p>
+<p>결론만 놓고 말하면 흩어진 메모리를 찾기 위해서 메모리의 이 곳 저 곳을 쑤시며 돌아다니는 행위는 확률적으로 일어날 확률이 적기 때문에, 패턴 예측 기반으로 이루어지는 컴파일러 단에서의 최적화가 되기 어렵다.</p>
+<p>자바스크립트의 배열은 sparse array를 지원하지만 성능 상 이점이 있는 것은 분명 dense array이다. 그럼에도 불구하고 왜 자바스크립트가 sparse array를 지원하느냐? 성능 상 이점을 가지는 대신 유연함과 확장성을 가지는 것이 우선시되었기 때문이다. 나는 이것이 자바스크립트 기저에 깔린 철학이라고 생각한다..</p>
+<h2 id="typed-array에-대해">Typed Array에 대해</h2>
+<p>자바스크립트를 다른 언어의 배열처럼 연속된 메모리를 할당하기 위해서는 TypedArray를 사용해야 한다.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays</a></p>
+<h3 id="typed-array란">Typed Array란</h3>
+<blockquote>
+<p>메모리 버퍼에 들어 있는 raw 이진 데이터를 읽고 쓰는 메커니즘을 제공하는, &lsquo;배열처럼 보이는&rsquo; 객체이다.</p>
+</blockquote>
+<p>배열 객체는 위에서 설명했듯이 모든 자바스크립트의 값을 담고, 담을 수 있는 개수에도 제한이 없다.</p>
+<p>자바스크립트 엔진은 이런 배열이 빠르게 동작할 수 있도록 최적화를 수행하지만, 웹 어플리케이션이 수행하는 역할이 점점 커지고 교환해야 할 데이터 자체도 다양하고 커지게 되었다. (오디오나 비디오, 웹 소켓을 사용한 raw data에의 접근 등)</p>
+<p>때문에 자바스크립트 코드에서 빠르고 쉽게 이진 데이터를 접근할 수요가 생기게 되었고, typed array를 탄생시켰다.</p>
+<p>Typed array는 많은 면에서 배열과 비슷하지만, 일반 배열과 혼동되지 않기 위해 <code>Array.isArray()</code> 값을 false로 가진다. 또한, push와 pop처럼 일반 배열에서 지원하는 모든 함수들이 사용가능한 것은 아니다.</p>
+<h3 id="typed-array의-아키텍쳐">Typed Array의 아키텍쳐</h3>
+<p>자바스크립트의 Typed Array는 효율성과 유연성을 극대화 시키기 위해 버퍼와 뷰로 쪼개어 구현되었다.</p>
+<ul>
+<li>버퍼는 (<code>ArrayBuffer</code> 객체로 구현되는) 데이터 덩어리를 표현하는 객체이다.
+<ul>
+<li>내부에 접근하는 메커니즘을 제공하지 않는다.</li>
+<li>버퍼 안에 있는 메모리를 접근하기 위해서는 뷰의 도움이 필요하다.</li>
+</ul>
+</li>
+<li>뷰는 데이터를 접근하기 위한 컨텍스트를 제공한다.
+<ul>
+<li>데이터 타입, 데이터 시작 오프셋, 원소의 개수 등이 뷰에 해당된다.</li>
+<li>뷰는 버퍼에 저장된 데이터를 실제로 typed array로 만드는 역할을 수행한다.</li>
+</ul>
+</li>
+</ul>
+<h4 id="arraybuffer">ArrayBuffer</h4>
+<p><code>ArrayBuffer</code>는 범용적이고 고정된 크기의 이진 데이터 버퍼를 표현하기 위한 데이터 타입이다. <code>ArrayBuffer</code> 안에 있는 내용을 직접 조정하는 것은 불가능하며, <code>DataView</code>를 생성해서 내용물을 읽고 쓸 수 있다.</p>
+<h3 id="typed-array-views">Typed Array Views</h3>
+<p>Typed array의 뷰들은 자명한 (self-descriptive) 이름을 가지고, 범용적으로 많이 사용하는 숫자 타입인 <code>Int8</code>, <code>Uint32</code>, <code>Float64</code>와 같은 타입을 지원한다.</p>
+<h4 id="dataview">DataView</h4>
+<p><code>DataView</code>는 버퍼에 임의의 데이터를 쓰기 위한 getter / setter API를 제공하는 로우 레벨 인터페이스이다. <code>DataView</code>는 서로 다른 데이터를 다룰 때 유용하며, 이외에도 아래와 같은 특징을 가진다.</p>
+<ul>
+<li>Typed Array의 뷰는 플랫폼의 엔디안을 따른다.  (인텔은 리틀 엔디안, 구형 Mac은 빅 엔디안 등)</li>
+<li><code>DataView</code>를 통해 사용하는 엔디안을 조정할 수 있다.
+<ul>
+<li>기본적으로는 빅 엔디안을 사용하고, getter / setter 함수를 통해 리틀 엔디안으로 설정될 수 있다.</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Javascript Array에 대해"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Javascript Array에 대해"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Javascript Array에 대해"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/feb2023/javascript-dollar-sign%EC%97%90-%EB%8C%80%ED%95%B4/" class="prev" rel="prev" title="Javascript Dollar Sign에 대해"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Javascript Dollar Sign에 대해</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 07 Feb 2023 23:00:00 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 08 Feb 2023 20:37:53 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Javascript Array에 대해</title>
+    <link>http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Wed, 08 Feb 2023 20:37:53 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[배열은 모든 프로그래밍 언어에서 사용하는 가장 기본적인 자료구조이다. 그런데 자바스크립트에서의 배열은 다른 언어들과는 약간 다른 면모를 보이는데&helli]]></description>
+</item>
+<item>
     <title>Javascript Dollar Sign에 대해</title>
     <link>http://redjen8.github.io/posts/feb2023/javascript-dollar-sign%EC%97%90-%EB%8C%80%ED%95%B4/</link>
     <pubDate>Tue, 07 Feb 2023 23:00:00 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/</guid>
     <description><![CDATA[리액티브 기반 스프링 웹 어플리케이션에서 스프링 시큐리티는 어떻게 동작할까? 그런데 서블릿 기반의 스프링 시큐리티도 잘 모르기 때문에, 먼저 서블릿 기반의 스프링]]></description>
-</item>
-<item>
-    <title>Webflux 알고 써야 하는 몇 가지</title>
-    <link>http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/</link>
-    <pubDate>Sat, 28 Jan 2023 21:36:19 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/webflux-%EC%95%8C%EA%B3%A0-%EC%8D%A8%EC%95%BC-%ED%95%98%EB%8A%94-%EB%AA%87-%EA%B0%80%EC%A7%80/</guid>
-    <description><![CDATA[PR 커멘트 받았던 내용 중 Webflux를 정말로 잘 사용하기 위해서는 알아야 할 것들에 대해 정리한 내용입니다. 공식 문서 flatMap은 컨텍스트 스위칭을 야기]]></description>
 </item>
 </channel>
 </rss>
