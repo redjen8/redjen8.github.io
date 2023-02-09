@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 08 Feb 2023 20:37:53 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 09 Feb 2023 22:50:28 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Python의 Array와 List</title>
+    <link>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-array%EC%99%80-list/</link>
+    <pubDate>Thu, 09 Feb 2023 22:50:28 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-array%EC%99%80-list/</guid>
+    <description><![CDATA[어제는 Javascript의 배열에 대해 알아봤었는데, 파이썬의 List도 여러 타입의 데이터가 들어갈 수 있었던 것 같아 추가적으로 찾아보다 보니 재밌는 점이]]></description>
+</item>
+<item>
     <title>Javascript Array에 대해</title>
     <link>http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/</link>
     <pubDate>Wed, 08 Feb 2023 20:37:53 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/</guid>
     <description><![CDATA[의존성 주입 개요 https://angular.kr/guide/dependency-injection 앵귤러 프레임워크에서는 스프링에서처럼 의존성 주입의 개념을 지원한다. 앵귤러 프레임워크가 제공하는 컴포넌트, 디렉티브, 파이프, 데코레]]></description>
-</item>
-<item>
-    <title>Spring Security 개요</title>
-    <link>http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/</link>
-    <pubDate>Sun, 29 Jan 2023 16:28:08 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/spring-security-%EA%B0%9C%EC%9A%94/</guid>
-    <description><![CDATA[리액티브 기반 스프링 웹 어플리케이션에서 스프링 시큐리티는 어떻게 동작할까? 그런데 서블릿 기반의 스프링 시큐리티도 잘 모르기 때문에, 먼저 서블릿 기반의 스프링]]></description>
 </item>
 </channel>
 </rss>
