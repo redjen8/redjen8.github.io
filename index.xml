@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 10 Feb 2023 21:34:36 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 11 Feb 2023 00:03:56 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Transfer Encoding에 대해</title>
+    <link>http://redjen8.github.io/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Sat, 11 Feb 2023 00:03:56 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[여느 때와 다름 없이 개발을 하던 중, ERR_CONTENT_LENGTH_MISMATCH 에러를 만나게 되었다. 찾아보니 response header의 content-length와 실제 body로 오는 응답의 길이가 상이]]></description>
+</item>
+<item>
     <title>Python의 __Init__</title>
     <link>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-__init__/</link>
     <pubDate>Fri, 10 Feb 2023 21:34:36 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</guid>
     <description><![CDATA[앵귤러를 사용해서 개발하던 중.. 모듈과 컴포넌트의 정확한 차이가 뭔지 궁금해져서 찾아보았다. https://medium.com/swlh/angular-component-vs-module-b8c7347c604e Module 모든 앵귤러 어플리케이션은 AppModule이라 부르는]]></description>
-</item>
-<item>
-    <title>앵귤러 자식 부모 컴포넌트 간 데이터 전달</title>
-    <link>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%9E%90%EC%8B%9D-%EB%B6%80%EB%AA%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/</link>
-    <pubDate>Tue, 31 Jan 2023 21:08:03 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%9E%90%EC%8B%9D-%EB%B6%80%EB%AA%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/</guid>
-    <description><![CDATA[https://angular.kr/guide/inputs-outputs 앵귤러에서 @Input, @Output 데코레이터를 사용하면 부모 / 자식 컴포넌트 간 데이터를 전달할 수 있다. 부모 -&gt; 자식 데이터 전달 @Input 데코레이터를 사용해서 부모 컴포넌트에서 자식]]></description>
 </item>
 </channel>
 </rss>
