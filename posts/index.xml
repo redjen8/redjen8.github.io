@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 09 Feb 2023 22:50:28 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 10 Feb 2023 21:34:36 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Python의 __Init__</title>
+    <link>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-__init__/</link>
+    <pubDate>Fri, 10 Feb 2023 21:34:36 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-__init__/</guid>
+    <description><![CDATA[파이썬에서도 클래스를 활용한 객체 지향 프로그래밍을 할 수 있다. 그런데 __init__함수가 계속 눈에 보인다. 이 함수는 어떤 역할을 할까? https://stackoverflow.com/questions/625083/what-do-init-and-self-do-in-python __init__ 함수의 역할 파]]></description>
+</item>
+<item>
     <title>Python의 Array와 List</title>
     <link>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-array%EC%99%80-list/</link>
     <pubDate>Thu, 09 Feb 2023 22:50:28 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%9E%90%EC%8B%9D-%EB%B6%80%EB%AA%A8-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EA%B0%84-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%A0%84%EB%8B%AC/</guid>
     <description><![CDATA[https://angular.kr/guide/inputs-outputs 앵귤러에서 @Input, @Output 데코레이터를 사용하면 부모 / 자식 컴포넌트 간 데이터를 전달할 수 있다. 부모 -&gt; 자식 데이터 전달 @Input 데코레이터를 사용해서 부모 컴포넌트에서 자식]]></description>
-</item>
-<item>
-    <title>앵귤러의 의존성 주입</title>
-    <link>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/</link>
-    <pubDate>Mon, 30 Jan 2023 19:43:38 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/jan2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EC%9D%98%EC%A1%B4%EC%84%B1-%EC%A3%BC%EC%9E%85/</guid>
-    <description><![CDATA[의존성 주입 개요 https://angular.kr/guide/dependency-injection 앵귤러 프레임워크에서는 스프링에서처럼 의존성 주입의 개념을 지원한다. 앵귤러 프레임워크가 제공하는 컴포넌트, 디렉티브, 파이프, 데코레]]></description>
 </item>
 </channel>
 </rss>
