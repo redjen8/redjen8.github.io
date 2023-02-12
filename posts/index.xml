@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 11 Feb 2023 00:03:56 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 12 Feb 2023 20:58:31 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Connection Timeout과 Read Timeout의 차이</title>
+    <link>http://redjen8.github.io/posts/feb2023/connection-timeout%EA%B3%BC-read-timeout%EC%9D%98-%EC%B0%A8%EC%9D%B4/</link>
+    <pubDate>Sun, 12 Feb 2023 20:58:31 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/connection-timeout%EA%B3%BC-read-timeout%EC%9D%98-%EC%B0%A8%EC%9D%B4/</guid>
+    <description><![CDATA[Connection Timeout 과 Read Timeout은 서비스 설계에 가장 기초적이면서도, 큰 영향을 줄 수 있는 인프라 레벨의 설정 값들이다. 기본적으로 가장 앞단 서버 또는 로드 밸런서에 적용]]></description>
+</item>
+<item>
     <title>Transfer Encoding에 대해</title>
     <link>http://redjen8.github.io/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/</link>
     <pubDate>Sat, 11 Feb 2023 00:03:56 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-1/</guid>
     <description><![CDATA[리더님께서 공유해주신 글을 정리하고 되새기는 용도로 정리했다. https://betterprogramming.pub/10-antipatterns-for-kubernetes-deployments-e97ce1199f2d 글이 좀 오래되긴 했지만 (3년 전) 근본적으로 내가 올바르게 쿠버네티스를 사용하고 있는가?에]]></description>
-</item>
-<item>
-    <title>앵귤러의 모듈과 컴포넌트</title>
-    <link>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</link>
-    <pubDate>Wed, 01 Feb 2023 19:46:57 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC%EC%9D%98-%EB%AA%A8%EB%93%88%EA%B3%BC-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</guid>
-    <description><![CDATA[앵귤러를 사용해서 개발하던 중.. 모듈과 컴포넌트의 정확한 차이가 뭔지 궁금해져서 찾아보았다. https://medium.com/swlh/angular-component-vs-module-b8c7347c604e Module 모든 앵귤러 어플리케이션은 AppModule이라 부르는]]></description>
 </item>
 </channel>
 </rss>
