@@ -2,9 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://redjen8.github.io/posts/feb2023/polyfill%EC%9D%B4%EB%9E%80/</loc><lastmod>2023-02-13T19:39:59&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-02-13T19:39:59&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2023-02-13T19:39:59&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/feb2023/connection-timeout%EA%B3%BC-read-timeout%EC%9D%98-%EC%B0%A8%EC%9D%B4/</loc><lastmod>2023-02-12T20:58:31&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-02-12T20:58:31&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2023-02-12T20:58:31&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/</loc><lastmod>2023-02-11T00:03:56&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-__init__/</loc><lastmod>2023-02-10T21:34:36&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-array%EC%99%80-list/</loc><lastmod>2023-02-09T22:50:28&#43;09:00</lastmod></url><url>
