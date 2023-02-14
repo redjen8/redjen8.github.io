@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Gradle Dependency 관리 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Gradle Dependency 관리" />
+<meta property="og:description" content="gradle은 무엇인가? https://docs.gradle.org/current/userguide/what_is_gradle.html gradle은 거의 모든 소프트웨어에 적용할 수 있을 정도로 유연한 오픈소스 빌드 자동화 툴이다. maven과 비교하여 조금 더 간단" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-14T19:37:20+09:00" />
+<meta property="article:modified_time" content="2023-02-14T19:37:20+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gradle Dependency 관리"/>
+<meta name="twitter:description" content="gradle은 무엇인가? https://docs.gradle.org/current/userguide/what_is_gradle.html gradle은 거의 모든 소프트웨어에 적용할 수 있을 정도로 유연한 오픈소스 빌드 자동화 툴이다. maven과 비교하여 조금 더 간단"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/polyfill%EC%9D%B4%EB%9E%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Gradle Dependency 관리",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/gradle-dependency-%EA%B4%80%EB%A6%AC\/"
+        },"genre": "posts","wordcount":  1391 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/gradle-dependency-%EA%B4%80%EB%A6%AC\/","datePublished": "2023-02-14T19:37:20+09:00","dateModified": "2023-02-14T19:37:20+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Gradle Dependency 관리</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-14">2023-02-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1391 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gradle은-무엇인가">gradle은 무엇인가?</a></li>
+    <li><a href="#gradle의-의존성-관리">gradle의 의존성 관리</a>
+      <ul>
+        <li><a href="#모듈-의존성">모듈 의존성</a></li>
+        <li><a href="#파일-의존성">파일 의존성</a></li>
+        <li><a href="#프로젝트-의존성">프로젝트 의존성</a></li>
+      </ul>
+    </li>
+    <li><a href="#compileonly-runtimeonly-implementation의-차이점">compileOnly, runtimeOnly, implementation의 차이점</a></li>
+    <li><a href="#test에-대한-의존성-관리는-어떻게">test에 대한 의존성 관리는 어떻게?</a></li>
+    <li><a href="#api-implementation의-차이점">api, implementation의 차이점</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="gradle은-무엇인가">gradle은 무엇인가?</h2>
+<p><a href="https://docs.gradle.org/current/userguide/what_is_gradle.html" target="_blank" rel="noopener noreffer ">https://docs.gradle.org/current/userguide/what_is_gradle.html</a></p>
+<p>gradle은 거의 모든 소프트웨어에 적용할 수 있을 정도로 유연한 오픈소스 빌드 자동화 툴이다.</p>
+<p>maven과 비교하여 조금 더 간단한 문법이 취향이라 개인 프로젝트에서 많이 사용하게 되는 것 같다.</p>
+<p>현재 LTS 버전은 8버전이다.</p>
+<h2 id="gradle의-의존성-관리">gradle의 의존성 관리</h2>
+<h3 id="모듈-의존성">모듈 의존성</h3>
+<p>가장 흔한 종류의 의존성들이다.
+레포지토리 안에 있는 모듈을 참조한다.</p>
+<p><code>DependencyHandler</code>에 의해 설정이 된다.</p>
+<p><a href="https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.DependencyHandler.html" target="_blank" rel="noopener noreffer ">https://docs.gradle.org/current/dsl/org.gradle.api.artifacts.dsl.DependencyHandler.html</a></p>
+<p>기본적인 문법 구조는 아래와 같다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-groovy" data-lang="groovy"><span style="display:flex;"><span>dependencies <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	configurationName dependencyNotation 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="파일-의존성">파일 의존성</h3>
+<p>프로젝트들은 가끔 이진 레포지토리에 의존하지 않고 파일로부터 의존을 할 때가 있다. 대외로 공개되지 않은 사내 전용 메신저 플러그인 같은 것들이 그 예시이다.</p>
+<ul>
+<li>공유 드라이브에 이 의존성들을 호스팅해서 프로젝트 소스코드와 함께 버전 관리의 대상이 되도록 관리하는 방식을 많이 사용하게 된다.</li>
+</ul>
+<p>모듈 의존성과는 달리 부가적인 메타 데이터를 포함하고 있지 않고 바로 다이렉트로 파일을 참조한다는 차이점이 있다.</p>
+<p>파일 의존성 관리의 치명적인 약점이 있다면, gradle의 버전 컨플릭트 관리 도구의 대상이 되지 않는다는 점이다.</p>
+<blockquote>
+<p>그렇기 때문에, gradle을 사용해 파일에 대한 의존성을 관리할 때에는 파일 이름에 올바른 버전을 명시하여 변경 사항을 추적할 수 있도록 하는 것이 매우 중요하다.</p>
+</blockquote>
+<h3 id="프로젝트-의존성">프로젝트 의존성</h3>
+<p>소프트웨어 프로젝트들은 종종 소프트웨어의 컴포넌트들와 모듈들로 분리되곤 한다. 이러한 분리는 관리와 소프트웨어들 사이의 강결합을 막는 역할을 수행한다.</p>
+<p>모듈들은 동일한 프로젝트 내에서 코드를 재사용하기 위해 의존성을 정의할 수 있고, gradle은 이 모듈에 대한 정의를 gradle project 단위로 관리한다.</p>
+<p><code>project(&quot;:some:path)&quot;</code>와 같은 방식의 표기점을 사용할 때 주의해야 하는 점은</p>
+<ul>
+<li>의존의 대상이 되는 모든 프로젝트의 경로를 기억해야 한다.</li>
+<li>프로젝트 경로를 변경할 때, 해당 프로젝트 의존성이 사용되는 모든 곳에서 의존성을 전부 수정해줘야 한다.
+<ul>
+<li>하나라도 빼먹게 된다면 문제가 발생하게 될 것이다.</li>
+</ul>
+</li>
+</ul>
+<p>Gradle 7 버전에서부터는 프로젝트 의존성을 설정하기 위한 Type-safe한 API를 제공한다.
+이 Type-safe한 API는 IDE Completion을 제공하기 때문에 프로젝트의 실제 이름을 알 필요를 제거한다.</p>
+<h2 id="compileonly-runtimeonly-implementation의-차이점">compileOnly, runtimeOnly, implementation의 차이점</h2>
+<p><a href="https://tomgregory.com/gradle-implementation-vs-compile-dependencies/" target="_blank" rel="noopener noreffer ">https://tomgregory.com/gradle-implementation-vs-compile-dependencies/</a></p>
+<ol>
+<li>compileOnly: <code>compile</code> classpath에만 의존성을 추가한다.</li>
+<li>runtimeOnly: <code>runtime</code> classpath에만 의존성을 추가한다.</li>
+<li>implementation: <code>compile</code>과 <code>runtime</code> classpath 모두에 의존성을 추가한다.</li>
+</ol>
+<p>적절한 classpath에 의존성을 추가하는 것은 다음과 같은 장점이 있다.</p>
+<ol>
+<li><code>compile</code> classpath가 더 적은 의존성을 가질 경우 <strong>컴파일 속도가 빨라진다.</strong></li>
+<li><code>runtime</code> classpath에만 등장하는 의존성들에 대해서만 사용 가능하기 때문에, 실수로 정의되지 않은 클래스를 혼동하여 사용하는 일을 방지할 수 있다.</li>
+<li>classpath들을 깔끔하게 관리하여 복잡도를 낮춘다.</li>
+</ol>
+<h2 id="test에-대한-의존성-관리는-어떻게">test에 대한 의존성 관리는 어떻게?</h2>
+<p>Gradle Java Plugin은 앞서 말했던 <code>compileOnly</code>, <code>runtimeOnly</code>, <code>implementation</code> 뿐만 아니라</p>
+<ul>
+<li><code>testRuntimeOnly</code>:</li>
+<li><code>testImplementaton</code>:</li>
+<li><code>testCompileOnly</code>
+를 제공한다. 기본적으로는 네이밍에서 유추할 수 있듯 각각 <code>compile</code> classpath, <code>runtime</code> classpath, 그리고 둘 다에 의존성을 추가하는 설정들이다.</li>
+</ul>
+<h2 id="api-implementation의-차이점">api, implementation의 차이점</h2>
+<p>api는 의존하는 모듈을 상속하는 모듈에도 의존성이 전파가 되고,
+implementation은 의존하는 모듈을 상속하는 모듈에 대해서는 의존성이 한번 래핑되어 관리된다.</p>
+<p>때문에, api는 모든 프로젝트에 공통으로 사용되는 의존성이 아니라면 자제하는 것이 좋다.
+프로젝트가 너무 많은 모듈에 의존하기 시작하면 관리해야 할 포인트들이 많아지기 때문이다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/" data-title="Gradle Dependency 관리"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/" data-title="Gradle Dependency 관리"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/" data-title="Gradle Dependency 관리"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/feb2023/polyfill%EC%9D%B4%EB%9E%80/" class="prev" rel="prev" title="Polyfill이란"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Polyfill이란</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

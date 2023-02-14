@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 13 Feb 2023 19:39:59 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 14 Feb 2023 19:37:20 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Gradle Dependency 관리</title>
+    <link>http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/</link>
+    <pubDate>Tue, 14 Feb 2023 19:37:20 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/</guid>
+    <description><![CDATA[gradle은 무엇인가? https://docs.gradle.org/current/userguide/what_is_gradle.html gradle은 거의 모든 소프트웨어에 적용할 수 있을 정도로 유연한 오픈소스 빌드 자동화 툴이다. maven과 비교하여 조금 더 간단]]></description>
+</item>
+<item>
     <title>Polyfill이란</title>
     <link>http://redjen8.github.io/posts/feb2023/polyfill%EC%9D%B4%EB%9E%80/</link>
     <pubDate>Mon, 13 Feb 2023 19:39:59 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/</guid>
     <description><![CDATA[Cache Busting이란 무엇이고, 왜 발생할까? https://www.keycdn.com/support/what-is-cache-busting 정적 파일을 빠르게 제공하기 위해 고려할 수 있는 여러 방법 중 하나는 캐시이고, 실제로 많은 서비스들에서 빠르게 정]]></description>
-</item>
-<item>
-    <title>Kubernetes Anti Pattern 2</title>
-    <link>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-2/</link>
-    <pubDate>Fri, 03 Feb 2023 16:05:34 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/kubernetes-anti-pattern-2/</guid>
-    <description><![CDATA[6. 업데이트나 수정 사항들을 파드를 죽여서 재시작 과정에서 새 도커 이미지를 받아오도록 하는 배포 방식을 사용하는 것 latest 태그를 사용해서 업데이트를 하는 것과 마찬가지]]></description>
 </item>
 </channel>
 </rss>
