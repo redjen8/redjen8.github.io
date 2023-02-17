@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 16 Feb 2023 19:10:28 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 17 Feb 2023 20:18:22 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Marble Diagram에 대해</title>
+    <link>http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Fri, 17 Feb 2023 20:18:22 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[Reactive Stream 공식 문서에 자주 나오는 구슬 같이 생긴 친구들의 정체는 뭘까? https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html Marble Diagram ReactiveX 프로젝트는 Observable한 스트림을 통한 비동기적 프로그래밍 API이다. 그]]></description>
+</item>
+<item>
     <title>Java Generic 트러블슈팅</title>
     <link>http://redjen8.github.io/posts/feb2023/java-generic-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</link>
     <pubDate>Thu, 16 Feb 2023 19:10:28 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/javascript-array%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[배열은 모든 프로그래밍 언어에서 사용하는 가장 기본적인 자료구조이다. 그런데 자바스크립트에서의 배열은 다른 언어들과는 약간 다른 면모를 보이는데&helli]]></description>
-</item>
-<item>
-    <title>Javascript Dollar Sign에 대해</title>
-    <link>http://redjen8.github.io/posts/feb2023/javascript-dollar-sign%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Tue, 07 Feb 2023 23:00:00 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/javascript-dollar-sign%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[자바스크립트를 사용하다 보면 $ 기호를 종종 보게 될 때가 있다. $event와 같은 것이 그 예시인데, 이 $ 기호는 언제, 어떻게, 왜 사용하는 것일까? https://codedamn.com/news/javascript/dollar-sign-in-js 달러 식별]]></description>
 </item>
 </channel>
 </rss>
