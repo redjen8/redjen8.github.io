@@ -4,31 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Marble Diagram에 대해 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Marble Diagram에 대해" />
-<meta property="og:description" content="Reactive Stream 공식 문서에 자주 나오는 구슬 같이 생긴 친구들의 정체는 뭘까? https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html Marble Diagram ReactiveX 프로젝트는 Observable한 스트림을 통한 비동기적 프로그래밍 API이다. 그" />
+        <title>Java Reflection Api에 대해 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Java Reflection Api에 대해" />
+<meta property="og:description" content="Java의 Reflection API는 무엇이고, 어떻게 사용되고 있을까? https://www.baeldung.com/java-reflection Reflection API 리플렉션을 사용하기 위해서는 별도의 jar 파일이나 의존성이 필요하지 않다. java.lang.reflect 패키지에 이미 번들" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-17T20:18:22+09:00" />
-<meta property="article:modified_time" content="2023-02-17T20:18:22+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-18T23:17:26+09:00" />
+<meta property="article:modified_time" content="2023-02-18T23:17:26+09:00" /><meta property="og:site_name" content="왜? 모음집" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Marble Diagram에 대해"/>
-<meta name="twitter:description" content="Reactive Stream 공식 문서에 자주 나오는 구슬 같이 생긴 친구들의 정체는 뭘까? https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html Marble Diagram ReactiveX 프로젝트는 Observable한 스트림을 통한 비동기적 프로그래밍 API이다. 그"/>
+<meta name="twitter:title" content="Java Reflection Api에 대해"/>
+<meta name="twitter:description" content="Java의 Reflection API는 무엇이고, 어떻게 사용되고 있을까? https://www.baeldung.com/java-reflection Reflection API 리플렉션을 사용하기 위해서는 별도의 jar 파일이나 의존성이 필요하지 않다. java.lang.reflect 패키지에 이미 번들"/>
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/java-generic-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/" /><link rel="next" href="http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Marble Diagram에 대해",
+        "headline": "Java Reflection Api에 대해",
         "inLanguage": "ko-KR",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4\/"
-        },"genre": "posts","wordcount":  457 ,
-        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4\/","datePublished": "2023-02-17T20:18:22+09:00","dateModified": "2023-02-17T20:18:22+09:00","publisher": {
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4\/"
+        },"genre": "posts","wordcount":  876 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4\/","datePublished": "2023-02-18T23:17:26+09:00","dateModified": "2023-02-18T23:17:26+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
                 "@type": "Person",
@@ -99,10 +99,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Marble Diagram에 대해</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Java Reflection Api에 대해</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-17">2023-02-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;457 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-18">2023-02-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;876 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -110,39 +110,73 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#marble-diagram">Marble Diagram</a></li>
-    <li><a href="#구성-요소들">구성 요소들</a></li>
+    <li><a href="#reflection-api">Reflection API</a></li>
+    <li><a href="#이게-어떻게-가능한가">이게 어떻게 가능한가?</a></li>
+    <li><a href="#장단점">장단점</a>
+      <ul>
+        <li><a href="#장점">장점</a></li>
+        <li><a href="#단점">단점</a></li>
+      </ul>
+    </li>
+    <li><a href="#그렇다면-언제-사용할까">그렇다면 언제 사용할까?</a>
+      <ul>
+        <li><a href="#스프링-프레임워크에서는">스프링 프레임워크에서는..</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>Reactive Stream 공식 문서에 자주 나오는 구슬 같이 생긴 친구들의 정체는 뭘까?</p>
-<p><a href="https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html" target="_blank" rel="noopener noreffer ">https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html</a></p>
-<h2 id="marble-diagram">Marble Diagram</h2>
-<p>ReactiveX 프로젝트는 Observable한 스트림을 통한 비동기적 프로그래밍 API이다.
-그리고 Observable과 비동기적 프로그래밍의 흐름을 보다 이해하기 쉽게 구성해 커뮤니케이션과 전달을 효율적으로 할 수 있게 해주는 그림이 바로 마블 다이어그램이다.</p>
+            </div><div class="content" id="content"><p>Java의 Reflection API는 무엇이고, 어떻게 사용되고 있을까?</p>
+<p><a href="https://www.baeldung.com/java-reflection" target="_blank" rel="noopener noreffer ">https://www.baeldung.com/java-reflection</a></p>
+<h2 id="reflection-api">Reflection API</h2>
+<p>리플렉션을 사용하기 위해서는 별도의 jar 파일이나 의존성이 필요하지 않다. <code>java.lang.reflect</code> 패키지에 이미 번들되어 있다.</p>
 <blockquote>
-<p>Observable 아이템들을 시간 순으로, 그래픽으로 나타내는 것이 마블 다이어그램이다.</p>
+<p>리플렉션 API는, 구체적인 클래스 타입을 알지 못해도 그 클래스의 정보에 접근할 수 있게 해준다.</p>
 </blockquote>
-<p>마블 다이어그램은 또한 <code>merge</code>, <code>delay</code>, <code>scan</code>과 같은 Observable한 시퀀스들에 대한 연산자들을 표현하기 위한 &lsquo;사실상&rsquo; 표준이다.</p>
-<h2 id="구성-요소들">구성 요소들</h2>
-<p><a href="https://medium.com/@jshvarts/read-marble-diagrams-like-a-pro-3d72934d3ef5" target="_blank" rel="noopener noreffer ">https://medium.com/@jshvarts/read-marble-diagrams-like-a-pro-3d72934d3ef5</a></p>
-<p>마블 다이어그램에서 주의 깊게 봐야할 점으로는</p>
+<h2 id="이게-어떻게-가능한가">이게 어떻게 가능한가?</h2>
+<p>리플렉션의 동작 방식은 자바의 동작 방식과 밀접하게 연관되어 있다.</p>
+<p><a href="https://tecoble.techcourse.co.kr/post/2020-07-16-reflection-api/" target="_blank" rel="noopener noreffer ">https://tecoble.techcourse.co.kr/post/2020-07-16-reflection-api/</a></p>
+<ol>
+<li>개발자가 작성한 자바 코드는 컴파일을 통해 <code>.class</code> 파일로 변환된다.</li>
+<li><code>class</code> 파일에는 바이트 코드가 들어 있으며, 이 바이트 코드는 다시 JVM의 static 영역에 저장된다.</li>
+<li>리플렉션 API는 이 영역을 뒤져서 정보를 가져온다.</li>
+</ol>
+<h2 id="장단점">장단점</h2>
+<p><a href="https://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank" rel="noopener noreffer ">https://docs.oracle.com/javase/tutorial/reflect/index.html</a></p>
+<h3 id="장점">장점</h3>
 <ul>
-<li>시간 순으로 이루어지는 흐름 (사실상 Stream의 특징이기도 하다)</li>
-<li>완료 신호에 따른 분기 (<code>onComplete()</code> 콜)</li>
-<li>그리고 각각의 타입이 어떻게 변하는지</li>
+<li>확장 기능: 어플리케이션이 외부의 사용자 정의된 클래스를, 확정 인스턴스를 생성하여 사용할 수 있다.</li>
+<li>클래스 탐색기와 개발 환경 플러그인: 개발자가 올바른 코드를 작성하는 것을 돕기 위한 플러그인의 개발 등에 타입 정보를 사용할 수 있다.</li>
+<li>디버거와 테스트 툴: 디버거는 클래스 내부의 private한 멤버에 접근할 수 있어야 한다. 테스트들은 리플렉션을 사용해서 클래스 안에 정의된 API들을 사용하여 보다 높은 테스트 커버리지를 달성하는데 도움을 준다.</li>
 </ul>
-<p>각각의 언어에 적용되는 디테일은 다르지만, ReactiveX 프로젝트 진영에서 추구하는 철학 자체는 동일하다 보니 마블 다이어그램이라는 동일한 도표로 플로우를 나타낼 수 있는 장점이 있다고 생각한다.</p>
-<p>나중에 RxJS를 좀 더 본격적으로 사용하게 된다면 <code>Observable</code>에 대해 좀 더 정리해봐야겠다.</p>
+<h3 id="단점">단점</h3>
+<ul>
+<li>성능 오버헤드: 타입 분석을 컴파일 타임이 아닌 런타임에 실행한다. JVM은 이 예외적인 동작을 최적화할 수 없다.</li>
+<li>추상화를 깨뜨린다: 직접 접근이 불가능한 private한 변수와 메서드에 접근하기 때문에 예기치 못한 부작용을 일으킬 수 있다.</li>
+</ul>
+<h2 id="그렇다면-언제-사용할까">그렇다면 언제 사용할까?</h2>
+<p>사용자가 직접 작성하는 비즈니스 로직이 들어가는 어플리케이션 레벨에서는 리플렉션을 사용하지 않게 된다. 부작용을 일일이 개발자가 컨트롤하기에는 위험성이 동반되기 때문이다.</p>
+<h3 id="스프링-프레임워크에서는">스프링 프레임워크에서는..</h3>
+<p><a href="https://stackoverflow.com/questions/20817425/why-reflection-is-used-in-this-situation" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/20817425/why-reflection-is-used-in-this-situation</a></p>
+<p>스프링에 빈으로 등록된 컴포넌트들은 내부적으로 리플렉션 API를 사용한다. (!)</p>
+<ul>
+<li>빈은 어플리케이션이 실행된 후 런타임에 객체가 호출될 때 동적으로 객체의 인스턴스를 생성한다.</li>
+<li>이 때 스프링 컨테이너의 <code>BeanFactory</code>에서 리플렉션 API를 사용한다.</li>
+</ul>
+<p>Spring Data JPA에서 Entity에 기본 생성자가 필요한 이유 == 동적으로 객체를 생성할 떄 리플렉션 API를 사용한다.</p>
+<blockquote>
+<p>리플렉션 API로 가져올 수 없는 정보 중 하나로는 생성자의 인자 정보가 있다.</p>
+</blockquote>
+<p>따라서 기본 생성자가 반드시 있어야 객체를 생성할 수 있다.</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2023-02-17</span>
+                <span>Updated on 2023-02-18</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Marble Diagram에 대해"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Marble Diagram에 대해"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Marble Diagram에 대해"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Java Reflection Api에 대해"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Java Reflection Api에 대해"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Java Reflection Api에 대해"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -154,8 +188,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/feb2023/java-generic-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/" class="prev" rel="prev" title="Java Generic 트러블슈팅"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Generic 트러블슈팅</a>
-            <a href="/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/" class="next" rel="next" title="Java Reflection Api에 대해">Java Reflection Api에 대해<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/" class="prev" rel="prev" title="Marble Diagram에 대해"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Marble Diagram에 대해</a></div>
 </div>
 <div id="comments"><div id="utterances" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
