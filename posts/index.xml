@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 19 Feb 2023 12:02:43 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 20 Feb 2023 22:29:59 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>상태 관리란</title>
+    <link>http://redjen8.github.io/posts/feb2023/%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EB%9E%80/</link>
+    <pubDate>Mon, 20 Feb 2023 22:29:59 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EB%9E%80/</guid>
+    <description><![CDATA[클라이언트 개발을 하다 보면 상태 관리, 혹은 상태 관리 툴들에 대해 언급 되는 경우가 많이 있었다. 상태관리란 무엇이고, 왜 해야 할까? https://dev.to/abdurrkhalid333/what-is-state-management-and-why-you-should-learn-it-3kai 상태란 상태는 어플리케이션]]></description>
+</item>
+<item>
     <title>Mvvm 패턴이란</title>
     <link>http://redjen8.github.io/posts/feb2023/mvvm-%ED%8C%A8%ED%84%B4%EC%9D%B4%EB%9E%80/</link>
     <pubDate>Sun, 19 Feb 2023 12:02:43 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[여느 때와 다름 없이 개발을 하던 중, ERR_CONTENT_LENGTH_MISMATCH 에러를 만나게 되었다. 찾아보니 response header의 content-length와 실제 body로 오는 응답의 길이가 상이]]></description>
-</item>
-<item>
-    <title>Python의 __Init__</title>
-    <link>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-__init__/</link>
-    <pubDate>Fri, 10 Feb 2023 21:34:36 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/python%EC%9D%98-__init__/</guid>
-    <description><![CDATA[파이썬에서도 클래스를 활용한 객체 지향 프로그래밍을 할 수 있다. 그런데 __init__함수가 계속 눈에 보인다. 이 함수는 어떤 역할을 할까? https://stackoverflow.com/questions/625083/what-do-init-and-self-do-in-python __init__ 함수의 역할 파]]></description>
 </item>
 </channel>
 </rss>
