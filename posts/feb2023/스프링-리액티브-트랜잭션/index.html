@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>스프링 리액티브 트랜잭션 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="스프링 리액티브 트랜잭션" />
+<meta property="og:description" content="리액티브 컨텍스트 안에서 트랜잭션은 어떻게 이루어질까? https://spring.io/blog/2019/05/16/reactive-transactions-with-spring 선언적 트랜잭션 관리는 어떻게 이루어지나 트랜잭션 관리는 트랜잭션의 상태를 실행과 연관지어야 한다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-21T19:56:04+09:00" />
+<meta property="article:modified_time" content="2023-02-21T19:56:04+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="스프링 리액티브 트랜잭션"/>
+<meta name="twitter:description" content="리액티브 컨텍스트 안에서 트랜잭션은 어떻게 이루어질까? https://spring.io/blog/2019/05/16/reactive-transactions-with-spring 선언적 트랜잭션 관리는 어떻게 이루어지나 트랜잭션 관리는 트랜잭션의 상태를 실행과 연관지어야 한다."/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EB%9E%80/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "스프링 리액티브 트랜잭션",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98\/"
+        },"genre": "posts","wordcount":  2439 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98\/","datePublished": "2023-02-21T19:56:04+09:00","dateModified": "2023-02-21T19:56:04+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">스프링 리액티브 트랜잭션</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-21">2023-02-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2439 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#선언적-트랜잭션-관리는-어떻게-이루어지나">선언적 트랜잭션 관리는 어떻게 이루어지나</a>
+      <ul>
+        <li><a href="#그렇다면-동일한-쓰레드가-아닌-서로-다른-쓰레드-간에-트랜잭션-상태를-보장해주려면-어떻게-해야-할까">그렇다면, 동일한 쓰레드가 아닌 서로 다른 쓰레드 간에 트랜잭션 상태를 보장해주려면 어떻게 해야 할까?</a></li>
+      </ul>
+    </li>
+    <li><a href="#리액티브-트랜잭션이-이루어지는-방식">리액티브 트랜잭션이 이루어지는 방식</a>
+      <ul>
+        <li><a href="#reactivetransactionmanager">ReactiveTransactionManager</a></li>
+        <li><a href="#깊게-들어가면">깊게 들어가면..</a></li>
+        <li><a href="#transactionaloperator">TransactionalOperator</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>리액티브 컨텍스트 안에서 트랜잭션은 어떻게 이루어질까?</p>
+<p><a href="https://spring.io/blog/2019/05/16/reactive-transactions-with-spring" target="_blank" rel="noopener noreffer ">https://spring.io/blog/2019/05/16/reactive-transactions-with-spring</a></p>
+<h2 id="선언적-트랜잭션-관리는-어떻게-이루어지나">선언적 트랜잭션 관리는 어떻게 이루어지나</h2>
+<p>트랜잭션 관리는 트랜잭션의 상태를 실행과 연관지어야 한다.</p>
+<p>선언적 프로그래밍 방식에서는 전형적으로 <code>ThreadLocal</code> 을 사용해서 이루어지고, 트랜잭션의 상태는 쓰레드에 바운드된다.</p>
+<blockquote>
+<p>트랜잭션을 요하는 코드는 트랜잭션을 발생시킨 컨테이너의 동일한 쓰레드에서 실행된다는 것을 전제로 한다.</p>
+</blockquote>
+<p>반면 리액티브 프로그래밍 모델에서는 이 선언적인 프로그래밍 모델의 기능들을 전부 없애야 한다. 동작들은 전부 다른 쓰레드에서 이뤄질 수 있기 때문이다.</p>
+<p>프로세스 간의 커뮤니케이션 영역으로 들어오면 좀 더 명확해지는데  - 더 이상 우리의 코드는 동일한 쓰레드에서 작동하지 않는다. 때문에 더 이상 트랜잭션 관리에 <code>ThreadLocal</code>을 사용할 수 없다.</p>
+<h3 id="그렇다면-동일한-쓰레드가-아닌-서로-다른-쓰레드-간에-트랜잭션-상태를-보장해주려면-어떻게-해야-할까">그렇다면, 동일한 쓰레드가 아닌 서로 다른 쓰레드 간에 트랜잭션 상태를 보장해주려면 어떻게 해야 할까?</h3>
+<p>쓰레드 간 스위칭은 임의의 시간에 발생할 수 있다. 리액티브 프로그래밍 모델에서 적절할 때에 적절한 쓰레드로 스위칭하는 것은 거의 불가능하다. 연산자 간 결합이 더해져서 스트림의 통합과 최적화가 이루어지면 쓰레드 간 스위칭이 언제 일어날 지 예측하는 것은 더 불가능하다.</p>
+<p>때문에 트랜잭션 상태를  <code>TransactionStatus</code> 객체를 통해 전달하는 방식에도 변화가 필요하다.</p>
+<p>그런데 가만 생각해보면 기존 스프링에서 <code>ThreadLocal</code>을 사용하는 대표적인 예시가 하나 더 있다. 바로 <code>SecurityContext</code>. 우리는 서블릿 기반 스프링에서 쓰레드에 바운드되도록 유저 컨텍스트를 저장해서 사용해왔었고, 트랜잭션도 그렇게 사용하고 있는 것이다.</p>
+<p>마찬가지로 리액티브 프로그래밍에서 쓰레드 간 어떤 값을 공유하기 위해서는 - <code>SecurityContext</code>가 변화한 것처럼 - <code>Subscription</code> 을 사용한다.</p>
+<p>리액터의 <code>Context</code>는 스프링이 특정 <code>Subscription</code>에 대해 모든 리소스와 동기화를 조절하며 트랜잭션 상태를 바인드 할 수 있도록 한다. Project Reactor를 사용하는 모든 리액티브 코드는 리액티브한 트랜잭션에도 참여하게 되는 셈이다.</p>
+<p>스칼라 값을 반환하고 트랜잭션 디테일에 접근하기 위한 기존의 코드들은 다시 트랜잭션에 참여하기 위해서는 리액티브 타입을 사용해서 다시 짜여져야 한다. 그렇지 않을 경우 내부 컨텍스트에 접근할 수 없기 때문이다.</p>
+<h2 id="리액티브-트랜잭션이-이루어지는-방식">리액티브 트랜잭션이 이루어지는 방식</h2>
+<p>스프링 5.2 M2 버전부터는 스프링이 <code>ReactiveTransactionManager</code>를 통해 리액티브 트랜잭션을 관리한다.</p>
+<h3 id="reactivetransactionmanager">ReactiveTransactionManager</h3>
+<p><code>ReactiveTransactionManager</code>는 트랜잭션의 리소스를 사용하는 리액티브하고 논블락킹한 통합 트랜잭션 관리의 추상화이다.
+<code>Publisher</code> 타입을 리턴하고 <code>TranscationalOperator</code>를 사용하는 프로그래밍적인 트랜잭션 관리가 필요한 <code>@Transactional</code> 메서드들에 대해 적용된다.</p>
+<p>가장 먼저 구현된 리액티브 트랜잭션 매니저에는 R2DBC (Spring Data R2DBC 1.0 M2), MongoDB (Spring Data MongoDB 2.2 M4)가 있다.</p>
+<h3 id="깊게-들어가면">깊게 들어가면..</h3>
+<p>리액티브 트랜잭션은 선언적 트랜잭션의 어노테이션 기반 코드와 매우 유사하게 생겼다.</p>
+<ul>
+<li>하지만 리액티브 리소스 추상화인 <code>DatabaseClient</code>와 작업하는 방식이 변경되었다는 점이 다르다.</li>
+<li>모든 트랜잭션 관리는 스프링의 트랜잭션 인터셉터들과 <code>ReactiveTransactionManager</code>에 의해 behind the scene에서 일어난다.</li>
+</ul>
+<p>스프링은 적용할 트랜잭션 관리를 크게 두 부류로 관리한다.</p>
+<ol>
+<li><code>Publisher</code> 타입을 리턴하는 메서드들 : 리액티브 트랜잭션 관리의 대상</li>
+<li>다른 타입을 리턴하는 메서드들 : 선언적 트랜잭션 관리의 대상</li>
+</ol>
+<p>리액티브 트랜잭션을 사용하는 동시에 선언적 컴포넌트인 JPA나 JDBC 쿼리를 작성할 수 있기 때문에 이 차이는 중요하다. 선언적 컴포넌트의 결과물들을 <code>Publisher</code> 타입으로 래핑하는 것은 스프링에게 선언적 트랜잭션 관리를 적용하기 보다는 리액티브 트랜잭션을 적용하도록 알려준다.</p>
+<p>즉, 리액티브 트랜잭션 사용은 JPA나 JDBC에서 사용하는 <code>ThreadLocal</code>에 기반한 트랜잭션을 사용하지 않는다.</p>
+<h3 id="transactionaloperator">TransactionalOperator</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>ConnectionFactory factory <span style="color:#f92672">=</span> <span style="color:#960050;background-color:#1e0010">…</span>
+</span></span><span style="display:flex;"><span>ReactiveTransactionManager tm <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> R2dbcTransactionManager<span style="color:#f92672">(</span>factory<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>DatabaseClient db <span style="color:#f92672">=</span> DatabaseClient<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>factory<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>TransactionalOperator rxtx <span style="color:#f92672">=</span> TransactionalOperator<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>tm<span style="color:#f92672">);</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>Void<span style="color:#f92672">&gt;</span> atomicOperation <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">sql</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;INSERT INTO person (name, age) VALUES(&#39;joe&#39;, &#39;Joe&#39;)&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">fetch</span><span style="color:#f92672">().</span><span style="color:#a6e22e">rowsUpdated</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">then</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">.</span><span style="color:#a6e22e">sql</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;INSERT INTO contacts (name) VALUES(&#39;Joe&#39;)&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">.</span><span style="color:#a6e22e">then</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">as</span><span style="color:#f92672">(</span>rxtx<span style="color:#f92672">::</span>transactional<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>위 코드에서 살펴봐야 할 컴포넌트들은 다음과 같다.</p>
+<ul>
+<li><code>R2dbcTransactionManager</code> : R2DBC <code>ConnectionFactory</code>를 위한 리액티브 트랜잭션 매니저이다.</li>
+<li><code>DatabaseClient</code> : R2DBC 드라이버를 사용하는, SQL 데이터베이스로 접근하는 클라이언트이다.</li>
+<li><code>TranscationalOperator</code> : 이 연산자는 모든 upstream R2DBC publisher들과 트랜잭션 컨텍스트를 연관짓는다. 다른 연산자 스타일 (<code>(...::transactional)</code>) 처럼 쓰거나 <code>execute(txStatus -&gt; ...)</code> 처럼 콜백 스타일로 쓸 수 있다.</li>
+</ul>
+<p>리액티브 트랜잭션들은 구독 관계 형성에 따라 lazy하게 시작된다. 이 연산자가 트랜잭션을 시작하면,</p>
+<ul>
+<li>적절한 격리 수준을 설정하고</li>
+<li>데이터베이스 커넥션과 subscriber의 컨텍스트를 연결한다.</li>
+<li>트랜잭션에 참여하는 모든 Publisher 인스턴스는 동일한 단일 컨텍스트 바운드 - 트랜잭션 커넥션을 사용한다.</li>
+</ul>
+<p>리액티브 - 함수형 연선자 체이닝은 선형적일수도 (단일 Publisher 사용), 비선형적일수도 (여러 스트림을 병합하는 경우) 있다. 리액티브 트랜잭션은 어떤 연산자 스타일을 사용하더라도 모든 업스트림 Publisher들에게 영향을 미친다.</p>
+<p>트랜잭션 스코프를 특정 publisher들에게만 제한하기 위해 콜백 스타일을 적용하기 위해서는 아래와 같이 사용할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>TransactionalOperator rxtx <span style="color:#f92672">=</span> TransactionalOperator<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>tm<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>Void<span style="color:#f92672">&gt;</span> outsideTransaction <span style="color:#f92672">=</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">sql</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;INSERT INTO person (name, age) VALUES(&#39;Jack&#39;, 31)&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">then</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>Void<span style="color:#f92672">&gt;</span> insideTransaction <span style="color:#f92672">=</span> rxtx<span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">(</span>txStatus <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> db<span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">.</span><span style="color:#a6e22e">sql</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;INSERT INTO person (name, age) VALUES(&#39;Joe&#39;, 34)&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">.</span><span style="color:#a6e22e">fetch</span><span style="color:#f92672">().</span><span style="color:#a6e22e">rowsUpdated</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">.</span><span style="color:#a6e22e">then</span><span style="color:#f92672">(</span>db<span style="color:#f92672">.</span><span style="color:#a6e22e">execute</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">.</span><span style="color:#a6e22e">sql</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;INSERT INTO contacts (name) VALUES(&#39;Joe Black&#39;)&#34;</span><span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>			<span style="color:#f92672">.</span><span style="color:#a6e22e">then</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}).</span><span style="color:#a6e22e">then</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>		
+</span></span><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>Void<span style="color:#f92672">&gt;</span> completion <span style="color:#f92672">=</span> outsideTransaction<span style="color:#f92672">.</span><span style="color:#a6e22e">then</span><span style="color:#f92672">(</span>insideTransaction<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>상기 예시에서는 트랜잭션 관리가 <code>execute()</code> 내부의 Publisher 인스턴스들에게만 적용되었다. 다르게 말하면 트랜잭션 자체가 scoped 되었다고 할 수 있다.
+<code>execute()</code> 내부의 Publisher 인스턴스들은 트랜잭션에 참여하고, <code>outsideTransaction</code>이라고 명명된 Publisher들은 트랜잭션 바깥에서 기능한다. (트랜잭션 적용 X)</p>
+<p>R2DBC는 스프링의 리액티브 트랜잭션 인테그레이션 중 하나이다. Spring Data MongoDB를 사용하더라도 멀티 document 트랜잭션을 리액티브 프로그래밍을 사용하는 동시에 쓸 수 있다.</p>
+<ul>
+<li>Spring Data MongoDB는 <code>ReactiveMongoTransactionManager</code>를 <code>ReactiveTransactionManager</code>의 구현체로 사용한다.
+<ul>
+<li><code>ReactiveTransactionManager</code>는 세션을 생성한다. (MongoDB의 트랜잭션은 세션 단위로 이뤄진다)</li>
+<li>관리되는 트랜잭션 내부에서 실행되는 코드가 다중 document 트랜잭션에 참여하도록 세션을 관리한다.</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-21</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" data-title="스프링 리액티브 트랜잭션"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" data-title="스프링 리액티브 트랜잭션"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" data-title="스프링 리액티브 트랜잭션"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/feb2023/%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EB%9E%80/" class="prev" rel="prev" title="상태 관리란"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>상태 관리란</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

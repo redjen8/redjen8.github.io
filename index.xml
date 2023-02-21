@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 20 Feb 2023 22:29:59 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 21 Feb 2023 19:56:04 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>스프링 리액티브 트랜잭션</title>
+    <link>http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</link>
+    <pubDate>Tue, 21 Feb 2023 19:56:04 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</guid>
+    <description><![CDATA[리액티브 컨텍스트 안에서 트랜잭션은 어떻게 이루어질까? https://spring.io/blog/2019/05/16/reactive-transactions-with-spring 선언적 트랜잭션 관리는 어떻게 이루어지나 트랜잭션 관리는 트랜잭션의 상태를 실행과 연관지어야 한다.]]></description>
+</item>
+<item>
     <title>상태 관리란</title>
     <link>http://redjen8.github.io/posts/feb2023/%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EB%9E%80/</link>
     <pubDate>Mon, 20 Feb 2023 22:29:59 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/connection-timeout%EA%B3%BC-read-timeout%EC%9D%98-%EC%B0%A8%EC%9D%B4/</guid>
     <description><![CDATA[Connection Timeout 과 Read Timeout은 서비스 설계에 가장 기초적이면서도, 큰 영향을 줄 수 있는 인프라 레벨의 설정 값들이다. 기본적으로 가장 앞단 서버 또는 로드 밸런서에 적용]]></description>
-</item>
-<item>
-    <title>Transfer Encoding에 대해</title>
-    <link>http://redjen8.github.io/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Sat, 11 Feb 2023 00:03:56 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[여느 때와 다름 없이 개발을 하던 중, ERR_CONTENT_LENGTH_MISMATCH 에러를 만나게 되었다. 찾아보니 response header의 content-length와 실제 body로 오는 응답의 길이가 상이]]></description>
 </item>
 </channel>
 </rss>
