@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 21 Feb 2023 19:56:04 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 22 Feb 2023 23:08:49 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Post Compile Weaving</title>
+    <link>http://redjen8.github.io/posts/feb2023/post-compile-weaving/</link>
+    <pubDate>Wed, 22 Feb 2023 23:08:49 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/post-compile-weaving/</guid>
+    <description><![CDATA[AOP란 AOP는 교차 관심사의 분리를 허용함으로써 프로그램의 모듈성을 높이는 것을 목표로 하는 프로그래밍 패러다임이다. AOP가 사용되는 대표적인 예시는,]]></description>
+</item>
+<item>
     <title>스프링 리액티브 트랜잭션</title>
     <link>http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</link>
     <pubDate>Tue, 21 Feb 2023 19:56:04 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/polyfill%EC%9D%B4%EB%9E%80/</guid>
     <description><![CDATA[자바스크립트 = 언어 명세이고, 자바스크립트 구현체는 각 브라우저 엔진에 따라 완전히 똑같은 동작을 보장해주지는 않는다. 그렇다면, 브라우저 위에서 동작하는 자]]></description>
-</item>
-<item>
-    <title>Connection Timeout과 Read Timeout의 차이</title>
-    <link>http://redjen8.github.io/posts/feb2023/connection-timeout%EA%B3%BC-read-timeout%EC%9D%98-%EC%B0%A8%EC%9D%B4/</link>
-    <pubDate>Sun, 12 Feb 2023 20:58:31 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/connection-timeout%EA%B3%BC-read-timeout%EC%9D%98-%EC%B0%A8%EC%9D%B4/</guid>
-    <description><![CDATA[Connection Timeout 과 Read Timeout은 서비스 설계에 가장 기초적이면서도, 큰 영향을 줄 수 있는 인프라 레벨의 설정 값들이다. 기본적으로 가장 앞단 서버 또는 로드 밸런서에 적용]]></description>
 </item>
 </channel>
 </rss>
