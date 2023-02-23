@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 22 Feb 2023 23:08:49 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 23 Feb 2023 17:41:49 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>앵귤러 View Child</title>
+    <link>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/</link>
+    <pubDate>Thu, 23 Feb 2023 17:41:49 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/</guid>
+    <description><![CDATA[프론트엔드 작업을 하면서 가장 고민이 많이 되고 어렵지만 또 재미있는 개발은 컴포넌트 공통화인 것 같다. 동일한 코드를 재사용하지 않고 나이스한 방법으로 컴포넌트가]]></description>
+</item>
+<item>
     <title>Post Compile Weaving</title>
     <link>http://redjen8.github.io/posts/feb2023/post-compile-weaving/</link>
     <pubDate>Wed, 22 Feb 2023 23:08:49 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/</guid>
     <description><![CDATA[gradle은 무엇인가? https://docs.gradle.org/current/userguide/what_is_gradle.html gradle은 거의 모든 소프트웨어에 적용할 수 있을 정도로 유연한 오픈소스 빌드 자동화 툴이다. maven과 비교하여 조금 더 간단]]></description>
-</item>
-<item>
-    <title>Polyfill이란</title>
-    <link>http://redjen8.github.io/posts/feb2023/polyfill%EC%9D%B4%EB%9E%80/</link>
-    <pubDate>Mon, 13 Feb 2023 19:39:59 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/polyfill%EC%9D%B4%EB%9E%80/</guid>
-    <description><![CDATA[자바스크립트 = 언어 명세이고, 자바스크립트 구현체는 각 브라우저 엔진에 따라 완전히 똑같은 동작을 보장해주지는 않는다. 그렇다면, 브라우저 위에서 동작하는 자]]></description>
 </item>
 </channel>
 </rss>
