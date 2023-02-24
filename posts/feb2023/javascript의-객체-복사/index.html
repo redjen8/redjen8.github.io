@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Javascript의 객체 복사 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Javascript의 객체 복사" />
+<meta property="og:description" content="얕은 복사 / 깊은 복사 개념은 아니까 패스~ 어떻게 복사하는 게 좋을까? 하던 중 잘 정리된 글이 있어서.. https://www.daleseo.com/js-objects-clone/ 얕은 복사 Object.assign() Object.assign()을 사용하면" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-24T17:58:09+09:00" />
+<meta property="article:modified_time" content="2023-02-24T17:58:09+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Javascript의 객체 복사"/>
+<meta name="twitter:description" content="얕은 복사 / 깊은 복사 개념은 아니까 패스~ 어떻게 복사하는 게 좋을까? 하던 중 잘 정리된 글이 있어서.. https://www.daleseo.com/js-objects-clone/ 얕은 복사 Object.assign() Object.assign()을 사용하면"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Javascript의 객체 복사",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC\/"
+        },"genre": "posts","wordcount":  788 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC\/","datePublished": "2023-02-24T17:58:09+09:00","dateModified": "2023-02-24T17:58:09+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Javascript의 객체 복사</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-24">2023-02-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;788 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#얕은-복사">얕은 복사</a>
+      <ul>
+        <li><a href="#objectassign">Object.assign()</a></li>
+        <li><a href="#spread-operator">spread operator<code>(...)</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#깊은-복사">깊은 복사</a>
+      <ul>
+        <li><a href="#jsonparsejsonstringifyobj">JSON.parse(JSON.stringify(obj))</a></li>
+      </ul>
+    </li>
+    <li><a href="#lodash-라이브러리의-clonedeep">lodash 라이브러리의 cloneDeep()</a>
+      <ul>
+        <li><a href="#직접-구현">직접 구현</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>얕은 복사 / 깊은 복사 개념은 아니까 패스~</p>
+<p>어떻게 복사하는 게 좋을까? 하던 중 잘 정리된 글이 있어서..
+<a href="https://www.daleseo.com/js-objects-clone/" target="_blank" rel="noopener noreffer ">https://www.daleseo.com/js-objects-clone/</a></p>
+<h2 id="얕은-복사">얕은 복사</h2>
+<h3 id="objectassign">Object.assign()</h3>
+<p><code>Object.assign()</code>을 사용하면 한 객체의 속성을 다른 객체의 속성으로 복사할 수 있다.</p>
+<p>언뜻 봤을 때에는 메서드 명이 깊은 복사를 할 수 있다고 착각하기 쉽지만, 객체나 배열의 속성을 변경해보면 그렇지 않다는 것을 알 수 있다.</p>
+<h3 id="spread-operator">spread operator<code>(...)</code></h3>
+<p><a href="https://redjen8.github.io/posts/jan2023/javascript-spread-operator%EC%97%90-%EB%8C%80%ED%95%B4/" target="_blank" rel="noopener noreffer ">https://redjen8.github.io/posts/jan2023/javascript-spread-operator%EC%97%90-%EB%8C%80%ED%95%B4/</a>
+이전에 알아봤던 것처럼 spread operator는 얕은 복사를 하는 대표적인 예시이다.
+의도적으로 얕은 복사를 사용할 일이 있다면, spread operator를 사용하는 것이 좀 더 깔끔한 코드를 작성하는데 도움이 될 수 있을 것 같다.</p>
+<h2 id="깊은-복사">깊은 복사</h2>
+<h3 id="jsonparsejsonstringifyobj">JSON.parse(JSON.stringify(obj))</h3>
+<ul>
+<li>객체를 Json 형태 문자열로 바꾼다음</li>
+<li>Json 문자열을 다시 객체로 변환하는 무지막지한 방법이다.</li>
+</ul>
+<p>직렬화 / 역직렬화에 비용이 많이 들기 때문에, 본능적으로 이건 별로 쓰고 싶지 않다는 생각이 든다.</p>
+<p>이 방법은 깊은 복사를 별도의 라이브러리 의존 없이 할 수는 있지만, 알려진 문제점들로는</p>
+<ol>
+<li>객체 안에 들어 있는 함수 데이터들이 누락된다. (Json 직렬화 과정에서 누락 - Json은 함수 데이터를 포함하지 않기 때문)</li>
+<li>객체 트리 내에 순환 참조가 있는 경우 오류 발생
+<ol>
+<li><code>JSON.stringify()</code> 메서드에서 순환 참조를 감지하고 오류를 발생</li>
+</ol>
+</li>
+</ol>
+<h2 id="lodash-라이브러리의-clonedeep">lodash 라이브러리의 cloneDeep()</h2>
+<p>널리 알려져 있는 라이브러리인 lodash의 <code>cloneDeep()</code>을 사용하면 깊은 복사를 쉽게 할 수 있다.
+하지만 라이브러리 의존은,, 의존성 관리 때문에 고민해봐야 하는 점이 좀 있다. 편하지만 손이 가지는 않는다.</p>
+<h3 id="직접-구현">직접 구현</h3>
+<p>상단에 링크를 단 DaleSeo 님의 블로그에서 코드를 퍼오자면,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">clone</span>(<span style="color:#a6e22e">source</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">=</span> {};
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">source</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">source</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">source</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#34;object&#34;</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(<span style="color:#a6e22e">source</span>[<span style="color:#a6e22e">i</span>]); <span style="color:#75715e">// resursion
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">source</span>[<span style="color:#a6e22e">i</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clone5</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">clone</span>(<span style="color:#a6e22e">original</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">original</span>.<span style="color:#a6e22e">func</span>); <span style="color:#75715e">// function func()
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">clone5</span>.<span style="color:#a6e22e">func</span>); <span style="color:#75715e">// function func()
+</span></span></span></code></pre></div><p>재귀를 통해 깊은 복사를 위와 같이 구현할 수 있을 것이다.
+만약 범용적으로 깊은 복사를 사용하지 않고, 특정 객체에만 사용할 것이라면 굳이 별도의 메서드를 사용하지 않고 속성들을 손수 한땀한땀 옮겨주는 것이 오히려 더 좋을 수도 있을 것 같다.</p>
+<p>다만 깊은 복사 도중에 비즈니스 로직을 좀 끼워넣는 경우가 아니라면,, 그냥 맘 편하게 lodash 쓰는게 나을 것 같다!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/" data-title="Javascript의 객체 복사"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/" data-title="Javascript의 객체 복사"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/" data-title="Javascript의 객체 복사"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/" class="prev" rel="prev" title="앵귤러 View Child"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>앵귤러 View Child</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

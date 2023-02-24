@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 23 Feb 2023 17:41:49 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 24 Feb 2023 17:58:09 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Javascript의 객체 복사</title>
+    <link>http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/</link>
+    <pubDate>Fri, 24 Feb 2023 17:58:09 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/</guid>
+    <description><![CDATA[얕은 복사 / 깊은 복사 개념은 아니까 패스~ 어떻게 복사하는 게 좋을까? 하던 중 잘 정리된 글이 있어서.. https://www.daleseo.com/js-objects-clone/ 얕은 복사 Object.assign() Object.assign()을 사용하면]]></description>
+</item>
+<item>
     <title>앵귤러 View Child</title>
     <link>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/</link>
     <pubDate>Thu, 23 Feb 2023 17:41:49 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%ED%9B%85/</guid>
     <description><![CDATA[내내 백엔드 개발을 하던 입장에서, 프레임워크를 사용해서 간단한 페이지를 담고 데이터의 상태관리를 하는 방식의 프론트 개발이 너무 낯설고 배워야 할 점이 많았다. 앵]]></description>
-</item>
-<item>
-    <title>Gradle Dependency 관리</title>
-    <link>http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/</link>
-    <pubDate>Tue, 14 Feb 2023 19:37:20 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/gradle-dependency-%EA%B4%80%EB%A6%AC/</guid>
-    <description><![CDATA[gradle은 무엇인가? https://docs.gradle.org/current/userguide/what_is_gradle.html gradle은 거의 모든 소프트웨어에 적용할 수 있을 정도로 유연한 오픈소스 빌드 자동화 툴이다. maven과 비교하여 조금 더 간단]]></description>
 </item>
 </channel>
 </rss>
