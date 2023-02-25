@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 24 Feb 2023 17:58:09 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 25 Feb 2023 16:55:12 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>React UseState와 UseEffect</title>
+    <link>http://redjen8.github.io/posts/feb2023/react-usestate%EC%99%80-useeffect/</link>
+    <pubDate>Sat, 25 Feb 2023 16:55:12 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/react-usestate%EC%99%80-useeffect/</guid>
+    <description><![CDATA[난 리액트를 모른다. 리액트를 사용해서 뭔가를 만들어 본 적도 없지만 리액트로 짜여진 코드는 커뮤니티 등에서 아주 쉽게 찾아볼 수 있었기 때문에 - 관심은 가지고 있는 상]]></description>
+</item>
+<item>
     <title>Javascript의 객체 복사</title>
     <link>http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/</link>
     <pubDate>Fri, 24 Feb 2023 17:58:09 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/java-generic-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</guid>
     <description><![CDATA[약간 헷갈리던 개념이었는데, 이번 기회에 트러블 슈팅을 하면서 제대로 정리를 하고 간다..! 다음 질문으로부터 파생되었던 개념이었다. 왜 자바 컬렉션 내의 특정 객]]></description>
-</item>
-<item>
-    <title>앵귤러 라이프사이클 훅</title>
-    <link>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%ED%9B%85/</link>
-    <pubDate>Wed, 15 Feb 2023 16:18:30 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EB%9D%BC%EC%9D%B4%ED%94%84%EC%82%AC%EC%9D%B4%ED%81%B4-%ED%9B%85/</guid>
-    <description><![CDATA[내내 백엔드 개발을 하던 입장에서, 프레임워크를 사용해서 간단한 페이지를 담고 데이터의 상태관리를 하는 방식의 프론트 개발이 너무 낯설고 배워야 할 점이 많았다. 앵]]></description>
 </item>
 </channel>
 </rss>
