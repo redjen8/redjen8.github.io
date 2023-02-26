@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 25 Feb 2023 16:55:12 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 26 Feb 2023 19:18:46 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>React Dom Mount</title>
+    <link>http://redjen8.github.io/posts/feb2023/react-dom-mount/</link>
+    <pubDate>Sun, 26 Feb 2023 19:18:46 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/react-dom-mount/</guid>
+    <description><![CDATA[저번에는 리액트의 useState와 useEffect 훅에 대해 알아봤었다. 그런데, 리액트에서 &lsquo;마운트&rsquo;한다는 것은 어떤 의미인지 정확히 모르]]></description>
+</item>
+<item>
     <title>React UseState와 UseEffect</title>
     <link>http://redjen8.github.io/posts/feb2023/react-usestate%EC%99%80-useeffect/</link>
     <pubDate>Sat, 25 Feb 2023 16:55:12 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[Reactive Stream 공식 문서에 자주 나오는 구슬 같이 생긴 친구들의 정체는 뭘까? https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html Marble Diagram ReactiveX 프로젝트는 Observable한 스트림을 통한 비동기적 프로그래밍 API이다. 그]]></description>
-</item>
-<item>
-    <title>Java Generic 트러블슈팅</title>
-    <link>http://redjen8.github.io/posts/feb2023/java-generic-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</link>
-    <pubDate>Thu, 16 Feb 2023 19:10:28 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/java-generic-%ED%8A%B8%EB%9F%AC%EB%B8%94%EC%8A%88%ED%8C%85/</guid>
-    <description><![CDATA[약간 헷갈리던 개념이었는데, 이번 기회에 트러블 슈팅을 하면서 제대로 정리를 하고 간다..! 다음 질문으로부터 파생되었던 개념이었다. 왜 자바 컬렉션 내의 특정 객]]></description>
 </item>
 </channel>
 </rss>
