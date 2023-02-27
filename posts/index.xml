@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 26 Feb 2023 19:18:46 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 27 Feb 2023 21:51:31 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java Tuple, Reactor의 Tuples</title>
+    <link>http://redjen8.github.io/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/</link>
+    <pubDate>Mon, 27 Feb 2023 21:51:31 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/</guid>
+    <description><![CDATA[2개의 데이터를 가지는 원소를 묶어서 하나의 변수 인스턴스로 나타내고 싶을 경우가 있다. 대표적인 예시로는 2차원 상의 좌표를 나타내는 예시가 있을 것이다. 좌표를]]></description>
+</item>
+<item>
     <title>React Dom Mount</title>
     <link>http://redjen8.github.io/posts/feb2023/react-dom-mount/</link>
     <pubDate>Sun, 26 Feb 2023 19:18:46 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[Java의 Reflection API는 무엇이고, 어떻게 사용되고 있을까? https://www.baeldung.com/java-reflection Reflection API 리플렉션을 사용하기 위해서는 별도의 jar 파일이나 의존성이 필요하지 않다. java.lang.reflect 패키지에 이미 번들]]></description>
-</item>
-<item>
-    <title>Marble Diagram에 대해</title>
-    <link>http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Fri, 17 Feb 2023 20:18:22 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[Reactive Stream 공식 문서에 자주 나오는 구슬 같이 생긴 친구들의 정체는 뭘까? https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html Marble Diagram ReactiveX 프로젝트는 Observable한 스트림을 통한 비동기적 프로그래밍 API이다. 그]]></description>
 </item>
 </channel>
 </rss>
