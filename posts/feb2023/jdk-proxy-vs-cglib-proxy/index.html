@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Jdk Proxy vs Cglib Proxy - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Jdk Proxy vs Cglib Proxy" />
+<meta property="og:description" content="스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다. AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다. 스프링에" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-28T19:02:20+09:00" />
+<meta property="article:modified_time" content="2023-02-28T19:02:20+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Jdk Proxy vs Cglib Proxy"/>
+<meta name="twitter:description" content="스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다. AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다. 스프링에"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Jdk Proxy vs Cglib Proxy",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/jdk-proxy-vs-cglib-proxy\/"
+        },"genre": "posts","wordcount":  1035 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/jdk-proxy-vs-cglib-proxy\/","datePublished": "2023-02-28T19:02:20+09:00","dateModified": "2023-02-28T19:02:20+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Jdk Proxy vs Cglib Proxy</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-28">2023-02-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1035 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#jdk-dynamic-proxy">JDK Dynamic Proxy</a></li>
+    <li><a href="#cglib-proxy">CGLIB Proxy</a></li>
+    <li><a href="#둘의-차이점은">둘의 차이점은?</a></li>
+    <li><a href="#언제-실행될까">언제 실행될까?</a>
+      <ul>
+        <li><a href="#spring-data-jpa">Spring Data JPA</a></li>
+        <li><a href="#spring-boot에서">Spring Boot에서</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다.</p>
+<p>AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다.
+스프링에서 사용하는 수많은 프록시 객체들은 JDK 동적 프록시나 CGLIB 프록시가 될 수 있다.</p>
+<p>두 프록시 방법에는 어떤 차이가 있고, 스프링 프레임워크에서는 어떤 것을 언제 사용할까?</p>
+<p><a href="https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch08s06.html" target="_blank" rel="noopener noreffer ">https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch08s06.html</a></p>
+<p><a href="https://stackoverflow.com/questions/10664182/what-is-the-difference-between-jdk-dynamic-proxy-and-cglib" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/10664182/what-is-the-difference-between-jdk-dynamic-proxy-and-cglib</a></p>
+<h2 id="jdk-dynamic-proxy">JDK Dynamic Proxy</h2>
+<p>JDK Dynamic Proxy는 다음의 특징을 가지고 있다.</p>
+<ul>
+<li>인터페이스를 통해서만 프록시할 수 있다.</li>
+<li>때문에 타깃 클래스는 인터페이스를 구현해야 한다.
+<ul>
+<li>구현한 타깃 클래스는 다시 프록시 클래스에 의해 구현된다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="cglib-proxy">CGLIB Proxy</h2>
+<p>CGLIB 프록시는 다음의 특징을 가지고 있다.</p>
+<ul>
+<li>서브 클래스를 통해 프록시 객체를 만든다.</li>
+<li>이 때 프록시는 타깃 클래스의 서브클래스가 된다.
+<ul>
+<li>때문에 인터페이스를 사용하지 않아도 프록시를 사용할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<h2 id="둘의-차이점은">둘의 차이점은?</h2>
+<p>CGLIB의 서브 클래스 생성 과정에서는</p>
+<ul>
+<li>
+<p>CGLIB이 슈퍼 클래스에 대해 충분히 알아야 한다는 것이 전제된다.</p>
+<ul>
+<li>올바른 파라미터로 올바른 생성자를 호출할 수 있어야 한다.</li>
+</ul>
+</li>
+<li>
+<p>이는 CGLIB의 프록시가 JDK 프록시에 비해 조금 더 신경써야 할 것이 많다는 것을 의미한다.</p>
+<ul>
+<li>CGLIB은 final 메서드들을 무시한다. (Exception도 던지지 않는다)</li>
+</ul>
+</li>
+<li>
+<p>JDK Dynamic 프록시는 항상 호출 당 추가 스택 프레임을 필요로 한다. (내부적으로 리플렉션 API를 쓰기 때문이다.)</p>
+</li>
+<li>
+<p>하지만 CGLIB은 추가 스택 프레임을 필요로 할 수도 있고, 아닐 수도 있다.</p>
+</li>
+</ul>
+<p>어플리케이션이 복잡해지면 이 차이는 유의미하게 커진다고 한다.</p>
+<ul>
+<li>스택 크기가 커질 수록, 쓰레드가 소모하는 메모리가 커지기 때문이다.</li>
+<li>CGLIB 프록시가 따라서 메모리 소모량에서 좀 더 효율적이다.</li>
+</ul>
+<h2 id="언제-실행될까">언제 실행될까?</h2>
+<ul>
+<li><code>public class Foo implements iFoo</code> 는 JDK Dynamic Proxy가,</li>
+<li><code>public class Foo</code>는 CGLIB이 프록시할 수 있다.</li>
+</ul>
+<h3 id="spring-data-jpa">Spring Data JPA</h3>
+<p>Spring Data JPA는 인터페이스로 선언된 Repository만으로도 동작한다.</p>
+<p>그리고 방금 알아봤던 것처럼, 인터페이스로 선언된 녀석들은 JDK Dynamic Proxy가 맡아서 처리한다.</p>
+<ul>
+<li>내부적으로는 <code>InvocationHandler</code>의 구현체를 호출해서 프록시가 생성된다.</li>
+</ul>
+<h3 id="spring-boot에서">Spring Boot에서</h3>
+<p><a href="https://www.springcloud.io/post/2022-01/springboot-aop/#gsc.tab=0" target="_blank" rel="noopener noreffer ">https://www.springcloud.io/post/2022-01/springboot-aop/#gsc.tab=0</a></p>
+<p>Spring Boot 2.0 과 그 전으로 기본 프록시 정책 (별도의 프록시 정책을 설정하지 않았을 때)이 다르다.</p>
+<ul>
+<li>Spring Boot 2.0 이전에는:
+<ul>
+<li><code>spring.aop.proxy-target-class</code> 가 false : JDK Dynamic 프록시 사용</li>
+<li><code>spring.aop.proxy-target-class</code>가 true: CGLIB 프록시 사용</li>
+<li><code>spring.aop.proxy-target-class</code>를 설정하지 않았을 경우: JDK Dynamic 프록시 사용</li>
+</ul>
+</li>
+<li>Spring Boot 2.0 + 이후에는 :
+<ul>
+<li>나머지 설정은 동일하지만, 별도의 설정이 없을 경우 CGLIB 프록시가 기본적으로 사용된다.</li>
+<li>그런데 아까 말했듯이 Spring Data JPA의 경우 인터페이스를 기반으로 하기 때문에, JDK Dynamic Proxy가 사용된다.</li>
+</ul>
+</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-02-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" data-title="Jdk Proxy vs Cglib Proxy"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" data-title="Jdk Proxy vs Cglib Proxy"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" data-title="Jdk Proxy vs Cglib Proxy"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/" class="prev" rel="prev" title="Java Tuple, Reactor의 Tuples"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Tuple, Reactor의 Tuples</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
