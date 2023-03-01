@@ -4,31 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Jdk Proxy vs Cglib Proxy - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Jdk Proxy vs Cglib Proxy" />
-<meta property="og:description" content="스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다. AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다. 스프링에" />
+        <title>Airflow 아키텍쳐 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Airflow 아키텍쳐" />
+<meta property="og:description" content="Airflow란 Apache에서 만든 workflow를 빌드하고 실행할 수 있는 플랫폼이다. https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html 각각의 workflow들은 DAG(Directed Acyclic Graph, 유향 비순환 그래프)로" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-02-28T19:02:20+09:00" />
-<meta property="article:modified_time" content="2023-02-28T19:02:20+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-01T20:42:04+09:00" />
+<meta property="article:modified_time" content="2023-03-01T20:42:04+09:00" /><meta property="og:site_name" content="왜? 모음집" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Jdk Proxy vs Cglib Proxy"/>
-<meta name="twitter:description" content="스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다. AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다. 스프링에"/>
+<meta name="twitter:title" content="Airflow 아키텍쳐"/>
+<meta name="twitter:description" content="Airflow란 Apache에서 만든 workflow를 빌드하고 실행할 수 있는 플랫폼이다. https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html 각각의 workflow들은 DAG(Directed Acyclic Graph, 유향 비순환 그래프)로"/>
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/" /><link rel="next" href="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" /><link rel="prev" href="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Jdk Proxy vs Cglib Proxy",
+        "headline": "Airflow 아키텍쳐",
         "inLanguage": "ko-KR",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/redjen8.github.io\/posts\/feb2023\/jdk-proxy-vs-cglib-proxy\/"
-        },"genre": "posts","wordcount":  1035 ,
-        "url": "http:\/\/redjen8.github.io\/posts\/feb2023\/jdk-proxy-vs-cglib-proxy\/","datePublished": "2023-02-28T19:02:20+09:00","dateModified": "2023-02-28T19:02:20+09:00","publisher": {
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90\/"
+        },"genre": "posts","wordcount":  1111 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90\/","datePublished": "2023-03-01T20:42:04+09:00","dateModified": "2023-03-01T20:42:04+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
                 "@type": "Person",
@@ -99,9 +99,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Jdk Proxy vs Cglib Proxy</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Airflow 아키텍쳐</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-02-28">2023-02-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1035 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-01">2023-03-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1111 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -110,109 +110,68 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#jdk-dynamic-proxy">JDK Dynamic Proxy</a></li>
-    <li><a href="#cglib-proxy">CGLIB Proxy</a></li>
-    <li><a href="#둘의-차이점은">둘의 차이점은?</a></li>
-    <li><a href="#언제-실행될까">언제 실행될까?</a>
-      <ul>
-        <li><a href="#spring-data-jpa">Spring Data JPA</a></li>
-        <li><a href="#spring-boot에서">Spring Boot에서</a></li>
-      </ul>
-    </li>
+    <li><a href="#airflow란">Airflow란</a></li>
+    <li><a href="#airflow의-구성-요소들">Airflow의 구성 요소들</a></li>
+    <li><a href="#workload">Workload</a></li>
+    <li><a href="#제어-흐름">제어 흐름</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다.</p>
-<p>AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다.
-스프링에서 사용하는 수많은 프록시 객체들은 JDK 동적 프록시나 CGLIB 프록시가 될 수 있다.</p>
-<p>두 프록시 방법에는 어떤 차이가 있고, 스프링 프레임워크에서는 어떤 것을 언제 사용할까?</p>
-<p><a href="https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch08s06.html" target="_blank" rel="noopener noreffer ">https://docs.spring.io/spring-framework/docs/3.0.0.M3/reference/html/ch08s06.html</a></p>
-<p><a href="https://stackoverflow.com/questions/10664182/what-is-the-difference-between-jdk-dynamic-proxy-and-cglib" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/10664182/what-is-the-difference-between-jdk-dynamic-proxy-and-cglib</a></p>
-<h2 id="jdk-dynamic-proxy">JDK Dynamic Proxy</h2>
-<p>JDK Dynamic Proxy는 다음의 특징을 가지고 있다.</p>
+            </div><div class="content" id="content"><h2 id="airflow란">Airflow란</h2>
+<p>Apache에서 만든 workflow를 빌드하고 실행할 수 있는 플랫폼이다.</p>
+<p><a href="https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html" target="_blank" rel="noopener noreffer ">https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html</a></p>
 <ul>
-<li>인터페이스를 통해서만 프록시할 수 있다.</li>
-<li>때문에 타깃 클래스는 인터페이스를 구현해야 한다.
+<li>각각의 workflow들은 DAG(Directed Acyclic Graph, 유향 비순환 그래프)로 표현된다.</li>
+<li>각각의 workflow들은 Tasks 라고 부르는 개별 작업들을 포함한다.</li>
+<li>각각의 workflow들은 의존성과 데이터 플로우를 가진채로 구성될 수 있다.</li>
+</ul>
+<p>DAG는 Task들 간 의존성을 구체화시킨다.</p>
+<ol>
+<li>어떤 것을 실행할지에 대한 순서</li>
+<li>재시도를 실행하는 지에 대한 여부</li>
+</ol>
+<p>Task들은 자기 자신이 어떤 일을 할지 서술하고, 데이터를 가져오고, 분석을 실행하고, 다른 시스템을 트리거하는 등의 여러 일을 수행할 수 있다.</p>
+<h2 id="airflow의-구성-요소들">Airflow의 구성 요소들</h2>
 <ul>
-<li>구현한 타깃 클래스는 다시 프록시 클래스에 의해 구현된다.</li>
+<li>Scheduler: 스케쥴된 workflow들을 트리거하거나, task들을 executor에 보내서 실행하는 일을 수행한다.</li>
+<li>Executor: task들을 수행하는 것이 주된 역할이다. 기본 Airflow 설치에서는 스케쥴러 안의 모든 것을 실행하지만 대부분의 프로덕션 환경에서는 task들을 worker들에 위임하는 방식으로 실행한다.</li>
+<li>Webserver: DAG들과 task들의 행동을 감시, 트리거, 디버깅 하기 편리한 사용자 인터페이스를 제공한다.</li>
+<li>DAG file folder: DAG들이 모여 있는 곳으로 scheduler와 executor에 의해 읽힌다.</li>
+<li>metadata database: executor와 webserver가 상태를 저장하고 scheduler에 의해 사용되는 곳이다.</li>
 </ul>
-</li>
-</ul>
-<h2 id="cglib-proxy">CGLIB Proxy</h2>
-<p>CGLIB 프록시는 다음의 특징을 가지고 있다.</p>
+<h2 id="workload">Workload</h2>
+<p>DAG는 tasks의 시리즈로 실행된다. 그리고 Task에는 흔히 3가지 타입이 존재한다.</p>
 <ul>
-<li>서브 클래스를 통해 프록시 객체를 만든다.</li>
-<li>이 때 프록시는 타깃 클래스의 서브클래스가 된다.
-<ul>
-<li>때문에 인터페이스를 사용하지 않아도 프록시를 사용할 수 있다.</li>
+<li>Operator: DAG들의 대부분을 빠르게 빌드하기 위해 사전에 정의된 Task이다.</li>
+<li>Sensor : 외부 이벤트가 발생하기를 기다리기만 하는, 특별한 operator의 한 종류이다.</li>
+<li>TaskFlow : <code>@task</code>로 데코레이팅 되어 있는 task로 패키징된 커스텀 파이썬 함수이다.</li>
 </ul>
-</li>
-</ul>
-<h2 id="둘의-차이점은">둘의 차이점은?</h2>
-<p>CGLIB의 서브 클래스 생성 과정에서는</p>
-<ul>
-<li>
-<p>CGLIB이 슈퍼 클래스에 대해 충분히 알아야 한다는 것이 전제된다.</p>
-<ul>
-<li>올바른 파라미터로 올바른 생성자를 호출할 수 있어야 한다.</li>
-</ul>
-</li>
-<li>
-<p>이는 CGLIB의 프록시가 JDK 프록시에 비해 조금 더 신경써야 할 것이 많다는 것을 의미한다.</p>
-<ul>
-<li>CGLIB은 final 메서드들을 무시한다. (Exception도 던지지 않는다)</li>
-</ul>
-</li>
-<li>
-<p>JDK Dynamic 프록시는 항상 호출 당 추가 스택 프레임을 필요로 한다. (내부적으로 리플렉션 API를 쓰기 때문이다.)</p>
-</li>
-<li>
-<p>하지만 CGLIB은 추가 스택 프레임을 필요로 할 수도 있고, 아닐 수도 있다.</p>
-</li>
-</ul>
-<p>어플리케이션이 복잡해지면 이 차이는 유의미하게 커진다고 한다.</p>
-<ul>
-<li>스택 크기가 커질 수록, 쓰레드가 소모하는 메모리가 커지기 때문이다.</li>
-<li>CGLIB 프록시가 따라서 메모리 소모량에서 좀 더 효율적이다.</li>
-</ul>
-<h2 id="언제-실행될까">언제 실행될까?</h2>
-<ul>
-<li><code>public class Foo implements iFoo</code> 는 JDK Dynamic Proxy가,</li>
-<li><code>public class Foo</code>는 CGLIB이 프록시할 수 있다.</li>
-</ul>
-<h3 id="spring-data-jpa">Spring Data JPA</h3>
-<p>Spring Data JPA는 인터페이스로 선언된 Repository만으로도 동작한다.</p>
-<p>그리고 방금 알아봤던 것처럼, 인터페이스로 선언된 녀석들은 JDK Dynamic Proxy가 맡아서 처리한다.</p>
-<ul>
-<li>내부적으로는 <code>InvocationHandler</code>의 구현체를 호출해서 프록시가 생성된다.</li>
-</ul>
-<h3 id="spring-boot에서">Spring Boot에서</h3>
-<p><a href="https://www.springcloud.io/post/2022-01/springboot-aop/#gsc.tab=0" target="_blank" rel="noopener noreffer ">https://www.springcloud.io/post/2022-01/springboot-aop/#gsc.tab=0</a></p>
-<p>Spring Boot 2.0 과 그 전으로 기본 프록시 정책 (별도의 프록시 정책을 설정하지 않았을 때)이 다르다.</p>
-<ul>
-<li>Spring Boot 2.0 이전에는:
-<ul>
-<li><code>spring.aop.proxy-target-class</code> 가 false : JDK Dynamic 프록시 사용</li>
-<li><code>spring.aop.proxy-target-class</code>가 true: CGLIB 프록시 사용</li>
-<li><code>spring.aop.proxy-target-class</code>를 설정하지 않았을 경우: JDK Dynamic 프록시 사용</li>
-</ul>
-</li>
-<li>Spring Boot 2.0 + 이후에는 :
-<ul>
-<li>나머지 설정은 동일하지만, 별도의 설정이 없을 경우 CGLIB 프록시가 기본적으로 사용된다.</li>
-<li>그런데 아까 말했듯이 Spring Data JPA의 경우 인터페이스를 기반으로 하기 때문에, JDK Dynamic Proxy가 사용된다.</li>
-</ul>
-</li>
-</ul>
+<h2 id="제어-흐름">제어 흐름</h2>
+<p>DAG들은 여러 번 실행될 수 있고, 다수의 DAG 실행은 병렬적으로 이뤄질 수 있다.</p>
+<p>DAG들은 &lsquo;실행되는 인터벌&rsquo;을 항상 포함하는 파라미터화되어 있지만, 다른 부가적인 파라미터들도 사용할 수 있다.</p>
+<p>Task들은 서로 선언된 의존성을 가지고 있고, <code>&gt;&gt;</code>와 <code>&lt;&lt;</code> 연산자를 사용해 상호간의 의존성을 표현한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>first_task <span style="color:#f92672">&gt;&gt;</span> [second_task, third_task]
+</span></span><span style="display:flex;"><span>fourth_task <span style="color:#f92672">&lt;&lt;</span> third_task
+</span></span></code></pre></div><p>또는 <code>set_upstream</code>과 <code>set_downstream</code> 메서드를 사용해서 상기 코드와 동일한 효과를 낼 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>first_task<span style="color:#f92672">.</span>set_downstream([second_task, third_task])
+</span></span><span style="display:flex;"><span>fourth_task<span style="color:#f92672">.</span>set_upstream(third_task)
+</span></span></code></pre></div><p>이러한 의존성들은 그래프의 간선을 만드는 행위이고, Airflow가 Task들을 어떤 순서로 어떻게 실행할지를 설정하는 것이다.</p>
+<p>기본적으로는 task는 upstream task들이 성공할 때까지 기다리지만 <code>Branching</code>, <code>LatestOnly</code>, <code>Trigger Rules</code> 등의 기능을 사용해서 커스텀될 수 있다.</p>
+<p>task들 간에 데이터를 전달하려면</p>
+<ol>
+<li>XComs (Cross-Communication): task들에 작은 크기의 메타데이터를 push 하고 pull 할 수 있는 시스템</li>
+<li>Storage 서비스 사용: 큰 파일들을 전달해야 한다면, 클라우드 서비스에 업로드 및 다운로드 해서 처리 가능</li>
+<li>TaskFlow API: TaskFlow API는 자동으로 task들 간 데이터를 암묵적인 XComs 사용을 통해 전달</li>
+</ol>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2023-02-28</span>
+                <span>Updated on 2023-03-01</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" data-title="Jdk Proxy vs Cglib Proxy"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" data-title="Jdk Proxy vs Cglib Proxy"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/" data-title="Jdk Proxy vs Cglib Proxy"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" data-title="Airflow 아키텍쳐"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" data-title="Airflow 아키텍쳐"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" data-title="Airflow 아키텍쳐"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -224,8 +183,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/" class="prev" rel="prev" title="Java Tuple, Reactor의 Tuples"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Tuple, Reactor의 Tuples</a>
-            <a href="/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" class="next" rel="next" title="Airflow 아키텍쳐">Airflow 아키텍쳐<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/posts/feb2023/jdk-proxy-vs-cglib-proxy/" class="prev" rel="prev" title="Jdk Proxy vs Cglib Proxy"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Jdk Proxy vs Cglib Proxy</a></div>
 </div>
 <div id="comments"><div id="utterances" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
