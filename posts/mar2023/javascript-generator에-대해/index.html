@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Javascript Generator에 대해 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Javascript Generator에 대해" />
+<meta property="og:description" content="반복자 (iterator) 패턴이란 https://refactoring.guru/ko/design-patterns/iterator 어플리케이션 전체에서 어떤 도메인 모델의 순회가 일어나는 경우 코드의 중복을 줄일 수 있는 디자인 패턴 코드가 다른 데이터 구조들을 순회하길 원할" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-02T19:42:53+09:00" />
+<meta property="article:modified_time" content="2023-03-02T19:42:53+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Javascript Generator에 대해"/>
+<meta name="twitter:description" content="반복자 (iterator) 패턴이란 https://refactoring.guru/ko/design-patterns/iterator 어플리케이션 전체에서 어떤 도메인 모델의 순회가 일어나는 경우 코드의 중복을 줄일 수 있는 디자인 패턴 코드가 다른 데이터 구조들을 순회하길 원할"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Javascript Generator에 대해",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4\/"
+        },"genre": "posts","wordcount":  3007 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4\/","datePublished": "2023-03-02T19:42:53+09:00","dateModified": "2023-03-02T19:42:53+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Javascript Generator에 대해</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-02">2023-03-02</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3007 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#반복자-iterator-패턴이란">반복자 (iterator) 패턴이란</a>
+      <ul>
+        <li><a href="#사용-방법">사용 방법</a></li>
+        <li><a href="#장점">장점</a></li>
+        <li><a href="#단점">단점</a></li>
+      </ul>
+    </li>
+    <li><a href="#javascript의-iteration-protocol">Javascript의 Iteration Protocol</a>
+      <ul>
+        <li><a href="#자세히-들여다-보면">자세히 들여다 보면..</a></li>
+        <li><a href="#예시">예시</a></li>
+      </ul>
+    </li>
+    <li><a href="#자바스크립트의-제네레이터-함수">자바스크립트의 제네레이터 함수</a>
+      <ul>
+        <li><a href="#yield">yield</a></li>
+        <li><a href="#react의-redux-saga에서의-제네레이터-함수의-사용">React의 Redux Saga에서의 제네레이터 함수의 사용</a></li>
+      </ul>
+    </li>
+    <li><a href="#왜-제네레이터--yield-인가">왜 제네레이터 + yield 인가</a>
+      <ul>
+        <li><a href="#제네레이터-함수의-장점">제네레이터 함수의 장점</a></li>
+        <li><a href="#무한-스크롤이-가지는-장점">무한 스크롤이 가지는 장점</a></li>
+        <li><a href="#무한-스크롤이-가지는-단점">무한 스크롤이 가지는 단점</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="반복자-iterator-패턴이란">반복자 (iterator) 패턴이란</h2>
+<p><a href="https://refactoring.guru/ko/design-patterns/iterator" target="_blank" rel="noopener noreffer ">https://refactoring.guru/ko/design-patterns/iterator</a></p>
+<p>어플리케이션 전체에서 어떤 도메인 모델의 순회가 일어나는 경우 코드의 중복을 줄일 수 있는 디자인 패턴</p>
+<ul>
+<li>코드가 다른 데이터 구조들을 순회하길 원할 때</li>
+<li>순회할 구조들의 타입 또는 정보를 미리 전부 알 수 없을 때 사용한다.</li>
+</ul>
+<h3 id="사용-방법">사용 방법</h3>
+<p>Iterator 인터페이스 선언. Iterator 인터페이스는 몇 가지 구성 요소를 가질 수 있다.</p>
+<ol>
+<li>(필수) 컬렉션에서 다음 요소를 가져오는 <code>getNext()</code> 같은 메서드</li>
+<li>(선택 사항) 컬렉션에서 전 요소를 가져오는 메서드</li>
+<li>(선택 사항) 컬렉션에서 현재 위치를 추적하는 메서드</li>
+<li>(선택 사항) iterator를 사용한 순회의 끝을 확인하는 메서드</li>
+</ol>
+<p>iterator를 구현한 구현체를 통해 특정 객체에 대한 반복을 손 쉽게 할 수 있다는 장점이 있다.</p>
+<h3 id="장점">장점</h3>
+<ol>
+<li>SRP : 그래프와 같은 순회 알고리즘 작성 시 순회 대상을 별도의 클래스로 추출하여 코드를 정리할 수 있다.</li>
+<li>OCP : 신규 유형의 컬렉션과 Iterator들을 구현함으로써 신규 유형에 대한 순회도 쉽게 할 수 있다.</li>
+<li>동일 컬렉션 내 병렬 순회 가능 : 각각의 Iterator 객체 내에는 순회 중인 상태를 저장하기 때문에 큰 그래프의 탐색 같은 경우 다수의 worker에 순회를 위임시켜 결과를 병합할 수 있다.</li>
+<li>순회를 잠시 멈추거나 중개하는 등의 흐름 제어가 가능</li>
+</ol>
+<h3 id="단점">단점</h3>
+<ol>
+<li>단순한 컬렉션에 대한 순회만 사용한다면 굳이?</li>
+<li>Iterator 사용 시 때로는 직접 컬렉션의 요소를 순회하는 것보다 비효율적일 수 있음 (RB 트리 같은 경우?)</li>
+</ol>
+<h2 id="javascript의-iteration-protocol">Javascript의 Iteration Protocol</h2>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols</a></p>
+<p>자바스크립트는 객체들이 어떤 (커스텀) iteration 동작을 정의하는 것을 허용한다.</p>
+<ul>
+<li>어떤 빌트인 타입들 (<code>Object</code>) 은 iteration이 불가능하지만</li>
+<li>어떤 빌트인 타입들 (<code>Array</code>, <code>Map</code>)은 iteration이 가능하다..</li>
+</ul>
+<p>차이는 무엇일까?</p>
+<blockquote>
+<p>Iterable 하기 위해서는 <code>@@iterator</code> 메서드를 구현해야 한다.</p>
+</blockquote>
+<p>어떤 객체가 iterable하게 호출된다고 하는 것 == 객체의 <code>@@iterator</code> 메서드가 <strong>인수 없이</strong> 호출되고 , 반환된 iterator가 다시 반복을 통해 획득할 값들을 얻을 때 사용된다.</p>
+<h3 id="자세히-들여다-보면">자세히 들여다 보면..</h3>
+<p>ES6 (ECMAScript 2015) 부터는 값들의 sequence를 만드는 표준 방법을 정의하고, 이를 iterator protocol라고 부른다.</p>
+<p>객체가 <code>next()</code> 메서드를 가지고 있고, 아래 규칙에 따라 구현되었다면 그 객체는 iterator이다.</p>
+<ul>
+<li><code>next()</code> : 아래 2개의 속성을 가진 <code>Object</code>를 반환하는 파라미터 없는 함수
+<ul>
+<li><code>done</code> : boolean 타입을 리턴한다.
+<ul>
+<li>iterator가 마지막 반복 작업 마쳤을 경우 true 반환</li>
+<li>iterator가 반환할 값이 아직 남아있다면 false 반환</li>
+<li><code>done</code> 을 정의하지 않은 경우 false</li>
+</ul>
+</li>
+<li><code>value</code> : iterator로부터 반환되는 모든 자바스크립트의 값.
+<ul>
+<li><code>done</code> 이 <code>true</code>인 경우 생략 가능</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="예시">예시</h3>
+<p>자바스크립트의 <code>String</code> 타입은 빌트인 iterator 객체이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">someStr</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hi&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">someStr</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">iterator</span>]; <span style="color:#75715e">// &#34;function&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">iterator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">someStr</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">iterator</span>]();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">iterator</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;&#34;</span>; <span style="color:#75715e">// &#34;[object String Iterator]&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">next</span>(); <span style="color:#75715e">// {value : &#34;h&#34;, done: false}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">next</span>(); <span style="color:#75715e">// {value : &#34;i&#34;, done: false}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">iterator</span>.<span style="color:#a6e22e">next</span>(); <span style="color:#75715e">// {value : undefined, done: true}
+</span></span></span></code></pre></div><p><a href="" rel="">Spread 연산자</a> 또한 iteration protocol을 사용하기 때문에 다음과 같이 전개될 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// Create a generator function with multiple yields
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">generatorFunction</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">&#39;Neo&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">&#39;Morpheus&#39;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">&#39;Trinity&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;The Oracle&#39;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">generator</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">generatorFunction</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create an array from the values of a Generator object
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">values</span> <span style="color:#f92672">=</span> [...<span style="color:#a6e22e">generator</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">values</span>) <span style="color:#75715e">// (3) [&#34;Neo&#34;, &#34;Morpheus&#34;, &#34;Trinity&#34;]
+</span></span></span></code></pre></div><h2 id="자바스크립트의-제네레이터-함수">자바스크립트의 제네레이터 함수</h2>
+<p>제네레이터 함수는 generator 객체를 반환하는 함수이다.</p>
+<p>또한 몇 가지 특징을 가지고 있는데,</p>
+<ol>
+<li><code>function*</code> 으로 선언해서 사용한다.</li>
+<li>빠져나갔다가 나중에 다시 돌아올 수 있는 함수
+<ol>
+<li>이 때 함수 내부의 컨텍스트는 출입 과정에서 변경된 상태로 저장된다.</li>
+</ol>
+</li>
+<li>호출되어도 즉시 시행되지 않고, 함수를 위한 iterator 객체가 반환
+<ol>
+<li>이 iterator의 <code>next()</code> 메서드가 호출되면 generator 함수가 실행</li>
+<li><code>yield</code>문을 만날 때까지 진행
+<ol>
+<li><code>yield*</code> 표현식을 마주치면 다른 제네레이터 함수가 실행을 위임받는다.</li>
+</ol>
+</li>
+<li>해당 표현식이 명시하는 iterator의 반환 (<code>value</code>) 값을 리턴</li>
+<li>다음 <code>next()</code> 메서드가 호출되면 멈췄던 위치에서부터 재실행</li>
+</ol>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">idMaker</span>(){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span>(<span style="color:#a6e22e">index</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">index</span><span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gen</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">idMaker</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// undefined
+</span></span></span></code></pre></div><p>아래 예제처럼 <code>yield*</code>를 사용해서 제네레이터 함수 안에서 다른 제네레이터로의 위임이 가능하다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">anotherGenerator</span>(<span style="color:#a6e22e">i</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">generator</span>(<span style="color:#a6e22e">i</span>){
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">i</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">anotherGenerator</span>(<span style="color:#a6e22e">i</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">gen</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">generator</span>(<span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 11
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 12
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 13
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">gen</span>.<span style="color:#a6e22e">next</span>().<span style="color:#a6e22e">value</span>); <span style="color:#75715e">// 20
+</span></span></span></code></pre></div><h3 id="yield">yield</h3>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield</a></p>
+<p>yield 키워드는 제너레이터 함수를 중지하거나 재개하는데 사용된다.</p>
+<ul>
+<li>제네레이터 함수 안에서 <code>yield</code> 키워드를 사용한 곳들을 기준으로 코드가 잘려서 수행된다.</li>
+<li>특정 처리까지 한 후에 잠시 멈췄다가 나중에 다시 해당 상태에 접근할 때 유용하게 사용할 수 있다.</li>
+</ul>
+<h3 id="react의-redux-saga에서의-제네레이터-함수의-사용">React의 Redux Saga에서의 제네레이터 함수의 사용</h3>
+<p><a href="https://react.vlpt.us/redux-middleware/10-redux-saga.html" target="_blank" rel="noopener noreffer ">Redux Saga란? - 벨로퍼트님 글</a></p>
+<blockquote>
+<p>Redux-Saga란 액션을 모니터링하고 있다가, 특정 액션 발생 시 이에 따른 특정 작업을 실행한다.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">delay</span>, <span style="color:#a6e22e">put</span>, <span style="color:#a6e22e">takeEvery</span>, <span style="color:#a6e22e">takeLatest</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-saga/effects&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 액션 타입
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">INCREASE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;INCREASE&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DECREASE</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;DECREASE&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">INCREASE_ASYNC</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;INCREASE_ASYNC&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DECREASE_ASYNC</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;DECREASE_ASYNC&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 액션 생성 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">increase</span> <span style="color:#f92672">=</span> () =&gt; ({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">INCREASE</span> });
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decrease</span> <span style="color:#f92672">=</span> () =&gt; ({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DECREASE</span> });
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">increaseAsync</span> <span style="color:#f92672">=</span> () =&gt; ({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">INCREASE_ASYNC</span> });
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decreaseAsync</span> <span style="color:#f92672">=</span> () =&gt; ({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">DECREASE_ASYNC</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">increaseSaga</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">1000</span>); <span style="color:#75715e">// 1초를 기다립니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">increase</span>()); <span style="color:#75715e">// put은 특정 액션을 디스패치 해줍니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">decreaseSaga</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">1000</span>); <span style="color:#75715e">// 1초를 기다립니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>(<span style="color:#a6e22e">decrease</span>()); <span style="color:#75715e">// put은 특정 액션을 디스패치 해줍니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">counterSaga</span>() {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">takeEvery</span>(<span style="color:#a6e22e">INCREASE_ASYNC</span>, <span style="color:#a6e22e">increaseSaga</span>); 
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 모든 INCREASE_ASYNC 액션을 처리
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">takeLatest</span>(<span style="color:#a6e22e">DECREASE_ASYNC</span>, <span style="color:#a6e22e">decreaseSaga</span>); 
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// 가장 마지막으로 디스패치된 DECREASE_ASYNC 액션만을 처리
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 초깃값 (상태가 객체가 아니라 그냥 숫자여도 상관 없습니다.)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">counter</span>(<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">INCREASE</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">DECREASE</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://caileb.tistory.com/197" target="_blank" rel="noopener noreffer ">https://caileb.tistory.com/197</a></p>
+<p>Redux Saga/effects 에서 제공되는 함수들 (<code>call</code>, <code>put</code>)을 사용한다면</p>
+<ul>
+<li><code>function*</code> 함수를 호출 할 때 <code>next()</code> 가 아닌 액션을 통해 호출한다.</li>
+<li>리액트에서는 액션을 통해 <code>function*</code> 함수를 한번 호출하고 난 후에
+<ul>
+<li>내부에 있는 여러 <code>yield</code> 함수를 차례로 호출한다.</li>
+</ul>
+</li>
+</ul>
+<p>Redux Saga의 <code>put</code> 함수를 통해 새로운 액션을 디스패치하여 비동기로 실행할 수 있다.</p>
+<ul>
+<li><code>all</code> 함수는 redux에서 비동기 처리가 필요한 함수들을 배열 형태로 전달, 동시에 병행으로 처리를 수행한다.</li>
+<li><code>takeEvery</code> 함수는 특정 액션 타입에 대해 디스패치되는 모든 액션을 처리한다.</li>
+<li><code>takeLatest</code> 함수는 특정 액션 타입에 대해 디스패치된 가장 마지막 액션만을 처리한다.
+<ul>
+<li>즉 지정한 액션이 실행되는 동안 동일 타입의 새 액션이 디스패치되면 기존에 하던 작업은 무시하고 새 작업 시작 (따닥 방지 등)</li>
+</ul>
+</li>
+</ul>
+<h2 id="왜-제네레이터--yield-인가">왜 제네레이터 + yield 인가</h2>
+<p>모던 웹 트렌드 : 끊기지 않는 데이터 스트림의 활용이 사용자들에게 보다 깊은 인상을 줌 (주관적인 생각)</p>
+<p>제네레이터 등장 이전에 무한한 데이터 스트림을 처리하려면..? 반복 어케하죠? (무한 스크롤, 연속된 음성 재생 등)</p>
+<p>promise / async / await 사용해서 API 호출 시 페이지네이션을 적용할 수 있지만.. 패러다임의 불일치 때문에 뭔가 자연스럽지 않다!</p>
+<h3 id="제네레이터-함수의-장점">제네레이터 함수의 장점</h3>
+<p>Lazy Eval : 표현식의 실행을 실제로 필요할 때까지 미룰 수 있다.</p>
+<ul>
+<li>이에 따른 메모리 효율성 증대 : 보다 빠른 코드의 실행. 브라우저 최적화 -&gt; UX 개선</li>
+</ul>
+<p>데이터 패러다임의 불일치를 어느정도 해결</p>
+<ul>
+<li>Collection / Stream 타입 데이터를 분리해서 처리해보자!</li>
+<li>제네레이터 함수를 사용해서 컬렉션 타입의 데이터도 처리할 수 있지만..</li>
+<li>Stream 타입 데이터를 처리할 때 비로소 진가가 나타난다</li>
+</ul>
+<p><a href="https://ashishshubham.medium.com/infinite-scroll-using-generators-bbacbf6cafd9" target="_blank" rel="noopener noreffer ">제네레이터를 사용한 무한 스크롤 구현</a></p>
+<h3 id="무한-스크롤이-가지는-장점">무한 스크롤이 가지는 장점</h3>
+<p><a href="https://www.nngroup.com/articles/infinite-scrolling-tips/" target="_blank" rel="noopener noreffer ">https://www.nngroup.com/articles/infinite-scrolling-tips/</a></p>
+<ol>
+<li>인터럽션 감소 : 사용자 입장에서 잠깐의 인터럽션을 줄임으로써 잔류 시간을 늘리는데에 큰 역할</li>
+<li>인터랙션 비용 감소 : 페이지네이션을 사용했을 때 버튼을 클릭하는 등의 부가적인 인터랙션 비용을 줄여, 사용자 입장에서 좀 더 덜 피곤한 웹 페이지를 만들 수 있다.</li>
+<li>모바일 기기에서의 활약 : 모바일 환경에서 스크롤은 가장 빈번하게 일어나는 인터랙션. 사용자들은 이미 스크롤을 하고 있기 때문에 무한 스크롤 지원 시 모바일에서의 UX가 가장 크게 개선된다</li>
+</ol>
+<h3 id="무한-스크롤이-가지는-단점">무한 스크롤이 가지는 단점</h3>
+<ol>
+<li>한번 봤던 내용을 다시 보기 어려움 : 내용을 다시 찾으려 할 때 다시 스크롤을 올려야 함</li>
+<li>페이지의 끝에 도달하기 어려움 : 사용자 입장에서 컨텐츠가 끝났다는 것을 인지하기 어렵다</li>
+<li>Footer 접근 어려움 : 무한 스크롤 사용 시 사용자에게는 Footer가 노출되기 어렵다</li>
+<li>접근성 문제 : 키보드만 사용하는 (vim만 사용한다거나) 사용자들에게는 너무 불편하다</li>
+<li>페이지 로드 증가 : 더 많은 정보를 불러와야 하기 때문에, 정보 전달이 지연된다는 느낌을 줄 수 있다.</li>
+<li>SEO 성능 감소 : 무한 스크롤은 SEO 성능을 감소시킨다. 검색 엔진은 첫번째 섹션 다음의 컨텐츠에 항상 접근할 수 있는 것이 아니기 때문에, 노출 수가 중요한 페이지의 경우 사용을 고민해야</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-02</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Javascript Generator에 대해"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Javascript Generator에 대해"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/" data-title="Javascript Generator에 대해"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/" class="prev" rel="prev" title="Airflow 아키텍쳐"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Airflow 아키텍쳐</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

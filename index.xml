@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 01 Mar 2023 20:42:04 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 02 Mar 2023 19:42:53 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Javascript Generator에 대해</title>
+    <link>http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Thu, 02 Mar 2023 19:42:53 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[반복자 (iterator) 패턴이란 https://refactoring.guru/ko/design-patterns/iterator 어플리케이션 전체에서 어떤 도메인 모델의 순회가 일어나는 경우 코드의 중복을 줄일 수 있는 디자인 패턴 코드가 다른 데이터 구조들을 순회하길 원할]]></description>
+</item>
+<item>
     <title>Airflow 아키텍쳐</title>
     <link>http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/</link>
     <pubDate>Wed, 01 Mar 2023 20:42:04 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</guid>
     <description><![CDATA[리액티브 컨텍스트 안에서 트랜잭션은 어떻게 이루어질까? https://spring.io/blog/2019/05/16/reactive-transactions-with-spring 선언적 트랜잭션 관리는 어떻게 이루어지나 트랜잭션 관리는 트랜잭션의 상태를 실행과 연관지어야 한다.]]></description>
-</item>
-<item>
-    <title>상태 관리란</title>
-    <link>http://redjen8.github.io/posts/feb2023/%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EB%9E%80/</link>
-    <pubDate>Mon, 20 Feb 2023 22:29:59 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC%EB%9E%80/</guid>
-    <description><![CDATA[클라이언트 개발을 하다 보면 상태 관리, 혹은 상태 관리 툴들에 대해 언급 되는 경우가 많이 있었다. 상태관리란 무엇이고, 왜 해야 할까? https://dev.to/abdurrkhalid333/what-is-state-management-and-why-you-should-learn-it-3kai 상태란 상태는 어플리케이션]]></description>
 </item>
 </channel>
 </rss>
