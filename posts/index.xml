@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 02 Mar 2023 19:42:53 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 03 Mar 2023 18:45:09 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java Observer Observable이 Deprecated된 이유</title>
+    <link>http://redjen8.github.io/posts/mar2023/java-observer-observable%EC%9D%B4-deprecated%EB%90%9C-%EC%9D%B4%EC%9C%A0/</link>
+    <pubDate>Fri, 03 Mar 2023 18:45:09 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/java-observer-observable%EC%9D%B4-deprecated%EB%90%9C-%EC%9D%B4%EC%9C%A0/</guid>
+    <description><![CDATA[학부 설계 패턴 수업에서는 GoF 디자인 패턴들에 대해 배웠었다. 기억에 남는 디자인 패턴에는 여러 가지가 있지만, 지금 가장 많이 사용하는 디자인 패턴이라고 한다면 아마]]></description>
+</item>
+<item>
     <title>Javascript Generator에 대해</title>
     <link>http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/</link>
     <pubDate>Thu, 02 Mar 2023 19:42:53 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/post-compile-weaving/</guid>
     <description><![CDATA[AOP란 AOP는 교차 관심사의 분리를 허용함으로써 프로그램의 모듈성을 높이는 것을 목표로 하는 프로그래밍 패러다임이다. AOP가 사용되는 대표적인 예시는,]]></description>
-</item>
-<item>
-    <title>스프링 리액티브 트랜잭션</title>
-    <link>http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</link>
-    <pubDate>Tue, 21 Feb 2023 19:56:04 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/%EC%8A%A4%ED%94%84%EB%A7%81-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/</guid>
-    <description><![CDATA[리액티브 컨텍스트 안에서 트랜잭션은 어떻게 이루어질까? https://spring.io/blog/2019/05/16/reactive-transactions-with-spring 선언적 트랜잭션 관리는 어떻게 이루어지나 트랜잭션 관리는 트랜잭션의 상태를 실행과 연관지어야 한다.]]></description>
 </item>
 </channel>
 </rss>
