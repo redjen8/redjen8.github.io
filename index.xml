@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 03 Mar 2023 18:45:09 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 04 Mar 2023 15:23:50 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Java Reactive Programming - Introduction</title>
+    <link>http://redjen8.github.io/posts/mar2023/java-reactive-programming-introduction/</link>
+    <pubDate>Sat, 04 Mar 2023 15:23:50 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/java-reactive-programming-introduction/</guid>
+    <description><![CDATA[전통적인 쓰레드 / 요청 모델 데이터베이스에 어떤 수행하는 작업들 == 파일 IO 작업들 대부분의 어플리케이션은 이런 형태의 작업들을 주로 한다. 이 작업들은 처리하는데]]></description>
+</item>
+<item>
     <title>Java Observer Observable이 Deprecated된 이유</title>
     <link>http://redjen8.github.io/posts/mar2023/java-observer-observable%EC%9D%B4-deprecated%EB%90%9C-%EC%9D%B4%EC%9C%A0/</link>
     <pubDate>Fri, 03 Mar 2023 18:45:09 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/</guid>
     <description><![CDATA[프론트엔드 작업을 하면서 가장 고민이 많이 되고 어렵지만 또 재미있는 개발은 컴포넌트 공통화인 것 같다. 동일한 코드를 재사용하지 않고 나이스한 방법으로 컴포넌트가]]></description>
-</item>
-<item>
-    <title>Post Compile Weaving</title>
-    <link>http://redjen8.github.io/posts/feb2023/post-compile-weaving/</link>
-    <pubDate>Wed, 22 Feb 2023 23:08:49 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/post-compile-weaving/</guid>
-    <description><![CDATA[AOP란 AOP는 교차 관심사의 분리를 허용함으로써 프로그램의 모듈성을 높이는 것을 목표로 하는 프로그래밍 패러다임이다. AOP가 사용되는 대표적인 예시는,]]></description>
 </item>
 </channel>
 </rss>
