@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 04 Mar 2023 15:23:50 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 05 Mar 2023 19:29:30 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java, Spring의 비동기 처리 위한 구현방법</title>
+    <link>http://redjen8.github.io/posts/mar2023/java-spring-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC-%EC%9C%84%ED%95%9C-%EA%B5%AC%ED%98%84%EB%B0%A9%EB%B2%95/</link>
+    <pubDate>Sun, 05 Mar 2023 19:29:30 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/java-spring-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC-%EC%9C%84%ED%95%9C-%EA%B5%AC%ED%98%84%EB%B0%A9%EB%B2%95/</guid>
+    <description><![CDATA[자바의 여러 비동기 처리를 위한 구현체들과, 그 차이점을 알아보자. Future https://stackoverflow.com/questions/38744943/listenablefuture-vs-completablefuture 자바의 Future 클래스는 JDK6부터 도압되었으며, 호출자에게 비동기 액션이 완료되면 실행할]]></description>
+</item>
+<item>
     <title>Java Reactive Programming - Introduction</title>
     <link>http://redjen8.github.io/posts/mar2023/java-reactive-programming-introduction/</link>
     <pubDate>Sat, 04 Mar 2023 15:23:50 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/javascript%EC%9D%98-%EA%B0%9D%EC%B2%B4-%EB%B3%B5%EC%82%AC/</guid>
     <description><![CDATA[얕은 복사 / 깊은 복사 개념은 아니까 패스~ 어떻게 복사하는 게 좋을까? 하던 중 잘 정리된 글이 있어서.. https://www.daleseo.com/js-objects-clone/ 얕은 복사 Object.assign() Object.assign()을 사용하면]]></description>
-</item>
-<item>
-    <title>앵귤러 View Child</title>
-    <link>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/</link>
-    <pubDate>Thu, 23 Feb 2023 17:41:49 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/</guid>
-    <description><![CDATA[프론트엔드 작업을 하면서 가장 고민이 많이 되고 어렵지만 또 재미있는 개발은 컴포넌트 공통화인 것 같다. 동일한 코드를 재사용하지 않고 나이스한 방법으로 컴포넌트가]]></description>
 </item>
 </channel>
 </rss>
