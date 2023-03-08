@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 07 Mar 2023 18:31:12 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 08 Mar 2023 19:50:38 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Javascript의 Typeof와 Instanceof</title>
+    <link>http://redjen8.github.io/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/</link>
+    <pubDate>Wed, 08 Mar 2023 19:50:38 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/</guid>
+    <description><![CDATA[자바스크립트에서 정말 선택받은 몇몇을 제외하고 모든 것은 객체이다. 그럼 익명의 객체가 어떤 타입인지 알기 위해서는 어떤 방법을 사용할 수 있을까? typeof https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof typeof object 형태로]]></description>
+</item>
+<item>
     <title>클라이언트 사이드 - 서버 사이드 페이지네이션 비교</title>
     <link>http://redjen8.github.io/posts/mar2023/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%9C%EB%B2%84-%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EB%B9%84%EA%B5%90/</link>
     <pubDate>Tue, 07 Mar 2023 18:31:12 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/</guid>
     <description><![CDATA[2개의 데이터를 가지는 원소를 묶어서 하나의 변수 인스턴스로 나타내고 싶을 경우가 있다. 대표적인 예시로는 2차원 상의 좌표를 나타내는 예시가 있을 것이다. 좌표를]]></description>
-</item>
-<item>
-    <title>React Dom Mount</title>
-    <link>http://redjen8.github.io/posts/feb2023/react-dom-mount/</link>
-    <pubDate>Sun, 26 Feb 2023 19:18:46 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/react-dom-mount/</guid>
-    <description><![CDATA[저번에는 리액트의 useState와 useEffect 훅에 대해 알아봤었다. 그런데, 리액트에서 &lsquo;마운트&rsquo;한다는 것은 어떤 의미인지 정확히 모르]]></description>
 </item>
 </channel>
 </rss>
