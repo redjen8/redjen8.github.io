@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 08 Mar 2023 19:50:38 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 09 Mar 2023 19:23:37 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Github Api File Size Trouble Shooting</title>
+    <link>http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/</link>
+    <pubDate>Thu, 09 Mar 2023 19:23:37 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/</guid>
+    <description><![CDATA[Github API를 사용하다 파일 컨텐츠를 불러올 수 없는 문제를 만났던 내용을 공유해보려 한다. 문제 Github 클라이언트 API는 Github API를 좀 더 간편하게 사용할 수 있게 해주는]]></description>
+</item>
+<item>
     <title>Javascript의 Typeof와 Instanceof</title>
     <link>http://redjen8.github.io/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/</link>
     <pubDate>Wed, 08 Mar 2023 19:50:38 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/</guid>
     <description><![CDATA[스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다. AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다. 스프링에]]></description>
-</item>
-<item>
-    <title>Java Tuple, Reactor의 Tuples</title>
-    <link>http://redjen8.github.io/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/</link>
-    <pubDate>Mon, 27 Feb 2023 21:51:31 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/java-tuple-reactor%EC%9D%98-tuples/</guid>
-    <description><![CDATA[2개의 데이터를 가지는 원소를 묶어서 하나의 변수 인스턴스로 나타내고 싶을 경우가 있다. 대표적인 예시로는 2차원 상의 좌표를 나타내는 예시가 있을 것이다. 좌표를]]></description>
 </item>
 </channel>
 </rss>

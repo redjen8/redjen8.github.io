@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Github Api File Size Trouble Shooting - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Github Api File Size Trouble Shooting" />
+<meta property="og:description" content="Github API를 사용하다 파일 컨텐츠를 불러올 수 없는 문제를 만났던 내용을 공유해보려 한다. 문제 Github 클라이언트 API는 Github API를 좀 더 간편하게 사용할 수 있게 해주는" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-09T19:23:37+09:00" />
+<meta property="article:modified_time" content="2023-03-09T19:23:37+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Github Api File Size Trouble Shooting"/>
+<meta name="twitter:description" content="Github API를 사용하다 파일 컨텐츠를 불러올 수 없는 문제를 만났던 내용을 공유해보려 한다. 문제 Github 클라이언트 API는 Github API를 좀 더 간편하게 사용할 수 있게 해주는"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Github Api File Size Trouble Shooting",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/github-api-file-size-trouble-shooting\/"
+        },"genre": "posts","wordcount":  917 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/github-api-file-size-trouble-shooting\/","datePublished": "2023-03-09T19:23:37+09:00","dateModified": "2023-03-09T19:23:37+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Github Api File Size Trouble Shooting</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-09">2023-03-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;917 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#문제">문제</a></li>
+    <li><a href="#원인을-찾기-위해서">원인을 찾기 위해서..</a></li>
+    <li><a href="#원인">원인</a></li>
+    <li><a href="#왜-파일-크기에-따른-mediatype-제약-사항을-둘까">왜 파일 크기에 따른 MediaType 제약 사항을 둘까?</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Github API를 사용하다 파일 컨텐츠를 불러올 수 없는 문제를 만났던 내용을 공유해보려 한다.</p>
+<h2 id="문제">문제</h2>
+<p><a href="https://github-api.kohsuke.org/" target="_blank" rel="noopener noreffer ">Github 클라이언트 API</a>는 Github API를 좀 더 간편하게 사용할 수 있게 해주는 라이브러리이다.</p>
+<p>기본적으로 Github API들은 REST API인데, 우리가 흔하게 얘기하는 REST가 아니라 HATEOAS를 얹은 진짜 정말 찐 REST API인 점이 인상 깊었다.</p>
+<p><a href="https://deview.kr/2017/schedule/212" target="_blank" rel="noopener noreffer ">DEVIEW 2017 - 그런 REST API로 괜찮은가</a></p>
+<p>하여튼, Github API를 잘 사용하다가.. 레포지토리 내부의 파일 컨텐츠를 가져오는 과정에서 문제가 생겼다.</p>
+<blockquote>
+<p>Unrecognized Encoding : None</p>
+</blockquote>
+<h2 id="원인을-찾기-위해서">원인을 찾기 위해서..</h2>
+<p>에러 코드에 <code>Encoding</code>이 있었고, 최근에 변경한 비즈니스 로직도 하필 변경 내용에 포함되어 있어서 맨 처음에는 파일 쓸 때의 인코딩이 문제인가? 하고 찾아봤었다.</p>
+<p>하지만 변경 전 후와 비교해서 파일 쓰는 로직은 변경되지 않았었고, 문제는 다시 원점으로 돌아갔다.</p>
+<p>그리고 <a href="https://doc.github.com" target="_blank" rel="noopener noreffer ">Github API 공식 문서</a>를 보게 된다.</p>
+<h2 id="원인">원인</h2>
+<p><a href="https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#custom-media-types-for-repository-contents" target="_blank" rel="noopener noreffer ">https://docs.github.com/en/rest/repos/contents?apiVersion=2022-11-28#custom-media-types-for-repository-contents</a></p>
+<p>Github API는 레포지토리 내 작은 크기의 파일의 경우 <code>application/json</code> MediaType을 사용해서 접근할 수 있게 허용한다.</p>
+<p>하지만 1MB가 넘는 파일의 경우 그렇지 않다. 반드시 특정 커스텀 MediaType을 지정한 API 호출을 통해서 파일 컨텐츠를 접근할 수 있게 한다.</p>
+<p><code>vnd.github.raw</code> MediaType으로 다시 파일 컨텐츠 요청을 보냈을 때에는 정상적으로 파일 컨텐츠를 받아올 수 있었다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -L <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Accept: application/vnd.github+json&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;Authorization: Bearer &lt;YOUR-TOKEN&gt;&#34;</span><span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  -H <span style="color:#e6db74">&#34;X-GitHub-Api-Version: 2022-11-28&#34;</span> <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  https://api.github.com/repos/OWNER/REPO/contents/PATH
+</span></span></code></pre></div><h2 id="왜-파일-크기에-따른-mediatype-제약-사항을-둘까">왜 파일 크기에 따른 MediaType 제약 사항을 둘까?</h2>
+<p>사실 <code>application/json</code>은 간단한 요청에 대한 응답을 보내기엔 더 없이 좋은 포맷이지만,
+크기가 큰 파일을 전송하는데에는 적합하지 않은 MediaType이다.</p>
+<p>작은 크기의 파일은 가장 많이 사용하는 MIME type인 <code>application/json</code>으로 encoding된 파일 내용을 보내도 상관이 없지만</p>
+<p>크기가 큰 파일을 전송하는데에는 File I/O 비용과, 막대한 네트워크 비용이 들기 때문에 별도의 MediaType을 두어 파일 전송에 특화된 방법을 사용하는 것이라 추측할 수 있었다.</p>
+<ul>
+<li>클라이언트에서 어떤 파일을 서버로 전송할 때에는 <code>Multipart</code> 파일 업로드를 통해 수행한다.</li>
+<li>서버에서는 <code>InputStream</code> 이나 <code>ByteArrayResource</code>를 리턴타입을 클라이언트에 전달함으로써 파일을 줄 수 있다.</li>
+</ul>
+<p><a href="https://stackoverflow.com/questions/35680932/download-a-file-from-spring-boot-rest-service" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/35680932/download-a-file-from-spring-boot-rest-service</a></p>
+<p><code>vnd</code>는 찾아보니 vendor-specific한 MIME 타입을 나타내는 prefix라고 한다.</p>
+<p><a href="https://stackoverflow.com/questions/5351093/what-is-the-meaning-of-vnd-in-mime-types" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/5351093/what-is-the-meaning-of-vnd-in-mime-types</a></p>
+<p><code>prs</code>는 personal한 MIME 타입을 나타내는 prefix라고 한다!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/" data-title="Github Api File Size Trouble Shooting"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/" data-title="Github Api File Size Trouble Shooting"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/" data-title="Github Api File Size Trouble Shooting"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/" class="prev" rel="prev" title="Javascript의 Typeof와 Instanceof"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Javascript의 Typeof와 Instanceof</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
