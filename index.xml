@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 09 Mar 2023 19:23:37 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 10 Mar 2023 19:12:23 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>스트림의 새로운 표준 리액티브 스트림</title>
+    <link>http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/</link>
+    <pubDate>Fri, 10 Mar 2023 19:12:23 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/</guid>
+    <description><![CDATA[왜 표준이 필요한가 초기에는 CompletableStage를 쓰는 라이브러리와, RxJava 간 호환이 되지 않았고, 어댑터 유틸리티 클래스를 구현해서 사용해야만 했]]></description>
+</item>
+<item>
     <title>Github Api File Size Trouble Shooting</title>
     <link>http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/</link>
     <pubDate>Thu, 09 Mar 2023 19:23:37 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/</guid>
     <description><![CDATA[Airflow란 Apache에서 만든 workflow를 빌드하고 실행할 수 있는 플랫폼이다. https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html 각각의 workflow들은 DAG(Directed Acyclic Graph, 유향 비순환 그래프)로]]></description>
-</item>
-<item>
-    <title>Jdk Proxy vs Cglib Proxy</title>
-    <link>http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/</link>
-    <pubDate>Tue, 28 Feb 2023 19:02:20 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/feb2023/jdk-proxy-vs-cglib-proxy/</guid>
-    <description><![CDATA[스프링 프레임워크는 AOP의 장점을 아주 잘 활용하고 있는 프레임워크이다. AOP에 의해 생성된 객체는 Aspect Contract를 실행하기 위해 사용된다. 스프링에]]></description>
 </item>
 </channel>
 </rss>
