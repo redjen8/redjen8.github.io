@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Database Pagination Optimization - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Database Pagination Optimization" />
+<meta property="og:description" content="얼마 전 MySQL LIMIT 최적화 글을 읽고 약간 충격을 받았었다. 페이지네이션을 통해서 데이터베이스를 읽어올 때, 당연히 LIMIT과 OFFSET을 활용하면 딱딱 그 범위에" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/database-pagination-optimization/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-11T12:32:34+09:00" />
+<meta property="article:modified_time" content="2023-03-11T12:32:34+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Database Pagination Optimization"/>
+<meta name="twitter:description" content="얼마 전 MySQL LIMIT 최적화 글을 읽고 약간 충격을 받았었다. 페이지네이션을 통해서 데이터베이스를 읽어올 때, 당연히 LIMIT과 OFFSET을 활용하면 딱딱 그 범위에"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/database-pagination-optimization/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Database Pagination Optimization",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/database-pagination-optimization\/"
+        },"genre": "posts","wordcount":  1284 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/database-pagination-optimization\/","datePublished": "2023-03-11T12:32:34+09:00","dateModified": "2023-03-11T12:32:34+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Database Pagination Optimization</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-11">2023-03-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1284 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#문제-정의">문제 정의</a></li>
+    <li><a href="#또-다른-문제로는">또 다른 문제로는..</a></li>
+    <li><a href="#어떻게-해야-할까">어떻게 해야 할까?</a>
+      <ul>
+        <li><a href="#offset-없애기">OFFSET 없애기</a></li>
+        <li><a href="#left-off-구현">Left Off 구현</a></li>
+        <li><a href="#link-beyond">Link Beyond</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>얼마 전 <a href="https://jeong-pro.tistory.com/244" target="_blank" rel="noopener noreffer ">MySQL LIMIT 최적화 글</a>을 읽고 약간 충격을 받았었다.</p>
+<p>페이지네이션을 통해서 데이터베이스를 읽어올 때, 당연히 <code>LIMIT</code>과 <code>OFFSET</code>을 활용하면 딱딱 그 범위에 맞는 데이터를 가공해서 줄 것이라고 생각했었는데, 실은 그렇지 않았다.</p>
+<p>학부 데이터베이스 수업 시간에 배웠던 내용을 떠올려보면 인덱스가 걸려 있지 않은 레코드를 범위 별로 검색하기 위해서는 파일의 처음부터 끝까지 검색을 해야 했었던 것으로 기억난다.</p>
+<p>그렇다면 데이터베이스 쿼리 질의 단계에서의 페이지네이션은 어떤 방식으로 최적화할 수 있을까?</p>
+<p><a href="https://mariadb.com/kb/en/pagination-optimization/" target="_blank" rel="noopener noreffer ">https://mariadb.com/kb/en/pagination-optimization/</a></p>
+<p>MariaDB 공식 문서에서도 동일한 내용을 다루고 있어서 찾아보았다.</p>
+<h2 id="문제-정의">문제 정의</h2>
+<p>데이터베이스에서의 5만개의 아이템이 저장되어 있고, 10개 단위의 아이템을 페이지로 끊어서 불러온다고 생각해보자.</p>
+<p><code>SELECT ... OFFSET 49990 LIMIT 10</code>와 같은 쿼리는 실제로 어떻게 동작하냐면..</p>
+<ol>
+<li>먼저 50000개의 row를 전부 찾는다.</li>
+<li>처음 49990개의 row를 건너뛴다.</li>
+<li>그리고 10개의 row를 결과 페이지로 리턴한다.</li>
+</ol>
+<p>만약 사용자가 이런 방식으로 5000개의 페이지를 각각 읽게 된다면 데이터베이스 입장에서는 125,000,000 개의 아이템에 대한 접근이 이루어지는 셈이다.</p>
+<p>전체 테이블을 읽는 과정에서는 엄청난 IO 비용이 들기 때문에 서비스 사용자 입장에서는 불편함을 느낄 수 밖에 없다.</p>
+<h2 id="또-다른-문제로는">또 다른 문제로는..</h2>
+<p>성능 문제 뿐만 아니라.</p>
+<ul>
+<li>아이템이 페이징하는 도중에 다음 페이지에 삭제되거나 추가된다면, 변경된 아이템에 대한 검색 결과가 정확하지 않을 수 있거나 중복된 결과로써 나타날수도 있다.</li>
+<li>페이지는 시간에 따라 변하기 때문에 쉽게 북마크되거나 다른 사람에게 보내줄 수 없다.</li>
+<li><code>WHERE</code> 절과 <code>ORDER BY</code> 절을 함께 사용하는 것은 1번 페이지의 10개 아이템을 가져오기 위해 50000개의 아이템을 전부 읽어야 한다는 것을 의미하기도 한다.</li>
+</ul>
+<h2 id="어떻게-해야-할까">어떻게 해야 할까?</h2>
+<blockquote>
+<p><code>OFFSET</code>을 쓰지 마라. 대신 어디까지 읽었는지를 따로 기억해라.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">첫</span> <span style="color:#960050;background-color:#1e0010">페이지</span> (<span style="color:#960050;background-color:#1e0010">처음</span> <span style="color:#ae81ff">10</span> <span style="color:#960050;background-color:#1e0010">아이템들</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SELECT</span> ... <span style="color:#66d9ef">WHERE</span> ... <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">DESC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">그</span> <span style="color:#960050;background-color:#1e0010">다음</span> <span style="color:#960050;background-color:#1e0010">페이지</span> (<span style="color:#960050;background-color:#1e0010">두</span> <span style="color:#960050;background-color:#1e0010">번째</span> <span style="color:#ae81ff">10</span><span style="color:#960050;background-color:#1e0010">개</span> <span style="color:#960050;background-color:#1e0010">아이템들</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">SELECT</span> ... <span style="color:#66d9ef">WHERE</span> ... <span style="color:#66d9ef">AND</span> id <span style="color:#f92672">&lt;</span> <span style="color:#960050;background-color:#1e0010">$</span>left_off <span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id <span style="color:#66d9ef">DESC</span> <span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span>
+</span></span></code></pre></div><h3 id="offset-없애기">OFFSET 없애기</h3>
+<p>현재 방식에서 웹 페이지가 요청하는 페이징 url은 아마 <code>?topic=xyz&amp;page=4999&amp;limit=10</code>과 같은 형식이다.</p>
+<p>그런데, 이 방식에서 굳이 OFFSET이 필요할까? OFFSET 값은 어차피 <code>page * limit</code> 값으로 쓰고 있는데..</p>
+<p>그래서 새 방식에서는 <code>?topic=xyz&amp;id=12345&amp;limit=10</code>으로 변경된다. <code>id</code>를 <code>page</code> 대신 사용하는 것이 핵심이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> topic <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;xyz&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">AND</span> id <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">12345</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> id
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#ae81ff">10</span>
+</span></span></code></pre></div><p>위 쿼리는 실제로 10개의 row에만 접근한다.</p>
+<h3 id="left-off-구현">Left Off 구현</h3>
+<p>그런데 만약 현재 페이지를 표시할 때 정확히 10개의 row만 남아 있다면 어떻게 할까?</p>
+<ul>
+<li>&lsquo;다음&rsquo; 버튼을 비활성화할 수 있다.</li>
+</ul>
+<p>하지만 그보다 좋은 방법으로는 <code>LIMIT 10</code>을 사용하는 것보다 <code>LIMIT 11</code>을 사용하는 것이다.
+이렇게 되면 좋은 점이</p>
+<ul>
+<li>현재 페이지에 필요한 10개 항목과</li>
+<li>다른 페이지가 있는지에 대한 여부와</li>
+<li>그 페이지의 ID를 다 같이 가져올 수 있다.</li>
+</ul>
+<p><code>?topic=xyz&amp;id=$id11&amp;loimit=10</code></p>
+<h3 id="link-beyond">Link Beyond</h3>
+<p>5개의 페이지를 한번에 찾고 그 페이지 간 링크를 걸려면 어떻게 해야 할까?</p>
+<ol>
+<li><code>LIMIT 51</code>을 사용하는 방법
+<ol>
+<li>페이지 12에 있는 경우, 13~17 페이지에 대한 링크를 가져올 수 있다.</li>
+</ol>
+</li>
+<li>두 번위 쿼리를 사용하는 방법
+<ol>
+<li>현재 페이지에 대해 10개 아이템을 가져오는 쿼리 1</li>
+<li>다음 5 페이지에 대한 41개의 ID를 쿼리 2 (<code>LIMIT 10, 41</code>)</li>
+</ol>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-11</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/database-pagination-optimization/" data-title="Database Pagination Optimization"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/database-pagination-optimization/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/database-pagination-optimization/" data-title="Database Pagination Optimization"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/database-pagination-optimization/" data-title="Database Pagination Optimization"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/" class="prev" rel="prev" title="스트림의 새로운 표준 리액티브 스트림"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>스트림의 새로운 표준 리액티브 스트림</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

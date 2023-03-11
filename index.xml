@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 10 Mar 2023 19:12:23 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 11 Mar 2023 12:32:34 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Database Pagination Optimization</title>
+    <link>http://redjen8.github.io/posts/mar2023/database-pagination-optimization/</link>
+    <pubDate>Sat, 11 Mar 2023 12:32:34 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/database-pagination-optimization/</guid>
+    <description><![CDATA[얼마 전 MySQL LIMIT 최적화 글을 읽고 약간 충격을 받았었다. 페이지네이션을 통해서 데이터베이스를 읽어올 때, 당연히 LIMIT과 OFFSET을 활용하면 딱딱 그 범위에]]></description>
+</item>
+<item>
     <title>스트림의 새로운 표준 리액티브 스트림</title>
     <link>http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/</link>
     <pubDate>Fri, 10 Mar 2023 19:12:23 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[반복자 (iterator) 패턴이란 https://refactoring.guru/ko/design-patterns/iterator 어플리케이션 전체에서 어떤 도메인 모델의 순회가 일어나는 경우 코드의 중복을 줄일 수 있는 디자인 패턴 코드가 다른 데이터 구조들을 순회하길 원할]]></description>
-</item>
-<item>
-    <title>Airflow 아키텍쳐</title>
-    <link>http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/</link>
-    <pubDate>Wed, 01 Mar 2023 20:42:04 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/airflow-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90/</guid>
-    <description><![CDATA[Airflow란 Apache에서 만든 workflow를 빌드하고 실행할 수 있는 플랫폼이다. https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/overview.html 각각의 workflow들은 DAG(Directed Acyclic Graph, 유향 비순환 그래프)로]]></description>
 </item>
 </channel>
 </rss>
