@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java Reactive Programming - Mono - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Java Reactive Programming - Mono" />
+<meta property="og:description" content="Reactor Publisher Reactor는 Hibernate처럼 리액티브 스트림 구현체이다. Reactor의 Publisher에는 Mono&lt;T&gt; : 0 또는 1개의 아이템을 emit할" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-12T22:40:11+09:00" />
+<meta property="article:modified_time" content="2023-03-12T22:40:11+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Reactive Programming - Mono"/>
+<meta name="twitter:description" content="Reactor Publisher Reactor는 Hibernate처럼 리액티브 스트림 구현체이다. Reactor의 Publisher에는 Mono&lt;T&gt; : 0 또는 1개의 아이템을 emit할"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/database-pagination-optimization/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java Reactive Programming - Mono",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/java-reactive-programming-mono\/"
+        },"genre": "posts","wordcount":  2865 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/java-reactive-programming-mono\/","datePublished": "2023-03-12T22:40:11+09:00","dateModified": "2023-03-12T22:40:11+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Java Reactive Programming - Mono</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-12">2023-03-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2865 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#reactor-publisher">Reactor Publisher</a>
+      <ul>
+        <li><a href="#왜-mono가-필요할까">왜 Mono가 필요할까?</a></li>
+        <li><a href="#stream-lazy-behavior">Stream Lazy Behavior</a></li>
+      </ul>
+    </li>
+    <li><a href="#mono를-생성하는-여러-방법들">Mono를 생성하는 여러 방법들</a>
+      <ul>
+        <li><a href="#just">Just</a></li>
+        <li><a href="#publisher의-subscribe-성질">Publisher의 Subscribe 성질</a></li>
+        <li><a href="#monoempty">Mono.empty</a></li>
+        <li><a href="#monofromsupplier">Mono.fromSupplier</a></li>
+        <li><a href="#monofromcallable">Mono.fromCallable</a></li>
+        <li><a href="#building-vs-executing-pipeline">Building vs Executing Pipeline</a></li>
+        <li><a href="#async">Async</a></li>
+        <li><a href="#block">Block</a></li>
+        <li><a href="#monofromfuture">Mono.fromFuture</a></li>
+        <li><a href="#monofromrunnable">Mono.fromRunnable</a></li>
+      </ul>
+    </li>
+    <li><a href="#정리">정리</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="reactor-publisher">Reactor Publisher</h2>
+<p>Reactor는 Hibernate처럼 리액티브 스트림 구현체이다.
+Reactor의 Publisher에는</p>
+<ol>
+<li><code>Mono&lt;T&gt;</code> : 0 또는 1개의 아이템을 emit할 수 있는 publisher이다.
+<ol>
+<li>아이템을 emit했다면 <code>onComplete</code></li>
+<li>아이템을 emit하지 못했다면 <code>onError</code></li>
+<li>아이템을 emit하지 않고 <code>onComplete</code>도 가능</li>
+</ol>
+</li>
+<li><code>Flux&lt;T&gt;</code> : 0 또는 N 개의 아이템을 emit할 수 있는 publisher이다.
+<ol>
+<li>끝나지 않는 데이터의 스트림은 <code>Flux</code>를 통해 전달 가능</li>
+<li>publisher가 데이터를 전부 전달 후 <code>onComplete</code> 메서드를 호출하거나</li>
+<li>데이터를 전달하는 과정에서 에러 발생 시에 <code>onError</code> 메서드를 호출할 수 있다.</li>
+</ol>
+</li>
+</ol>
+<h3 id="왜-mono가-필요할까">왜 Mono가 필요할까?</h3>
+<p>단 하나의 아이템이 publisher로부터 생산될 것을 아는 상황에서는 <code>Mono</code>가 엄청 편리하기 때문이다.
+테이블에 얼마나 많은 데이터가 있는지 조회하는 쿼리의 경우가 이에 해당한다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>현재 데이터</th>
+<th>이전 데이터들</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Java</td>
+<td><code>Address</code> / <code>null</code></td>
+<td><code>List&lt;Address&gt;</code></td>
+</tr>
+<tr>
+<td>Java Stream</td>
+<td><code>Optional&lt;Address&gt;</code></td>
+<td><code>Stream&lt;Address&gt;</code></td>
+</tr>
+<tr>
+<td>Reactor</td>
+<td><code>Mono&lt;Address&gt;</code></td>
+<td><code>Flux&lt;Address&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="stream-lazy-behavior">Stream Lazy Behavior</h3>
+<p>Stream을 생성 후 바로 출력하게 된다면 어떤 일이 벌어질까?</p>
+<ul>
+<li>아무 일도 벌어지지 않는다.</li>
+<li><code>Stream</code>에 terminal한 operator를 연결하기 전까지는 lazy하게 동작하기 때문이다.</li>
+</ul>
+<h2 id="mono를-생성하는-여러-방법들">Mono를 생성하는 여러 방법들</h2>
+<h3 id="just">Just</h3>
+<p>Mono를 생성하는 가장 쉬운 방법은 <code>.just()</code>를 사용하는 것이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> mono <span style="color:#f92672">=</span> Mono<span style="color:#f92672">.</span><span style="color:#a6e22e">just</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><blockquote>
+<p>Stream에서처럼, Publisher를 subscribe하기 전까지는 아무 일도 일어나지 않는다는 것을 명심해야 한다.</p>
+</blockquote>
+<p>Just로 생성한 Mono를 바로 출력하게 되면 똑같이 아무 일도 벌어지지 않는다.</p>
+<ul>
+<li>Mono에는 terminal한 operator 대신 <code>.subscribe()</code>를 해주어 lazy하게 동작하도록 트리거할 수 있다.</li>
+</ul>
+<h3 id="publisher의-subscribe-성질">Publisher의 Subscribe 성질</h3>
+<p>Reactor에서는 Publisher - Subscriber 관계가 형성된 이후에는 아래 3개의 메서드 호출로 서로 통신을 하게 된다.</p>
+<ol>
+<li><code>onNext</code> - <code>Consumer&lt;T&gt;</code></li>
+<li><code>onError</code> - <code>Consumer&lt;Throwable&gt;</code></li>
+<li><code>onComplete</code> - <code>Runnable</code></li>
+</ol>
+<ul>
+<li><code>onNext</code> 메서드는 subscribe했을 때 가장 먼저 호출하게 되는 메서드이자 파라미터이다.</li>
+<li><code>onError</code> 메서드는 시그널을 전달하는 과정에서 exception이 발생했을 때 호출하는 메서드이다.</li>
+<li><code>onComplete</code> 메서드는 데이터를 전부 전달하고 요청받은 작업을 전부 수행했을 때 실행하는 <code>Runnable</code>을 리턴한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> mono <span style="color:#f92672">=</span> Mono<span style="color:#f92672">.</span><span style="color:#a6e22e">just</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ball&#34;</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>mono<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p>위 코드는 아무것도 일어나지 않는 것처럼 보이지만 실제로 publisher가 subscriber에게 아이템을 전달한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>mono<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>	item <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>item<span style="color:#f92672">),</span>  <span style="color:#75715e">//onNext 에 전달될 consumer 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	err <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>err<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">()),</span> <span style="color:#75715e">//onError에 전달된 consumer 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#f92672">()</span> <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Completed&#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">//onComplete에 전달된 Runnable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><p><code>subscribe()</code> 메서드들 통해 전달될 onNext, onError, onComplete 인자를 명세하는 코드이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> mono <span style="color:#f92672">=</span> Mono<span style="color:#f92672">.</span><span style="color:#a6e22e">just</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;ball&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>String<span style="color:#f92672">::</span>length<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>l <span style="color:#f92672">-&gt;</span> l <span style="color:#f92672">/</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>	
+</span></span><span style="display:flex;"><span>mono<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>	item <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>item<span style="color:#f92672">),</span>  <span style="color:#75715e">//onNext 에 전달될 consumer 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	err <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>err<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">()),</span> <span style="color:#75715e">//onError에 전달된 consumer 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#f92672">()</span> <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Completed&#34;</span><span style="color:#f92672">)</span> <span style="color:#75715e">//onComplete에 전달된 Runnable
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>onError를 명세하지 않으면 에러 메시지가 지저분하게 나타나지만, onError를 명세함으로써 아이템 emit 과정에서 발생한 에러 스택을 조금 더 상세하게 trace할 수 있다는 장점이 있다.</p>
+<h3 id="monoempty">Mono.empty</h3>
+<p>publisher 입장에서 데이터를 반환하고 싶지 않을때에는 어떻게 해야할까?</p>
+<p>null을 사용하는 것은 NPE를 발생시킬 수 있기 때문에 좋은 선택이 아니다.</p>
+<p>때문에 publisher는 반환해야 할 데이터가 없다는 것을 subscriber에게 전달하기 위해 더 나은 방법으로 전달해주어야 한다. 그 방식이 <code>Mono.empty()</code> 이다.</p>
+<p><code>Mono.empty()</code>는 에러가 아니다! 따라서 <code>onError</code> 도 발생시키지 않는다.
+에러를 발생시키는 메서드는 <code>Mono.error()</code> 이다. <code>Mono.error()</code>는 <code>onError</code>를 발생시킨다.</p>
+<h3 id="monofromsupplier">Mono.fromSupplier</h3>
+<p><code>Mono.just()</code> 안에 객체를 리턴하는 함수를 인자로 넣으면 어떻게 될까?</p>
+<p>앞에서 알아봤던 것처럼, Publisher는 lazy하게 동작하기 때문에 subscribe 될 때까지는 아무 행동도 하지 않을까? 그렇지 않다.</p>
+<blockquote>
+<p>Mono.just()는 데이터가 이미 존재하는 경우에만 사용해야 한다.</p>
+</blockquote>
+<p>존재하지 않는 데이터로부터 Mono Publisher를 생성하려면, <code>Mono.fromSupplier</code>를 사용해야 한다.</p>
+<p><code>Mono.fromSupplier()</code>를 사용한다면 실제로 publisher가 subscribe되기 전까지는 예상하는 것처럼 의도대로 아무것도 실행되지 않는다.</p>
+<h3 id="monofromcallable">Mono.fromCallable</h3>
+<p><code>Callable</code>은 자바5부터 도입된 인터페이스이고, <code>Supplier</code>와 같은 함수형 인터페이스는 자바8부터 본격적으로 도입이 되었다.</p>
+<p>때문에 Reactor는 자바5의 <code>Callable</code>으로부터 생산되는 객체를 Mono Publisher로 만들어 주는 기능을 제공한다. 그것이 <code>fromCallable()</code>이다. 나머지 기능들은 전부 동일하다.</p>
+<h3 id="building-vs-executing-pipeline">Building vs Executing Pipeline</h3>
+<p>파이프라인을 생성하는 것과 실행하는 것은 다르다.</p>
+<ul>
+<li>파이프라인을 생성하는 것은 쉽다.</li>
+<li>하지만 파이프라인을 실행하는 것은 실제로 비즈니스 로직이 실행되는 경우 시간이 소모되는 작업일 수 있다.</li>
+<li>실행될 비즈니스 로직은 항상 lazy하게 실행되도록 파이프라인을 구성해야 한다.</li>
+<li>Subscriber가 생겨서 실제로 파이프라인이 실행된다면 그제서야 비로소 시간이 걸리는 비즈니스 로직이 실행되는 구조로~</li>
+</ul>
+<h3 id="async">Async</h3>
+<p>기본적으로 Reactor에서 무언가를 실행할 때에는 main 쓰레드에서 실행한다.</p>
+<p>Mono Publisher에 대해 <code>.subscribeOn(Schedulers.boundedElastic())</code> 을 통해 Subscriber를 추가시키는 방식을 통해 Async + Non blocking하게 로직을 실행할 수 있다.</p>
+<p>지금은 정확하게 어떤 일이 일어나는지 자세히 알지 않고 넘어간다.</p>
+<p>이후의 강의에서 스케쥴러에 대해 알아보자.</p>
+<h3 id="block">Block</h3>
+<p>리액티브 스트림에서는 모든 것이 비동기적으로 실행되지만 가끔은 동기적으로 무언가를 실행하고 싶은 경우가 있다. 그 경우에 <code>.block()</code>을 사용한다.</p>
+<p>실제로는 주어진 실행 환경의 쓰레드 자체를 block하는 방식으로 무언가를 구성하려 한다면 그것은 잘못된 구현이라고 보는 것이 맞다.</p>
+<blockquote>
+<p>block()를 실제 환경에서는 사용하면 안된다.</p>
+</blockquote>
+<h3 id="monofromfuture">Mono.fromFuture</h3>
+<p>자바 8의 비동기 지원 피쳐인 <code>CompletableFuture</code> 등으로부터 Mono Publisher를 생성하기 위해서는 <code>Mono.fromFuture()</code>를 사용할 수 있다.</p>
+<p><code>Mono.fromSupplier</code>와는 달리 별도의 쓰레드 환경에서 시그널이 전달되지 때문에 subscribe가 발생한 후에 실행 중인 main 쓰레드가 종료되었을 경우 결과가 유실될 수 있다.</p>
+<h3 id="monofromrunnable">Mono.fromRunnable</h3>
+<p>지금까지 알아봤던 <code>fromCallable</code>, <code>fromSupplier</code>, <code>fromFuture</code> 등의 인터페이스는 어떤 파라미터를 받아서 값을 리턴하는 인터페이스였다.</p>
+<p>때문에 Mono Publisher를 생성하는 과정에서는 생성된 값을 바탕으로 publisher가 데이터를 던져주었었는데, Runnable은 어떤 파라미터도 받지 않고 어떤 값도 리턴하지 않는다는 차이점이 있다.</p>
+<p>만약 처리하는데 시간이 오래 소요되는 작업이 있고, 그 작업이 끝났을 때 알림을 받기 원하는 상황이라면? <code>Mono.fromRunnable</code>을 사용한다.</p>
+<p>값을 리턴하지는 않기 때문에 <code>onNext</code>가 호출되지는 않는다.</p>
+<h2 id="정리">정리</h2>
+<ul>
+<li><code>Mono</code> Publisher는 0개 또는 1개의 item을 emit하는 Reactor Publisher이다.</li>
+<li><code>onComplete</code>나 <code>onError</code> 메서드 호출로 후속 처리를 수행할 수 있다.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>타입</th>
+<th>조건</th>
+<th>사용할 메서드</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mono 생성</td>
+<td>데이터가 이미 존재하는 경우</td>
+<td><code>Mono.just(data)</code></td>
+</tr>
+<tr>
+<td>Mono 생성</td>
+<td>데이터가 생성되어야 하는 경우</td>
+<td><code>Mono.fromSupplier(() -&gt; getData())</code>, <code>Mono.fromCallable(() -&gt; getData())</code></td>
+</tr>
+<tr>
+<td>Mono 생성</td>
+<td>데이터가 async한 <code>CompletableFuture</code>로부터 오는 경우</td>
+<td><code>Mono.fromFuture(future)</code></td>
+</tr>
+<tr>
+<td>Mono 생성</td>
+<td><code>Runnable</code>이 완료된 이후에 <code>empty</code> emit이 필요한 경우</td>
+<td><code>Mono.fromRunnable(runnable)</code></td>
+</tr>
+<tr>
+<td>Mono를 인자로 전달</td>
+<td>함수가 <code>Mono&lt;T&gt;</code>를 인자로 받는데 리턴할 데이터가 없는 경우</td>
+<td><code>Mono.empty()</code></td>
+</tr>
+<tr>
+<td>Mono를 리턴</td>
+<td>함수가 Mono를 리턴해야 하는 경우</td>
+<td><code>Mono.error(...)</code>, <code>Mono.empty()</code> + 상기 명시된 생성 타입들</td>
+</tr>
+</tbody>
+</table>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/" data-title="Java Reactive Programming - Mono"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/" data-title="Java Reactive Programming - Mono"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/" data-title="Java Reactive Programming - Mono"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/database-pagination-optimization/" class="prev" rel="prev" title="Database Pagination Optimization"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Database Pagination Optimization</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

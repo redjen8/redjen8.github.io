@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 11 Mar 2023 12:32:34 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 12 Mar 2023 22:40:11 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Java Reactive Programming - Mono</title>
+    <link>http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/</link>
+    <pubDate>Sun, 12 Mar 2023 22:40:11 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/</guid>
+    <description><![CDATA[Reactor Publisher Reactor는 Hibernate처럼 리액티브 스트림 구현체이다. Reactor의 Publisher에는 Mono&lt;T&gt; : 0 또는 1개의 아이템을 emit할]]></description>
+</item>
+<item>
     <title>Database Pagination Optimization</title>
     <link>http://redjen8.github.io/posts/mar2023/database-pagination-optimization/</link>
     <pubDate>Sat, 11 Mar 2023 12:32:34 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/java-observer-observable%EC%9D%B4-deprecated%EB%90%9C-%EC%9D%B4%EC%9C%A0/</guid>
     <description><![CDATA[학부 설계 패턴 수업에서는 GoF 디자인 패턴들에 대해 배웠었다. 기억에 남는 디자인 패턴에는 여러 가지가 있지만, 지금 가장 많이 사용하는 디자인 패턴이라고 한다면 아마]]></description>
-</item>
-<item>
-    <title>Javascript Generator에 대해</title>
-    <link>http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Thu, 02 Mar 2023 19:42:53 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/javascript-generator%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[반복자 (iterator) 패턴이란 https://refactoring.guru/ko/design-patterns/iterator 어플리케이션 전체에서 어떤 도메인 모델의 순회가 일어나는 경우 코드의 중복을 줄일 수 있는 디자인 패턴 코드가 다른 데이터 구조들을 순회하길 원할]]></description>
 </item>
 </channel>
 </rss>
