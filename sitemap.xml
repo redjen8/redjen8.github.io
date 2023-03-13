@@ -2,9 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-03-13T19:29:51&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2023-03-13T19:29:51&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/</loc><lastmod>2023-03-13T19:29:51&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/</loc><lastmod>2023-03-12T22:40:11&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-03-12T22:40:11&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2023-03-12T22:40:11&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/mar2023/database-pagination-optimization/</loc><lastmod>2023-03-11T12:32:34&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/</loc><lastmod>2023-03-10T19:12:23&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/</loc><lastmod>2023-03-09T19:23:37&#43;09:00</lastmod></url><url>

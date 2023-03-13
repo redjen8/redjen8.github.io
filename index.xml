@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 12 Mar 2023 22:40:11 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 13 Mar 2023 19:29:51 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Webclient Exchange vs Retrieve</title>
+    <link>http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/</link>
+    <pubDate>Mon, 13 Mar 2023 19:29:51 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/</guid>
+    <description><![CDATA[WebClient를 사용해서 HTTP 요청을 리액티브 스트림 방식으로 받는 로직이 이제는 더 이상 이상하지 않다. 그런데 WebClient에는 요청에 대한 응답을 받]]></description>
+</item>
+<item>
     <title>Java Reactive Programming - Mono</title>
     <link>http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/</link>
     <pubDate>Sun, 12 Mar 2023 22:40:11 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/java-reactive-programming-introduction/</guid>
     <description><![CDATA[전통적인 쓰레드 / 요청 모델 데이터베이스에 어떤 수행하는 작업들 == 파일 IO 작업들 대부분의 어플리케이션은 이런 형태의 작업들을 주로 한다. 이 작업들은 처리하는데]]></description>
-</item>
-<item>
-    <title>Java Observer Observable이 Deprecated된 이유</title>
-    <link>http://redjen8.github.io/posts/mar2023/java-observer-observable%EC%9D%B4-deprecated%EB%90%9C-%EC%9D%B4%EC%9C%A0/</link>
-    <pubDate>Fri, 03 Mar 2023 18:45:09 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/java-observer-observable%EC%9D%B4-deprecated%EB%90%9C-%EC%9D%B4%EC%9C%A0/</guid>
-    <description><![CDATA[학부 설계 패턴 수업에서는 GoF 디자인 패턴들에 대해 배웠었다. 기억에 남는 디자인 패턴에는 여러 가지가 있지만, 지금 가장 많이 사용하는 디자인 패턴이라고 한다면 아마]]></description>
 </item>
 </channel>
 </rss>

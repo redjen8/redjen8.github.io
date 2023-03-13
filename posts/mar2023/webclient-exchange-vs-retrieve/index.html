@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Webclient Exchange vs Retrieve - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Webclient Exchange vs Retrieve" />
+<meta property="og:description" content="WebClient를 사용해서 HTTP 요청을 리액티브 스트림 방식으로 받는 로직이 이제는 더 이상 이상하지 않다. 그런데 WebClient에는 요청에 대한 응답을 받" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-13T19:29:51+09:00" />
+<meta property="article:modified_time" content="2023-03-13T19:29:51+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Webclient Exchange vs Retrieve"/>
+<meta name="twitter:description" content="WebClient를 사용해서 HTTP 요청을 리액티브 스트림 방식으로 받는 로직이 이제는 더 이상 이상하지 않다. 그런데 WebClient에는 요청에 대한 응답을 받"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Webclient Exchange vs Retrieve",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/webclient-exchange-vs-retrieve\/"
+        },"genre": "posts","wordcount":  658 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/webclient-exchange-vs-retrieve\/","datePublished": "2023-03-13T19:29:51+09:00","dateModified": "2023-03-13T19:29:51+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Webclient Exchange vs Retrieve</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-13">2023-03-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;658 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#exchange">Exchange()</a></li>
+    <li><a href="#retrieve">Retrieve()</a></li>
+    <li><a href="#언제-어떤-것을-사용할까">언제 어떤 것을 사용할까?</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>WebClient를 사용해서 HTTP 요청을 리액티브 스트림 방식으로 받는 로직이 이제는 더 이상 이상하지 않다.</p>
+<p>그런데 WebClient에는 요청에 대한 응답을 받는 방식이 크게 두 가지가 있다.</p>
+<p>exchange와 retrieve는 어떻게 다를까?</p>
+<p><a href="https://stackoverflow.com/questions/58410352/spring-boot-webclients-retrieve-vs-exchange" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/58410352/spring-boot-webclients-retrieve-vs-exchange</a></p>
+<h2 id="exchange">Exchange()</h2>
+<p><code>exchangeToMono()</code>나 <code>exchangeToFlux()</code>와 같은 <code>exchange()</code> 류 메서드들은 다음과 같은 특징이 있다.</p>
+<ul>
+<li><code>ClientResponse</code> 를 리턴한다.</li>
+<li><code>ClientResponse</code> 안에는 응답 상태와 헤더가 포함되어 있다.</li>
+<li>물론 응답의 body도 포함되어 있다.</li>
+</ul>
+<h2 id="retrieve">Retrieve()</h2>
+<p><code>retrieve()</code> 메서드는 반면 <code>ClientResponse</code> 객체를 반환하지 않고 response body만 반환한다.</p>
+<h2 id="언제-어떤-것을-사용할까">언제 어떤 것을 사용할까?</h2>
+<p>두 메서드 간 아주 큰 차이점은 헤더의 유무라고 생각된다.</p>
+<p>만약 <code>HEAD</code> 요청을 통해 서버를 단순히 찔러본다거나 하는 등의 동작은 반드시 <code>exchange()</code>류 메서드를 사용해야 한다. 헤더가 포함되니까!</p>
+<p>반면 HTTP 응답을 보내고 단순히 응답을 받기를 원할 때에는 <code>retrieve()</code>를 사용하면 된다.</p>
+<p>대신 <code>retrieve()</code>를 사용하면 에러 처리가 좀 까다로워지지 않느냐? 할 수 있는데.</p>
+<ul>
+<li>어차피 <code>Mono&lt;T&gt;</code> Publisher 시그널이 전달될 때 발생하는 <code>onError</code>의 경우 reactor 자체에서 핸들링이 가능하다.</li>
+<li>예를 들자면 <code>onErrorMap</code> 등을 통해 response body를 <code>Mono&lt;T&gt;</code>로 변환하고 다음으로 전달 할 때
+<ul>
+<li>발생한 <code>onError</code> 를 받아서 <code>Exception</code>을 throw 하는 방식으로 에러를 처리할 수 있다.</li>
+</ul>
+</li>
+</ul>
+<p>하지만 위 방식의 경우 HTTP 요청에 대한 세밀한 예외처리가 불가능하다. (status code에 따른 분기 처리라던지)</p>
+<blockquote>
+<p>때문에 아주 통제된 환경이나 제한된 상황이 아니라면 <code>ClientResponse</code>를 받는 <code>exchangeToMono()</code>나 <code>exchangeToFlux()</code>를 쓰는 것이 좋아보인다.</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-13</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/" data-title="Webclient Exchange vs Retrieve"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/" data-title="Webclient Exchange vs Retrieve"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/" data-title="Webclient Exchange vs Retrieve"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/java-reactive-programming-mono/" class="prev" rel="prev" title="Java Reactive Programming - Mono"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Reactive Programming - Mono</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
