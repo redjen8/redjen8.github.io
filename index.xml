@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 13 Mar 2023 19:29:51 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 14 Mar 2023 21:09:22 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Webclient에서의 Retry</title>
+    <link>http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/</link>
+    <pubDate>Tue, 14 Mar 2023 21:09:22 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/</guid>
+    <description><![CDATA[webclient를 사용하면 다른 서버로의 웹 요청에 대한 응답을 비동기적으로 수행할 수 있다. 그런데, 요청이 실패하면 어떻게 될까? 실패했을 때의 요청에 대해]]></description>
+</item>
+<item>
     <title>Webclient Exchange vs Retrieve</title>
     <link>http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/</link>
     <pubDate>Mon, 13 Mar 2023 19:29:51 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/java-spring-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC-%EC%9C%84%ED%95%9C-%EA%B5%AC%ED%98%84%EB%B0%A9%EB%B2%95/</guid>
     <description><![CDATA[자바의 여러 비동기 처리를 위한 구현체들과, 그 차이점을 알아보자. Future https://stackoverflow.com/questions/38744943/listenablefuture-vs-completablefuture 자바의 Future 클래스는 JDK6부터 도압되었으며, 호출자에게 비동기 액션이 완료되면 실행할]]></description>
-</item>
-<item>
-    <title>Java Reactive Programming - Introduction</title>
-    <link>http://redjen8.github.io/posts/mar2023/java-reactive-programming-introduction/</link>
-    <pubDate>Sat, 04 Mar 2023 15:23:50 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/java-reactive-programming-introduction/</guid>
-    <description><![CDATA[전통적인 쓰레드 / 요청 모델 데이터베이스에 어떤 수행하는 작업들 == 파일 IO 작업들 대부분의 어플리케이션은 이런 형태의 작업들을 주로 한다. 이 작업들은 처리하는데]]></description>
 </item>
 </channel>
 </rss>

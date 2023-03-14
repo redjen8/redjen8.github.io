@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Webclient에서의 Retry - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Webclient에서의 Retry" />
+<meta property="og:description" content="webclient를 사용하면 다른 서버로의 웹 요청에 대한 응답을 비동기적으로 수행할 수 있다. 그런데, 요청이 실패하면 어떻게 될까? 실패했을 때의 요청에 대해" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-14T21:09:22+09:00" />
+<meta property="article:modified_time" content="2023-03-14T21:09:22+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Webclient에서의 Retry"/>
+<meta name="twitter:description" content="webclient를 사용하면 다른 서버로의 웹 요청에 대한 응답을 비동기적으로 수행할 수 있다. 그런데, 요청이 실패하면 어떻게 될까? 실패했을 때의 요청에 대해"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Webclient에서의 Retry",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry\/"
+        },"genre": "posts","wordcount":  1194 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry\/","datePublished": "2023-03-14T21:09:22+09:00","dateModified": "2023-03-14T21:09:22+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Webclient에서의 Retry</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-14">2023-03-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1194 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#retry">retry</a></li>
+    <li><a href="#retrywhen">retryWhen</a></li>
+    <li><a href="#딜레이를-추가하는-방법">딜레이를 추가하는 방법</a>
+      <ul>
+        <li><a href="#fixeddelay">fixedDelay</a></li>
+        <li><a href="#backoff">backOff</a></li>
+        <li><a href="#jitter">jitter</a></li>
+      </ul>
+    </li>
+    <li><a href="#특정-에러에만-재시도-구성하기">특정 에러에만 재시도 구성하기</a></li>
+    <li><a href="#만약-모든-재시도에도-실패하는-경우에는">만약 모든 재시도에도 실패하는 경우에는</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>webclient를 사용하면 다른 서버로의 웹 요청에 대한 응답을 비동기적으로 수행할 수 있다.</p>
+<p>그런데, 요청이 실패하면 어떻게 될까? 실패했을 때의 요청에 대해 재시도 정책을 구성하려면 어떻게 해야 할까?</p>
+<p><a href="https://www.baeldung.com/spring-webflux-retry" target="_blank" rel="noopener noreffer ">https://www.baeldung.com/spring-webflux-retry</a></p>
+<h2 id="retry">retry</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(</span>String stockId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> webClient<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span>PATH_BY_ID<span style="color:#f92672">,</span> stockId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">retrieve</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">bodyToMono</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">retry</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>사익와 같이 시도할 횟수를 정책으로 추가하여 실패한 요청에 대한 재시도를 시도하도록 구성할 수 있다.</p>
+<p>이 때 주의해야 할 점은 WebClient는 리턴받는 에러의 종류와는 관계 없이 재시도에 진입한다는 점이다.</p>
+<h2 id="retrywhen">retryWhen</h2>
+<p><code>retry()</code>는 너무 딱딱하다. 최대 시도에 대해 더 많은 옵션을 구성하기 위해서는 어떻게 해야할까?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(</span>String stockId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> webClient<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span>PATH_BY_ID<span style="color:#f92672">,</span> stockId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">retrieve</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">bodyToMono</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">retryWhen</span><span style="color:#f92672">(</span>Retry<span style="color:#f92672">.</span><span style="color:#a6e22e">max</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><code>retryWhen()</code>을 사용하면 각각의 실패에 대한 재시도는 eager하게 발생한다는 점에 유의해야 한다.</p>
+<h2 id="딜레이를-추가하는-방법">딜레이를 추가하는 방법</h2>
+<p>하지만 이런 요청에 대한 실패는 서버 어플리케이션 자체의 문제일 수도 있지만 네트워크 레벨에서의 장애일 수도 있다.</p>
+<p>학부 네트워크 시간에 배웠던 것처럼 TCP는 동일 네트워크 내에서의 요청 횟수를 조절할 수 있던 기능이 포함되어 있는 프로토콜이다.</p>
+<p><a href="https://evan-moon.github.io/2019/11/26/tcp-congestion-control/" target="_blank" rel="noopener noreffer ">TCP의 혼잡 제어</a> 과는 관계 없이 어플리케이션에서 어플리케이션 간의 통신에서 재시도 정책을 구성하되, 재시도로 인해 네트워크를 더 혼잡하게 만드는 것을 방지하지 위해서 WebClient 설정에도 여러 구성을 끼워 넣을 수 있다.</p>
+<h3 id="fixeddelay">fixedDelay</h3>
+<p><code>fixedDelay()</code>는 아주 단순하다.
+각각의 재시도 사이에 고정된 딜레이 값을 삽입하여 그 동안은 재시도를 시도하지 않는 정책이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(</span>String stockId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> webClient<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span>PATH_BY_ID<span style="color:#f92672">,</span> stockId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retrieve</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">bodyToMono</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retryWhen</span><span style="color:#f92672">(</span>Retry<span style="color:#f92672">.</span><span style="color:#a6e22e">fixedDelay</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="backoff">backOff</h3>
+<p><code>backOff()</code>는 <code>fixedDelay()</code>보다 더 최악의 상황을 가정한다.</p>
+<p>특정 딜레이 경과 뒤에도 네트워크나 어플리케이션의 상태가 좋아지지 않는다면, exponential하게 딜레이를 구성해서 더 많은 재시도가 실패했다는 점은 곧 그만큼 서버나 네트워크 상태가 좋지 않다는 기본적인 생각을 반영한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(</span>String stockId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> webClient<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span>PATH_BY_ID<span style="color:#f92672">,</span> stockId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retrieve</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">bodyToMono</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retryWhen</span><span style="color:#f92672">(</span>Retry<span style="color:#f92672">.</span><span style="color:#a6e22e">backoff</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>상기의 코드는 2초, 4초, 8초의 딜레이를 가지고 다음 요청을 재시도하게 한다.</p>
+<h3 id="jitter">jitter</h3>
+<p><code>jitter()</code>를 활용하면 가장 보수적인 정책을 설정할 수 있다.</p>
+<p><code>jitter()</code>는 클라이언트 간 충돌을 피하면서도 exponential 하게 delay를 구성한다.  jitter 구성에 대해 자세히 설명된 글은 <a href="https://www.baeldung.com/resilience4j-backoff-jitter#jitter" target="_blank" rel="noopener noreffer ">이 곳</a> 에 잘 정리되어 있었다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(</span>String stockId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> webClient<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span>PATH_BY_ID<span style="color:#f92672">,</span> stockId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">accept</span><span style="color:#f92672">(</span>MediaType<span style="color:#f92672">.</span><span style="color:#a6e22e">APPLICATION_JSON</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retrieve</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">bodyToMono</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retryWhen</span><span style="color:#f92672">(</span>Retry<span style="color:#f92672">.</span><span style="color:#a6e22e">backoff</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">)).</span><span style="color:#a6e22e">jitter</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0.75</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="특정-에러에만-재시도-구성하기">특정 에러에만 재시도 구성하기</h2>
+<p><code>retryWhen()</code>에 <code>filter()</code>를 걸어서 발생하는 <code>throwable</code>에 대해 모두 <code>Exception</code>을 던지는 것이 아니라 필터링하고 싶은 특정 예외 상황에서만 <code>Exception</code>을 던지도록 구성할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(</span>String stockId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> webClient<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span>PATH_BY_ID<span style="color:#f92672">,</span> stockId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retrieve</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">onStatus</span><span style="color:#f92672">(</span>HttpStatus<span style="color:#f92672">::</span>is5xxServerError<span style="color:#f92672">,</span> 
+</span></span><span style="display:flex;"><span>          response <span style="color:#f92672">-&gt;</span> Mono<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> ServiceException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Server error&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">rawStatusCode</span><span style="color:#f92672">())))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">bodyToMono</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retryWhen</span><span style="color:#f92672">(</span>Retry<span style="color:#f92672">.</span><span style="color:#a6e22e">backoff</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>throwable <span style="color:#f92672">-&gt;</span> throwable <span style="color:#66d9ef">instanceof</span> ServiceException<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h2 id="만약-모든-재시도에도-실패하는-경우에는">만약 모든 재시도에도 실패하는 경우에는</h2>
+<p>이렇게 노력했음에도 불구하고 끝끝내 요청이 실패할 수 있다. 절망적이다.</p>
+<p>하지만 그럼에도 불구하고 우리는 모든 재시도가 실패했다는 것을 인지시켜야 한다. 이럴 때 사용하는 것이 <code>onRetryExhaustedThrow()</code> 이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">getData</span><span style="color:#f92672">(</span>String stockId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> webClient<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">uri</span><span style="color:#f92672">(</span>PATH_BY_ID<span style="color:#f92672">,</span> stockId<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retrieve</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">onStatus</span><span style="color:#f92672">(</span>HttpStatus<span style="color:#f92672">::</span>is5xxServerError<span style="color:#f92672">,</span> response <span style="color:#f92672">-&gt;</span> Mono<span style="color:#f92672">.</span><span style="color:#a6e22e">error</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> ServiceException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Server error&#34;</span><span style="color:#f92672">,</span> response<span style="color:#f92672">.</span><span style="color:#a6e22e">rawStatusCode</span><span style="color:#f92672">())))</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">bodyToMono</span><span style="color:#f92672">(</span>String<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">retryWhen</span><span style="color:#f92672">(</span>Retry<span style="color:#f92672">.</span><span style="color:#a6e22e">backoff</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>throwable <span style="color:#f92672">-&gt;</span> throwable <span style="color:#66d9ef">instanceof</span> ServiceException<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">.</span><span style="color:#a6e22e">onRetryExhaustedThrow</span><span style="color:#f92672">((</span>retryBackoffSpec<span style="color:#f92672">,</span> retrySignal<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> ServiceException<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;External Service failed to process after max retries&#34;</span><span style="color:#f92672">,</span> HttpStatus<span style="color:#f92672">.</span><span style="color:#a6e22e">SERVICE_UNAVAILABLE</span><span style="color:#f92672">.</span><span style="color:#a6e22e">value</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">}));</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>이러한 정책을 커스텀하게 구성하면 서비스의 사양과 디테일에 맞춰서 보다 세세한 MSA 구성이 가능하다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/" data-title="Webclient에서의 Retry"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/" data-title="Webclient에서의 Retry"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/" data-title="Webclient에서의 Retry"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/webclient-exchange-vs-retrieve/" class="prev" rel="prev" title="Webclient Exchange vs Retrieve"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Webclient Exchange vs Retrieve</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
