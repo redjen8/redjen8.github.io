@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Nodejs Quick Review - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Nodejs Quick Review" />
+<meta property="og:description" content="Js 스터디 도중 Node.js에 대한 이야기가 여러 번 언급되어 공식 문서를 정리하고자 한다. https://nodejs.org/en/docs/guides/dont-block-the-event-loop/ 요약 Node.js는 자바스크립트 코드를 이벤트 루프 안에서 실행" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/nodejs-quick-review/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-15T23:45:28+09:00" />
+<meta property="article:modified_time" content="2023-03-15T23:45:28+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Nodejs Quick Review"/>
+<meta name="twitter:description" content="Js 스터디 도중 Node.js에 대한 이야기가 여러 번 언급되어 공식 문서를 정리하고자 한다. https://nodejs.org/en/docs/guides/dont-block-the-event-loop/ 요약 Node.js는 자바스크립트 코드를 이벤트 루프 안에서 실행"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/nodejs-quick-review/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Nodejs Quick Review",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/nodejs-quick-review\/"
+        },"genre": "posts","wordcount":  2139 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/nodejs-quick-review\/","datePublished": "2023-03-15T23:45:28+09:00","dateModified": "2023-03-15T23:45:28+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Nodejs Quick Review</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-15">2023-03-15</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2139 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#요약">요약</a></li>
+    <li><a href="#이벤트-루프와-워커-풀을-블락킹하지-말아야-하는-이유">이벤트 루프와 워커 풀을 블락킹하지 말아야 하는 이유</a></li>
+    <li><a href="#nodejs-quick-review">Node.js Quick Review</a>
+      <ul>
+        <li><a href="#어떤-코드가-이벤트-루프에서-동작하나">어떤 코드가 이벤트 루프에서 동작하나?</a></li>
+        <li><a href="#어떤-코드가-워커-풀에서-동작하나">어떤 코드가 워커 풀에서 동작하나?</a></li>
+      </ul>
+    </li>
+    <li><a href="#nodejs-는-다음에-실행될-코드를-어떻게-결정하나">Node.js 는 다음에 실행될 코드를 어떻게 결정하나</a></li>
+    <li><a href="#nodejs-어플리케이션-디자인">Node.js 어플리케이션 디자인</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>Js 스터디 도중 Node.js에 대한 이야기가 여러 번 언급되어 공식 문서를 정리하고자 한다.</p>
+<p><a href="https://nodejs.org/en/docs/guides/dont-block-the-event-loop/" target="_blank" rel="noopener noreffer ">https://nodejs.org/en/docs/guides/dont-block-the-event-loop/</a></p>
+<h2 id="요약">요약</h2>
+<ul>
+<li>Node.js는 자바스크립트 코드를 이벤트 루프 안에서 실행한다.</li>
+<li>파일 IO와 같은 무거운 작업들은 워커 풀에서 다룬다.</li>
+<li>Node.js는 스케일이 가능하고, 때로는 Apache와 같은 무거운 접근보다 더 나을 때가 있다. (진짜?)
+<ul>
+<li>스케일 업이 쉽게 가능한 이유는 다수의 클라이언트들을 적은 수의 쓰레드로 핸들링하기 때문</li>
+<li>적은 쓰레드를 사용한다면 다음의 이점이 있다.
+<ul>
+<li>OS의 시간과 메모리를 다수의 쓰레드를 관리하는데 사용하지 않지 않고 필요한 작업에 집중할 수 있다.</li>
+<li>다수의 쓰레드를 사용한다는 것은 곧 쓰레드 간 컨텍스트 스위칭이 자주 요구된다는 의미이기도 하다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="이벤트-루프와-워커-풀을-블락킹하지-말아야-하는-이유">이벤트 루프와 워커 풀을 블락킹하지 말아야 하는 이유</h2>
+<p>Node.js는 소수의 쓰레드만을 사용해서 다수의 클라이언트를 핸들링한다. Node.js가 사용하는 쓰레드에는 두 가지 종류가 있다.</p>
+<ol>
+<li>이벤트 루프 (aka main loop, main thread, event thread)</li>
+<li>워커 풀의 k Worker들 (aka thread pool)</li>
+</ol>
+<p>쓰레드가 콜백(이벤트 루프)이나 태스크 (워커)를 실행하는데 오랜 시간이 걸린다 == 블락킹 되었다.</p>
+<p>쓰레드가 한 클라이언트를 처리하는데 블락킹되었다면 그 동안은 다른 클라이언트들의 요청을 받지 못한다. 이벤트 루프나 워커 풀을 블락킹하지 말아야 하는 이유는 다음과 같다.</p>
+<ol>
+<li>성능 : 만약 주기적으로 무거운 작업을 수행한다면 서버의 전체 throughput이 줄어든다.</li>
+<li>보안 : 만약 특정 입력이 쓰레드를 블락킹시킨다면 악의적인 클라이언트가 악의를 담고 요청을 날려 쓰레드를 블락킹 -&gt; 다른 클라이언트를 처리하지 못하게 함 -&gt; DoS 공격이 가능하다.</li>
+</ol>
+<h2 id="nodejs-quick-review">Node.js Quick Review</h2>
+<h3 id="어떤-코드가-이벤트-루프에서-동작하나">어떤 코드가 이벤트 루프에서 동작하나?</h3>
+<p>Node.js 어플리케이션은 초기화 phase에서 모듈을 <code>require</code>하고, 이벤트들에 대한 콜백을 등록한다.</p>
+<p>Node.js 어플리케이션은 그 다음에 이벤트 루프에 진입하여,</p>
+<ul>
+<li>인입되는 클라이언트 요청에 대해 적절한 콜백을 실행하여 응답한다.</li>
+<li>이 콜백들은 동기적으로 실행된다.</li>
+<li>콜백들이 실행될 때 비동기적인 요청을 등록하여 완료된 이후에 동작을 재개할 수 있다.</li>
+<li>비동기적인 요청에 대한 콜백들 또한 이벤트 루프에서 실행된다.</li>
+</ul>
+<p>이벤트 루프는 또한 논블락킹 + 비동기 요청들을 콜백으로 실행한다. (Network I/O 등)</p>
+<blockquote>
+<p>요약하자면 이벤트 루프는 이벤트들에 대해 등록된 자바스크립트 콜백들을 실행하고 네트워크 상에서의 IO처럼 논블락킹 + 비동기 요청들을 처리한다.</p>
+</blockquote>
+<h3 id="어떤-코드가-워커-풀에서-동작하나">어떤 코드가 워커 풀에서 동작하나?</h3>
+<p>Node.js의 워커 풀은 전반적인 task들에 대한 submission API를 제공하는 libuv (<a href="" rel="">공식 문서</a>) 로 구현된다.</p>
+<p>Node.js는 워커 풀을 값 비싼 작업들을 처리하기 위해 사용한다.</p>
+<ul>
+<li>워커 풀은 운영체제 레벨에서 비동기 버전을 제공하지 않는 IO 작업도 수행한다.</li>
+<li>워커 풀은 CPU 집약적인 IO 작업도 수행한다.</li>
+</ul>
+<p>워커 풀을 사용하는 Node.js 모듈 API들은 다음과 같다.</p>
+<ol>
+<li>IO 집약적인 작업들
+<ol>
+<li>DNS : <code>dns.lookup()</code>, <code>dns.lookupService()</code></li>
+<li>File System : 모든 파일 시스템 API들은 워커 풀을 사용한다.
+<ol>
+<li><code>fs.FSWatcher()</code>는 제외</li>
+<li>명시적으로 libuv의 threadpool을 사용하는 경우도 제외</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>CPU 집약적인 작업들
+<ol>
+<li>암호화 : <code>cryto.pbkdf2()</code>, <code>crypto.scrypt()</code>, <code>crypto.randomBytes()</code>, <code>crypto.randomFill()</code>, <code>crypto.generateKeyPair()</code></li>
+<li>압축 : 모든 zlib API들은 워커 풀을 사용한다.
+<ol>
+<li>명시적으로 libuv의 threadpool을 사용하는 경우는 제외</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>대다수의 Node.js 어플리케이션에서 워커 풀을 사용하는 API들은 작업의 소스로 사용하는 경우가 많다.
+C++ add-on을 사용하는 어플리케이션과 모듈들 또한 워커 풀에 작업들을 추가할 수 있다.</p>
+<p>이벤트 루프의 콜백에서 이러한 API를 사용한다면,</p>
+<ul>
+<li>이벤트 루프는 Node.js의 (워커 풀을 사용하는 API에 대한) C++ 바인딩에 진입한다. (이 때 셋업 비용이 소모된다)</li>
+<li>그 후 워커 풀에 필요한 작업을 제출한다.</li>
+<li>전반적으로 바인딩에 진입할 때에 소모되는 리소스 비용은 무시할 수 있는 수준이기 때문에 이런 방식으로 동작한다.</li>
+<li>워커 풀에 작업을 제출할 때 Node.js는 C++ 바인딩 안의 해당되는 C++ 함수에 대한 포인터를 제공한다.</li>
+</ul>
+<h2 id="nodejs-는-다음에-실행될-코드를-어떻게-결정하나">Node.js 는 다음에 실행될 코드를 어떻게 결정하나</h2>
+<p>이벤트 루프와 워커 풀은 기다리는 상태의 이벤트들과 작업들에 대한 각각의 큐를 유지 관리한다.</p>
+<p>사실, 이벤트 루프가 실제로 큐를 관리하는 것은 아니다.</p>
+<ul>
+<li>대신 이벤트 루프는 운영체제가 모니터링할 파일 디스크립터의 컬렉션을 가지고 있다.
+<ul>
+<li>Linux : epoll</li>
+<li>OSX : kqueue</li>
+<li>Solaris : event ports</li>
+<li>Windows : IOCP</li>
+</ul>
+</li>
+<li>이러한 파일 디스크립터들은 어떤 요소들에 상응할 수 있냐면..
+<ul>
+<li>네트워크 소켓들</li>
+<li>보고 있는 모든 파일들</li>
+<li>기타 등등..</li>
+</ul>
+</li>
+<li>운영체제가 이런 파일 디스크립터들 중 하나가 준비되었다고 알려주면 이벤트 루프는 운영체제가 알려주는 정보를 해석해서 적절한 이벤트로 변환하고, 이벤트에 연관된 콜백을 실행시킨다.</li>
+</ul>
+<p>반면 워커 풀은 처리되길 원하는 작업들에 대해 실제 큐를 사용한다.</p>
+<ul>
+<li>워커는 이 큐에서 작업을 하나 뽑아서 작업한다.</li>
+<li>워커가 작업을 마치면 이벤트 루프에 대해 &lsquo;하나 이상의 작업이 완료되었음&rsquo;을 알린다.</li>
+</ul>
+<h2 id="nodejs-어플리케이션-디자인">Node.js 어플리케이션 디자인</h2>
+<p>Apache 처럼 클라이언트 - 쓰레드가 1대1 대응이 되는 시스템에서는 운영체제가 클라이언트가 얼마나 작업하길 원하던 상관 없이 리소스를 할당할 수 있는 장점이 있다.</p>
+<p>하지만 Node.js에서는 소수의 쓰레드고 다수의 클라이언트를 핸들링하기 때문에 클라이언트의 요청 때문에 쓰레드가 블락되어서는 안된다.</p>
+<blockquote>
+<p>때문에 Node.js 어플리케이션에서는 이를 인지하고 책임져야 한다. 어떠한 클라이언트들에 대해 콜백이나 작업을 수행할 때 너무 과다한 작업을 수행해서는 안된다.</p>
+</blockquote>
+<p>이 이유 때문에 Node.js가 스케일 업에 유리한 면이 있지만 공정한 스케쥴링을 위해서는 어플리케이션 개발자가 어느 정도 신경을 써야 한다는 점이 인상 깊었다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-15</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/nodejs-quick-review/" data-title="Nodejs Quick Review"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/nodejs-quick-review/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/nodejs-quick-review/" data-title="Nodejs Quick Review"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/nodejs-quick-review/" data-title="Nodejs Quick Review"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/" class="prev" rel="prev" title="Webclient에서의 Retry"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Webclient에서의 Retry</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

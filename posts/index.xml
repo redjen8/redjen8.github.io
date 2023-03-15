@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 14 Mar 2023 21:09:22 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 15 Mar 2023 23:45:28 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Nodejs Quick Review</title>
+    <link>http://redjen8.github.io/posts/mar2023/nodejs-quick-review/</link>
+    <pubDate>Wed, 15 Mar 2023 23:45:28 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/nodejs-quick-review/</guid>
+    <description><![CDATA[Js 스터디 도중 Node.js에 대한 이야기가 여러 번 언급되어 공식 문서를 정리하고자 한다. https://nodejs.org/en/docs/guides/dont-block-the-event-loop/ 요약 Node.js는 자바스크립트 코드를 이벤트 루프 안에서 실행]]></description>
+</item>
+<item>
     <title>Webclient에서의 Retry</title>
     <link>http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/</link>
     <pubDate>Tue, 14 Mar 2023 21:09:22 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/xor-swap-vs-temp-swap/</guid>
     <description><![CDATA[엔지니어링 과정에서 극한의 효율을 추구해야 하다보면 항상 로우 레벨이나 그 원리에까지 범위가 닿게 되는 것 같다. 각종 정렬 알고리즘에서는 원소의 위치를 서로 뒤 바꾸]]></description>
-</item>
-<item>
-    <title>Java, Spring의 비동기 처리 위한 구현방법</title>
-    <link>http://redjen8.github.io/posts/mar2023/java-spring-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC-%EC%9C%84%ED%95%9C-%EA%B5%AC%ED%98%84%EB%B0%A9%EB%B2%95/</link>
-    <pubDate>Sun, 05 Mar 2023 19:29:30 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/java-spring-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC-%EC%9C%84%ED%95%9C-%EA%B5%AC%ED%98%84%EB%B0%A9%EB%B2%95/</guid>
-    <description><![CDATA[자바의 여러 비동기 처리를 위한 구현체들과, 그 차이점을 알아보자. Future https://stackoverflow.com/questions/38744943/listenablefuture-vs-completablefuture 자바의 Future 클래스는 JDK6부터 도압되었으며, 호출자에게 비동기 액션이 완료되면 실행할]]></description>
 </item>
 </channel>
 </rss>
