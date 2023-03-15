@@ -167,7 +167,7 @@
 <p>요약하자면 이벤트 루프는 이벤트들에 대해 등록된 자바스크립트 콜백들을 실행하고 네트워크 상에서의 IO처럼 논블락킹 + 비동기 요청들을 처리한다.</p>
 </blockquote>
 <h3 id="어떤-코드가-워커-풀에서-동작하나">어떤 코드가 워커 풀에서 동작하나?</h3>
-<p>Node.js의 워커 풀은 전반적인 task들에 대한 submission API를 제공하는 libuv (<a href="" rel="">공식 문서</a>) 로 구현된다.</p>
+<p>Node.js의 워커 풀은 전반적인 task들에 대한 submission API를 제공하는 libuv (<a href="http://docs.libuv.org/en/v1.x/threadpool.html" target="_blank" rel="noopener noreffer ">공식 문서</a>) 로 구현된다.</p>
 <p>Node.js는 워커 풀을 값 비싼 작업들을 처리하기 위해 사용한다.</p>
 <ul>
 <li>워커 풀은 운영체제 레벨에서 비동기 버전을 제공하지 않는 IO 작업도 수행한다.</li>
