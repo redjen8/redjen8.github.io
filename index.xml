@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 16 Mar 2023 23:02:59 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 17 Mar 2023 18:17:41 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Static Class vs Singleton</title>
+    <link>http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/</link>
+    <pubDate>Fri, 17 Mar 2023 18:17:41 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/</guid>
+    <description><![CDATA[가끔 개발을 하다 보면 싱글턴 패턴과 정적 클래스가 헷갈릴 때가 있다. 두 방식 모두 하나의 객체를 다루는 것 같은데, 구체적으로는 어떻게 다를까? https://stackoverflow.com/questions/519520/difference-between-static-class-and-singleton-pattern thread safe? 싱글턴 패턴과]]></description>
+</item>
+<item>
     <title>Http Preflight Request</title>
     <link>http://redjen8.github.io/posts/mar2023/http-preflight-request/</link>
     <pubDate>Thu, 16 Mar 2023 23:02:59 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/</guid>
     <description><![CDATA[자바스크립트에서 정말 선택받은 몇몇을 제외하고 모든 것은 객체이다. 그럼 익명의 객체가 어떤 타입인지 알기 위해서는 어떤 방법을 사용할 수 있을까? typeof https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof typeof object 형태로]]></description>
-</item>
-<item>
-    <title>클라이언트 사이드 - 서버 사이드 페이지네이션 비교</title>
-    <link>http://redjen8.github.io/posts/mar2023/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%9C%EB%B2%84-%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EB%B9%84%EA%B5%90/</link>
-    <pubDate>Tue, 07 Mar 2023 18:31:12 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/%ED%81%B4%EB%9D%BC%EC%9D%B4%EC%96%B8%ED%8A%B8-%EC%84%9C%EB%B2%84-%EC%82%AC%EC%9D%B4%EB%93%9C-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EB%B9%84%EA%B5%90/</guid>
-    <description><![CDATA[페이지네이션을 구현하다 보면 문득 구현하는 방법에 두 가지가 있다는 것을 깨닫게 된다. 서버 사이드 페이지네이션과, 클라이언트 사이드 페이지네이션 중에서 어떤 것]]></description>
 </item>
 </channel>
 </rss>

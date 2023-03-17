@@ -4,31 +4,31 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Http Preflight Request - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Http Preflight Request" />
-<meta property="og:description" content="HTTP Preflight Request란 무엇이고, 어떤 내용을 포함하고 있을까? https://developer.mozilla.org/ko/docs/Glossary/Preflight_request Preflight Request란 본격적인 HTTP 요청 전 서버 쪽에서 그 요청에 대한 메서드와 헤더에 대해 capa" />
+        <title>Static Class vs Singleton - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Static Class vs Singleton" />
+<meta property="og:description" content="가끔 개발을 하다 보면 싱글턴 패턴과 정적 클래스가 헷갈릴 때가 있다. 두 방식 모두 하나의 객체를 다루는 것 같은데, 구체적으로는 어떻게 다를까? https://stackoverflow.com/questions/519520/difference-between-static-class-and-singleton-pattern thread safe? 싱글턴 패턴과" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/http-preflight-request/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-03-16T23:02:59+09:00" />
-<meta property="article:modified_time" content="2023-03-16T23:02:59+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-17T18:17:41+09:00" />
+<meta property="article:modified_time" content="2023-03-17T18:17:41+09:00" /><meta property="og:site_name" content="왜? 모음집" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Http Preflight Request"/>
-<meta name="twitter:description" content="HTTP Preflight Request란 무엇이고, 어떤 내용을 포함하고 있을까? https://developer.mozilla.org/ko/docs/Glossary/Preflight_request Preflight Request란 본격적인 HTTP 요청 전 서버 쪽에서 그 요청에 대한 메서드와 헤더에 대해 capa"/>
+<meta name="twitter:title" content="Static Class vs Singleton"/>
+<meta name="twitter:description" content="가끔 개발을 하다 보면 싱글턴 패턴과 정적 클래스가 헷갈릴 때가 있다. 두 방식 모두 하나의 객체를 다루는 것 같은데, 구체적으로는 어떻게 다를까? https://stackoverflow.com/questions/519520/difference-between-static-class-and-singleton-pattern thread safe? 싱글턴 패턴과"/>
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/http-preflight-request/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/nodejs-quick-review/" /><link rel="next" href="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/http-preflight-request/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "Http Preflight Request",
+        "headline": "Static Class vs Singleton",
         "inLanguage": "ko-KR",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/http-preflight-request\/"
-        },"genre": "posts","wordcount":  706 ,
-        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/http-preflight-request\/","datePublished": "2023-03-16T23:02:59+09:00","dateModified": "2023-03-16T23:02:59+09:00","publisher": {
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/static-class-vs-singleton\/"
+        },"genre": "posts","wordcount":  632 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/static-class-vs-singleton\/","datePublished": "2023-03-17T18:17:41+09:00","dateModified": "2023-03-17T18:17:41+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
                 "@type": "Person",
@@ -99,9 +99,9 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Http Preflight Request</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Static Class vs Singleton</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-16">2023-03-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;706 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-17">2023-03-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;632 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -110,83 +110,60 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#preflight-request란">Preflight Request란</a></li>
-    <li><a href="#언제-사용하는가">언제 사용하는가</a></li>
-    <li><a href="#cors와의-관계">CORS와의 관계</a>
-      <ul>
-        <li><a href="#cors-발생-과정">CORS 발생 과정</a></li>
-        <li><a href="#simple-request는-어떤-녀석들일까">Simple Request는 어떤 녀석들일까</a></li>
-      </ul>
-    </li>
+    <li><a href="#thread-safe">thread safe?</a></li>
+    <li><a href="#interface-implementation">interface implementation?</a></li>
+    <li><a href="#정적-메서드">정적 메서드?</a></li>
+    <li><a href="#상태의-유무">상태의 유무?</a></li>
+    <li><a href="#정리하자면">정리하자면..</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>HTTP Preflight Request란 무엇이고, 어떤 내용을 포함하고 있을까?</p>
-<p><a href="https://developer.mozilla.org/ko/docs/Glossary/Preflight_request" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/ko/docs/Glossary/Preflight_request</a></p>
-<h2 id="preflight-request란">Preflight Request란</h2>
+            </div><div class="content" id="content"><p>가끔 개발을 하다 보면 싱글턴 패턴과 정적 클래스가 헷갈릴 때가 있다.</p>
+<p>두 방식 모두 하나의 객체를 다루는 것 같은데, 구체적으로는 어떻게 다를까?</p>
+<p><a href="https://stackoverflow.com/questions/519520/difference-between-static-class-and-singleton-pattern" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/519520/difference-between-static-class-and-singleton-pattern</a></p>
+<h2 id="thread-safe">thread safe?</h2>
+<p>싱글턴 패턴과 정적 클래스를 쓰레드 세이프 한 지 여부로 구분할 수 있을까?</p>
+<blockquote>
+<p>싱글턴 패턴과 정적 클래스는 둘 다 쓰레드 세이프 하게 구현되어야 한다. 이는 구현하기에 따라 다르기 때문에, 쓰레드 세이프한지 아닌지는 둘을 구분지을 수 없다.</p>
+</blockquote>
+<h2 id="interface-implementation">interface implementation?</h2>
 <ul>
-<li>본격적인 HTTP 요청 전 서버 쪽에서 그 요청에 대한 메서드와 헤더에 대해 capable한지를 체크하는 요청이다.</li>
-<li>다음 헤더 항목을 포함하는 HTTP OPTION 요청이다.
+<li>싱글턴 패턴은 인터페이스를 구현할 수 있다.
 <ul>
-<li>Access-Control-Request-Method</li>
-<li>Access-Control-Request-Headers</li>
-<li>Origin</li>
+<li>싱글턴 패턴을 사용하면 기본 클래스로부터 상속을 받아 싱글턴 객체를 또 다른 구현체인 것처럼 사용할 수 있다.</li>
 </ul>
 </li>
 </ul>
-<h2 id="언제-사용하는가">언제 사용하는가</h2>
-<p>일반적인 상황이라면 브라우저가 이를 자동으로 발생시킨다.</p>
-<p>때문에 FE 개발자가 이를 고의적으로 발생시킬 필요는 없다. DELETE 요청을 보내기 전 미리 서버가 이를 지원하는지 확인하는 용도로?</p>
-<h2 id="cors와의-관계">CORS와의 관계</h2>
-<p>어라, 그런데 Preflight Request 연관 검색어에 CORS가 있었다.</p>
-<p>브라우저는 어떻게 Preflight Request를 사용해서 CORS 정책을 구현할까?</p>
-<h3 id="cors-발생-과정">CORS 발생 과정</h3>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS</a></p>
-<p>지금까지 설명했듯이 기본적으로 브라우저는 어떤 HTTP 요청을 하기 전에 Preflight Request를 날린다.</p>
-<p><strong>그리고 이 Preflight Request에서 브라우저는 실제로 전송될 HTTP Method와 Header를 보낸다.</strong></p>
-<p>CORS를 공부해봤다면 이미 알고 있는 내용이겠지만..</p>
+<h2 id="정적-메서드">정적 메서드?</h2>
+<p>싱글턴 패턴은 생성된 하나의 인스턴스에 접근하는 방법을 제공하는 개념이다.</p>
 <ul>
-<li>CORS 정책은 서버가 브라우저에서 해당 정보를 읽을 수 있도록 허용된 출처를 명시하는 HTTP 헤더를 제공하여 동작한다.</li>
-<li>때문에 서버로 요청을 보낼 때, 브라우저는 HTTP OPTION 메서드를 사용한 요청을 통해 나는 이런 요청을 할거야~ 라고 알려주고</li>
-<li>정책 위반이 아니라면 서버는 요청에 대한 승인과 함께 실제 데이터를 리턴한다.</li>
-<li>CORS 정책 위반이라면, 서버는 요청을 거절한다.</li>
+<li>이 인스턴스는 다른 메서드에 파라미터로 전달될 수 있다.</li>
+<li>전달된 인스턴스는 다른 평범한 객체처럼 사용될 수 있다.</li>
 </ul>
-<p>더 자세히 들어가면, CORS 정책 대상에는 크게 두 가지 종류가 있다.</p>
-<ol>
-<li>Simple Requests</li>
-<li>Simple Request가 아닌 요청들</li>
-</ol>
-<h3 id="simple-request는-어떤-녀석들일까">Simple Request는 어떤 녀석들일까</h3>
+<p>반면 정적 클래스는 오직 정적 메서드만을 사용한다.</p>
+<h2 id="상태의-유무">상태의 유무?</h2>
+<p>정적 클래스는 보통 유틸리티 클래스로 많이 사용한다.</p>
+<p>그리고 이러한 유틸리티 클래스는 내부에 상태를 유지하지 않도록 구현한다.
+함수의 기능적인 측면만 수행한다면 정적 클래스 안에 어떠한 상태는 존재하지 않게 된다.</p>
+<p>반면 싱글턴 객체 내부에는 상태가 존재한다.</p>
 <ul>
-<li><code>GET</code>, <code>HEAD</code>, <code>POST</code> 메서드 중 하나</li>
-<li>User-Agent에 의해 자동으로 설정된 헤더가 없는 요청, 허용되는 헤더들은 다음과 같다.
-<ul>
-<li><code>Accept</code></li>
-<li><code>Accept-Language</code></li>
-<li><code>Content-Language</code></li>
-<li><code>Content-Type</code></li>
-<li><code>Range</code></li>
+<li>싱글턴 클래스의 인스턴스는 정적 클래스보다 더 유연하게 상태를 관리할 수 있다.</li>
+<li>때문에 인터페이스를 구현할 수 있고, 다른 클래스를 상속할수 있으며 다른 객체가 또 다시 싱글턴 객체를 상속받을 수도 있다.</li>
 </ul>
-</li>
-<li>허용되는 Media Type은 아래와 같다.
-<ul>
-<li><code>application/x-www-form-urlencoded</code></li>
-<li><code>multipart/form-data</code></li>
-<li><code>text/plain</code></li>
-</ul>
-</li>
-<li><code>ReadableStream</code> 객체가 요청에 포함되지 않는 요청</li>
-</ul>
-<p>그리고 OPTION 요청을 실제 요청 전에 보내는 경우는 2번, Simple Request가 아닌 경우이다.</p>
+<h2 id="정리하자면">정리하자면..</h2>
+<blockquote>
+<p>기능적인 측면만 수행하는 함수들을 모아 놓기를 원한다면, 정적 클래스를 사용하는 것이 방법이다.</p>
+<p>만약 어떤 리소스에 대해 단일 접근만 허용되어야 한다면, 싱글턴 패턴을 사용하는 것이 방법이다.</p>
+</blockquote>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2023-03-16</span>
+                <span>Updated on 2023-03-17</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/http-preflight-request/" data-title="Http Preflight Request"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/http-preflight-request/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/http-preflight-request/" data-title="Http Preflight Request"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/http-preflight-request/" data-title="Http Preflight Request"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/" data-title="Static Class vs Singleton"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/" data-title="Static Class vs Singleton"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/" data-title="Static Class vs Singleton"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
@@ -198,8 +175,7 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/posts/mar2023/nodejs-quick-review/" class="prev" rel="prev" title="Nodejs Quick Review"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Nodejs Quick Review</a>
-            <a href="/posts/mar2023/static-class-vs-singleton/" class="next" rel="next" title="Static Class vs Singleton">Static Class vs Singleton<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/posts/mar2023/http-preflight-request/" class="prev" rel="prev" title="Http Preflight Request"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Http Preflight Request</a></div>
 </div>
 <div id="comments"><div id="utterances" class="comment"></div><noscript>
                 Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
