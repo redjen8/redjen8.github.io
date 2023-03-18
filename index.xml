@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 17 Mar 2023 18:17:41 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 18 Mar 2023 22:22:04 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Mongodb Index Strategy</title>
+    <link>http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/</link>
+    <pubDate>Sat, 18 Mar 2023 22:22:04 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/</guid>
+    <description><![CDATA[MongoDB에 저장되는 다큐먼트 데이터들에는 반드시 인덱스를 한 개 이상 사용하는 것이 성능 향상적 측면에서 권장된다. 그렇다면 인덱스는 언제, 어떻게, 무엇]]></description>
+</item>
+<item>
     <title>Static Class vs Singleton</title>
     <link>http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/</link>
     <pubDate>Fri, 17 Mar 2023 18:17:41 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/</guid>
     <description><![CDATA[Github API를 사용하다 파일 컨텐츠를 불러올 수 없는 문제를 만났던 내용을 공유해보려 한다. 문제 Github 클라이언트 API는 Github API를 좀 더 간편하게 사용할 수 있게 해주는]]></description>
-</item>
-<item>
-    <title>Javascript의 Typeof와 Instanceof</title>
-    <link>http://redjen8.github.io/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/</link>
-    <pubDate>Wed, 08 Mar 2023 19:50:38 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/javascript%EC%9D%98-typeof%EC%99%80-instanceof/</guid>
-    <description><![CDATA[자바스크립트에서 정말 선택받은 몇몇을 제외하고 모든 것은 객체이다. 그럼 익명의 객체가 어떤 타입인지 알기 위해서는 어떤 방법을 사용할 수 있을까? typeof https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/typeof typeof object 형태로]]></description>
 </item>
 </channel>
 </rss>

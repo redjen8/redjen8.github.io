@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mongodb Index Strategy - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Mongodb Index Strategy" />
+<meta property="og:description" content="MongoDB에 저장되는 다큐먼트 데이터들에는 반드시 인덱스를 한 개 이상 사용하는 것이 성능 향상적 측면에서 권장된다. 그렇다면 인덱스는 언제, 어떻게, 무엇" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-18T22:22:04+09:00" />
+<meta property="article:modified_time" content="2023-03-18T22:22:04+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mongodb Index Strategy"/>
+<meta name="twitter:description" content="MongoDB에 저장되는 다큐먼트 데이터들에는 반드시 인덱스를 한 개 이상 사용하는 것이 성능 향상적 측면에서 권장된다. 그렇다면 인덱스는 언제, 어떻게, 무엇"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mongodb Index Strategy",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/mongodb-index-strategy\/"
+        },"genre": "posts","wordcount":  1918 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/mongodb-index-strategy\/","datePublished": "2023-03-18T22:22:04+09:00","dateModified": "2023-03-18T22:22:04+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mongodb Index Strategy</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-18">2023-03-18</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1918 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#esr-rule">ESR Rule</a>
+      <ul>
+        <li><a href="#equality">Equality</a></li>
+        <li><a href="#sort">Sort</a></li>
+        <li><a href="#range">Range</a></li>
+      </ul>
+    </li>
+    <li><a href="#인덱스가-ram에-들어가도록-할-것">인덱스가 RAM에 들어가도록 할 것</a>
+      <ul>
+        <li><a href="#모든-인덱스가-ram에-들어가야-하나요">모든 인덱스가 RAM에 들어가야 하나요?</a></li>
+      </ul>
+    </li>
+    <li><a href="#selectivity를-보장하기-위한-쿼리">selectivity를 보장하기 위한 쿼리</a>
+      <ul>
+        <li><a href="#예시">예시</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>MongoDB에 저장되는 다큐먼트 데이터들에는 반드시 인덱스를 한 개 이상 사용하는 것이 성능 향상적 측면에서 권장된다.</p>
+<p>그렇다면 인덱스는 언제, 어떻게, 무엇을 사용해야 할까? MongoDB의 인덱스 전략에 대해 정리해보았다.</p>
+<p><a href="https://www.mongodb.com/docs/manual/applications/indexes/" target="_blank" rel="noopener noreffer ">https://www.mongodb.com/docs/manual/applications/indexes/</a></p>
+<h2 id="esr-rule">ESR Rule</h2>
+<p>Compound Index를 사용하는 경우 여러 필드에 대한 레퍼런스 자체를 인덱스로 사용할 수 있고, 때문에 응답 시간을 비약적으로 향상시킬 수 있는 인덱스 종류이다.</p>
+<p>그런데 인덱스에 적용되는 필드 순서도 중요하다.</p>
+<h3 id="equality">Equality</h3>
+<p>Equality는 단일 값과 정확하게 매칭되는 개념을 의미한다.</p>
+<ul>
+<li>인덱스 검색은 정확히 일치하는 항목을 효율적으로 사용한다.</li>
+<li>인덱스 검색은 때문에 쿼리를 충족하기 위해 검사해야 하는 문서 개수를 제한한다.</li>
+</ul>
+<blockquote>
+<p>정확히 일치해야 하는 (Equality) 필드를 인덱스의 가장 먼저 배치해라.</p>
+</blockquote>
+<p>인덱스에는 정확히 일치하는 쿼리를 위한 여러 개의 키가 존재할 수 있다.</p>
+<ul>
+<li>Equality를 만족하기 위한 인덱스 키는 어떤 순서로든 표시될 수 있다.</li>
+<li>하지만 인덱스와 Equality를 충족하려면 모든 Equality를 위한 인덱스 키가 다른 인덱스 필드보다 앞에 와야 한다.</li>
+<li>MongoDB의 검색 알고리즘은 정확히 일치하는 필드를 특정 순서로 정렬할 필요가 없다.</li>
+</ul>
+<p>정확히 매칭되는 항목들은 selective 해야 한다.
+스캔 대상이 되는 인덱스 키들을 줄이기 위해서는 Equality 테스트가 90% 이상의 가능한 도큐먼트 매치를 줄일 수 있어야 한다.</p>
+<h3 id="sort">Sort</h3>
+<p>정렬은 쿼리 결과의 순서를 결정한다.</p>
+<p>정렬은 동일 항목이 일치하면 정렬해야 하는 문서 수가 줄어들기 때문에, Equality를 통해 동일 항목에 대한 일치가 발생한 이후에 수행한디.</p>
+<p>또한 Equality 일치를 수행한 이후에는 MongoDB가 논블락킹 정렬을 수행할 수 있다는 장점도 있다.</p>
+<p>인덱스는 쿼리 필드가 인덱스 키의 하위 집합인 경우 정렬 작업을 지원한다.</p>
+<p>인덱스 키의 하위 집합에 대한 정렬 연산은 쿼리가 정렬 키 앞에 있는 모든 prefix 키들에 대한 equality 조건이 포함되는 경우에만 지원된다.</p>
+<h3 id="range">Range</h3>
+<p>Range는 스캔한 필드를 필터링한다.</p>
+<ul>
+<li>이 스캔은 정확한 매칭을 필요로 하지 않는다.</li>
+<li>Range Filter는 인덱스 키에 느슨하게 바인딩된다. (loosely bound)</li>
+</ul>
+<p>쿼리 효율성을 높이려면 범위 바운드를 최대한 엄격하게 설정하고, equality 매칭을 사용해서 스캔 대상이 되는 문서 수를 줄이는 것이 중요하다.</p>
+<p>MongoDB는 range 필터의 결과에 대한 인덱스 정렬을 수행할 수 없다.</p>
+<p>그러므로 Range 필터를 정렬 다음에 배치하여 MongoDB가 논블락킹 인덱스 정렬을 수행할 수 있도록 해라.</p>
+<h2 id="인덱스가-ram에-들어가도록-할-것">인덱스가 RAM에 들어가도록 할 것</h2>
+<p>빠른 처리를 위해서는 인덱스들이 RAM에 딱 들어맞게 설계해야 한다. 그래야 시스템이 디스크로부터 인덱스를 읽어오는 일을 피할 수 있다.</p>
+<p>인덱스의 크기를 살펴보려면, <code>db.collection.totalIndexSize()</code> 헬퍼를 사용하면 된다.</p>
+<p>만약 현재 사용 중인 인덱스의 크기를 RAM 크기에 맞추려면</p>
+<ul>
+<li>해당 용량 이상의 RAM을 사용해야 한다.</li>
+<li>나머지 working set에 사용할 수 있는 RAM도 있어야 한다.</li>
+</ul>
+<p>여러 컬렉션을 사용하는 경우 모든 컬렉션에 있는 모든 인덱스의 크기를 고려해야 한다.</p>
+<blockquote>
+<p>인덱스와 working set들은 동시에 메모리에 들어갈 수 있어야 한다.</p>
+</blockquote>
+<h3 id="모든-인덱스가-ram에-들어가야-하나요">모든 인덱스가 RAM에 들어가야 하나요?</h3>
+<p>모든 인덱스들이 RAM에 다 들어가 있어야 하는 것은 아니다.</p>
+<p>만약 인덱싱된 필드의 값이 매 insert 마다 증가하고, 대부분의 쿼리들은 가장 최근 추가된 다큐먼트에 대한 select 작업을 수행한다면,</p>
+<p>MongoDB 입장에서는 인덱스의 부분만 가지고 있으면 될 것 같다.</p>
+<ul>
+<li>가장 최근의 데이터에 대한 인덱스나</li>
+<li>RAM의 right-most한 값이다.</li>
+</ul>
+<p>이러한 접근 방법은 read와 write 작업에 대해 효율적인 인덱스 사용을 하게 해주고 인덱스 사용을 지원하기 위한 RAM 용량을 최소화할 수 있다는 장점이 있다.</p>
+<h2 id="selectivity를-보장하기-위한-쿼리">selectivity를 보장하기 위한 쿼리</h2>
+<p>Selectivity (선택성)은 쿼리가 인덱스를 사용해서 결과의 범위를 좁힐 수 있는 기능이다.</p>
+<p>효과적인 인덱스는</p>
+<ul>
+<li>선택성이 뛰어나고</li>
+<li>쿼리 수행과 관련된 작업의 더 많은 부분에 인덱스를 사용할 수있다.</li>
+</ul>
+<p>선택성을 보장하려면 인덱싱된 필드로 가능한 문서 수를 제한하는 쿼리를 작성해라.</p>
+<h3 id="예시">예시</h3>
+<pre tabindex="0"><code>{ _id: ObjectId(), a: 1, b: &#34;ab&#34; }
+{ _id: ObjectId(), a: 1, b: &#34;cd&#34; }
+{ _id: ObjectId(), a: 1, b: &#34;ef&#34; }
+{ _id: ObjectId(), a: 2, b: &#34;jk&#34; }
+{ _id: ObjectId(), a: 2, b: &#34;lm&#34; }
+{ _id: ObjectId(), a: 2, b: &#34;no&#34; }
+{ _id: ObjectId(), a: 3, b: &#34;pq&#34; }
+{ _id: ObjectId(), a: 3, b: &#34;rs&#34; }
+{ _id: ObjectId(), a: 3, b: &#34;tv&#34; }
+</code></pre><p>상기 컬렉션에서 <code>{ a: 2, b: &quot;no&quot; }</code>를 검색했을 때에는 3개의 document를 검색해야 한다.</p>
+<p><code>{ a: { $gt: 1 }, b: &quot;tv&quot; }</code>는 6개의 도큐먼트를 스캔하고 하나의 결과를 리턴한다.</p>
+<pre tabindex="0"><code>{ _id: ObjectId(), a: 1, b: &#34;ab&#34; }
+{ _id: ObjectId(), a: 2, b: &#34;cd&#34; }
+{ _id: ObjectId(), a: 3, b: &#34;ef&#34; }
+{ _id: ObjectId(), a: 4, b: &#34;jk&#34; }
+{ _id: ObjectId(), a: 5, b: &#34;lm&#34; }
+{ _id: ObjectId(), a: 6, b: &#34;no&#34; }
+{ _id: ObjectId(), a: 7, b: &#34;pq&#34; }
+{ _id: ObjectId(), a: 8, b: &#34;rs&#34; }
+{ _id: ObjectId(), a: 9, b: &#34;tv&#34; }
+</code></pre><p>그에 반해 상기 컬렉션에서 <code>{ a: 2, b: &quot;cd&quot; }</code>를 검색했을 때에는 쿼리에 대한 결과를 리턴하기 위해 하나의 다큐먼트만 스캔한다.</p>
+<p>2번 컬렉션의 인덱스와 쿼리가 <code>a</code>에 대한 값이 고르게 분산되어 있고 쿼리가 인덱스를 사용해서 특정한 다큐먼트를 select 할 수 있기 때문에 더 selective하다.</p>
+<blockquote>
+<p>selectivity가 낮고, MongoDB가 결과를 위해 다수의 다큐먼트를 읽어야 하는 것이 예상되는 상황이라면 인덱스를 사용하지 않는 것이 때로는 더 빠를 때가 있다.</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-18</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/" data-title="Mongodb Index Strategy"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/" data-title="Mongodb Index Strategy"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/" data-title="Mongodb Index Strategy"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/static-class-vs-singleton/" class="prev" rel="prev" title="Static Class vs Singleton"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Static Class vs Singleton</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
