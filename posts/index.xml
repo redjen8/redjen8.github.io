@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 18 Mar 2023 22:22:04 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 19 Mar 2023 22:09:32 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Caching in Spring</title>
+    <link>http://redjen8.github.io/posts/mar2023/caching-in-spring/</link>
+    <pubDate>Sun, 19 Mar 2023 22:09:32 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/caching-in-spring/</guid>
+    <description><![CDATA[스프링 프레임워크에서의 캐시 추상화는 어떤 방식으로 동작할까? https://www.baeldung.com/spring-cache-tutorial 어노테이션 기반 캐싱 @Cacheable 캐싱을 활성화하기 위한 방법으로는 @Cacheable 어노테이션으로 감싸는 것이다. 이]]></description>
+</item>
+<item>
     <title>Mongodb Index Strategy</title>
     <link>http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/</link>
     <pubDate>Sat, 18 Mar 2023 22:22:04 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/</guid>
     <description><![CDATA[왜 표준이 필요한가 초기에는 CompletableStage를 쓰는 라이브러리와, RxJava 간 호환이 되지 않았고, 어댑터 유틸리티 클래스를 구현해서 사용해야만 했]]></description>
-</item>
-<item>
-    <title>Github Api File Size Trouble Shooting</title>
-    <link>http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/</link>
-    <pubDate>Thu, 09 Mar 2023 19:23:37 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/github-api-file-size-trouble-shooting/</guid>
-    <description><![CDATA[Github API를 사용하다 파일 컨텐츠를 불러올 수 없는 문제를 만났던 내용을 공유해보려 한다. 문제 Github 클라이언트 API는 Github API를 좀 더 간편하게 사용할 수 있게 해주는]]></description>
 </item>
 </channel>
 </rss>
