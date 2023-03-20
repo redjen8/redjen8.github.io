@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 19 Mar 2023 22:09:32 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 20 Mar 2023 22:06:30 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Sharding vs Replication</title>
+    <link>http://redjen8.github.io/posts/mar2023/sharding-vs-replication/</link>
+    <pubDate>Mon, 20 Mar 2023 22:06:30 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/sharding-vs-replication/</guid>
+    <description><![CDATA[MongoDB에서 sharding과 replication은 어떻게 다를까? 데이터를 뭔가 여러 곳에 저장하는 것 같긴 한데.. 구체적으로 어떻게 다른지 알]]></description>
+</item>
+<item>
     <title>Caching in Spring</title>
     <link>http://redjen8.github.io/posts/mar2023/caching-in-spring/</link>
     <pubDate>Sun, 19 Mar 2023 22:09:32 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/database-pagination-optimization/</guid>
     <description><![CDATA[얼마 전 MySQL LIMIT 최적화 글을 읽고 약간 충격을 받았었다. 페이지네이션을 통해서 데이터베이스를 읽어올 때, 당연히 LIMIT과 OFFSET을 활용하면 딱딱 그 범위에]]></description>
-</item>
-<item>
-    <title>스트림의 새로운 표준 리액티브 스트림</title>
-    <link>http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/</link>
-    <pubDate>Fri, 10 Mar 2023 19:12:23 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%98-%EC%83%88%EB%A1%9C%EC%9A%B4-%ED%91%9C%EC%A4%80-%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8A%A4%ED%8A%B8%EB%A6%BC/</guid>
-    <description><![CDATA[왜 표준이 필요한가 초기에는 CompletableStage를 쓰는 라이브러리와, RxJava 간 호환이 되지 않았고, 어댑터 유틸리티 클래스를 구현해서 사용해야만 했]]></description>
 </item>
 </channel>
 </rss>
