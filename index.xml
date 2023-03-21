@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 20 Mar 2023 22:06:30 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 21 Mar 2023 20:11:08 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Copy and Paste</title>
+    <link>http://redjen8.github.io/posts/mar2023/copy-and-paste/</link>
+    <pubDate>Tue, 21 Mar 2023 20:11:08 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/copy-and-paste/</guid>
+    <description><![CDATA[우리가 컴퓨터를 다룰 때 가장 많이 사용하는 유틸리티는 무엇일까? 사내 메신저도, 인터넷 브라우저도 아닌 바로 클립보드라고 생각한다. Copy and Paste는 OS 레벨에]]></description>
+</item>
+<item>
     <title>Sharding vs Replication</title>
     <link>http://redjen8.github.io/posts/mar2023/sharding-vs-replication/</link>
     <pubDate>Mon, 20 Mar 2023 22:06:30 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/</guid>
     <description><![CDATA[Reactor Publisher Reactor는 Hibernate처럼 리액티브 스트림 구현체이다. Reactor의 Publisher에는 Mono&lt;T&gt; : 0 또는 1개의 아이템을 emit할]]></description>
-</item>
-<item>
-    <title>Database Pagination Optimization</title>
-    <link>http://redjen8.github.io/posts/mar2023/database-pagination-optimization/</link>
-    <pubDate>Sat, 11 Mar 2023 12:32:34 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/database-pagination-optimization/</guid>
-    <description><![CDATA[얼마 전 MySQL LIMIT 최적화 글을 읽고 약간 충격을 받았었다. 페이지네이션을 통해서 데이터베이스를 읽어올 때, 당연히 LIMIT과 OFFSET을 활용하면 딱딱 그 범위에]]></description>
 </item>
 </channel>
 </rss>

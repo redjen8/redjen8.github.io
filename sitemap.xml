@@ -2,8 +2,9 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-03-20T22:06:30&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2023-03-20T22:06:30&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/mar2023/copy-and-paste/</loc><lastmod>2023-03-21T20:11:08&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-03-21T20:11:08&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2023-03-21T20:11:08&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/mar2023/sharding-vs-replication/</loc><lastmod>2023-03-20T22:06:30&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/mar2023/caching-in-spring/</loc><lastmod>2023-03-19T22:09:32&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/</loc><lastmod>2023-03-18T22:22:04&#43;09:00</lastmod></url><url>

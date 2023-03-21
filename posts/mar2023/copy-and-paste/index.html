@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Copy and Paste - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Copy and Paste" />
+<meta property="og:description" content="우리가 컴퓨터를 다룰 때 가장 많이 사용하는 유틸리티는 무엇일까? 사내 메신저도, 인터넷 브라우저도 아닌 바로 클립보드라고 생각한다. Copy and Paste는 OS 레벨에" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/copy-and-paste/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-21T20:11:08+09:00" />
+<meta property="article:modified_time" content="2023-03-21T20:11:08+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Copy and Paste"/>
+<meta name="twitter:description" content="우리가 컴퓨터를 다룰 때 가장 많이 사용하는 유틸리티는 무엇일까? 사내 메신저도, 인터넷 브라우저도 아닌 바로 클립보드라고 생각한다. Copy and Paste는 OS 레벨에"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/copy-and-paste/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/sharding-vs-replication/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Copy and Paste",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/copy-and-paste\/"
+        },"genre": "posts","wordcount":  1875 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/copy-and-paste\/","datePublished": "2023-03-21T20:11:08+09:00","dateModified": "2023-03-21T20:11:08+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Copy and Paste</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-21">2023-03-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1875 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#역사">역사</a></li>
+    <li><a href="#어떻게-저장할까">어떻게 저장할까?</a></li>
+    <li><a href="#윈도우에서의-클립보드">윈도우에서의 클립보드</a></li>
+    <li><a href="#macos에서의-클립보드">MacOS에서의 클립보드</a></li>
+    <li><a href="#unix--linux-에서의-클립보드">Unix / Linux 에서의 클립보드</a></li>
+    <li><a href="#자바스크립트에서의-클립보드">자바스크립트에서의 클립보드</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>우리가 컴퓨터를 다룰 때 가장 많이 사용하는 유틸리티는 무엇일까?</p>
+<p>사내 메신저도, 인터넷 브라우저도 아닌 바로 클립보드라고 생각한다.</p>
+<p>Copy and Paste는 OS 레벨에서 어떻게 동작할까?</p>
+<p><a href="https://en.wikipedia.org/wiki/Clipboard_%28computing%29" target="_blank" rel="noopener noreffer ">https://en.wikipedia.org/wiki/Clipboard_(computing)</a></p>
+<h2 id="개요">개요</h2>
+<p>클립보드는 OS가 제공하는 어플리케이션 프로그램 간 전달되는 단기 스토리지이다.</p>
+<p>클립보드는 대부분 임시의 성격이 강하고, 익명이며, 컴퓨터의 RAM 안에 내용물을 보관한다.</p>
+<p>클립보드는 또 다음의 특징을 가진다.</p>
+<ul>
+<li>cut, copy, paste 연산을 구체화 할 수 있는 API를 제공한다.</li>
+<li>프로그램이 이 연산들을 구현하는 것은 프로그램의 몫이다.
+<ul>
+<li>키 바인딩이나 메뉴 선택과 같은 다른 작업을 대신 수행할 수 있다.</li>
+</ul>
+</li>
+<li>어플리케이션 프로그램은 운영체제가 제공하는 클립보드 기능을 확장시켜서 사용할 수 있다.</li>
+<li>클립보드 관리자는 클립보드에 대한 추가 제어를 가능하게 한다.</li>
+<li>클립보드는 운영체제 간 구현이 다를 수 있으며, 심지어 같은 프로그램의 다른 버전에서도 서로 다를 수 있다.</li>
+</ul>
+<h2 id="역사">역사</h2>
+<p>클립보드는 작은 텍스트 스니펫을 위한 작은 버퍼로 Pentti Kanerva에 의해 고안되었다.</p>
+<ul>
+<li>초기에는 삭제한 텍스트들을 복구하기 위한 용도로 사용했다고 한다.</li>
+<li>이후 Larry Tesler에 의해 연산들에 cut, copy, paste와 같은 이름을, 버퍼에는 clipboard라는 이름을 붙인다.</li>
+</ul>
+<h2 id="어떻게-저장할까">어떻게 저장할까?</h2>
+<p>어플리케이션은 직렬화된 객체 표현을 통해서 소통하거나, 보다 큰 객체의 경우 일종의 프로미스를 통해 전달한다.</p>
+<p>그런데 어떤 상황에서는 공통된 형식의 데이터 전송이 추상 팩토리로 한번 감싸져서 이뤄질 수 있다.</p>
+<ul>
+<li>예시로 MacOS에서 사용하는 NSImage 클래스는 클립보드에 저장된 이미지 데이터에 접근할 수 있게 한다.
+<ul>
+<li>하지만 실제 이미지 객체에 대한 데이터는 숨겨져 있다.</li>
+</ul>
+</li>
+<li>클립보드 데이터를 송수신하는 어플리케이션들은 종종 허용 가능한 형식 변환을 제공하는 GUI 위젯을 사용하여, 그 사이에서 전송에 사용될 형식을 negotiate한다.
+<ul>
+<li>OS와 GUI 툴킷은 간단한 변환을 제공할 수도 있다. (rich text -&gt; plain text)</li>
+</ul>
+</li>
+<li>최신 운영체제에서는 데이터 전송을 위한 다양한 타입 식별자를 제공한다.
+<ul>
+<li>MIME이나 Uniform Type Identifier와 같은 허용 가능한 매핑을 자동으로~</li>
+</ul>
+</li>
+</ul>
+<h2 id="윈도우에서의-클립보드">윈도우에서의 클립보드</h2>
+<p>윈도우에서는 클립보드에 저장되는 데이터에 대해 다양한 포맷을 지원한다.</p>
+<ol>
+<li>standard formats (CF_BITMAP 이나 CF_UNICODETEXT)</li>
+<li>registered formats (CF_HTML)</li>
+<li>private formats (외부 제공이 아닌 용도)</li>
+</ol>
+<p>윈도우 XP부터는 ClipBook Viewer라고 부르는 어플리케이션을 통해 클립보드 안의 데이터 접근이 가능해졌다.
+보다 새로운 윈도우 버전에서는 Clipboard Managers라고 부르는 어플리케이션을 통해 접근한다.</p>
+<p>윈도우에서는 <code>clip</code> 명령을 통해서 CLI에서 데이터를 클립보드에 저장할 수 있다. (powershell에서도 사용할 수 있다)</p>
+<h2 id="macos에서의-클립보드">MacOS에서의 클립보드</h2>
+<p>윈도우와 마찬가지로 MacOS에서도 클립보드를 위한 다양한 데이터 포맷을 지원한다.</p>
+<p>클립보드에 저장되는 내용물은 Finder의 편집 메뉴를 통해 접근이 가능하다.</p>
+<p>실제로 저장되는 raw 데이터와 포맷들은 ClipboardViewer라고 부르는 어플리케이션을 통해 접근이 가능하다.</p>
+<p>CLI에서는 <code>pbcopy</code> 명령을 통해 클립보드에 복사를, <code>pbpaste</code>를 통해 복사된 데이터를 붙여넣기 할 수 있다.</p>
+<h2 id="unix--linux-에서의-클립보드">Unix / Linux 에서의 클립보드</h2>
+<p>Unix와 Linux에서는 X Window System이라고 부르는 것을 주로 사용한다.</p>
+<p>그리고 이 X Window System에서는 크게 3가지 종류의 클립보드를 지원한다.</p>
+<ol>
+<li>PRIMARY</li>
+<li>SECONDARY</li>
+<li>CLIPBOARD</li>
+</ol>
+<p>GNOME이나 KDE 같은 현대의 다양한 툴킷에서는 freedesktop.org 명세서에 적혀진 컨벤션을 따른다.</p>
+<ul>
+<li>CLIPBOARD는 전통적인 클립보드 문법을 따른다. 윈도우와 동일한 shortcut을 사용한다.</li>
+<li>PRIMARY는 X-11 특정된 메커니즘이다. 데이터가 하이라이팅을 통해 즉시 복사되고 마우스의 가운데 버튼을 통해 붙여넣기 된다.
+<ul>
+<li>이렇게 복사된 데이터는 CLIPBOARD 와는 분리되고 내용물은 변경되지 않는다.</li>
+</ul>
+</li>
+<li>SECONDARY는 PRIMARY를 대체하기 위해 고안되었으나 현재는 일관되지 않게 사용된다.</li>
+</ul>
+<p>CLI에서는 <code>xclip</code>, <code>xsel</code> 두 가지 툴을 사용해서 클립보드에 접근할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#75715e"># to paste standard output to the clipboard using xclip</span>
+</span></span><span style="display:flex;"><span>$ echo text | xclip -in -selection clipboard
+</span></span><span style="display:flex;"><span>$ <span style="color:#75715e"># to paste standard output to the clipboard using xsel</span>
+</span></span><span style="display:flex;"><span>$ echo text | xsel --clipboard
+</span></span></code></pre></div><p>OSX와 윈도우와의 결정적인 차이점은 CLIPBOARD 클립보드에는 실제로 데이터가 저장되는 것이 아니라 복사되거나 잘려진 데이터의 참조값이 저장된다는 점이다.</p>
+<p>어플리케이션이 CLIPBOARD 선택에 대한 책임을 가지고, X 서버에 대한 통신을 하게 되는 구조이다.</p>
+<p>이렇게 복사된 데이터를 붙여넣기 할 때에는 CLIPBOARD를 가지는 어플리케이션이 데이터와 제공 가능한 데이터 포맷들을 요청한다.</p>
+<h2 id="자바스크립트에서의-클립보드">자바스크립트에서의 클립보드</h2>
+<p>인터넷 서핑을 하다 보면 어떤 컨텐츠는 복사 붙여넣기 할 수 없는 경우가 있다.</p>
+<p>바로 자바스크립트에도 클립보드 데이터의 변화를 감지하는 클래스가 있기 때문에 가능한 일이다. (<code>ClipboardEvent</code>)</p>
+<p>자바스크립트는 또한 클립보드의 내용물을 변경하거나 (<code>clipboardData.setData()</code>) 저장된 내용을 읽어오는 (<code>clipboardData.getData()</code>) 연산을 수행할 수 있지만, 보안 문제 때문에 모든 브라우저에서 사용한 것은 아니다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-21</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/copy-and-paste/" data-title="Copy and Paste"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/copy-and-paste/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/copy-and-paste/" data-title="Copy and Paste"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/copy-and-paste/" data-title="Copy and Paste"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/sharding-vs-replication/" class="prev" rel="prev" title="Sharding vs Replication"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Sharding vs Replication</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
