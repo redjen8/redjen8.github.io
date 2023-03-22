@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>ECMAScript Module과 Import - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="ECMAScript Module과 Import" />
+<meta property="og:description" content="자바스크립트로 웹 페이지를 만들던, node.js 어플리케이션을 만들던 사용하게 되는 자바스크립트의 기능으로는 import가 있다. 모든 코드는 한 군데에 작성하는 것보" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-22T20:58:51+09:00" />
+<meta property="article:modified_time" content="2023-03-22T20:58:51+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="ECMAScript Module과 Import"/>
+<meta name="twitter:description" content="자바스크립트로 웹 페이지를 만들던, node.js 어플리케이션을 만들던 사용하게 되는 자바스크립트의 기능으로는 import가 있다. 모든 코드는 한 군데에 작성하는 것보"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/copy-and-paste/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "ECMAScript Module과 Import",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/ecmascript-module%EA%B3%BC-import\/"
+        },"genre": "posts","wordcount":  2048 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/ecmascript-module%EA%B3%BC-import\/","datePublished": "2023-03-22T20:58:51+09:00","dateModified": "2023-03-22T20:58:51+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">ECMAScript Module과 Import</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-22">2023-03-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2048 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#import">import</a>
+      <ul>
+        <li><a href="#import-선언의-특징"><code>import</code> 선언의 특징</a></li>
+        <li><a href="#named-import">Named import</a></li>
+        <li><a href="#default-import">Default import</a></li>
+        <li><a href="#namespace-import">Namespace import</a></li>
+        <li><a href="#모듈의-부가적인-요소만-불러오기">모듈의 부가적인 요소만 불러오기</a></li>
+      </ul>
+    </li>
+    <li><a href="#webpack과-module">webpack과 module</a></li>
+    <li><a href="#라이브러리-개발-시에-한번-더-생각해야-하는-점">라이브러리 개발 시에 한번 더 생각해야 하는 점</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>자바스크립트로 웹 페이지를 만들던, node.js 어플리케이션을 만들던 사용하게 되는 자바스크립트의 기능으로는 <code>import</code>가 있다.</p>
+<p>모든 코드는 한 군데에 작성하는 것보다 기능적인 측면으로 묶어서 관리하기 위해 모듈화를 하게 되는데,
+FE 화면 개발을 하다보면 필연적으로 겪게 되는 개선 과제로도 ~ 공통 모듈화가 있다.</p>
+<p>공통 모듈화를 진행하게 되면 코드의 재사용성은 물론, 가독성도 올라가므로 꽤 효과적인 방법으로 어지러운 코드를 리팩토링하는 방법인 것이다.</p>
+<p>그럼, 이 모듈은 어떻게 관리되고 <code>import</code>를 사용해서 어떻게 불러와질까?</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import</a></p>
+<h2 id="import">import</h2>
+<p>import 선언은 다른 모듈에 의해 export 된 read-only 라이브 바인딩을 불러오기 위해서 사용된다.</p>
+<p>이렇게 불러와진 바인딩들은 &lsquo;라이브 바인딩&rsquo;이라고 불리는데</p>
+<ul>
+<li>바인딩을 export 한 모듈에 의해 업데이트 되지만</li>
+<li>import 하는 모듈에 의해서 재할당 되지는 못하기 때문이다.</li>
+</ul>
+<p>소스 파일에서 <code>import</code> 선언을 사용하기 위해서는 해당 파일이 먼저 런타임에 모듈로 해석되는지를 확인해야 한다.</p>
+<ul>
+<li>HTML에서는 <code>&lt;script&gt;</code> 태그 안에 <code>type=&quot;module&quot;</code>을 추가해서 모듈화 시킬 수있다.</li>
+<li>모듈들은 엄격 모드에서는 자동으로 해석된다.</li>
+</ul>
+<p><code>type=&quot;module&quot;</code>을 사용하지 않는 보다 동적인 <code>import()</code>도 있다.</p>
+<h3 id="import-선언의-특징"><code>import</code> 선언의 특징</h3>
+<p><code>import</code> 선언은 다음 특징을 가진다.</p>
+<ul>
+<li>모듈들 안에서만 이루어질 수 있다.</li>
+<li>최상위 레벨에서만 가능하다. (블럭 안이나, 함수 안에서는 불가능하다)</li>
+<li><code>import</code> 선언이 모듈이 아닌 컨텍스트를 조우하게 되었을 때에는 <code>SyntaxError</code>가 발생한다.
+<ul>
+<li><code>type=&quot;module&quot;</code> 선언이 이루어지지 않은 <code>&lt;script&gt;</code></li>
+<li>&ldquo;script&quot;와 &ldquo;function body&quot;를 파싱 목표로 하는 eval<code>, </code>new Function` 등이 에시이다.</li>
+</ul>
+</li>
+<li>모듈이 아닌 컨텍스트에서 모듈을 <code>import</code>하려면, 동적 import를 사용해야 한다.</li>
+</ul>
+<p><code>import</code> 선언들은 구문적으로 엄격하게 설계되어, 모듈이 평가되기 전에 정적으로 분석 / 링크될 수 있다.</p>
+<ul>
+<li>문자열 리터럴 specifier 이어야 한다.</li>
+<li>최상위 레벨에서만 실행되어야 한다.</li>
+<li>모든 바인딩은 식별자여야 한다.</li>
+</ul>
+<blockquote>
+<p>이는 모듈을 본질적으로 비동기화 시켜서 최상위 수준에서의 await 기능을 지원하기 위함이다.</p>
+</blockquote>
+<h3 id="named-import">Named import</h3>
+<p><code>my-module</code> 모듈에서 명시적으로 export 문을 사용해서 내보내어진 <code>myExport</code>라는 값이 주어지면, <code>myExport</code>는 현재 스코프에 포함된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">myExport</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;/modules/my-module.js&#34;</span>;
+</span></span></code></pre></div><p>같은 모듈에서 동시에 여러 이름들을 불러올 수 있으며, import 당시에 rename도 가능하다. (<code>as</code> 문을 사용하여)</p>
+<h3 id="default-import">Default import</h3>
+<p>Default import는 기본 import 문법으로 불러와지는 경우에 해당한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">myDefault</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;/modules/my-module.js&#34;</span>;
+</span></span></code></pre></div><p>default import는 기본적으로 이름을 명시적으로 지정하지 않기 떄문에, 원하는 어떤 이름이든 붙일 수 있다.</p>
+<p>또한 default import는 namespace import나 named import와 같이 사용할 수 있다. 이러한 케이스에서는 default import가 우선적으로 선언되어야 한다.</p>
+<h3 id="namespace-import">Namespace import</h3>
+<p>다음 코드는 <code>/modules/my-module.js</code>에 있는 모든 모듈의 export를 포함하는 <code>myModule</code>을 현재 스코프에 추가한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">myModule</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;/modules/my-module.js&#34;</span>;
+</span></span></code></pre></div><p>여기서 <code>myModule</code>은 모든 export를 속성으로 포함하는 네임스페이스 객체를 나타낸다.
+상기 코드에서 가져온 모듈에 <code>doAllTheAmazingThings()</code> export가 포함된 경우, 다음과 같이 호출할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">myModule</span>.<span style="color:#a6e22e">doAllTheAmazingThings</span>();
+</span></span></code></pre></div><h3 id="모듈의-부가적인-요소만-불러오기">모듈의 부가적인 요소만 불러오기</h3>
+<p>전체 모듈의 어떠한 것도 import 하지 않고,  오로지 부가적인 요소만 불러올 수도 있다.</p>
+<p>이 경우, 모듈의 global 한 코드만 실행하고, 어떠한 값도 가져오지 않기 때문에 polyfill들에서 많이 사용된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#e6db74">&#34;/modules/my-module.js&#34;</span>;
+</span></span></code></pre></div><p>이런 기법이 polyfill에서 많이 사용되는 이유는, global 변수를 mutate 하기 때문이다.</p>
+<h2 id="webpack과-module">webpack과 module</h2>
+<p><a href="https://webpack.kr/guides/ecma-script-modules/" target="_blank" rel="noopener noreffer ">https://webpack.kr/guides/ecma-script-modules/</a></p>
+<p>webpack에서는 파일이 ECMAScript Module (ESM)인지, 또는 다른 모듈 시스템인지를 자동으로 검사한다.</p>
+<p>Node.js의 경우에는 <code>package.json</code>파일의 속성을 사용해서 파일의 모듈 유형을 명시적으로 설정할 수 있게 한다.</p>
+<ul>
+<li><code>&quot;type&quot;: &quot;module&quot;</code> 선언이 되어 있다면 <code>package.json</code> 아래의 모든 파일이 ESM이 된다.</li>
+<li><code>&quot;type&quot;: &quot;commonjs&quot;</code> 선언이 되어 있다면 CommonJS 모듈이 된다.</li>
+</ul>
+<p>또한 파일의 확장자를 사용해서도 모듈의 유형을 설정할 수 있는데,</p>
+<ul>
+<li><code>.mjs</code>는 ESM이 되도록 강제한다.</li>
+<li><code>.cjs</code>는 CommonJS가 되도록 강제한다.</li>
+</ul>
+<p>DataURI들에서 <code>text/javascript</code>나 <code>application/javascript</code> MIME 타입으로 설정했다면 불러오는 모듈 유형은 자동으로 ESM으로 강제된다.</p>
+<h2 id="라이브러리-개발-시에-한번-더-생각해야-하는-점">라이브러리 개발 시에 한번 더 생각해야 하는 점</h2>
+<p><a href="https://toss.tech/article/commonjs-esm-exports-field" target="_blank" rel="noopener noreffer ">https://toss.tech/article/commonjs-esm-exports-field</a></p>
+<p>공통된 라이브러리를 개발하는 입장에서는 모듈을 어떻게 import 하던 불러온 모듈을 정상적으로 사용할 수 있어야 한다. 때문에 개발 할 때 ESM과 CommonJS 모듈을 둘 다 염두에 두고 개발해야 한다.</p>
+<p>큰 차이점으로는 CJS Module loader가 동기적으로 작동하는 반면, ESM Module loader는 비동기적으로 작동하는 차이가 있다.</p>
+<blockquote>
+<p>때문에 ESM에서 CJS를 import 할 수 있지만, CJS에서 ESM을 import할 수는 없다. CJS는 최상위 레벨에서의 await을 지원하지 않기 때문이다.</p>
+</blockquote>
+<p>또 하나의 차이점으로는.. CJS는 tree shaking이 어려운 반면 ESM은 tree shaking이 용이하다는 면이 있다고 한다.</p>
+<ul>
+<li>CJS는 빌드 타임에 정적으로 모듈을 분석하기 어렵다. 런타임에서만 모듈의 관계를 해석한다.</li>
+<li>ESM은 정적인 구조로 모듈끼리 의존하도록 강제한다. 때문에 빌드 타임에 정적으로 모듈 간 의존 관계를 파악할 수 있기 때문에 tree shaking이 용이하다.</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/" data-title="ECMAScript Module과 Import"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/" data-title="ECMAScript Module과 Import"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/" data-title="ECMAScript Module과 Import"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/copy-and-paste/" class="prev" rel="prev" title="Copy and Paste"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Copy and Paste</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

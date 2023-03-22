@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 21 Mar 2023 20:11:08 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 22 Mar 2023 20:58:51 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>ECMAScript Module과 Import</title>
+    <link>http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/</link>
+    <pubDate>Wed, 22 Mar 2023 20:58:51 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/</guid>
+    <description><![CDATA[자바스크립트로 웹 페이지를 만들던, node.js 어플리케이션을 만들던 사용하게 되는 자바스크립트의 기능으로는 import가 있다. 모든 코드는 한 군데에 작성하는 것보]]></description>
+</item>
+<item>
     <title>Copy and Paste</title>
     <link>http://redjen8.github.io/posts/mar2023/copy-and-paste/</link>
     <pubDate>Tue, 21 Mar 2023 20:11:08 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/webclient-exchange-vs-retrieve/</guid>
     <description><![CDATA[WebClient를 사용해서 HTTP 요청을 리액티브 스트림 방식으로 받는 로직이 이제는 더 이상 이상하지 않다. 그런데 WebClient에는 요청에 대한 응답을 받]]></description>
-</item>
-<item>
-    <title>Java Reactive Programming - Mono</title>
-    <link>http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/</link>
-    <pubDate>Sun, 12 Mar 2023 22:40:11 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/java-reactive-programming-mono/</guid>
-    <description><![CDATA[Reactor Publisher Reactor는 Hibernate처럼 리액티브 스트림 구현체이다. Reactor의 Publisher에는 Mono&lt;T&gt; : 0 또는 1개의 아이템을 emit할]]></description>
 </item>
 </channel>
 </rss>
