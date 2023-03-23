@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Javascript Optional Argument의 위험성 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Javascript Optional Argument의 위험성" />
+<meta property="og:description" content="MDN에서 소개했던 Array.map()의 optional argument로 인한 부작용 사례를 소개한 블로그 글을 보면서 왜 이런 일이 발생했는지 알아보는 시간을 가졌다" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-23T18:48:41+09:00" />
+<meta property="article:modified_time" content="2023-03-23T18:48:41+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Javascript Optional Argument의 위험성"/>
+<meta name="twitter:description" content="MDN에서 소개했던 Array.map()의 optional argument로 인한 부작용 사례를 소개한 블로그 글을 보면서 왜 이런 일이 발생했는지 알아보는 시간을 가졌다"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/ecmascript-module%EA%B3%BC-import/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Javascript Optional Argument의 위험성",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1\/"
+        },"genre": "posts","wordcount":  1110 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1\/","datePublished": "2023-03-23T18:48:41+09:00","dateModified": "2023-03-23T18:48:41+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Javascript Optional Argument의 위험성</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-23">2023-03-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1110 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#개요">개요</a></li>
+    <li><a href="#왜-이런-참사가-발생하는가">왜 이런 참사가 발생하는가</a>
+      <ul>
+        <li><a href="#parseint에-대해">parseInt에 대해</a></li>
+        <li><a href="#map에-대해">map에 대해</a></li>
+        <li><a href="#범인은-optional-argument">범인은 optional argument</a></li>
+      </ul>
+    </li>
+    <li><a href="#이런">이런..</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>MDN에서 소개했던 <code>Array.map()</code>의 optional argument로 인한 부작용 사례를 소개한 블로그 글을 보면서 왜 이런 일이 발생했는지 알아보는 시간을 가졌다.</p>
+<p><a href="http://wirfs-brock.com/allen/posts/166" target="_blank" rel="noopener noreffer ">http://wirfs-brock.com/allen/posts/166</a></p>
+<h2 id="개요">개요</h2>
+<p><code>[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt)</code>의 결과는 무엇일까?</p>
+<p><code>[1, 2, 3]</code>일까?</p>
+<p>그렇지 않다. 답은 <code>[1, NaN, NaN]</code>이다.</p>
+<h2 id="왜-이런-참사가-발생하는가">왜 이런 참사가 발생하는가</h2>
+<h3 id="parseint에-대해">parseInt에 대해</h3>
+<p><code>parseInt()</code>는 string을 numeric literal로 변환해주는 빌트인 함수이다.</p>
+<p><code>let n = parseInt(&quot;123&quot;)</code> 을 실행한다면, <code>n</code>에는 123이 들어간다.</p>
+<p><code>let x = parseInt(&quot;xyz&quot;)</code>를 실행한다면, x에는 NaN이 들어간다.</p>
+<h3 id="map에-대해">map에 대해</h3>
+<p><code>map</code>은 ECMAScript5 부터 Array에 적용될 수 있는 빌트인 함수이다.</p>
+<p><code>map</code>은 배열 안의 각 원소들에 대해 연산을 수행한 결과를 새로운 배열로써 반환한다.</p>
+<h3 id="범인은-optional-argument">범인은 optional argument</h3>
+<p><code>parseInt</code>에는, 인자를 하나 이상 넣을 수 있다.</p>
+<p><code>parseInt(&quot;ffff&quot;, 16)</code>의 결과는 65536이다.</p>
+<p>즉, <code>parseInt</code>의 두번째 인자는 파싱되길 원하는 숫자의 진법을 지정한다.</p>
+<p>그런데 여기서 두 번째 인자가 비어있거나 (== 인자를 하나만 입력한 경우) 0을 입력했다면 자동으로 <code>parseInt</code>는 <code>parseInt(&quot;someNumber&quot;, 10)</code>으로 변환하여 실행한다. 즉 기본 10진법을 사용하도록 설정되어 있기 떄문에 이를 눈치채지 못한 것이다.</p>
+<p>그런데, <code>map</code>에도 헷갈리게 할 만한 optional argument가 있다.</p>
+<p><code>map</code>의 인자로 들어가는 <code>callbackfn</code>에는 세 개의 인자가 들어갈 수 있다.</p>
+<ol>
+<li>원소의 값</li>
+<li>원소의 인덱스</li>
+<li>순회 대상이 되는 객체</li>
+</ol>
+<p>때문에, 우리가 하려던 <code>.map(parseInt)</code>는 사실 아래와 같았지만..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>parseInt(<span style="color:#e6db74">&#34;1&#34;</span>)
+</span></span><span style="display:flex;"><span>parseInt(<span style="color:#e6db74">&#34;2&#34;</span>)
+</span></span><span style="display:flex;"><span>parseInt(<span style="color:#e6db74">&#34;3&#34;</span>)
+</span></span></code></pre></div><p>실제로 행한 동작은 아래와 같다는 것이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>parseInt(<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span>parseInt(<span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">arr</span>)
+</span></span><span style="display:flex;"><span>parseInt(<span style="color:#e6db74">&#34;3&#34;</span>, <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">arr</span>)
+</span></span></code></pre></div><ul>
+<li>첫 번째 <code>parseInt</code>에서는 0이 두 번째 인자로 왔기 때문에 10진법으로 1을 파싱하려 시도하지만,</li>
+<li>두 번째 <code>parseInt</code> 부터는 1 진법으로 &ldquo;2&quot;를 파싱할 수 없다. 따라서 NaN을 리턴한다.</li>
+</ul>
+<p><code>parseInt</code>가 두 번째 인자까지만 받기 때문에 추가 인자인 세 번째 인자는 무시된다.</p>
+<h2 id="이런">이런..</h2>
+<p>우리는 위 코드에서 두 가지를 잊어버렸기 때문에 코드가 의도대로 동작하지 않았다.</p>
+<ol>
+<li><code>parseInt</code>가 optional argument로 두 번째 인자를 받을 수 있다는 점</li>
+<li><code>map</code>의 <code>callbackfn</code>이 3개의 인자를 사용한다는 점</li>
+</ol>
+<p>그럼 어떻게 바꿔야 우리의 의도대로 코드가 동작할 수 있을까?</p>
+<p><code>[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt)</code> 대신</p>
+<p><code>[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].map(function(value) { return parseInt(value)}</code> 를 사용하면 된다.</p>
+<p>또는 <code>only</code> function을 아래와 같이 정의해서 사용할 수도 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>Function.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">only</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span>(<span style="color:#a6e22e">numberOfArgs</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">self</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">apply</span>(<span style="color:#66d9ef">this</span>, [].<span style="color:#a6e22e">slice</span>.<span style="color:#a6e22e">call</span>(<span style="color:#a6e22e">arguments</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">numberOfArgs</span>));
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;2&#34;</span>, <span style="color:#e6db74">&#34;3&#34;</span>].<span style="color:#a6e22e">map</span>(parseInt.<span style="color:#a6e22e">only</span>(<span style="color:#ae81ff">1</span>));
+</span></span></code></pre></div><p>위와 같이 <code>only</code>를 사용한다면 함수에서 사용할 인자 개수를 제한시킬 수 있다.</p>
+<p>하지만 그보다 더 중요한 것은 <code>map</code>이나 <code>parseInt</code>의 optional argument에 대해 잘 모르는 채로 함수를 사용했다는 것이고, API를 호출할 때 위와 같은 일이 발생하지 않도록 주의를 기울여야겠다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1/" data-title="Javascript Optional Argument의 위험성"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1/" data-title="Javascript Optional Argument의 위험성"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1/" data-title="Javascript Optional Argument의 위험성"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/ecmascript-module%EA%B3%BC-import/" class="prev" rel="prev" title="ECMAScript Module과 Import"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ECMAScript Module과 Import</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
