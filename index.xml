@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 23 Mar 2023 18:48:41 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 24 Mar 2023 17:01:12 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>AngularJS와 Angular 차이점</title>
+    <link>http://redjen8.github.io/posts/mar2023/angularjs%EC%99%80-angular-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
+    <pubDate>Fri, 24 Mar 2023 17:01:12 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/angularjs%EC%99%80-angular-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
+    <description><![CDATA[angular.js 와 angular는 어떻게 다를까? https://www.interviewbit.com/blog/difference-between-angular-and-angularjs/ 구분 angular angular.js Maintainer Google의 Angular 팀 + 기관과 개인이 포함된 커뮤니티 구글 + 기관과 개인이 포함된 커뮤니티 지원 언어 Type]]></description>
+</item>
+<item>
     <title>Javascript Optional Argument의 위험성</title>
     <link>http://redjen8.github.io/posts/mar2023/javascript-optional-argument%EC%9D%98-%EC%9C%84%ED%97%98%EC%84%B1/</link>
     <pubDate>Thu, 23 Mar 2023 18:48:41 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/nodejs-quick-review/</guid>
     <description><![CDATA[Js 스터디 도중 Node.js에 대한 이야기가 여러 번 언급되어 공식 문서를 정리하고자 한다. https://nodejs.org/en/docs/guides/dont-block-the-event-loop/ 요약 Node.js는 자바스크립트 코드를 이벤트 루프 안에서 실행]]></description>
-</item>
-<item>
-    <title>Webclient에서의 Retry</title>
-    <link>http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/</link>
-    <pubDate>Tue, 14 Mar 2023 21:09:22 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/webclient%EC%97%90%EC%84%9C%EC%9D%98-retry/</guid>
-    <description><![CDATA[webclient를 사용하면 다른 서버로의 웹 요청에 대한 응답을 비동기적으로 수행할 수 있다. 그런데, 요청이 실패하면 어떻게 될까? 실패했을 때의 요청에 대해]]></description>
 </item>
 </channel>
 </rss>
