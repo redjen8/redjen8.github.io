@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 24 Mar 2023 17:01:12 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 25 Mar 2023 22:23:54 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Spring Mdc Logging과 Reactor</title>
+    <link>http://redjen8.github.io/posts/mar2023/spring-mdc-logging%EA%B3%BC-reactor/</link>
+    <pubDate>Sat, 25 Mar 2023 22:23:54 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/spring-mdc-logging%EA%B3%BC-reactor/</guid>
+    <description><![CDATA[자바 웹 어플리케이션에서는 Mapped Diagnostic Context (MDC)를 사용하여 어플리케이션 로깅을 지원한다. MDC는 로깅이 실제로 일어나는 스코프에서 접근 불가능한 정보들을 담아]]></description>
+</item>
+<item>
     <title>AngularJS와 Angular 차이점</title>
     <link>http://redjen8.github.io/posts/mar2023/angularjs%EC%99%80-angular-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
     <pubDate>Fri, 24 Mar 2023 17:01:12 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/http-preflight-request/</guid>
     <description><![CDATA[HTTP Preflight Request란 무엇이고, 어떤 내용을 포함하고 있을까? https://developer.mozilla.org/ko/docs/Glossary/Preflight_request Preflight Request란 본격적인 HTTP 요청 전 서버 쪽에서 그 요청에 대한 메서드와 헤더에 대해 capa]]></description>
-</item>
-<item>
-    <title>Nodejs Quick Review</title>
-    <link>http://redjen8.github.io/posts/mar2023/nodejs-quick-review/</link>
-    <pubDate>Wed, 15 Mar 2023 23:45:28 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/nodejs-quick-review/</guid>
-    <description><![CDATA[Js 스터디 도중 Node.js에 대한 이야기가 여러 번 언급되어 공식 문서를 정리하고자 한다. https://nodejs.org/en/docs/guides/dont-block-the-event-loop/ 요약 Node.js는 자바스크립트 코드를 이벤트 루프 안에서 실행]]></description>
 </item>
 </channel>
 </rss>
