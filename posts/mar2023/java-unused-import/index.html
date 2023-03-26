@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java Unused Import - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Java Unused Import" />
+<meta property="og:description" content="IDE에서는 사용하지 않은 import 문에 대해서 indication을 해준다. SonarQube와 같은 코드 퀄리티 도구를 사용한다면 code smell 항목 등으로 아예 이를 제" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/java-unused-import/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-26T22:47:20+09:00" />
+<meta property="article:modified_time" content="2023-03-26T22:47:20+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Unused Import"/>
+<meta name="twitter:description" content="IDE에서는 사용하지 않은 import 문에 대해서 indication을 해준다. SonarQube와 같은 코드 퀄리티 도구를 사용한다면 code smell 항목 등으로 아예 이를 제"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/java-unused-import/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/spring-mdc-logging%EA%B3%BC-reactor/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java Unused Import",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/java-unused-import\/"
+        },"genre": "posts","wordcount":  734 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/java-unused-import\/","datePublished": "2023-03-26T22:47:20+09:00","dateModified": "2023-03-26T22:47:20+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Java Unused Import</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-26">2023-03-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;734 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#이유">이유</a>
+      <ul>
+        <li><a href="#동일한-이름의-클래스를-동시에-사용하려면">동일한 이름의 클래스를 동시에 사용하려면</a></li>
+      </ul>
+    </li>
+    <li><a href="#진짜-이유">진짜 이유</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>IDE에서는 사용하지 않은 import 문에 대해서 indication을 해준다.
+SonarQube와 같은 코드 퀄리티 도구를 사용한다면 code smell 항목 등으로 아예 이를 제거하라고 알려주기도 한다.</p>
+<p>그렇다면, unused import문은 왜 안 좋을까? 단순히 존재만 하는 것도 내 어플리케이션에 영향을 줄까?</p>
+<p><a href="https://stackoverflow.com/questions/18153690/does-an-unused-import-declaration-eat-memory-in-java" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/18153690/does-an-unused-import-declaration-eat-memory-in-java</a></p>
+<h2 id="이유">이유</h2>
+<p>사실 unused import 문은 어떠한 추가 메모리도 사용하지 않는다.</p>
+<p>import 문들은 단순히 컴파일러들이 컴파일 타임에 클래스 이름을 resolve하기 위한 용도로 사용된다.</p>
+<h3 id="동일한-이름의-클래스를-동시에-사용하려면">동일한 이름의 클래스를 동시에 사용하려면</h3>
+<p>동일한 이름의 import문을 동시에 사용하려면 어떻게 해야 할까?</p>
+<p><a href="https://stackoverflow.com/questions/2079823/importing-two-classes-with-same-name-how-to-handle" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/2079823/importing-two-classes-with-same-name-how-to-handle</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>java<span style="color:#f92672">.</span><span style="color:#a6e22e">util</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Date</span> javaDate <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">util</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Date</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>my<span style="color:#f92672">.</span><span style="color:#a6e22e">own</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Date</span> myDate <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> my<span style="color:#f92672">.</span><span style="color:#a6e22e">own</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Date</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p>위와 같이 선언하면 된다. 애초에 컴파일러가 바이트 코드로 변환하기 전에 위와 같은 동작을 수행하기 떄문에 전혀 문제가 될 것이 없다.</p>
+<ul>
+<li>컴파일러는 각각의 클래스 이름들을 fully qualified name으로 변환한다.</li>
+<li>그 후에 import 선언들을 제거한다.</li>
+<li>때문에 import 선언들은 애초에 바이트 코드 내에 존재하지 않는다.</li>
+<li>애초에 바이트 코드로 존재하지 않으므로 성능에 영향을 미칠 일은 전혀 존재하지 않는다.</li>
+</ul>
+<p>그럼 왜 IDE와 코드 퀄리티 솔루션에서는 성능에 영향을 미치지 않는 unused import 문을 제거하라고 할까?</p>
+<h2 id="진짜-이유">진짜 이유</h2>
+<p>사실 어플리케이션의 실행에는 전혀 지장이 없기 때문에 위에서 언급한 도구들은 unused import에 대해 에러 수준의 경고를 발생시키지 않는다.</p>
+<p>단순히 코드 퀄리티 향상을 위해서 제거하는 것이 맞다고 생각이 든다.</p>
+<ol>
+<li>어떤 목적을 위해서 import한 내용을 사용하다가, 더 이상 필요 없어져 코드 본문에서는 제거한 후에</li>
+<li>나중에 동일 이름의 라이브러리를 사용해야 하는 경우에는 실제로 문제가 될 수 있다.</li>
+</ol>
+<p>또 지금이야 IDE의 도움을 받지만, IDE 레벨에서 사용하지 않는 import 문을 따로 표시해주지 않는다면 무슨 의도로 이런 import 문을 썼는지 해당 클래스 파일을 전부 훑어봐야 하는 불상사가 생길 수도 있다.</p>
+<p>얌전히 IDE와 코드 퀄리티 솔루션의 조언을 들어야겠다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/java-unused-import/" data-title="Java Unused Import"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/java-unused-import/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/java-unused-import/" data-title="Java Unused Import"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/java-unused-import/" data-title="Java Unused Import"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/spring-mdc-logging%EA%B3%BC-reactor/" class="prev" rel="prev" title="Spring Mdc Logging과 Reactor"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Spring Mdc Logging과 Reactor</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
