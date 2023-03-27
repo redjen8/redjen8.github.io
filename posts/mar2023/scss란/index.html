@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Scss란 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Scss란" />
+<meta property="og:description" content="순수 CSS는 어플리케이션이 커지면서 한계를 많이 맞이하게 되었고, 어떻게 하면 더 효율적으로 css 파일을 작성할 수 있을지 고민한 결과로 SCSS가 탄생했다. SC" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-27T19:30:37+09:00" />
+<meta property="article:modified_time" content="2023-03-27T19:30:37+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Scss란"/>
+<meta name="twitter:description" content="순수 CSS는 어플리케이션이 커지면서 한계를 많이 맞이하게 되었고, 어떻게 하면 더 효율적으로 css 파일을 작성할 수 있을지 고민한 결과로 SCSS가 탄생했다. SC"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/java-unused-import/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Scss란",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/scss%EB%9E%80\/"
+        },"genre": "posts","wordcount":  830 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/scss%EB%9E%80\/","datePublished": "2023-03-27T19:30:37+09:00","dateModified": "2023-03-27T19:30:37+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Scss란</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-27">2023-03-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;830 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#css의-불편함과-해결사-scss">CSS의 불편함과 해결사 SCSS</a></li>
+    <li><a href="#무엇이-다를까">무엇이 다를까?</a>
+      <ul>
+        <li><a href="#1-변수">1. 변수</a></li>
+        <li><a href="#2-nesting">2. Nesting</a></li>
+        <li><a href="#3-partial">3. Partial</a></li>
+        <li><a href="#4-mixin">4. Mixin</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>순수 CSS는 어플리케이션이 커지면서 한계를 많이 맞이하게 되었고, 어떻게 하면 더 효율적으로 css 파일을 작성할 수 있을지 고민한 결과로 SCSS가 탄생했다.</p>
+<p>SCSS란 무엇이고, 어떻게 사용되고 있는지 간단히 알아봤다.</p>
+<p><a href="https://medium.com/swlh/learn-the-scss-sass-basics-in-5-minutes-73002653b443" target="_blank" rel="noopener noreffer ">https://medium.com/swlh/learn-the-scss-sass-basics-in-5-minutes-73002653b443</a></p>
+<h2 id="css의-불편함과-해결사-scss">CSS의 불편함과 해결사 SCSS</h2>
+<p>CSS는 HTML 코드를 보다 예쁘게 만들어주는 스타일 시트이다.</p>
+<p>하지만 CSS는 쉽게 읽고 쓸 수 있도록 하는 기능을 많이 지원하지 않았다.</p>
+<p>SASS는 변수, Nesting, Partial, Mixin, 확장 / 상속, 연산자를 지원하는 CSS이다.</p>
+<p>SASS는 결국 CSS로 컴파일되어서 사용자에게 보여지는 최종 파일이 된다.
+그 사이에 개발자는 편하게 개발할 수 있으므로, SASS를 &lsquo;CSS를 개발 편의성을 위해 한 단계 추상화 한 파일&rsquo;이라고 봐도 무방할 듯 싶다.</p>
+<h2 id="무엇이-다를까">무엇이 다를까?</h2>
+<h3 id="1-변수">1. 변수</h3>
+<p>모든 프로그래밍 언어에는 변수 개념이 존재한다. SASS는 변수를 선언하도록 허용해서 색상을 변경해야 할 때 동일한 색상에 대해 노가다 작업을 하지 않도록 도와준다. 변수를 각 속성에 적용시키고, 적용된 변수의 값을 바꾸게 되는 것으로 족하다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scss" data-lang="scss"><span style="display:flex;"><span>$primary-color<span style="color:#f92672">:</span> <span style="color:#ae81ff">#333</span>; 
+</span></span><span style="display:flex;"><span><span style="color:#f92672">body</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">background-color</span><span style="color:#f92672">:</span> $primary-color;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.text</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">color</span><span style="color:#f92672">:</span> $primary-color;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="2-nesting">2. Nesting</h3>
+<p>CSS에서는 Nested한 구조를 허용하지 않는다. properties와 yml 파일의 차이처럼, nested한 구조를 도입하는 것은 중복되는 코드를 상당히 줄이는 데에 도움이 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scss" data-lang="scss"><span style="display:flex;"><span><span style="color:#f92672">nav</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ul</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">margin</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">padding</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list-style</span><span style="color:#f92672">:</span> none;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">li</span> { <span style="color:#a6e22e">display</span><span style="color:#f92672">:</span> inline-block; }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="3-partial">3. Partial</h3>
+<p>Partial들은 파일 이름에 <code>_</code> (언더스코어)가 붙은 SASS 또는 SCSS 파일이다. (<code>_test.scss</code>처럼)</p>
+<p>이 partial들은 css로 변환되지 않는 특징을 가진다. 이 파일들은 다른 SCSS 파일들에 의해 import 될 수 있는 CSS 코드 스니펫을 가진다.</p>
+<p>이런 방식으로 개발한다면, CSS 자체를 모듈화하여 유지 보수하는데 큰 도움이 된다. 다양한 파일들에서 사용될 변수들을 저장하고 싶을 때에는 partial를 사용하는 것처럼..</p>
+<h3 id="4-mixin">4. Mixin</h3>
+<p>Mixin은 프로그래밍 언어와 비슷한 기능이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scss" data-lang="scss"><span style="display:flex;"><span><span style="color:#66d9ef">@mixin</span><span style="color:#a6e22e"> transform</span>($property) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">-webkit-transform</span><span style="color:#f92672">:</span> $property;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">-ms-transform</span><span style="color:#f92672">:</span> $property;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">transform</span><span style="color:#f92672">:</span> $property;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">.box</span> { <span style="color:#66d9ef">@include</span><span style="color:#a6e22e"> transform</span>(<span style="color:#a6e22e">rotate</span>(<span style="color:#ae81ff">30</span><span style="color:#66d9ef">deg</span>)); }
+</span></span></code></pre></div><p><code>rotate(30deg)</code>를 3번 입력하는 것 대신에, 이러한 Mixin들을 사전에 제작해서 함수처럼 활용할 수 있다.</p>
+<p>이 Mixin 코드를 사용하려면, 반드시 <code>@include</code> 키워드를 사용해야 한다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/" data-title="Scss란"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/" data-title="Scss란"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/" data-title="Scss란"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/java-unused-import/" class="prev" rel="prev" title="Java Unused Import"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Java Unused Import</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

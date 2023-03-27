@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 26 Mar 2023 22:47:20 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 27 Mar 2023 19:30:37 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Scss란</title>
+    <link>http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/</link>
+    <pubDate>Mon, 27 Mar 2023 19:30:37 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/</guid>
+    <description><![CDATA[순수 CSS는 어플리케이션이 커지면서 한계를 많이 맞이하게 되었고, 어떻게 하면 더 효율적으로 css 파일을 작성할 수 있을지 고민한 결과로 SCSS가 탄생했다. SC]]></description>
+</item>
+<item>
     <title>Java Unused Import</title>
     <link>http://redjen8.github.io/posts/mar2023/java-unused-import/</link>
     <pubDate>Sun, 26 Mar 2023 22:47:20 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/</guid>
     <description><![CDATA[MongoDB에 저장되는 다큐먼트 데이터들에는 반드시 인덱스를 한 개 이상 사용하는 것이 성능 향상적 측면에서 권장된다. 그렇다면 인덱스는 언제, 어떻게, 무엇]]></description>
-</item>
-<item>
-    <title>Static Class vs Singleton</title>
-    <link>http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/</link>
-    <pubDate>Fri, 17 Mar 2023 18:17:41 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/static-class-vs-singleton/</guid>
-    <description><![CDATA[가끔 개발을 하다 보면 싱글턴 패턴과 정적 클래스가 헷갈릴 때가 있다. 두 방식 모두 하나의 객체를 다루는 것 같은데, 구체적으로는 어떻게 다를까? https://stackoverflow.com/questions/519520/difference-between-static-class-and-singleton-pattern thread safe? 싱글턴 패턴과]]></description>
 </item>
 </channel>
 </rss>
