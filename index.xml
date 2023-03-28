@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 27 Mar 2023 19:30:37 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 28 Mar 2023 21:54:00 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Js Window Screen Document의 차이점</title>
+    <link>http://redjen8.github.io/posts/mar2023/js-window-screen-document%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
+    <pubDate>Tue, 28 Mar 2023 21:54:00 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/mar2023/js-window-screen-document%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
+    <description><![CDATA[FE 개발을 하다 보면 헷갈리는 개념들이 많다. Javascript의 window, screen, document는 전부 비슷해보이는데, 어떻게 세부적으로 다를까? https://stackoverflow.com/questions/9895202/what-is-the-difference-between-window-screen-and-document-in-javascript window windo]]></description>
+</item>
+<item>
     <title>Scss란</title>
     <link>http://redjen8.github.io/posts/mar2023/scss%EB%9E%80/</link>
     <pubDate>Mon, 27 Mar 2023 19:30:37 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/caching-in-spring/</guid>
     <description><![CDATA[스프링 프레임워크에서의 캐시 추상화는 어떤 방식으로 동작할까? https://www.baeldung.com/spring-cache-tutorial 어노테이션 기반 캐싱 @Cacheable 캐싱을 활성화하기 위한 방법으로는 @Cacheable 어노테이션으로 감싸는 것이다. 이]]></description>
-</item>
-<item>
-    <title>Mongodb Index Strategy</title>
-    <link>http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/</link>
-    <pubDate>Sat, 18 Mar 2023 22:22:04 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/mongodb-index-strategy/</guid>
-    <description><![CDATA[MongoDB에 저장되는 다큐먼트 데이터들에는 반드시 인덱스를 한 개 이상 사용하는 것이 성능 향상적 측면에서 권장된다. 그렇다면 인덱스는 언제, 어떻게, 무엇]]></description>
 </item>
 </channel>
 </rss>
