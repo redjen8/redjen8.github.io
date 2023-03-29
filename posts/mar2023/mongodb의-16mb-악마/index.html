@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mongodb의 16mb 악마 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Mongodb의 16mb 악마" />
+<meta property="og:description" content="들어가며 현재 MongoDB의 한 Document 크기 제한은 16MB이다. 맨 처음 MongoDB가 출시된 2009년에는 4MB였고, 얼마 지나지 않아 그 제한이 16MB" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-03-29T21:31:52+09:00" />
+<meta property="article:modified_time" content="2023-03-29T21:31:52+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mongodb의 16mb 악마"/>
+<meta name="twitter:description" content="들어가며 현재 MongoDB의 한 Document 크기 제한은 16MB이다. 맨 처음 MongoDB가 출시된 2009년에는 4MB였고, 얼마 지나지 않아 그 제한이 16MB"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/js-window-screen-document%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mongodb의 16mb 악마",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/mar2023\/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88\/"
+        },"genre": "posts","wordcount":  4530 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/mar2023\/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88\/","datePublished": "2023-03-29T21:31:52+09:00","dateModified": "2023-03-29T21:31:52+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mongodb의 16mb 악마</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-03-29">2023-03-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4530 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;10 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#들어가며">들어가며</a></li>
+    <li><a href="#mongodb-쓰지-마세요">MongoDB 쓰지 마세요</a></li>
+    <li><a href="#embedded-vs-reference">Embedded vs Reference</a>
+      <ul>
+        <li><a href="#1-referenced-document">1. Referenced Document</a></li>
+        <li><a href="#2-embedded-document">2. Embedded Document</a></li>
+        <li><a href="#어떤-것을-사용해야-할까">어떤 것을 사용해야 할까</a></li>
+      </ul>
+    </li>
+    <li><a href="#mongodb의-메모리-제한">MongoDB의 메모리 제한</a></li>
+    <li><a href="#왜-bson의-크기를-하필-16mb으로-제한할까">왜 BSON의 크기를 하필 16MB으로 제한할까</a></li>
+    <li><a href="#왜-16mb로는-부족할까">왜 16MB로는 부족할까?</a></li>
+    <li><a href="#맺음말">맺음말</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="들어가며">들어가며</h2>
+<p>현재 MongoDB의 한 Document 크기 제한은 16MB이다.</p>
+<p>맨 처음 MongoDB가 출시된 2009년에는 4MB였고, 얼마 지나지 않아 그 제한이 16MB로 변경되었다.</p>
+<p>많은 개발자들이 2023년에도 왜 MongoDB의 Document 크기가 16MB인지 궁금해한다.</p>
+<p>확실히 요즘의 어플리케이션에서는 대용량의 데이터를 다루는 시스템이 많아졌고, 단일 document 크기가 16MB 이상이 되었으면 좋겠다는 사람들이 늘어나고 있는 것 같다.</p>
+<p>오늘은 MongoDB의 메모리 제한과, 그 이유와, 커뮤니티 전반에 걸친 논쟁을 가볍게 정리해보았다.</p>
+<h2 id="mongodb-쓰지-마세요">MongoDB 쓰지 마세요</h2>
+<p><a href="https://www.bloter.net/news/articleView.html?idxno=13677" target="_blank" rel="noopener noreffer ">https://www.bloter.net/news/articleView.html?idxno=13677</a></p>
+<p>무려 2012년, 이 글을 쓰는 현재 10년이 훌쩍 넘은 글이다. 꽤나 자극적인 아티클 제목이기에 예전에도 꽤 화제가 되었던 것으로 기억한다.
+(블로터 기자님이 쓴 글이 아님에 유의..!)</p>
+<p>출시한지 3년 째, 혜성처럼 등장한 NoSQL 데이터베이스인 MongoDB는 혁신적인 특징으로 당시 RDBMS가 지배적이었던 데이터베이스 시장을 뒤흔들었지만 대신 몇 가지를 포기했었다.</p>
+<ul>
+<li>실제로 꽤 최근까지 (2018년 이전) multi document 간 트랜잭션 지원이 되지 않았던 것이 그 예시이다.</li>
+</ul>
+<p>기사에서 다루던 &lsquo;<strong>MongoDB를 쓰지 말아야 할 주요 이유</strong>&lsquo;로는 그 중에서도 불안한 데이터 정합성 이야기를 다루고 있었다.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://velog.velcdn.com/images/redjen/post/f0941e07-984a-4274-aad6-b439ae45cca7/image.png"
+        data-srcset="https://velog.velcdn.com/images/redjen/post/f0941e07-984a-4274-aad6-b439ae45cca7/image.png, https://velog.velcdn.com/images/redjen/post/f0941e07-984a-4274-aad6-b439ae45cca7/image.png 1.5x, https://velog.velcdn.com/images/redjen/post/f0941e07-984a-4274-aad6-b439ae45cca7/image.png 2x"
+        data-sizes="auto"
+        alt="https://velog.velcdn.com/images/redjen/post/f0941e07-984a-4274-aad6-b439ae45cca7/image.png"
+        title="https://velog.velcdn.com/images/redjen/post/f0941e07-984a-4274-aad6-b439ae45cca7/image.png" /></p>
+<p>3년 차의 MongoDB는 아직 미성숙한 솔루션이었으며, 내 데이터를 믿고 맡기기에는 너무나도 부족한 데이터베이스였으리라.</p>
+<p>때문에 2012년의 비판 글을 다시 돌아보며 <a href="https://itlab.co.kr/v7/?c=news&amp;sort=d_regis&amp;orderby=desc&amp;where=subject%7Ctag&amp;keyword=%EB%AA%BD%EA%B3%A0DB&#43;4.2&amp;uid=141320" target="_blank" rel="noopener noreffer ">이제는 MongoDB가 성숙했음을 이야기하는 글</a>도 다시 나왔다.</p>
+<p>MongoDB는 이제 샤딩과 레플리케이션을 통해 안정적으로 데이터 정합성을 보장하고, 멀티 트랜잭션을 지원하면서 여전히 빠른 성능과 뛰어난 수평적 확장을 보장하는 매력적인 데이터베이스가 되었다.</p>
+<p>데이터 정합성이 중요한 금융권에서도 MongoDB를 도입하기 시작했고, ETL과 같이 데이터에 복잡한 비즈니스 로직을 태우는 여러 빅테크들에서도 MongoDB를 사용하는 비율을 늘리고 있다.</p>
+<p>위의 기사에서도 언급했던, <a href="https://survey.stackoverflow.co/2022/" target="_blank" rel="noopener noreffer ">Stackoverflow 선정 개발자들에게 가장 사랑받는 데이터 베이스 순위 2022</a>에서는 MongoDB가 당당히 4위를 차지하고 있다.</p>
+<p>쟁쟁한 RDBMS 솔루션들을 뚫고 순수 NoSQL 데이터베이스로만 놓고 따지면 단연 1등이다. 그만큼 2023년 현재에도 NoSQL 진영에서 MongoDB는 독보적인 행보를 보인다.</p>
+<h2 id="embedded-vs-reference">Embedded vs Reference</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://velog.velcdn.com/images/redjen/post/32c6dcdd-5cb5-44c4-b227-c1255434a7a7/image.webp"
+        data-srcset="https://velog.velcdn.com/images/redjen/post/32c6dcdd-5cb5-44c4-b227-c1255434a7a7/image.webp, https://velog.velcdn.com/images/redjen/post/32c6dcdd-5cb5-44c4-b227-c1255434a7a7/image.webp 1.5x, https://velog.velcdn.com/images/redjen/post/32c6dcdd-5cb5-44c4-b227-c1255434a7a7/image.webp 2x"
+        data-sizes="auto"
+        alt="https://velog.velcdn.com/images/redjen/post/32c6dcdd-5cb5-44c4-b227-c1255434a7a7/image.webp"
+        title="https://velog.velcdn.com/images/redjen/post/32c6dcdd-5cb5-44c4-b227-c1255434a7a7/image.webp" /></p>
+<p>MongoDB에는 <code>JOIN</code>이 존재하지 않는다. JOIN과 비슷한 <code>lookup</code>이 존재하지만, 이걸 사용할 바엔 나라면 그냥 MySQL이나 PostgreSQL을 쓴다.</p>
+<p><a href="https://medium.com/@liams_o/lookup-in-mongodb-if-you-are-using-it-something-is-wrong-45d3fd47ac61" target="_blank" rel="noopener noreffer ">lookup을 사용한다는 것은 무언가가 잘못되어가고 있다는 것</a></p>
+<p><code>lookup</code>은 본질적으로 RDBMS의 Join과 내부 동작이 완전히 상이할 뿐만 아니라, 내용을 들여다보면 RDBMS의 Join보다는 데이터 레포지토리 레이어 레벨에서의 데이터 Aggregation 지원에 가깝다는 생각이다.</p>
+<p>심지어 동일하게 File IO를 수행하면서 수십년동안 성능 최적화를 위해 피똥싸며 고민한 결과물이 들어가 있는 RDBMS 진영의 Join과는 달리 별다른 최적화도 수행하지 않는다. 필연적으로 성능 면에서는 처참할 수 밖에 없다. 프로덕션 환경에서는 사용하지 않는 것이 일반적으로 권고되는 사항이다.</p>
+<p>그럼 어떤 방식으로 데이터를 의미있게 분리하여 데이터베이스를 구성할 수 있을까? MongoDB에서는 두 가지 방식을 통해 이를 이룰 수 있다.</p>
+<h3 id="1-referenced-document">1. Referenced Document</h3>
+<p>MyBatis를 사용하며 손수 한땀 한땀 Join 쿼리를 짜던 나 같은 사람에게는 이 방법이 오히려 편했다.</p>
+<p>필드의 value로 <code>_id</code> 값을 저장해서, 그 <code>_id</code> 값으로 다시 read를 하는 방식으로 데이터를 풀어내는 방법이다.</p>
+<p>MongoDB가 Join을 지원하지 않기 때문에 <code>SELECT</code>를 두 번이나 해야 한다니! 이게 무슨 낭비야! 라고 한다면 괜찮다. MongoDB의 <code>findOne</code> 몇 번은 비슷한 수의 Join 문이 들어간 단일 <code>SELECT</code> 쿼리와 비교하여 <a href="https://blog.knoldus.com/mongodb-vs-rdbms-and-its-adavanatges/" target="_blank" rel="noopener noreffer ">성능이 그렇게 차이나지 않는다 (심지어는 더 빠르다)</a>.</p>
+<h3 id="2-embedded-document">2. Embedded Document</h3>
+<p>반면 무식하게 child 관계의 데이터를 parent 데이터 스키마 구조에 넣어버리는 방법이 있다.</p>
+<p>하지만 document의 크기가 커지게 되잖아요..! 괜찮다. MongoDB의 성능이 커진 데이터 크기를 어느 정도 보완해준다.
+하지만 데이터 정규화는요..! 그런건 애초에 NoSQL에는 존재하지 않는 개념이다. 정규화의 이점을 버리고 확장성과 유연성을 가지자.</p>
+<h3 id="어떤-것을-사용해야-할까">어떤 것을 사용해야 할까</h3>
+<p><a href="https://betterprogramming.pub/embedded-vs-referenced-documents-in-mongodb-how-to-choose-correctly-for-increased-performance-d267769b8671" target="_blank" rel="noopener noreffer ">https://betterprogramming.pub/embedded-vs-referenced-documents-in-mongodb-how-to-choose-correctly-for-increased-performance-d267769b8671</a></p>
+<ul>
+<li>전체 parent document의 필요 없이 대용량 데이터를 write 해야 하는 상황이라면 referenced document를 사용</li>
+<li>대부분의 데이터를 한 document에서 read 해야 하고, 그 곁다리로 관련 document가 존재한다면 embedded document를 사용</li>
+<li>물론 두 방법을 동시에 사용할 수도 있다.</li>
+</ul>
+<p>물론 그 이전에 데이터 스키마를 잘 구성한다면 둘 다 사용하지 않을 수도 있다. 진정한 MongoDB 고수라면 상황에 맞춰서 두 방법을 적절히 사용해야 한다.</p>
+<blockquote>
+<p>소프트웨어 개발에서 모든 요구 사항들을 기분 좋게 해결하는 은탄환은 존재하지 않는다.</p>
+</blockquote>
+<h2 id="mongodb의-메모리-제한">MongoDB의 메모리 제한</h2>
+<p><a href="https://www.mongodb.com/docs/manual/reference/limits/" target="_blank" rel="noopener noreffer ">https://www.mongodb.com/docs/manual/reference/limits/</a></p>
+<p>MongoDB에서는 BSON Document를 사용한다. 그리고 <strong>BSON Document의 최대 크기는 16MB이다.</strong></p>
+<p><a href="https://www.mongodb.com/json-and-bson" target="_blank" rel="noopener noreffer ">https://www.mongodb.com/json-and-bson</a></p>
+<p>BSON은 Binary JSON이다. 그리고 BSON의 바이너리 구조는 타입과 길이 정보를 인코딩한다. 때문에 BSON은 단순히 캐릭터 문자 기반으로 저장되는 JSON과 비교하여 훨씬 더 빠르게 데이터를 처리할 수 있다는 장점이 있다.</p>
+<p>BSON은 JSON 네이티브한 데이터 타입도 포함하여 지원한다. 날짜(<code>Date</code>)와 순수 이진 데이터(<code>BinData</code>)가 그 예시이다. MongoDB에서는 이러한 데이터 유형 추가를 통해 훨씬 더 다양한 데이터를 네이티브 단계에서 지원할 수 있도록 했다.</p>
+<p>아래는 JSON 객체와 그에 상응하는 BSON 표현이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;hello&#34;</span>: <span style="color:#e6db74">&#34;world&#34;</span><span style="color:#f92672">}</span> → 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>16<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> // total document size 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span><span style="color:#ae81ff">02</span> // 0x02 <span style="color:#f92672">=</span> type String
+</span></span><span style="display:flex;"><span>hello<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> // field name 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>06<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>00world<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> // field value 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> // 0x00 <span style="color:#f92672">=</span> type EOO <span style="color:#f92672">(</span><span style="color:#e6db74">&#39;end of object&#39;</span><span style="color:#f92672">)</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">{</span><span style="color:#e6db74">&#34;BSON&#34;</span>: <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;awesome&#34;</span>, 5.05, 1986<span style="color:#f92672">]}</span> → 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>31<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>04BSON<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>26<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>02<span style="color:#ae81ff">\x</span>30<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>08<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>00awesome<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>01<span style="color:#ae81ff">\x</span>31<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>33<span style="color:#ae81ff">\x</span>33<span style="color:#ae81ff">\x</span>33<span style="color:#ae81ff">\x</span>33<span style="color:#ae81ff">\x</span>33<span style="color:#ae81ff">\x</span>33<span style="color:#ae81ff">\x</span>14<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">40</span> 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span>10<span style="color:#ae81ff">\x</span>32<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span>c2<span style="color:#ae81ff">\x</span>07<span style="color:#ae81ff">\x</span>00<span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> <span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span> 
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">\x</span><span style="color:#ae81ff">00</span>
+</span></span></code></pre></div><p>MongoDB는 데이터를 내부적으로 저장할 때나, 네트워크 상에서도 BSON 포맷을 사용한다. 하지만 이게 MongoDB를 JSON 데이터베이스로 생각할 수 없다는 것은 아니다.</p>
+<ul>
+<li>JSON으로 표현할 수 있는 모든 것은 MongoDB에 저장될 수 있다.</li>
+<li>MongoDB에 저장된 데이터는 쉽게 JSON으로 표현될 수 있다.</li>
+</ul>
+<p>이미 어플리케이션에서 MongoDB 드라이버를 사용한다면 데이터를 BSON으로 변환하고, 쿼리의 결과를 다시 역직렬화한 객체로 만들어주는 역할을 수행하고 있을 것이다.</p>
+<p>JSON과 BSON의 상세 비교는 아래 표와 같다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>JSON</th>
+<th>BSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>인코딩</td>
+<td>UTF-8 String</td>
+<td>바이너리</td>
+</tr>
+<tr>
+<td>데이터 지원</td>
+<td>String, Boolean, Number, Array, Object, Null</td>
+<td>String, Boolean, Number (Integer, Float, Long, Decimal128 &hellip;), Array, null, Date, BinData</td>
+</tr>
+<tr>
+<td>가독성</td>
+<td>사람과 기계가 읽을 수 있음</td>
+<td>기계만 읽을 수 있음</td>
+</tr>
+</tbody>
+</table>
+<h2 id="왜-bson의-크기를-하필-16mb으로-제한할까">왜 BSON의 크기를 하필 16MB으로 제한할까</h2>
+<p>서버의 메모리는 굉장히 비싼 리소스이다. MongoDB에서는 서버의 메모리를 효율적으로 사용하기 위해서 메모리 관리 정책을 지금처럼 설정한 것으로 보인다. 친절도 해라!</p>
+<p>거의 15년 전이었던 그 당시와는 달리 상용 데이터베이스 서버의 메모리를 백 단위의 GB로 장착하는 것이 기본이 된 요즘에도 OS 메모리 사용량에 이슈가 있을지는 궁금하긴 하다.</p>
+<p>그 밖에도 MongoDB가 표방하고자 하는 빠른 작업 속도를 보장하기 위해서는 확실히 한 Document의 최대 크기가 작은 편이 훨씬 도움이 된다. 애초에 읽어오는 파일의 크기가 커지게 되면 그만큼 느려지게 되는 것이니까.</p>
+<p>그럼 이 제한을 뚫고, 굳이 MongoDB에서 한 Document에 16MB가 넘는 크기의 데이터를 넣겠다 하면 GridFS API를 사용하면 된다. 삽입하는 데이터를 청크 단위로 쪼개서 저장하고, 쿼리할 때에는 드라이버가 메타데이터를 참조하여 청크들을 다시 취합하여 반환한다.</p>
+<p><a href="https://www.mongodb.com/docs/manual/core/gridfs/" target="_blank" rel="noopener noreffer ">https://www.mongodb.com/docs/manual/core/gridfs/</a></p>
+<ul>
+<li>GridFS는 바이너리 청크를 저장하는 <code>chunks</code> 컬렉션과, 파일의 메타데이터를 저장하는 <code>files</code> 컬렉션을 사용한다.</li>
+<li>GridFS는 무려 인덱스도 지원한다! <code>chunks</code>와 <code>files</code> 컬렉션들에 대한 인덱스를 구성해서 read 성능을 향상시킬 수 있다.</li>
+<li>하지만 너무 아쉽게도, 현재 Multi Document 트랜잭션은 지원하고 있지 않다.</li>
+</ul>
+<h2 id="왜-16mb로는-부족할까">왜 16MB로는 부족할까?</h2>
+<p>다루는 데이터의 종류가 점차 변화했기 때문이다.</p>
+<p>데이터 스키마 설계 시 앞서 설명했던 Embedded document 방식을 사용해서 주로 read에 사용될 데이터를 한 document에 넣어 편리하게 데이터를 다루는 경우가 많은데, 필연적으로 이는 Referenced document와는 달리 한 document의 크기를 크게 만든다. 그렇기 때문에 Embedded Document 방식은 MongoDB의 16MB 제한에 있어서는 불리한 면이 많다.</p>
+<p>MongoDB Maintainer들은 공식적인 입장으로써 이는 어플리케이션의 데이터 스키마 설계가 잘못되었다는 태도를 보인다.
+이게 썩 유쾌하지 않다고 느껴지는 것과는 별개로, MongoDB 커뮤니티에 올라온 내용들을 보면 claimer들의 정말 데이터 스키마 설계가 잘못되었다고는 생각이 들지 않는 경우가 종종 있었다. (왜 이렇게 방어적인 태도를 취하는지는 사실 이해가 되지 않는다)</p>
+<p><a href="https://www.mongodb.com/community/forums/t/increase-max-document-size-to-at-least-64mb/124424" target="_blank" rel="noopener noreffer ">https://www.mongodb.com/community/forums/t/increase-max-document-size-to-at-least-64mb/124424</a></p>
+<p>가령 커뮤니티에서 거론된 예시 중에는</p>
+<ul>
+<li>연산 등을 위해 미리 준비된 매우 큰 크기의 행렬을 영속적인 저장소에 저장한 후 메모리로 불러와 곧바로 사용하고 싶은 경우
+<ul>
+<li>16MB 크기가 얼마나 작냐면, <code>16MB = 2^24(16,777,216) byte = 4 * (2^11) * (2^11)</code> 이다.</li>
+<li>즉 2048 * 2048 크기의 정수 (4 byte) 행렬을 단순 저장만 해도 16MB이다!</li>
+</ul>
+</li>
+<li>움직이는 물체의 실시간 위치 정보를 저장하기 위해서 사용하는 케이스. 분석을 위해서는 주변 시간의 위치 데이터가 반드시 필요하지만 낮은 latency를 위해서 이를 embedded로 단일 document에 저장하고 싶은 경우</li>
+<li>별개로 이미지와 같은 raw 데이터를 저장해서 16MB가 넘었다는 경우는.. 나도 데이터 스키마 설계가 잘못 되었다는 데에 동의한다.</li>
+</ul>
+<p>비슷한 모든 경우에서 단순히 한 Document의 크기가 16MB를 넘는다는 이유로 다른 데이터 솔루션을 사용해야 한다면 개발자 입장에서는 그야말로 재앙이고, 짜증나는 일이 아닐 수 없다. 단지 16MB가 넘는 데이터를 한 document에 저장하지 못한다는 이유로 MongoDB의 유연성과 확장성을 포기하기에도 너무 아깝다.</p>
+<blockquote>
+<p>2023년, 앞으로 10년은 더 사용할지 모르는 내 어플리케이션에서 단일 데이터의 16MB 제한이 부족하지 않을 것이라고 보장할 수 있을까?</p>
+</blockquote>
+<blockquote>
+<p>또한 액티브하게 제공되고 있는 프로덕트의 데이터 크기가 점진적으로 커졌을 때, 저장하는 데이터의 크기 제한 때문에 데이터 솔루션을 변경해야 한다면 이 이유로 다른 사람들을 쉽게 납득시킬 수 있을까?</p>
+</blockquote>
+<p>과거 2009년 <a href="https://jira.mongodb.org/browse/SERVER-431" target="_blank" rel="noopener noreffer ">한 Document의 크기가 4MB에서 현재의 16MB로 증가되었을 때</a>에도 사람들은 16MB면 대부분의 데이터를 다 담을 수 있을 것이라고 생각했다&hellip;
+그리고 나는 그 예상이 가까운 시일 내에 깨질 것이라 확신한다.</p>
+<h2 id="맺음말">맺음말</h2>
+<p>16MB가 단순 상수 값이 아니라, BSON 단위로 데이터를 저장하는 MongoDB의 특성 상 설정된 값이다 보니 쉽게 이 upper limit 값이 바뀔 것 같지는 않다.</p>
+<p>심지어 이를 무시하고 큰 파일을 저장하기 위한 트릭성 추상화인 GridFS API라는 방법도 존재하는 상태이기 때문에 더 그런 생각이 든다.</p>
+<p>물론 MongoDB 소스를 직접 수정하여 BSON 크기 제한을 64MB로 바꾼 후 컴파일하여 사용하는 방법도 있겠지만&hellip; 이렇게 사용할 개발자가 과연 얼마나 있을까?</p>
+<p>솔루션을 사용하는 개발자의 입장으로 보았을 때에는.. 개발자가 툴에 맞추는 것이 아니라 툴을 개발자가 맞게 커스텀할 수 있어야 한다고 생각한다.</p>
+<p>만약 16MB 제한이 풀리고 최대 64MB 크기의 document를 다루게 된 이후에도 비슷한 일이 생기지 않을 것이라는 보장을 할 수 있을까? 그렇기 때문에 최소한 설치 시점에 커스텀 가능한 상수로써 관리할 수 있도록 지원하면 참 좋을 것 같다. 대신 공식적으로 권고하면 될텐데. <strong>16MB 이상으로 document 최대 크기를 설정할 때에는 사용 중인 서버의 리소스를 고려해야 합니다!</strong> 등의 경고 문구도 넣고.</p>
+<p>MongoDB의 커뮤니티에도 <a href="https://jira.mongodb.org/browse/SERVER-5923" target="_blank" rel="noopener noreffer ">예전부터 지속적인 건의</a>는 이뤄지고 있지만, 여전히 Maintainer들의 입장은 쉽사리 변하지 않을 것 같다.</p>
+<p>관심이 있다면, 이 글을 읽고 관심이 생겼다면 <a href="https://feedback.mongodb.com/forums/924280-database/suggestions/45455761-raise-maximum-bson-document-size-bigger-than-16-mb?_ga=2.88181919.524346435.1679972925-972986555.1672797943" target="_blank" rel="noopener noreffer ">MongoDB 커뮤니티에 공감 투표</a>해보는 것은 어떨까?</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-03-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/" data-title="Mongodb의 16mb 악마"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/" data-title="Mongodb의 16mb 악마"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/" data-title="Mongodb의 16mb 악마"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/js-window-screen-document%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/" class="prev" rel="prev" title="Js Window Screen Document의 차이점"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Js Window Screen Document의 차이점</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line"><a href='velog.io/@redjen'></div><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+ 
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
