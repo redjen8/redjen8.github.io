@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java Reactive Programming Flux - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Java Reactive Programming Flux" />
+<meta property="og:description" content="Flux 0 또는 N개의 아이템을 emit할 수 있는 publisher이다. Subscriber가 50개의 아이템 요청 - Publisher가 3개 밖에 없다면?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-01T16:48:29+09:00" />
+<meta property="article:modified_time" content="2023-04-01T16:48:29+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Reactive Programming Flux"/>
+<meta name="twitter:description" content="Flux 0 또는 N개의 아이템을 emit할 수 있는 publisher이다. Subscriber가 50개의 아이템 요청 - Publisher가 3개 밖에 없다면?"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/" /><link rel="prev" href="http://redjen8.github.io/posts/mar2023/javascript-delete-operator/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java Reactive Programming Flux",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/apr2023\/java-reactive-programming-flux\/"
+        },"genre": "posts","wordcount":  2020 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/apr2023\/java-reactive-programming-flux\/","datePublished": "2023-04-01T16:48:29+09:00","dateModified": "2023-04-01T16:48:29+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Java Reactive Programming Flux</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-01">2023-04-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2020 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#flux">Flux</a></li>
+    <li><a href="#fluxjust">Flux.just</a></li>
+    <li><a href="#multiple-subscribers">Multiple Subscribers</a></li>
+    <li><a href="#from-array--list">From Array / List</a></li>
+    <li><a href="#from-stream">From Stream</a></li>
+    <li><a href="#fluxrange">Flux.range</a></li>
+    <li><a href="#log">log</a></li>
+    <li><a href="#custom-subscriber-implementation">Custom Subscriber Implementation</a></li>
+    <li><a href="#flux-vs-list">Flux vs List</a></li>
+    <li><a href="#interval">Interval</a></li>
+    <li><a href="#another-publisher-to-flux">Another Publisher to Flux</a></li>
+    <li><a href="#flux-to-mono">Flux to Mono</a></li>
+    <li><a href="#정리">정리</a>
+      <ul>
+        <li><a href="#flux-생성">Flux 생성</a></li>
+        <li><a href="#mono-vs-flux--비어-있는-데이터와-exception-처리">Mono vs Flux : 비어 있는 데이터와 Exception 처리</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="flux">Flux</h2>
+<p>0 또는 N개의 아이템을 emit할 수 있는 publisher이다.
+Subscriber가 50개의 아이템 요청 - Publisher가 3개 밖에 없다면?</p>
+<ul>
+<li>3개 emit하고 <code>onComplete</code></li>
+<li>처리 중에 에러 발생 시 <code>onError</code></li>
+</ul>
+<h2 id="fluxjust">Flux.just</h2>
+<p>최대 하나의 아이템을 emit할 수 있는 Mono와는 달리 Flux는 <code>.just()</code> 를 통해 생성할 때에도 다수의 인자를 입력할 수 있다. (<code>Flux.just(T...)</code>)</p>
+<p>아무 데이터도 없을 때에는 <code>Flux.empty()</code>를 사용한다.</p>
+<ul>
+<li><code>Mono.empty()</code>와 동일하게 바로 <code>onComplete</code> 시그널을 전달한다.</li>
+</ul>
+<h2 id="multiple-subscribers">Multiple Subscribers</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> integerFlux <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">just</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Subscriber 1 : &#34;</span> <span style="color:#f92672">+</span> i<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Subscriber 2 : &#34;</span> <span style="color:#f92672">+</span> i<span style="color:#f92672">));</span>
+</span></span></code></pre></div><p>위와 같이 subscriber를 추가해서 순차적으로 Flux의 데이터를 구독시킬 수 있다.
+만약 짝수 정수만 입력 받고 싶어서 다음과 같은 코드를 중간에 삽입하면 어떻게 될까?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> integerFlux <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">just</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> evenFlux <span style="color:#f92672">=</span> integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Subscriber 1 : &#34;</span> <span style="color:#f92672">+</span> i<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Subscriber 2 : &#34;</span> <span style="color:#f92672">+</span> i<span style="color:#f92672">));</span>
+</span></span></code></pre></div><p>Subscriber 1은 1, 2, 3, 4를 전달 받고, Subscriber 2는 2, 4만 전달 받는다.
+Hot / Cold Publisher에 대한 개념은 나중에 배워보도록..</p>
+<h2 id="from-array--list">From Array / List</h2>
+<p>Flux는 0또는 N개의, 아이템을 emit할 수 있기 때문에, 사전 구성된 List나 Array로부터 데이터를 불러오는 것이 <code>Flux.just</code>보다 더 편할 때가 많다.</p>
+<p><code>Flux.fromIterable()</code> 을 통해 Iterable한 자료구조로부터 Flux를 간편하게 생성할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> strings <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;b&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;c&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">fromIterable</span><span style="color:#f92672">(</span>strings<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...)</span>
+</span></span></code></pre></div><h2 id="from-stream">From Stream</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> list <span style="color:#f92672">=</span> List<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">3</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>Stream<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> stream <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>stream<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>stream<span style="color:#f92672">.</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span> <span style="color:#75715e">//error
+</span></span></span></code></pre></div><p>Java 8의 Stream은 one time use 이기 때문에, 동일한 Stream을 다시 사용했을 때에는 &lsquo;stream has already been operated upon or closed&rsquo; 에러를 볼 수 있다.</p>
+<p>Flux도 동일할까? 그렇다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> integerFlux <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">fromStream</span><span style="color:#f92672">(</span>stream<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...);</span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...);</span> <span style="color:#75715e">//error
+</span></span></span></code></pre></div><p>위와 같은 방법으로 Stream을 통해 생성된 Flux는 Subscriber가 재구독할 시에 에러를 발생시킨다.</p>
+<ul>
+<li><code>.subscribe()</code>가 한번 발생할 때마다 Flux는 원본 Stream에 접근해서 데이터를 가져오려는 시도를 한다.</li>
+<li>두 번째 시도부터는 Stream이 이미 닫힌 상태이기 때문에 에러가 발생한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> integerFlux <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">fromStream</span><span style="color:#f92672">(()</span> <span style="color:#f92672">-&gt;</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...);</span>
+</span></span><span style="display:flex;"><span>integerFlux<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...);</span> <span style="color:#75715e">//good
+</span></span></span></code></pre></div><p>위와 같은 방법으로, Flux에 대한 Subscribe 행위가 일어날 때마다 기존 List의 Stream을 생성한다면 Stream이 재사용될 일이 없으므로, 에러도 발생하지 않는다.</p>
+<h2 id="fluxrange">Flux.range</h2>
+<p><code>Flux.range(start, count)</code>는 간단하게 increment하는 숫자의 Flux를 생성하기 간편한 방법이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">range</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>위 코드는 1 ~ 10까지의 정수를 출력하게 된다.
+<code>Flux.range()</code> 는 정수를 emit하는 Flux이지만 경우에 따라 For loop처럼 사용할 수 있다.
+특정 데이터를 제네레이팅하는 함수를 반복하고 싶을 때 유용할 수 있을 것 같다. 아래처럼..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">range</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>SomeGenerator<span style="color:#f92672">::</span>getRandomString<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</span></span></code></pre></div><h2 id="log">log</h2>
+<p>기나긴 파이프라인을 디버깅하긴 힘들다.
+Flux 파이프라인에 <code>.log()</code>을 끼워 넣어서 어떤 시그널들이 전달되고 있는지를 염탐할 수 있다.</p>
+<p><code>map</code> operator 전후로 log를 끼워 넣었을 때 로깅되는 데이터가 달라질 때 유용하게 사용할 수 있을 것 같다.</p>
+<h2 id="custom-subscriber-implementation">Custom Subscriber Implementation</h2>
+<p>지금까지는 Reactor에서 제공하는 Subscriber 객체를 사용해서 Publisher가 전달한 시그널을 받아서 사용하였는데, Subscriber 객체를 커스텀하게 사용할 수는 없을까?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>AtomicReference<span style="color:#f92672">&lt;</span>Subscription<span style="color:#f92672">&gt;</span> atomicReference <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> AtomicReference<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">range</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">20</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribeWith</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> Subscriber<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onSubscribe</span><span style="color:#f92672">(</span>Subscription subscription<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>			System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Received Subscription: &#34;</span> <span style="color:#f92672">+</span> subscription<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>			atomicReference<span style="color:#f92672">.</span><span style="color:#a6e22e">set</span><span style="color:#f92672">(</span>subscription<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onNext</span><span style="color:#f92672">(</span>Integer integer<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>			System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;onNext: &#34;</span> <span style="color:#f92672">+</span> integer<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onError</span><span style="color:#f92672">(</span>Throwable throwable<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>			System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;onError: &#34;</span> <span style="color:#f92672">+</span> throwable<span style="color:#f92672">.</span><span style="color:#a6e22e">getMessage</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">onComplete</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>			System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;onComplete&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">});</span>
+</span></span></code></pre></div><p>위 코드를 실행하면 <code>onSubscribe</code>만 실행된다.
+데이터가 요청되지 않으니, Flux Publisher는 데이터를 내려주지 않는다.</p>
+<p>기존 Reactor의 Subscriber들은 내부적으로 요청하는 일들을 수행하고 있었던 것 처럼 우리의 커스텀 Subscriber가 데이터를 요청하도록 변경해야 한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>atomicReference<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">().</span><span style="color:#a6e22e">request</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>atomicReference<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">().</span><span style="color:#a6e22e">request</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>atomicReference<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">().</span><span style="color:#a6e22e">cancel</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>atomicReference<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">().</span><span style="color:#a6e22e">request</span><span style="color:#f92672">(</span><span style="color:#ae81ff">4</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>위 Publisher 명세 이후 상기 코드를 사용한다면, 3초 sleep 이후 3개의 아이템을 요청하고, 그 후에 다시 3초 sleep 이후 3개의 아이템을 요청한다.
+<code>cancel()</code> 을 요청한 다음에 이뤄지는 <code>request</code>는 발생하지 않는다는 것을 기억해야한다.</p>
+<h2 id="flux-vs-list">Flux vs List</h2>
+<p>여러 개의 데이터 원소를 받기 위해서는 어떤 방법을 쓸 수 있을까?</p>
+<p>List에 데이터를 채운 후 사용하려면.. 데이터가 전부 채워질 때까지 기다려야 한다. (블락킹)</p>
+<ul>
+<li>데이터의 개수가 엄청 많거나</li>
+<li>엄청 큰 데이터를 List에 담는다고 한다면 상당히 많은 시간이 걸린다.</li>
+</ul>
+<p>이는 Flux를 사용해서 개선할 수 있다.</p>
+<p>하나의 원소를 제네레이팅 한 다음 처리하고, 다음 원소가 제네레이팅 된 직후 처리하고..</p>
+<p>조금 더 컴퓨팅 자원을 효율적으로 사용할 수 있게 된 것이다.</p>
+<p>다만 Flux는 List처럼 Collection 도 아니고, 자료구조도 아니다.
+데이터를 어떻게 전달해줘야 하는지에 대한 개념 혹은 명세에 가깝다는 생각이다.</p>
+<h2 id="interval">Interval</h2>
+<p>Flux를 사용하면 여러 개의 아이템을 전달할 수 있다.</p>
+<p>전달할 때 짧은 주기를 가지고 데이터를 전달하려면 <code>Flux.interval</code>을 사용해서 Flux를 사용하면 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">interval</span><span style="color:#f92672">(</span>Duration<span style="color:#f92672">.</span><span style="color:#a6e22e">ofSeconds</span><span style="color:#f92672">(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">5</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><h2 id="another-publisher-to-flux">Another Publisher to Flux</h2>
+<p>Mono에서 Flux로 변경하려면 어떻게 해야 할까?</p>
+<p><code>Flux.from()</code> 은 특정 형태의 Publisher를 Flux로 변경해주는 메서드이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Mono<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> mono <span style="color:#f92672">=</span> Mono<span style="color:#f92672">.</span><span style="color:#a6e22e">just</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>Flux<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> flux <span style="color:#f92672">=</span> Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">from</span><span style="color:#f92672">(</span>mono<span style="color:#f92672">);</span>
+</span></span></code></pre></div><h2 id="flux-to-mono">Flux to Mono</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">range</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">::</span>println<span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>Flux는 0에서 N개의 아이템을 전달한다. 그 중 하나만을 선택해서 Mono로 전달하려면 <code>.next()</code> 메서드를 사용해서 전달한다.</p>
+<p><code>next()</code>는 다음 <code>onNext</code> 시그널에 전달되는 아이템을 단일 Mono로 전달한다.</p>
+<h2 id="정리">정리</h2>
+<h3 id="flux-생성">Flux 생성</h3>
+<table>
+<thead>
+<tr>
+<th>조건</th>
+<th>사용법</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>이미 존재하는 데이터로부터</td>
+<td><code>Flux.just()</code>, <code>Flux.fromIterable()</code>, <code>Flux.fromArray()</code>, <code>Flux.fromStream()</code></td>
+</tr>
+<tr>
+<td>범위나 횟수</td>
+<td><code>Flux.range(start, count)</code></td>
+</tr>
+<tr>
+<td>일정 주기를 가지고</td>
+<td><code>Flux.interval(duration)</code></td>
+</tr>
+<tr>
+<td><code>Mono</code>로부터</td>
+<td><code>Flux.from(mono)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="mono-vs-flux--비어-있는-데이터와-exception-처리">Mono vs Flux : 비어 있는 데이터와 Exception 처리</h3>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th><code>Mono&lt;T&gt;</code></th>
+<th><code>Flux&lt;T&gt;</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Void / Null</td>
+<td><code>Mono.empty()</code></td>
+<td><code>Flux.empty()</code></td>
+</tr>
+<tr>
+<td>Exception</td>
+<td><code>Mono.error(throwable)</code></td>
+<td><code>Flux.error(throwable)</code></td>
+</tr>
+</tbody>
+</table>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-01</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/" data-title="Java Reactive Programming Flux"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/" data-title="Java Reactive Programming Flux"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/" data-title="Java Reactive Programming Flux"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mar2023/javascript-delete-operator/" class="prev" rel="prev" title="Javascript Delete Operator"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Javascript Delete Operator</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
