@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 02 Apr 2023 21:16:53 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 03 Apr 2023 19:46:20 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Angular에서의 Sse Handling</title>
+    <link>http://redjen8.github.io/posts/apr2023/angular%EC%97%90%EC%84%9C%EC%9D%98-sse-handling/</link>
+    <pubDate>Mon, 03 Apr 2023 19:46:20 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/angular%EC%97%90%EC%84%9C%EC%9D%98-sse-handling/</guid>
+    <description><![CDATA[어제는 Spring Webflux와 Spring MVC에서 SSE를 사용한 단방향 이벤트 통신이 어떻게 이뤄질 수 있는지 알아보았다. 그렇다면 이 이벤트들을 화면단에 받아서 리액티]]></description>
+</item>
+<item>
     <title>Sse in Spring</title>
     <link>http://redjen8.github.io/posts/apr2023/sse-in-spring/</link>
     <pubDate>Sun, 02 Apr 2023 21:16:53 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/spring-mdc-logging%EA%B3%BC-reactor/</guid>
     <description><![CDATA[자바 웹 어플리케이션에서는 Mapped Diagnostic Context (MDC)를 사용하여 어플리케이션 로깅을 지원한다. MDC는 로깅이 실제로 일어나는 스코프에서 접근 불가능한 정보들을 담아]]></description>
-</item>
-<item>
-    <title>AngularJS와 Angular 차이점</title>
-    <link>http://redjen8.github.io/posts/mar2023/angularjs%EC%99%80-angular-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
-    <pubDate>Fri, 24 Mar 2023 17:01:12 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/angularjs%EC%99%80-angular-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
-    <description><![CDATA[angular.js 와 angular는 어떻게 다를까? https://www.interviewbit.com/blog/difference-between-angular-and-angularjs/ 구분 angular angular.js Maintainer Google의 Angular 팀 + 기관과 개인이 포함된 커뮤니티 구글 + 기관과 개인이 포함된 커뮤니티 지원 언어 Type]]></description>
 </item>
 </channel>
 </rss>
