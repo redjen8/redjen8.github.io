@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Swagger oneOf, anyOf, allOf - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Swagger oneOf, anyOf, allOf" />
+<meta property="og:description" content="API를 설계하고, 이를 API 문서로 만들다 보면 API의 응답을 상태에 따라 분기해서 여러 종류로 나눠주고 싶은 경우가 있다. 예를 들어 (절대 좋은 설계라는 말과는 무" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-04T21:57:30+09:00" />
+<meta property="article:modified_time" content="2023-04-04T21:57:30+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Swagger oneOf, anyOf, allOf"/>
+<meta name="twitter:description" content="API를 설계하고, 이를 API 문서로 만들다 보면 API의 응답을 상태에 따라 분기해서 여러 종류로 나눠주고 싶은 경우가 있다. 예를 들어 (절대 좋은 설계라는 말과는 무"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/" /><link rel="prev" href="http://redjen8.github.io/posts/apr2023/angular%EC%97%90%EC%84%9C%EC%9D%98-sse-handling/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Swagger oneOf, anyOf, allOf",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/apr2023\/swagger-oneof-anyof-allof\/"
+        },"genre": "posts","wordcount":  1700 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/apr2023\/swagger-oneof-anyof-allof\/","datePublished": "2023-04-04T21:57:30+09:00","dateModified": "2023-04-04T21:57:30+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Swagger oneOf, anyOf, allOf</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-04">2023-04-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1700 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#oneof">oneOf</a></li>
+    <li><a href="#allof">allOf</a></li>
+    <li><a href="#anyof">anyOf</a>
+      <ul>
+        <li><a href="#anyof와-oneof의-차이점">anyOf와 oneOf의 차이점</a></li>
+      </ul>
+    </li>
+    <li><a href="#not">not</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>API를 설계하고, 이를 API 문서로 만들다 보면 API의 응답을 상태에 따라 분기해서 여러 종류로 나눠주고 싶은 경우가 있다.</p>
+<p>예를 들어 (절대 좋은 설계라는 말과는 무관하다)</p>
+<ul>
+<li>사용자가 가진 권한으로 이 API를 요청했을 때에는 1~3까지에 해당하는 데이터만 주고,</li>
+<li>더 높은 권한으로 동일한 API를 요청했을 때에는 1~5까지에 해당하는 데이터를 주고 싶을 때가 있다.</li>
+<li>데이터가 같은 형태라면.. json list로 묶어서 응답으로 주면 되겠지만</li>
+<li>데이터가 다른 형태라면? API 문서로 나타내기 매우 골치 아파진다.</li>
+</ul>
+<p>결국 같은 API에 대해 다른 응답 값을 나타날 때 분기를 어떻게 할 것인가?</p>
+<p>대표적인 API 문서 도구 Swagger는 이런 경우를 지원하기 위해 여러 키워드를 지원한다.</p>
+<p><a href="https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/" target="_blank" rel="noopener noreffer ">https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/</a></p>
+<h2 id="oneof">oneOf</h2>
+<p><code>oneOf</code> 키워드를 사용하면 특정한 스키마들 중에서 주어진 데이터가 유효한지 알 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">/pets</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">patch</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requestBody</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">application/json</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">schema</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">oneOf</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/Cat&#39;</span>
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/Dog&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">responses</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#39;200&#39;</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Updated</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">components</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schemas</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Dog</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">bark</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">boolean</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">breed</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">string</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">enum</span>: [<span style="color:#ae81ff">Dingo, Husky, Retriever, Shepherd]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Cat</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">hunts</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">boolean</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">age</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">integer</span>
+</span></span></code></pre></div><p>상기 예제는 PATCH 요청에 들어가야 할 request body를 어떻게 검증할 지를 제시한다. 이러한 형태는 request body가 업데이트 대상이 되는 객체가 필요한 모든 정보를 가지고 있는지 검사한다.</p>
+<p>서론에서 이야기 했던 것처럼, 객체가 달라질 경우에는 request body에 대한 검증 또한 달라져야 한다.</p>
+<p>request body에 두 개의 객체에 대한 검증을 합쳐 놓으면 원하는 결과가 나오기 어렵기 때문에, <code>oneOf</code>를 사용해야 한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;bark&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;breed&#34;</span>: <span style="color:#e6db74">&#34;Dingo&#34;</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>예를 들어, 위 request body는 유효하다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;bark&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;hunts&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>반면 위 request body는 유효하지 않다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;bark&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;hunts&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;breed&#34;</span>: <span style="color:#e6db74">&#34;Husky&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">3</span> 		
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>이건 어떨까? <code>Dog</code> 와 <code>Cat</code>의 구조를 모두 가지고 있는 경우이다.
+이 경우에는 동시에 여러 개의 스키마 구조를 만족하는 구조이므로, request body는 유효하지 않다.</p>
+<blockquote>
+<p><code>oneOf</code>는 오직 하나의 스키마만 유효하도록 강제하는 키워드이다.</p>
+</blockquote>
+<h2 id="allof">allOf</h2>
+<p>앞서 보았던 <code>oneOf</code>처럼, OpenAPI 스펙은 <code>allOf</code> 키워드를 사용해서 모델 정의를 병합하고 확장할 수 있도록 지원한다.</p>
+<p><code>allOf</code> 키워드는</p>
+<ul>
+<li>객체 명세의 배열을 받아</li>
+<li>독립적인 검증을 수행한다.</li>
+<li>각 객체의 배열은 함께 모여 하나의 객체를 구성한다.</li>
+<li>하지만 모델 간의 계층 구조를 지원하지는 않는다.</li>
+</ul>
+<p>아래 예제에서 <code>allOf</code>는 특정 사례에 사용되는 스키마를 일반적인 스키마와 결합하는 도구 역할을 한다.</p>
+<p>보다 명료한 사용을 위해 <code>allOf</code> 키워드는 <code>discriminator</code>와 같이 사용되기도 한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">/pets</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">patch</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requestBody</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">application/json</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">schema</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">oneOf</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/Cat&#39;</span>
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/Dog&#39;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">discriminator</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">propertyName</span>: <span style="color:#ae81ff">pet_type</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">responses</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#39;200&#39;</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Updated</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">components</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schemas</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Pet</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">required</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">pet_type</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">pet_type</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">string</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">discriminator</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">propertyName</span>: <span style="color:#ae81ff">pet_type</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Dog</span>:     <span style="color:#75715e"># &#34;Dog&#34; is a value for the pet_type property (the discriminator value)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">allOf</span>: <span style="color:#75715e"># Combines the main `Pet` schema with `Dog`-specific properties </span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/Pet&#39;</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># all other properties specific to a `Dog`</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">bark</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">type</span>: <span style="color:#ae81ff">boolean</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">breed</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">type</span>: <span style="color:#ae81ff">string</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">enum</span>: [<span style="color:#ae81ff">Dingo, Husky, Retriever, Shepherd]</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">Cat</span>:     <span style="color:#75715e"># &#34;Cat&#34; is a value for the pet_type property (the discriminator value)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">allOf</span>: <span style="color:#75715e"># Combines the main `Pet` schema with `Cat`-specific properties </span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/Pet&#39;</span>
+</span></span><span style="display:flex;"><span>        - <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># all other properties specific to a `Cat`</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">hunts</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">type</span>: <span style="color:#ae81ff">boolean</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">age</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">type</span>: <span style="color:#ae81ff">integer</span>
+</span></span></code></pre></div><p>상기 예제는 request body에 대해 pet 데이터를 업데이트하기 위해 필요한 모든 정보가 다 있는지 검증한다.</p>
+<p>사용자는 업데이트 대상이 되는 아이템의 타입을 명세해야 하고, 선택한 아이템의 타입에 따라 사전 정의된 스키마 구조를 지키는지 검증한다.</p>
+<p>인라인이나 ref로 풀어낸 스키마는 단순한 표준 JSON 스키마가 아니라 <code>스키마 객체</code>여야 한다는 점을 명심해야 한다.</p>
+<p>예를 들어, 아래 request body들은 전부 유효한 입력이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Cat&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Dog&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;bark&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Dog&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;bark&#34;</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;breed&#34;</span>: <span style="color:#e6db74">&#34;Dingo&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>반면 아래와 같은 입력들은 유효하지 않다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">3</span>        <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">Does</span> <span style="color:#960050;background-color:#1e0010">not</span> <span style="color:#960050;background-color:#1e0010">include</span> <span style="color:#960050;background-color:#1e0010">the</span> <span style="color:#960050;background-color:#1e0010">pet_type</span> <span style="color:#960050;background-color:#1e0010">property</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Cat&#34;</span>, 
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;bark&#34;</span>: <span style="color:#66d9ef">true</span>    <span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#960050;background-color:#1e0010">The</span> <span style="color:#960050;background-color:#1e0010">`Cat`</span> <span style="color:#960050;background-color:#1e0010">schema</span> <span style="color:#960050;background-color:#1e0010">does</span> <span style="color:#960050;background-color:#1e0010">not</span> <span style="color:#960050;background-color:#1e0010">have</span> <span style="color:#960050;background-color:#1e0010">the</span> <span style="color:#960050;background-color:#1e0010">`bark`</span> <span style="color:#960050;background-color:#1e0010">property</span> 
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="anyof">anyOf</h2>
+<p><code>anyOf</code> 키워드는 입력된 하위 스키마 중에서 하나라도 매칭되는 것이 있는 것이 있는지 검증한다.
+즉, 데이터는 동시에 하나 이상의 하위 스키마를 상대로 유효해야 한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">/pets</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">patch</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requestBody</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">application/json</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">schema</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">anyOf</span>:
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/PetByAge&#39;</span>
+</span></span><span style="display:flex;"><span>                - <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/PetByType&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">responses</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#39;200&#39;</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Updated</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">components</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schemas</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">PetByAge</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">properties</span>: 
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">age</span>: 
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">integer</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">nickname</span>: 
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">string</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">required</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">age</span>
+</span></span><span style="display:flex;"><span>          
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">PetByType</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">pet_type</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">string</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">enum</span>: [<span style="color:#ae81ff">Cat, Dog]</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">hunts</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">type</span>: <span style="color:#ae81ff">boolean</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">required</span>: 
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">pet_type</span>
+</span></span></code></pre></div><p>상기 예시에서, 아래 입력들은 전부 유효한 입력이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Cat&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;hunts&#34;</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;nickname&#34;</span>: <span style="color:#e6db74">&#34;Fido&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Dog&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;age&#34;</span>: <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>반면 아래와 같은 입력은 유효하지 않다. 왜냐하면 명시한 두 가지의 스키마의 필요한 속성들 중 아무것도 포함하고 있지 않기 떄문이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;nickname&#34;</span>: <span style="color:#e6db74">&#34;Mr. Paws&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;hunts&#34;</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="anyof와-oneof의-차이점">anyOf와 oneOf의 차이점</h3>
+<ul>
+<li><code>oneOf</code>는 딱 하나의 하위 스키마와 매칭되어야 유효하다.</li>
+<li><code>anyOf</code>는 하나 이상의 스키마와 매칭된다면 유효하다.</li>
+</ul>
+<h2 id="not">not</h2>
+<p><code>not</code> 키워드는 스키마를 결합하기 위함이 아니라, 스키마를 수정하고 더 세세하게 사용할 수 있도록 돕는 키워드이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">paths</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">/pets</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">patch</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">requestBody</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">content</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">application/json</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">schema</span>:
+</span></span><span style="display:flex;"><span>              <span style="color:#f92672">$ref</span>: <span style="color:#e6db74">&#39;#/components/schemas/PetByType&#39;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">responses</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#39;200&#39;</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">description</span>: <span style="color:#ae81ff">Updated</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">components</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">schemas</span>:          
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">PetByType</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">object</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">properties</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">pet_type</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">not</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">type</span>: <span style="color:#ae81ff">integer</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">required</span>:
+</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">pet_type</span>
+</span></span></code></pre></div><p>이 예제에서 사용자는 <code>pet_type</code>에 대한 값을 정수를 제외하고 입력해야 한다. 때문에 아래와 같은 request body는 유효하다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Cat&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>반면 이런 입력은 유효하지 않다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;pet_type&#34;</span>: <span style="color:#e6db74">&#34;Cat&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/" data-title="Swagger oneOf, anyOf, allOf"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/" data-title="Swagger oneOf, anyOf, allOf"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/" data-title="Swagger oneOf, anyOf, allOf"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/apr2023/angular%EC%97%90%EC%84%9C%EC%9D%98-sse-handling/" class="prev" rel="prev" title="Angular에서의 Sse Handling"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Angular에서의 Sse Handling</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
