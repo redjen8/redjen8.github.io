@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Javascript Weakref - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Javascript Weakref" />
+<meta property="og:description" content="js 스터디를 진행하면서, 자바스크립트는 명시적으로 객체를 메모리에서 해제하는 방법이 없는 언어라는 이야기가 나왔다. 그럼 객체가 계속해서 메모리에 남아있는 현" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/apr2023/javascript-weakref/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-07T18:17:34+09:00" />
+<meta property="article:modified_time" content="2023-04-07T18:17:34+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Javascript Weakref"/>
+<meta name="twitter:description" content="js 스터디를 진행하면서, 자바스크립트는 명시적으로 객체를 메모리에서 해제하는 방법이 없는 언어라는 이야기가 나왔다. 그럼 객체가 계속해서 메모리에 남아있는 현"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/apr2023/javascript-weakref/" /><link rel="prev" href="http://redjen8.github.io/posts/apr2023/kafka-consumer-group-rebalancing/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Javascript Weakref",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/apr2023\/javascript-weakref\/"
+        },"genre": "posts","wordcount":  1253 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/apr2023\/javascript-weakref\/","datePublished": "2023-04-07T18:17:34+09:00","dateModified": "2023-04-07T18:17:34+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Javascript Weakref</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-07">2023-04-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1253 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#weakref란">WeakRef란</a></li>
+    <li><a href="#웬만하면-쓰지-마라">웬만하면 쓰지 마라</a></li>
+    <li><a href="#그럼-언제-쓸까">그럼 언제 쓸까?</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>js 스터디를 진행하면서, 자바스크립트는 명시적으로 객체를 메모리에서 해제하는 방법이 없는 언어라는 이야기가 나왔다.</p>
+<p>그럼 객체가 계속해서 메모리에 남아있는 현상을 방지하기 위해서는 어떻게 해야 하냐.. 에 대한 이야기가 오고 갔었는데, 그 중 이야기가 나왔던 <code>WeakRef</code>에 대해 알아봤다.</p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakRef</a></p>
+<h2 id="weakref란">WeakRef란</h2>
+<p><code>WeakRef</code> 객체는 다른 객체에 대한 &lsquo;약한 참조&rsquo;를 가지고 있도록 한다. 그래서 그 객체가 가비지 컬렉팅되는 것을 언어 수준에서 더 이상 막지 않는다.</p>
+<p>객체에 대한 약한 참조는 가비지 컬렉터의 대상이 되는 것을 맞기 않는 레퍼런스이다.
+반대로 일반 (또는 강한) 참조는 객체를 계속해서 메모리에 남게 한다.</p>
+<p>객체에 대한 강한 참조가 더 이상 남지 않을 때, 자바스크립트의 가비지 컬렉터는 객체에 대한 메모리를 회수해간다. 그리고 GC가 일어나면 약한 참조로부터의 객체를 더 이상 얻을 수 없다.</p>
+<h2 id="웬만하면-쓰지-마라">웬만하면 쓰지 마라</h2>
+<p>이 말이 두 번째로 올 지는 몰랐다!</p>
+<p><code>WeakRef</code>의 올바르게 사용하려면 조심해야 한다. 그리고 웬만하면 쓰지 않는 것이 좋다고 한다.</p>
+<blockquote>
+<p>스펙에 의해 보장되지 않은 어느 특정 행동을 하는 것이 좋지 않기 때문이다.</p>
+</blockquote>
+<p>언제, 어떻게 가비지 컬렉션이 일어날 지는 자바스크립트 엔진 구현체에 온전히 맡겨야 하는 일이다.</p>
+<p>한 엔진에서만 동작하는 것을 보장하는 행동은 다른 엔진에서, 동일 엔진의 다른 버전에서, 또는 동일 버전의 동일 엔진의 다른 상황에서 다르게 동작할 수도 있기 때문이다.</p>
+<p>그러려고 스펙을 만들어 놓은 것이다. 다시 한번 느끼지만 자바스크립트는 실제 프로그래밍 언어라기보단 스펙에 가깝다는 느낌이다. 모든 엔진들이 이 스펙을 바탕으로 동작하니 자바스크립트를 공부한다는 것은 표준적인 상황에서 동작하는 자바스크립트의 스펙을 공부한다는 의미인 것이다.</p>
+<p>그리고 가비지 컬렉터는 이 스펙에 비해 매우 복잡하게 동작한다.</p>
+<p>어플리케이션이나 라이브러리가 GC가 WeakRef를 청소하거나 cleanup callback을 언제 동작하는지 예측해서 무언가 행하려 한다면, 매우 높은 확률로 실패할 것이다.</p>
+<ul>
+<li>어떤 객체는 동시에 unreachable 해지는 다른 객체에 비해 더 빨리 가비지 컬렉팅될 수 있다. (generational collection)</li>
+<li>가비지 컬렉션 작업은 incremental하고 동시적인 기법을 사용해서 시분할이 되어 일어날 수 있다.</li>
+<li>다양한 런타임 메트릭이 메모리 사용량과 응답성을 결정한다.</li>
+<li>자바스크립트 엔진 자체에서 unreachable 해보이는 객체들에 대한 레퍼런스를 들고 있을 수도 있다. (클로저, 인라인 캐시 등)</li>
+<li>서로 다른 자바스크립트 엔진들은 가비지 컬렉션을 다르게 수행할 수 있고, 같은 엔진에서도 버전에 따라 알고리즘이 상이할 수 있다.</li>
+<li>특정 API와 함께 사용하는 등 복잡한 요인으로 인해 객체가 예측 불가능한 시간 동안 가비지 컬렉팅되지 않고 유지될 수도 있다.</li>
+</ul>
+<h2 id="그럼-언제-쓸까">그럼 언제 쓸까?</h2>
+<p>약한 참조의 주된 사용 목적은 캐시나 큰 객체를 들고 있는 매핑을 구현하는 것이다.</p>
+<ul>
+<li>큰 객체가 전부 메모리 상에 살아 있을 필요가 없다면 객체의 일부분은 가비지 컬렉팅이 되어도 상관 없다.</li>
+</ul>
+<p><strong>Finalization</strong>은 객체가 프로그램 실행에 의해 unreachable 해졌을 때 clean up 하기 위한 코드의 실행을 말한다.
+사용자 정의 finalizer들을 사용한다면 메모리 릭을 방지하고 가비지 컬렉터가 모르는 리소스들에 대한 관리를 커스텀하게 할 수 있다. (물론 주의를 기울여야 하지만..)</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/apr2023/javascript-weakref/" data-title="Javascript Weakref"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/apr2023/javascript-weakref/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/apr2023/javascript-weakref/" data-title="Javascript Weakref"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/apr2023/javascript-weakref/" data-title="Javascript Weakref"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/apr2023/kafka-consumer-group-rebalancing/" class="prev" rel="prev" title="Kafka Consumer Group Rebalancing"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Kafka Consumer Group Rebalancing</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
