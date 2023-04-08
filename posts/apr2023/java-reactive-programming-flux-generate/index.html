@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java Reactive Programming Flux Generate - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Java Reactive Programming Flux Generate" />
+<meta property="og:description" content="이전 강의에서는 Flux가 무엇인지에 대해 주로 알아봤었다. Flux를 언제, 어떻게 생성해야 할까? create를 사용한 Flux 생성 Flux.create(fluxSink -&gt; { fluxSink.next(1); fluxSink.next(2); fluxSink.complete(); }).subscribe(...) 처럼 cre" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-08T22:32:27+09:00" />
+<meta property="article:modified_time" content="2023-04-08T22:32:27+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Java Reactive Programming Flux Generate"/>
+<meta name="twitter:description" content="이전 강의에서는 Flux가 무엇인지에 대해 주로 알아봤었다. Flux를 언제, 어떻게 생성해야 할까? create를 사용한 Flux 생성 Flux.create(fluxSink -&gt; { fluxSink.next(1); fluxSink.next(2); fluxSink.complete(); }).subscribe(...) 처럼 cre"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/" /><link rel="prev" href="http://redjen8.github.io/posts/apr2023/javascript-weakref/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java Reactive Programming Flux Generate",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/apr2023\/java-reactive-programming-flux-generate\/"
+        },"genre": "posts","wordcount":  2083 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/apr2023\/java-reactive-programming-flux-generate\/","datePublished": "2023-04-08T22:32:27+09:00","dateModified": "2023-04-08T22:32:27+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Java Reactive Programming Flux Generate</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-08">2023-04-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2083 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#create를-사용한-flux-생성">create를 사용한 Flux 생성</a></li>
+    <li><a href="#fluxsink의-멀티-쓰레딩">FluxSink의 멀티 쓰레딩</a></li>
+    <li><a href="#take-연산자">take 연산자</a></li>
+    <li><a href="#stream-취소-이벤트">Stream 취소 이벤트</a></li>
+    <li><a href="#fluxgenerate">Flux.generate</a>
+      <ul>
+        <li><a href="#with-state">with State</a></li>
+      </ul>
+    </li>
+    <li><a href="#flux-push">Flux Push</a></li>
+    <li><a href="#정리">정리</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>이전 강의에서는 Flux가 무엇인지에 대해 주로 알아봤었다.</p>
+<p>Flux를 언제, 어떻게 생성해야 할까?</p>
+<h2 id="create를-사용한-flux-생성">create를 사용한 Flux 생성</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>fluxSink <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	fluxSink<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>	fluxSink<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>	fluxSink<span style="color:#f92672">.</span><span style="color:#a6e22e">complete</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}).</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...)</span>
+</span></span></code></pre></div><p>처럼 <code>create</code>를 사용하면 <code>Consumer</code> 내부에서</p>
+<ul>
+<li>좀 더 커스텀하게 다음 시그널을 <code>next</code>로 내려줄지</li>
+<li><code>complete</code> 완료 시그널을 줄 지</li>
+<li><code>error</code> 에러 시그널을 줄 지 프로그래밍 적으로 결정할 수 있다.</li>
+</ul>
+<p><a href="https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#create-java.util.function.Consumer-" target="_blank" rel="noopener noreffer ">https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Flux.html#create-java.util.function.Consumer-</a></p>
+<p>Flux.create 안에서 반복문을 사용한다면 내부적으로 여러 개의 객체 시그널을 생성하여 전달할 수 있지만.. &lsquo;<code>create</code> 안에서 반복문을 사용하는 것&rsquo; 이 최선일까?</p>
+<p><code>create</code> 내부에서 반복문을 사용하는 대신 <code>FluxSink</code>를 generate하는 producer를 사용하여 이를 대체할 수 있다.</p>
+<p>이 방법은 명시적으로 반복문을 사용하지 않기 때문에 몇 가지 이점을 가져올 수 있지만, 그보다 더 주요한 장점이 있다.</p>
+<h2 id="fluxsink의-멀티-쓰레딩">FluxSink의 멀티 쓰레딩</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">create</span><span style="color:#f92672">(</span>nameProducer<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Runnable runnable <span style="color:#f92672">=</span> nameProducer<span style="color:#f92672">::</span>produce<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">;</span> i<span style="color:#f92672">++)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">new</span> Thread<span style="color:#f92672">(</span>runnable<span style="color:#f92672">).</span><span style="color:#a6e22e">start</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sleep<span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><p>위와 같은 코드는 한번에 10개의 runnable 객체로부터 flux를 생성하고 동시에 이를 구독한다.</p>
+<p>실행 시에는 runnable 으로부터 생성된 객체 10개가 서로 다른 쓰레드 10개에서 소비된다.</p>
+<h2 id="take-연산자">take 연산자</h2>
+<p><code>map</code>, <code>filter</code>와 같은 연산자는 파이프라인을 통해 전달되는 값을 다룰 수 있는 유용한 여러 기능들을 제공한다.</p>
+<p><code>take</code> 연산자는 인자로 들어온 개수만큼의 시그널만 전달하고, 이후 전달되는 시그널은 무시한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">range</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">take</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...);</span>
+</span></span></code></pre></div><p>위 코드는 <code>onNext(1)</code>, <code>onNext(2)</code>, <code>onNext(3)</code> 을 호출하고, 이후에는 <code>onCancel()</code>을 호출하여 Subscriber가 Publisher에게 구독 관계를 중지할 것을 요청한다.</p>
+<p>중요한 것은 upstream subscription을 cancel 함과 동시에 publisher는 더 이상 원소를 생성하지 않고 바로 <code>onComplete</code> 시그널을 보낸다는 것이다.</p>
+<h2 id="stream-취소-이벤트">Stream 취소 이벤트</h2>
+<p>앞서 말한 <code>FluxSink</code> 내 반복문을 사용해서 데이터를 emit 하는 예제에서, <code>take</code> 연산자를 사용해 중간에 구독관계를 취소하면 어떻게 될까?</p>
+<p>결론을 말하자면, Subscriber는 구독 관계가 취소되었기 때문에 더 이상 publisher가 생성하는 데이터를 받고 있지 않지만 publisher는 취소된 사실 자체를 모르기 때문에 원래 생성하려던 만큼 계속해서 데이터를 생성하려 한다.</p>
+<p>그리고 이렇게 생성된 데이터는 아무 subscriber에게도 전달되지 않기 때문에 낭비다.</p>
+<blockquote>
+<p><code>fluxSink</code> 내의 <code>isCancelled()</code> 메서드를 통해 구독관계가 취소되었는지 여부를 체크할 수 있다.</p>
+</blockquote>
+<h2 id="fluxgenerate">Flux.generate</h2>
+<p>지금까지의 예제에서 다뤘던 <code>Flux.create</code>는 Consumer 객체 내부에서 생성되는 시그널을 자유자재로 다룰 수 있었지만</p>
+<ul>
+<li>단 하나의 <code>FluxSink</code> 인스턴스만 생성하고</li>
+<li>제대로 다루기 위해서는 주의를 기울여야 하며</li>
+<li>하나의 인스턴스에 대해 emit이 종료되면 그걸로 끝이라는 단점을 가지고 있다.</li>
+</ul>
+<p>실제로 사용되기엔 생산성 자체가 높지 않다고 할 수 있다.</p>
+<p><code>Flux.generate</code>는 <code>Flux.create</code>의 사용법과 거의 비슷한 용법을 가지고 있다. 다른 점으로는..</p>
+<ul>
+<li><code>FluxSink</code> 대신 <code>SynchronousSink</code>를 사용한다.</li>
+<li>이 <code>SynchronousSink</code>는 <code>next</code>를 사용해서 최대 하나의 아이템을 emit할 수 있다.
+<ul>
+<li>하나 이상의 아이템을 emit하려는 시도가 있을 때에는 에러가 발생한다.</li>
+</ul>
+</li>
+</ul>
+<p>하나의 아이템 밖에 emit할 수 없다니, 이거 완전 <code>Mono</code> 아니야? 라고 할 수 있지만 실제로는 <code>synchronousSink.next()</code>를 통해서 생성되는 아이템은 무한한 Stream을 생성한다.</p>
+<p>마치 loop 안에서 <code>FluxSink.next</code>를 끊임없이 생성하는 것처럼 동작하는 셈이다.</p>
+<p>만약 <code>Flux.generate</code>를 통해 생성된 Flux에 <code>take</code> 연산자를 사용한다면 어떻게 될까?</p>
+<ul>
+<li><code>Flux.create</code>를 통해 <code>FluxSink</code>를 다룰 때에는 구독관계의 취소를 publisher가 전달받지 못했지만</li>
+<li><code>Flux.generate</code>를 통해 <code>SynchronousSink</code>를 다룰 때에는
+<ul>
+<li><code>take()</code>를 통해 발생되는 구독 관계의 취소도,</li>
+<li>완료 시그널을 발생하는 <code>complete()</code> 메서드도,</li>
+<li><code>error()</code> 메서드를 통해 발생되는 Exception도 전부 제어가 가능하다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="with-state">with State</h3>
+<p>하지만 <code>synchronousSink</code>라는 이름에서도 유추할 수 있듯이, <code>Flux.generate</code> 내부에서는 동시성 이슈가 발생할 수 있다.</p>
+<p><code>Flux.generate</code>를 통해서 간단한 카운터 예제를 생성한다고 했을 때 동시성 이슈를 해결하기 위해 <code>AtomicInteger</code> 등을 사용하면 해결될까? 그렇지 않다.</p>
+<p><code>AtomicInteger</code>는 동일 블럭 내에서 조작했을 때 Flux 외부에서도 내부의 데이터에 영향을 미칠 수 있기 때문에 좋지 않다.</p>
+<p><code>Flux.generate</code>에서 상태를 다루려면 인자에 <code>BiFunction</code>을 넣어준다. 자바스크립트의 <code>reduce</code>처럼.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Flux<span style="color:#f92672">.</span><span style="color:#a6e22e">generate</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">()</span> <span style="color:#f92672">-&gt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">,</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">(</span>counter<span style="color:#f92672">,</span> sink<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>		sink<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">(</span>someItem<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>someCompleteCondition<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>			sink<span style="color:#f92672">.</span><span style="color:#a6e22e">complete</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> counter <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">.</span><span style="color:#a6e22e">subscribe</span><span style="color:#f92672">(...);</span>
+</span></span></code></pre></div><h2 id="flux-push">Flux Push</h2>
+<p><code>Flux.create</code>와 <code>Flux.generate</code> 가 약간 섞인 방법으로 <code>Flux.push</code>가 존재한다.</p>
+<p>하지만 <code>Flux.push</code>는 쓰레드 세이프하지 않기 때문에 싱글 쓰레드 producer에서만 사용할 수 있다.</p>
+<p>실제로는 거의 사용하지 않을 것 같다.</p>
+<h2 id="정리">정리</h2>
+<table>
+<thead>
+<tr>
+<th>create</th>
+<th>generate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Consumer&lt;FluxSink&lt;T&gt;&gt;</code>를 Accept</td>
+<td><code>Consumer&lt;SynchronousSink&lt;T&gt;&gt;</code>를 accept</td>
+</tr>
+<tr>
+<td>Consumer는 한 번 호출됨</td>
+<td>Consumer는 downstream 요구에 따라 재요청될 수 있음</td>
+</tr>
+<tr>
+<td>Consumer는 0~N 원소를 즉각적으로 emit 가능</td>
+<td>Consumer는 하나의 원소만 emit 가능</td>
+</tr>
+<tr>
+<td>Publisher는 downstream 처리 속도를 모르기 떄문에 overflow 전략 사용해야 함</td>
+<td>Publisher가 downstream 수요에 맞춰 원소를 produce</td>
+</tr>
+<tr>
+<td>쓰레드 세이프</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>fluxSink.requestedFromDownStream()</code>, <code>fluxSink.isCancelled()</code> 유틸 제공</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-08</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/" data-title="Java Reactive Programming Flux Generate"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/" data-title="Java Reactive Programming Flux Generate"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/" data-title="Java Reactive Programming Flux Generate"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/apr2023/javascript-weakref/" class="prev" rel="prev" title="Javascript Weakref"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Javascript Weakref</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

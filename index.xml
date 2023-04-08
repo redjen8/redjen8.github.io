@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 07 Apr 2023 18:17:34 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 08 Apr 2023 22:32:27 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Java Reactive Programming Flux Generate</title>
+    <link>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/</link>
+    <pubDate>Sat, 08 Apr 2023 22:32:27 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/</guid>
+    <description><![CDATA[이전 강의에서는 Flux가 무엇인지에 대해 주로 알아봤었다. Flux를 언제, 어떻게 생성해야 할까? create를 사용한 Flux 생성 Flux.create(fluxSink -&gt; { fluxSink.next(1); fluxSink.next(2); fluxSink.complete(); }).subscribe(...) 처럼 cre]]></description>
+</item>
+<item>
     <title>Javascript Weakref</title>
     <link>http://redjen8.github.io/posts/apr2023/javascript-weakref/</link>
     <pubDate>Fri, 07 Apr 2023 18:17:34 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/react-%ED%95%A8%EC%88%98-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%99%80-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</guid>
     <description><![CDATA[리액트에서는 클래스 컴포넌트와, 함수 컴포넌트를 둘 다 사용할 수 있다. 다만 요즘에는 함수 컴포넌트가 많이 선호되는 추세이고, 클래스 컴포넌트는 거의 사용하지 않]]></description>
-</item>
-<item>
-    <title>Mongodb의 16mb 악마</title>
-    <link>http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/</link>
-    <pubDate>Wed, 29 Mar 2023 21:31:52 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/mongodb%EC%9D%98-16mb-%EC%95%85%EB%A7%88/</guid>
-    <description><![CDATA[들어가며 현재 MongoDB의 한 Document 크기 제한은 16MB이다. 맨 처음 MongoDB가 출시된 2009년에는 4MB였고, 얼마 지나지 않아 그 제한이 16MB]]></description>
 </item>
 </channel>
 </rss>
