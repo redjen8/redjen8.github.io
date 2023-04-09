@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 08 Apr 2023 22:32:27 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 09 Apr 2023 21:18:31 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java SecureRandom</title>
+    <link>http://redjen8.github.io/posts/apr2023/java-securerandom/</link>
+    <pubDate>Sun, 09 Apr 2023 21:18:31 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/java-securerandom/</guid>
+    <description><![CDATA[자바 프로젝트를 하다 보면 랜덤한 데이터를 즉석에서 만들어 뿌려줘야 할 때가 있다. 랜덤한 정수를 만들어내는 예제에서 많이 사용하는 SecureRandom은 내]]></description>
+</item>
+<item>
     <title>Java Reactive Programming Flux Generate</title>
     <link>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/</link>
     <pubDate>Sat, 08 Apr 2023 22:32:27 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/mar2023/javascript-delete-operator/</guid>
     <description><![CDATA[Javascript에서 delete 연산자는 언제, 왜 쓰일까? https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/delete 기능 delete 연산자가 객체를 삭제하는 것이라고 생각했다면, 오산이다. delete 연산자는 객체를 삭제하지 않고 단]]></description>
-</item>
-<item>
-    <title>React 함수 컴포넌트와 클래스 컴포넌트</title>
-    <link>http://redjen8.github.io/posts/mar2023/react-%ED%95%A8%EC%88%98-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%99%80-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</link>
-    <pubDate>Thu, 30 Mar 2023 22:00:07 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/react-%ED%95%A8%EC%88%98-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%EC%99%80-%ED%81%B4%EB%9E%98%EC%8A%A4-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8/</guid>
-    <description><![CDATA[리액트에서는 클래스 컴포넌트와, 함수 컴포넌트를 둘 다 사용할 수 있다. 다만 요즘에는 함수 컴포넌트가 많이 선호되는 추세이고, 클래스 컴포넌트는 거의 사용하지 않]]></description>
 </item>
 </channel>
 </rss>
