@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 09 Apr 2023 21:18:31 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 10 Apr 2023 19:58:30 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Swagger Discriminator</title>
+    <link>http://redjen8.github.io/posts/apr2023/swagger-discriminator/</link>
+    <pubDate>Mon, 10 Apr 2023 19:58:30 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/swagger-discriminator/</guid>
+    <description><![CDATA[이전에는 oneOf, anyOf, allOf 등의 키워드를 통해서 어떻게 request 나 response에 해당하는 객체의 validation을 할지 간략히 알아봤었다. 사실 이전에 소개한 기능들]]></description>
+</item>
+<item>
     <title>Java SecureRandom</title>
     <link>http://redjen8.github.io/posts/apr2023/java-securerandom/</link>
     <pubDate>Sun, 09 Apr 2023 21:18:31 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/</guid>
     <description><![CDATA[Flux 0 또는 N개의 아이템을 emit할 수 있는 publisher이다. Subscriber가 50개의 아이템 요청 - Publisher가 3개 밖에 없다면?]]></description>
-</item>
-<item>
-    <title>Javascript Delete Operator</title>
-    <link>http://redjen8.github.io/posts/mar2023/javascript-delete-operator/</link>
-    <pubDate>Fri, 31 Mar 2023 17:22:47 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/mar2023/javascript-delete-operator/</guid>
-    <description><![CDATA[Javascript에서 delete 연산자는 언제, 왜 쓰일까? https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/delete 기능 delete 연산자가 객체를 삭제하는 것이라고 생각했다면, 오산이다. delete 연산자는 객체를 삭제하지 않고 단]]></description>
 </item>
 </channel>
 </rss>
