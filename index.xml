@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 10 Apr 2023 19:58:30 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 11 Apr 2023 19:35:59 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Optional의 올바른 사용법에 대한 고민</title>
+    <link>http://redjen8.github.io/posts/apr2023/optional%EC%9D%98-%EC%98%AC%EB%B0%94%EB%A5%B8-%EC%82%AC%EC%9A%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/</link>
+    <pubDate>Tue, 11 Apr 2023 19:35:59 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/optional%EC%9D%98-%EC%98%AC%EB%B0%94%EB%A5%B8-%EC%82%AC%EC%9A%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/</guid>
+    <description><![CDATA[자바를 맨 처음 배우고 프로그래밍을 하면서 가장 쉽게 접할 수 있는 에러를 꼽자면 바로 NullPointerException일 것이다. 자바의 객체들은 Heap 메모]]></description>
+</item>
+<item>
     <title>Swagger Discriminator</title>
     <link>http://redjen8.github.io/posts/apr2023/swagger-discriminator/</link>
     <pubDate>Mon, 10 Apr 2023 19:58:30 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/sse-in-spring/</guid>
     <description><![CDATA[ServerSideEvent는 웹 어플리케이션이 단방향의 이벤트 스트림을 다루고 서버가 emit하는 데이터를 업데이트 하기 위한 기술이며, HTTP 표준 스펙이]]></description>
-</item>
-<item>
-    <title>Java Reactive Programming Flux</title>
-    <link>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/</link>
-    <pubDate>Sat, 01 Apr 2023 16:48:29 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux/</guid>
-    <description><![CDATA[Flux 0 또는 N개의 아이템을 emit할 수 있는 publisher이다. Subscriber가 50개의 아이템 요청 - Publisher가 3개 밖에 없다면?]]></description>
 </item>
 </channel>
 </rss>
