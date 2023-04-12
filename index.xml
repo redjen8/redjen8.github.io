@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 11 Apr 2023 19:35:59 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 12 Apr 2023 21:00:34 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>@EnableJpaRepositories 속성에 대해</title>
+    <link>http://redjen8.github.io/posts/apr2023/enablejparepositories-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Wed, 12 Apr 2023 21:00:34 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/enablejparepositories-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[스프링 프로젝트 내부에서 다양한 레포지토리로 다양한 데이터 소스를 접근하기 위해서는 그에 알맞는 설정이 꼭 필요하다. 오늘은 @EnableJpaReposi]]></description>
+</item>
+<item>
     <title>Optional의 올바른 사용법에 대한 고민</title>
     <link>http://redjen8.github.io/posts/apr2023/optional%EC%9D%98-%EC%98%AC%EB%B0%94%EB%A5%B8-%EC%82%AC%EC%9A%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/</link>
     <pubDate>Tue, 11 Apr 2023 19:35:59 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/angular%EC%97%90%EC%84%9C%EC%9D%98-sse-handling/</guid>
     <description><![CDATA[어제는 Spring Webflux와 Spring MVC에서 SSE를 사용한 단방향 이벤트 통신이 어떻게 이뤄질 수 있는지 알아보았다. 그렇다면 이 이벤트들을 화면단에 받아서 리액티]]></description>
-</item>
-<item>
-    <title>Sse in Spring</title>
-    <link>http://redjen8.github.io/posts/apr2023/sse-in-spring/</link>
-    <pubDate>Sun, 02 Apr 2023 21:16:53 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/sse-in-spring/</guid>
-    <description><![CDATA[ServerSideEvent는 웹 어플리케이션이 단방향의 이벤트 스트림을 다루고 서버가 emit하는 데이터를 업데이트 하기 위한 기술이며, HTTP 표준 스펙이]]></description>
 </item>
 </channel>
 </rss>
