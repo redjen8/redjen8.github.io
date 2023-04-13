@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 12 Apr 2023 21:00:34 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 13 Apr 2023 19:20:04 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Es Aggregation</title>
+    <link>http://redjen8.github.io/posts/apr2023/es-aggregation/</link>
+    <pubDate>Thu, 13 Apr 2023 19:20:04 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/es-aggregation/</guid>
+    <description><![CDATA[Elasticsearch 에서는 aggregation 연산을 지원한다. https://esbook.kimjmin.net/08-aggregations 이 기능은 _search API에서 aggregation 또는 aggs를 명시하고 임의의 aggregation 이름을 입력한 뒤 사용할 aggregation 종류와 옵션을 넣는다. aggregati]]></description>
+</item>
+<item>
     <title>@EnableJpaRepositories 속성에 대해</title>
     <link>http://redjen8.github.io/posts/apr2023/enablejparepositories-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4/</link>
     <pubDate>Wed, 12 Apr 2023 21:00:34 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/</guid>
     <description><![CDATA[API를 설계하고, 이를 API 문서로 만들다 보면 API의 응답을 상태에 따라 분기해서 여러 종류로 나눠주고 싶은 경우가 있다. 예를 들어 (절대 좋은 설계라는 말과는 무]]></description>
-</item>
-<item>
-    <title>Angular에서의 Sse Handling</title>
-    <link>http://redjen8.github.io/posts/apr2023/angular%EC%97%90%EC%84%9C%EC%9D%98-sse-handling/</link>
-    <pubDate>Mon, 03 Apr 2023 19:46:20 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/angular%EC%97%90%EC%84%9C%EC%9D%98-sse-handling/</guid>
-    <description><![CDATA[어제는 Spring Webflux와 Spring MVC에서 SSE를 사용한 단방향 이벤트 통신이 어떻게 이뤄질 수 있는지 알아보았다. 그렇다면 이 이벤트들을 화면단에 받아서 리액티]]></description>
 </item>
 </channel>
 </rss>
