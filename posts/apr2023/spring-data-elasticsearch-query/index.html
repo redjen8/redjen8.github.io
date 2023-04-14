@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spring Data Elasticsearch Query - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Spring Data Elasticsearch Query" />
+<meta property="og:description" content="spring data elasticsearch에서, 보다 복잡한 쿼리를 객체지향적으로 작성하고 보내보자. https://www.baeldung.com/spring-data-elasticsearch-queries Analyzer 모든 저장된 string 필드들은 기본적으로 analyzer에 의해" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-14T19:01:07+09:00" />
+<meta property="article:modified_time" content="2023-04-14T19:01:07+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Spring Data Elasticsearch Query"/>
+<meta name="twitter:description" content="spring data elasticsearch에서, 보다 복잡한 쿼리를 객체지향적으로 작성하고 보내보자. https://www.baeldung.com/spring-data-elasticsearch-queries Analyzer 모든 저장된 string 필드들은 기본적으로 analyzer에 의해"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/" /><link rel="prev" href="http://redjen8.github.io/posts/apr2023/es-aggregation/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring Data Elasticsearch Query",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/apr2023\/spring-data-elasticsearch-query\/"
+        },"genre": "posts","wordcount":  1475 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/apr2023\/spring-data-elasticsearch-query\/","datePublished": "2023-04-14T19:01:07+09:00","dateModified": "2023-04-14T19:01:07+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Spring Data Elasticsearch Query</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-14">2023-04-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1475 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#analyzer">Analyzer</a>
+      <ul>
+        <li><a href="#analyzed-fields">Analyzed Fields</a></li>
+        <li><a href="#non-analyzed-fields">Non analyzed Fields</a></li>
+      </ul>
+    </li>
+    <li><a href="#match-query">Match Query</a>
+      <ul>
+        <li><a href="#matching-with-boolean-operators">Matching with Boolean Operators</a></li>
+        <li><a href="#fuzziness">Fuzziness</a></li>
+      </ul>
+    </li>
+    <li><a href="#phrase-search">Phrase search</a></li>
+    <li><a href="#multi-match-query">Multi Match Query</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>spring data elasticsearch에서, 보다 복잡한 쿼리를 객체지향적으로 작성하고 보내보자.</p>
+<p><a href="https://www.baeldung.com/spring-data-elasticsearch-queries" target="_blank" rel="noopener noreffer ">https://www.baeldung.com/spring-data-elasticsearch-queries</a></p>
+<h2 id="analyzer">Analyzer</h2>
+<p>모든 저장된 string 필드들은 기본적으로 analyzer에 의해 처리된다.</p>
+<ul>
+<li>Analyzer는 하나의 tokenizer와 다수의 토큰 필터들로 구성된다.</li>
+<li>Analyzer는 보통 하나 이상의 문자 필터가 먼저 위치하게 된다.</li>
+</ul>
+<p>기본 analyzer는 문자열을 common word separator (공백이나 punctuation 등)으로 분리하고 그렇게 해서 생성된 모든 토큰을 lowercase로 변환한다.</p>
+<p>엘라스틱서치는 analyzer가 어떤 필드를 처리할지에 대한 설정을 할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@MultiField</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>  mainField <span style="color:#f92672">=</span> <span style="color:#a6e22e">@Field</span><span style="color:#f92672">(</span>type <span style="color:#f92672">=</span> Text<span style="color:#f92672">,</span> fielddata <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>  otherFields <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">@InnerField</span><span style="color:#f92672">(</span>suffix <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;verbatim&#34;</span><span style="color:#f92672">,</span> type <span style="color:#f92672">=</span> Keyword<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span> String title<span style="color:#f92672">;</span>
+</span></span></code></pre></div><p>상기 예시에서 <code>title</code> 필드는 전형적인 analyzed field이다. suffix로 <code>verbatim</code>을 가지는 필드들은 analyze 되지 않는다.</p>
+<p><code>@MultiField</code> 어노테이션은 Spring Data에게 이 필드가 여러 방법으로 인덱스가 될 가능성이 있다고 이야기 해주는 것이다. 메인 필드는 title을 name으로 사용할 것이고, 상기한 규칙에 의거하여 analyze 될 것이다.</p>
+<p><code>@InnerField</code> 어노테이션은 title 필드의 부가적인 인덱싱을 기술한다.</p>
+<ul>
+<li><code>FieldType.keyword</code>를 사용해서 필드에 대한 부가적인 인덱싱을 수행할 때 analyzer를 사용하지 말라고 지시할 수 있다.</li>
+<li>이 값은 nested field 안쪽의 &lsquo;vertatim&rsquo; suffix로 존재해야 한다.</li>
+</ul>
+<h3 id="analyzed-fields">Analyzed Fields</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NativeSearchQuery searchQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NativeSearchQueryBuilder<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">withQuery</span><span style="color:#f92672">(</span>matchQuery<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;elasticsearch data&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p>&ldquo;Spring Data Elasticsearch&rdquo; 가 인덱스에 추가된다면, spring, data, elasticsearch로 토큰으로 쪼개져서 analyzer가 분석한다. 상기 코드를 통해 해당 document를 검색할 수 있다.</p>
+<h3 id="non-analyzed-fields">Non analyzed Fields</h3>
+<p>Analyze 되지 않는 필드는 토큰화도 되지 않기 때문에 전체에 대한 <code>match</code>나 <code>term</code> 쿼리를 통해서만 매칭된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NativeSearchQuery searchQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NativeSearchQueryBuilder<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">withQuery</span><span style="color:#f92672">(</span>matchQuery<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;title.verbatim&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Second Article About Elasticsearch&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p>match 쿼리를 통해 full title을 통해서만 검색할 수 있다. 이 경우에는 대소문자도 구분한다.</p>
+<h2 id="match-query">Match Query</h2>
+<p>Match query는 text, number, date를 허용한다. 아래 3가지 타입이 존재한다.</p>
+<ul>
+<li>boolean</li>
+<li>phrase</li>
+<li>phrase_prefix</li>
+</ul>
+<p>boolean match query에 대해서만 정리해보자면,,</p>
+<h3 id="matching-with-boolean-operators">Matching with Boolean Operators</h3>
+<p>boolean은 match query의 가장 기본 타입이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NativeSearchQuery searchQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NativeSearchQueryBuilder<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">withQuery</span><span style="color:#f92672">(</span>matchQuery<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">,</span><span style="color:#e6db74">&#34;Search engines&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">operator</span><span style="color:#f92672">(</span>Operator<span style="color:#f92672">.</span><span style="color:#a6e22e">AND</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>SearchHits<span style="color:#f92672">&lt;</span>Article<span style="color:#f92672">&gt;</span> articles <span style="color:#f92672">=</span> elasticsearchTemplate<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">search</span><span style="color:#f92672">(</span>searchQuery<span style="color:#f92672">,</span> Article<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> IndexCoordinates<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;blog&#34;</span><span style="color:#f92672">));</span>
+</span></span></code></pre></div><p>상기 쿼리는 title로 &ldquo;Search engines&quot;를 가지는 아티클을 리턴한다. 위 예시에서 <code>and</code>를 기본 연산자인 <code>or</code>로 변경하면 어떻게 될까?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NativeSearchQuery searchQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NativeSearchQueryBuilder<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">withQuery</span><span style="color:#f92672">(</span>matchQuery<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Engines Solutions&#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>SearchHits<span style="color:#f92672">&lt;</span>Article<span style="color:#f92672">&gt;</span> articles <span style="color:#f92672">=</span> elasticsearchTemplate<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">search</span><span style="color:#f92672">(</span>searchQuery<span style="color:#f92672">,</span> Article<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">,</span> IndexCoordinates<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;blog&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>assertEquals<span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">,</span> articles<span style="color:#f92672">.</span><span style="color:#a6e22e">getTotalHits</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>assertEquals<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Search engines&#34;</span><span style="color:#f92672">,</span> articles<span style="color:#f92672">.</span><span style="color:#a6e22e">getSearchHit</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getContent</span><span style="color:#f92672">().</span><span style="color:#a6e22e">getTitle</span><span style="color:#f92672">());</span>
+</span></span></code></pre></div><p>&ldquo;Search engines&rdquo; 아티클은 여전히 매칭된지만, 모든 term들이 매칭된 것이 아니기 때문에 더 낮은 스코어를 가지게 된다.</p>
+<p>각각의 매칭되는 term에 대한 스코어의 합산이 결국 결과로 리턴되는 도큐먼트의 총합 스코어가 된다.</p>
+<p>특정 도큐먼트에서 포함하고 있는 희귀한 term이 쿼리에 들어간다면 다른 평범한 term을 포함하는 다른 도큐먼트보다 찾고자 하는 도큐먼트의 스코어가 확연하게 높을 것이다.</p>
+<h3 id="fuzziness">Fuzziness</h3>
+<p>사용자가 입력한 문자열에 오타가 있을 수 있으므로, 엘라스틱서치에서는 이런 것도 감안하여 쿼리를 태울 수 있게 한다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NativeSearchQuery searchQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NativeSearchQueryBuilder<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">withQuery</span><span style="color:#f92672">(</span>matchQuery<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring date elasticsearch&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">operator</span><span style="color:#f92672">(</span>Operator<span style="color:#f92672">.</span><span style="color:#a6e22e">AND</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">fuzziness</span><span style="color:#f92672">(</span>Fuzziness<span style="color:#f92672">.</span><span style="color:#a6e22e">ONE</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">prefixLength</span><span style="color:#f92672">(</span><span style="color:#ae81ff">3</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p><code>fuzziness</code>는 편집 거리(하나의 단일 문자에 대한 변화가 다른 문자열로의 변화가 생기는 거리)이다.</p>
+<p><code>prefix_length</code> 파라미터는 성능을 향상시키기 위함이다. 상기 예제에서는 처음 3개의 문자가 정확하게 매칭되어야 한다고 명시하는 것이다. 이런 접근은 가능한 조합의 개수를 확실히 줄이기 때문에 성능 향상에 도움이 된다.</p>
+<h2 id="phrase-search">Phrase search</h2>
+<p>Phrase search는 더 엄격하다.</p>
+<p><code>slop</code> 파라미터는 phrase query에게 매칭되는 도큐먼트를 고려하면서도 얼마나 term이 관계없어질 수 있는지를 지정해준다.</p>
+<p>즉 쿼리와 도큐먼트가 서로 매칭되기 위해서 term을 얼마나 많이 이동해야 하는지에 대한 정보이다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NativeSearchQuery searchQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NativeSearchQueryBuilder<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">withQuery</span><span style="color:#f92672">(</span>matchPhraseQuery<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;spring elasticsearch&#34;</span><span style="color:#f92672">).</span><span style="color:#a6e22e">slop</span><span style="color:#f92672">(</span><span style="color:#ae81ff">1</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><h2 id="multi-match-query">Multi Match Query</h2>
+<p>다수의 필드에 대해 검색을 수행하고 싶을 때에는 <code>QueryBuilders#multiMatchQuery()</code>를 사용할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>NativeSearchQuery searchQuery <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> NativeSearchQueryBuilder<span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">withQuery</span><span style="color:#f92672">(</span>multiMatchQuery<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tutorial&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">field</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;title&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">field</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;tags&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">.</span><span style="color:#a6e22e">type</span><span style="color:#f92672">(</span>MultiMatchQueryBuilder<span style="color:#f92672">.</span><span style="color:#a6e22e">Type</span><span style="color:#f92672">.</span><span style="color:#a6e22e">BEST_FIELDS</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">build</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p>엘라스틱서치는 다큐먼트 중에서 가장 스코어가 높은 필드를 문서의 스코어로 사용한다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/" data-title="Spring Data Elasticsearch Query"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/" data-title="Spring Data Elasticsearch Query"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/" data-title="Spring Data Elasticsearch Query"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/apr2023/es-aggregation/" class="prev" rel="prev" title="Es Aggregation"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Es Aggregation</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

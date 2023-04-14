@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 13 Apr 2023 19:20:04 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 14 Apr 2023 19:01:07 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Spring Data Elasticsearch Query</title>
+    <link>http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/</link>
+    <pubDate>Fri, 14 Apr 2023 19:01:07 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/</guid>
+    <description><![CDATA[spring data elasticsearch에서, 보다 복잡한 쿼리를 객체지향적으로 작성하고 보내보자. https://www.baeldung.com/spring-data-elasticsearch-queries Analyzer 모든 저장된 string 필드들은 기본적으로 analyzer에 의해]]></description>
+</item>
+<item>
     <title>Es Aggregation</title>
     <link>http://redjen8.github.io/posts/apr2023/es-aggregation/</link>
     <pubDate>Thu, 13 Apr 2023 19:20:04 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/choreography-saga-pattern/</guid>
     <description><![CDATA[많은 서비스들이 MSA로의 전환을 추진하고 있다. 하지만 모놀리식과는 달리 MSA 환경에서는 트랜잭션 처리가 상당히 어려워진다. 오늘은 MSA에서 트랜잭션을 나이]]></description>
-</item>
-<item>
-    <title>Swagger oneOf, anyOf, allOf</title>
-    <link>http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/</link>
-    <pubDate>Tue, 04 Apr 2023 21:57:30 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/swagger-oneof-anyof-allof/</guid>
-    <description><![CDATA[API를 설계하고, 이를 API 문서로 만들다 보면 API의 응답을 상태에 따라 분기해서 여러 종류로 나눠주고 싶은 경우가 있다. 예를 들어 (절대 좋은 설계라는 말과는 무]]></description>
 </item>
 </channel>
 </rss>
