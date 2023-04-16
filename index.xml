@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 14 Apr 2023 19:01:07 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 16 Apr 2023 20:11:58 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Spring Data JPA findById 안티패턴</title>
+    <link>http://redjen8.github.io/posts/apr2023/spring-data-jpa-findbyid-%EC%95%88%ED%8B%B0%ED%8C%A8%ED%84%B4/</link>
+    <pubDate>Sun, 16 Apr 2023 20:11:58 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/spring-data-jpa-findbyid-%EC%95%88%ED%8B%B0%ED%8C%A8%ED%84%B4/</guid>
+    <description><![CDATA[Spring Data JPA는 가장 편리하게 자바 객체와 데이터베이스 간 ORM을 구성할 수 있게 해주는 편리한 방법 중 하나이다. 그런데, Spring Data JPA의 findById를 사용하]]></description>
+</item>
+<item>
     <title>Spring Data Elasticsearch Query</title>
     <link>http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/</link>
     <pubDate>Fri, 14 Apr 2023 19:01:07 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/kafka-consumer-group-rebalancing/</guid>
     <description><![CDATA[카프카를 실제 운영환경에서 사용하다 보면 마주치게 되는 몇 가지 이슈가 있다. 오늘은 그 중 컨슈머 그룹의 파티션 리밸런싱에 대해 좀 정리해봤다. https://kafka.apache.org/0101/javadoc/org/apache/kafka/clients/consumer/KafkaConsumer.html 컨슈머 그룹 리밸런]]></description>
-</item>
-<item>
-    <title>Choreography Saga Pattern</title>
-    <link>http://redjen8.github.io/posts/apr2023/choreography-saga-pattern/</link>
-    <pubDate>Wed, 05 Apr 2023 20:14:29 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/choreography-saga-pattern/</guid>
-    <description><![CDATA[많은 서비스들이 MSA로의 전환을 추진하고 있다. 하지만 모놀리식과는 달리 MSA 환경에서는 트랜잭션 처리가 상당히 어려워진다. 오늘은 MSA에서 트랜잭션을 나이]]></description>
 </item>
 </channel>
 </rss>
