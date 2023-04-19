@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 17 Apr 2023 20:31:31 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 19 Apr 2023 20:50:50 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Elasticsearch Aggregation 성능 향상</title>
+    <link>http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/</link>
+    <pubDate>Wed, 19 Apr 2023 20:50:50 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/</guid>
+    <description><![CDATA[엘라스틱서치가 Full search 기능으로 잘 알려져 있긴하지만, 강력한 aggregation은 엘라스틱서치를 사용하는 또 다른 주요한 이유이기도 하다. Aggrega]]></description>
+</item>
+<item>
     <title>앵귤러 양방향 바인딩의 이해</title>
     <link>http://redjen8.github.io/posts/apr2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%96%91%EB%B0%A9%ED%96%A5-%EB%B0%94%EC%9D%B8%EB%94%A9%EC%9D%98-%EC%9D%B4%ED%95%B4/</link>
     <pubDate>Mon, 17 Apr 2023 20:31:31 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/</guid>
     <description><![CDATA[이전 강의에서는 Flux가 무엇인지에 대해 주로 알아봤었다. Flux를 언제, 어떻게 생성해야 할까? create를 사용한 Flux 생성 Flux.create(fluxSink -&gt; { fluxSink.next(1); fluxSink.next(2); fluxSink.complete(); }).subscribe(...) 처럼 cre]]></description>
-</item>
-<item>
-    <title>Javascript Weakref</title>
-    <link>http://redjen8.github.io/posts/apr2023/javascript-weakref/</link>
-    <pubDate>Fri, 07 Apr 2023 18:17:34 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/javascript-weakref/</guid>
-    <description><![CDATA[js 스터디를 진행하면서, 자바스크립트는 명시적으로 객체를 메모리에서 해제하는 방법이 없는 언어라는 이야기가 나왔다. 그럼 객체가 계속해서 메모리에 남아있는 현]]></description>
 </item>
 </channel>
 </rss>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Elasticsearch Aggregation 성능 향상 - Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Elasticsearch Aggregation 성능 향상" />
+<meta property="og:description" content="엘라스틱서치가 Full search 기능으로 잘 알려져 있긴하지만, 강력한 aggregation은 엘라스틱서치를 사용하는 또 다른 주요한 이유이기도 하다. Aggrega" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-19T20:50:50+09:00" />
+<meta property="article:modified_time" content="2023-04-19T20:50:50+09:00" /><meta property="og:site_name" content="왜? 모음집" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Elasticsearch Aggregation 성능 향상"/>
+<meta name="twitter:description" content="엘라스틱서치가 Full search 기능으로 잘 알려져 있긴하지만, 강력한 aggregation은 엘라스틱서치를 사용하는 또 다른 주요한 이유이기도 하다. Aggrega"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/" /><link rel="prev" href="http://redjen8.github.io/posts/apr2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%96%91%EB%B0%A9%ED%96%A5-%EB%B0%94%EC%9D%B8%EB%94%A9%EC%9D%98-%EC%9D%B4%ED%95%B4/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Elasticsearch Aggregation 성능 향상",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/apr2023\/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81\/"
+        },"genre": "posts","wordcount":  2133 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/apr2023\/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81\/","datePublished": "2023-04-19T20:50:50+09:00","dateModified": "2023-04-19T20:50:50+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Elasticsearch Aggregation 성능 향상</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-19">2023-04-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2133 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-도큐먼트-필터링을-통한-스코프-제한">1. 도큐먼트 필터링을 통한 스코프 제한</a></li>
+    <li><a href="#2-다른-샤드-설정-시도">2. 다른 샤드 설정 시도</a>
+      <ul>
+        <li><a href="#샤드-설정을-변경하기-위해서">샤드 설정을 변경하기 위해서</a></li>
+        <li><a href="#범할-수-있는-실수">범할 수 있는 실수</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-인덱싱-버퍼-갱신-주기-조절">3. 인덱싱 버퍼 갱신 주기 조절</a></li>
+    <li><a href="#4-size-파라미터를-0으로-설정">4. size 파라미터를 0으로 설정</a></li>
+    <li><a href="#5-노드--샤드-캐시의-이점을-활용">5. 노드 / 샤드 캐시의 이점을 활용</a>
+      <ul>
+        <li><a href="#_local-파라미터"><code>_local</code> 파라미터</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>엘라스틱서치가 Full search 기능으로 잘 알려져 있긴하지만, 강력한 aggregation은 엘라스틱서치를 사용하는 또 다른 주요한 이유이기도 하다.</p>
+<p>Aggregation은 키바나의 모든 곳에서 사용된다. 모든 키바나 visualization의 대시보드들은 Aggregation을 사용하는 Beats 에이전트로부터 모아진 데이터를 정리해서 보여준다.</p>
+<p>여러 유즈 케이스에서 aggregation을 사용하는 경우 디자인적인 측면에서 좋지 않은 결정을 피하기 위한 몇 가지 주의 사항이 있다.</p>
+<p><a href="https://opster.com/guides/elasticsearch/how-tos/elasticsearch-aggregation-performance/" target="_blank" rel="noopener noreffer ">https://opster.com/guides/elasticsearch/how-tos/elasticsearch-aggregation-performance/</a></p>
+<p>ES Aggregation의 성능 향상은 어떻게 이뤄질 수 있을까?</p>
+<h2 id="1-도큐먼트-필터링을-통한-스코프-제한">1. 도큐먼트 필터링을 통한 스코프 제한</h2>
+<p>query 절을 통해 최대한 많은 도큐먼트를 메모리에 올리지 않는 것이 가장 첫번째이다.</p>
+<p>엘라스틱 서치는 분산 시스템이기 때문에 더 많은 데이터를 Aggregate의 대상으로 선정하는 순간 네트워크와 오케스트레이션 오버헤드가 따라서 증가하게 된다. 결과적으로 최종 성능과 처리 시간에도 영향을 미친다.</p>
+<p>정확한 쿼리를 날리는 대신 비슷한 쿼리를 수행함으로써 성능 - 정확성 간의 트레이드 오프를 만들수도 있다. range 쿼리를 통해 범위를 제한하는 것이 그 예시이다.</p>
+<h2 id="2-다른-샤드-설정-시도">2. 다른 샤드 설정 시도</h2>
+<p>샤딩은 엘라스틱서치의 분산 처리와 HA 기능을 가능하게 해주는 핵심 컴포넌트이다.</p>
+<p>Aggregation의 관점에서, 필요한 개수의 샤드만 가지는 것은 성능에 있어서 드라마틱한 변화를 줄 수 있다.</p>
+<p>샤드의 개수를 얼마나 할당할 것인지는 엘라스틱서치를 사용하는 입장에서 항상 고려되어야 할 사항이다. 유즈 케이스와 상황에 맞춰서 항상 달라지기 때문에 &lsquo;매직 넘버&rsquo;가 존재할 수 없기도 하다.</p>
+<p>샤드 설정을 변경하려면 재색인(reindex) 과정이 필요하다. 그런데 샤드 개수를 변경하기 위해서 인덱스를 재색인하는 과정은 시스템에 큰 영향을 주기 때문에 운영 환경에서 수행하기에는 어려움이 있다.</p>
+<h3 id="샤드-설정을-변경하기-위해서">샤드 설정을 변경하기 위해서</h3>
+<p>이럴 때 alias 뒤에 인덱스들을 숨기는 alias 패턴을 사용할 수 있다. alias 패턴은 다음과 같은 이점이 있다.</p>
+<ul>
+<li>현재 인덱스를 계속 사용하면서 오랜 기간 동안 실행되는 재색인 과정을 수행할 수 있다.</li>
+<li>다양한 버전의 인덱스를 사용할 수 있기 때문에, 새 인덱스 버전이 운영 환경에 반영되었을 때 문제가 발견되어도 쉽게 롤백할 수 있다.</li>
+<li>A/B 테스트에 용이하다.</li>
+</ul>
+<p>인덱스의 샤드 개수를 바꾸는 또 다른 방법은 shrink나 split API를 사용하는 것이다.</p>
+<ul>
+<li>shrink API는 인덱스의 primary 샤드 개수를 줄이고, 나중에 증가시킬 때 사용할 수 있다.</li>
+<li>이 API들은 새 인덱스를 생성하는 과정을 추상화하고 인덱스의 설정을 변경하고 도큐먼트들을 옮긴다.</li>
+<li>이 API들은 소스 인덱스에서 대상 인덱스로 세그먼트들을 하드 링크하는 과정을 통해 이를 달성하려는 시도를 한다.</li>
+</ul>
+<h3 id="범할-수-있는-실수">범할 수 있는 실수</h3>
+<p>이와는 별개로 샤드 수를 설정할 때 흔히 범하는 실수로는</p>
+<ul>
+<li>샤딩이 클러스터의 분산 병렬 처리의 이점을 가져다 주는 바운더리를 넘어</li>
+<li>오버헤드를 병목지점까지 올리는 오버샤딩을 수행하는 것이다.</li>
+</ul>
+<h2 id="3-인덱싱-버퍼-갱신-주기-조절">3. 인덱싱 버퍼 갱신 주기 조절</h2>
+<p>도큐먼트가 생성, 업데이트, 삭제될 때에는 인덱싱 버퍼를 먼저 거친 후에 각 연산들이 수행된다.</p>
+<p>엘라스틱서치는 이 임시 저장소의 내용들을 디스크의 다른 자료구조(세그먼트)로 flush하는 작업을</p>
+<ul>
+<li>세그먼트가 꽉 차거나</li>
+<li>미리 정해진 버퍼 갱신 주기에 도달했을 때 수행한다.</li>
+</ul>
+<p>세그먼트들을 더 큰 세그먼트로 빈번하게 합치는 것의 문제는 오버헤드 비용이 발생한다는 점이다.
+또 인덱스의 갱신 주기를 증가시킬 수 있다면 성능에 대한 이점 뿐만 아니라 클러스터가 쿼리를 수행하기 위한 리소스를 조금 더 할당할 수 있다는 것이라는 의미이기도 하다.</p>
+<p>갱신을 가끔하게 된다는 것은 또한 global ordinals 연산을 덜 자주 수행하게 된다는 것이고, 이는 전체적인 aggregation 실행 성능을 증가시킨다.</p>
+<h2 id="4-size-파라미터를-0으로-설정">4. size 파라미터를 0으로 설정</h2>
+<p>엘라스틱서치는 search hit들을 사용하지 않는다면 size 파라미터를 0으로 설정하는 것을 권고한다.</p>
+<p>이 행동은 샤드 요청 캐시를 불필요하게 채우는 것을 막기 때문에, 전반적인 aggregation 성능을 증가시킬 수 있다.</p>
+<h2 id="5-노드--샤드-캐시의-이점을-활용">5. 노드 / 샤드 캐시의 이점을 활용</h2>
+<p>기본적으로 클러스터에 대한 모든 요청은 접근 가능한 노드와 샤드들 중 하나에 할당된다.</p>
+<p><code>_search</code> API는 preference 파라미터를 받을 수 있다.
+이 preference 파라미터는 클러스터가 어떻게 요청을 만족시키기 위해 적절한 노드나 샤드를 선택할지에 대한 옵션이다.</p>
+<p>이 옵션을 사용한다면 노드/샤드의 캐싱의 이점을 활용할 수 있는데,</p>
+<ul>
+<li>클러스터는 요청을 제공된 preference를 바탕으로 동일한 샤드의 동일한 순서로 라우팅하기 때문이다.</li>
+<li>그리고 이 라우팅 순서는 클러스터 상태나 선택된 샤드가 변경되지 않는 한 유지된다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">POST</span> <span style="color:#960050;background-color:#1e0010">/my-index</span><span style="color:#ae81ff">-000001</span><span style="color:#960050;background-color:#1e0010">/_search?preference=my-custom-shard-string</span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;query&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;match&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;user.id&#34;</span>: <span style="color:#e6db74">&#34;kimchy&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;aggs&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;my-agg-name&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;terms&#34;</span>: {
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">&#34;field&#34;</span>: <span style="color:#e6db74">&#34;my-field&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>_</code> 언더스코어로 시작하지 않는 어떤 문자열이라도 preference 문자열로써 사용할 수 있다.</p>
+<p>클러스터 상태나 선택된 샤드가 변경되지 않는다면 동일한 문자열을 사용하는 search API는 동일한 샤드에 동일한 순서로 전달될 것이다.</p>
+<p>사용자의 세션을 나타내는 값을 preference 문자열로 사용하는 것은 권장되는 행위인데,</p>
+<ul>
+<li>사용자는 보통 여러 개의 쿼리들을 연속적으로 수행하고,</li>
+<li>결과의 범위를 좁히는 경우가 많기 때문이다.</li>
+</ul>
+<p>이 설정은 search 요청을 다른 노드로 분산시켜서 노드 레벨에서의 캐싱의 이점을 활용하지 못하는 것을 방지한다.</p>
+<h3 id="_local-파라미터"><code>_local</code> 파라미터</h3>
+<p>preference 파라미터에 사용할 수 있는 특별한 값은 <code>_local</code>이 있다.</p>
+<p>이 값을 사용한다면</p>
+<ul>
+<li>현재 요청을 처리하는 노드가 네트워크 오버헤드를 피하기 위해 로컬에서 이용가능한 샤드가 있는 경우에만 샤드를 사용하려고 시도한다.</li>
+<li>요청을 처리하기 위해 다른 노드에서만 사용할 수 있는 샤드의 데이터가 필요한 경우에는 adaptive replica를 폴백으로 사용한다.</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/" data-title="Elasticsearch Aggregation 성능 향상"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/" data-title="Elasticsearch Aggregation 성능 향상"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/" data-title="Elasticsearch Aggregation 성능 향상"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/apr2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%96%91%EB%B0%A9%ED%96%A5-%EB%B0%94%EC%9D%B8%EB%94%A9%EC%9D%98-%EC%9D%B4%ED%95%B4/" class="prev" rel="prev" title="앵귤러 양방향 바인딩의 이해"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>앵귤러 양방향 바인딩의 이해</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
