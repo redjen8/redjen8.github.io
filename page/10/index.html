@@ -5,13 +5,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Redjen TIL" />
-<meta property="og:description" content="Redjen TIL 왜? 모음집" />
+        <title>Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="Redjen TIL" />
+<meta property="og:description" content="Make Maketh Install" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://redjen8.github.io/" /><meta property="og:site_name" content="왜? 모음집" />
+<meta property="og:url" content="http://redjen8.github.io/" /><meta property="og:site_name" content="Redjen TIL" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redjen TIL"/>
-<meta name="twitter:description" content="Redjen TIL 왜? 모음집"/>
+<meta name="twitter:description" content="Make Maketh Install"/>
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -22,7 +22,7 @@
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
-        "url": "http:\/\/redjen8.github.io\/","inLanguage": "ko-KR","description": "Redjen TIL 왜? 모음집","name": "Redjen TIL"
+        "url": "http:\/\/redjen8.github.io\/","inLanguage": "ko-KR","description": "Make Maketh Install","name": "Redjen TIL"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -33,7 +33,18 @@
             <a href="/" title="Redjen TIL">Redjen TIL</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                     <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a></div>
         </div>
@@ -48,13 +59,38 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header><main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="page home" data-home="posts"><div class="home-profile"><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/redjen8" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/">앵귤러 View Child</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-23">2023-02-23</time></span></div><div class="content">프론트엔드 작업을 하면서 가장 고민이 많이 되고 어렵지만 또 재미있는 개발은 컴포넌트 공통화인 것 같다. 동일한 코드를 재사용하지 않고 나이스한 방법으로 컴포넌트가</div><div class="post-footer">
+        <a href="/posts/feb2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-view-child/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/feb2023/post-compile-weaving/">Post Compile Weaving</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-22">2023-02-22</time></span></div><div class="content">AOP란 AOP는 교차 관심사의 분리를 허용함으로써 프로그램의 모듈성을 높이는 것을 목표로 하는 프로그래밍 패러다임이다. AOP가 사용되는 대표적인 예시는,</div><div class="post-footer">
         <a href="/posts/feb2023/post-compile-weaving/">Read More</a></div>
@@ -74,10 +110,6 @@
         <a href="/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/">Java Reflection Api에 대해</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-18">2023-02-18</time></span></div><div class="content">Java의 Reflection API는 무엇이고, 어떻게 사용되고 있을까? https://www.baeldung.com/java-reflection Reflection API 리플렉션을 사용하기 위해서는 별도의 jar 파일이나 의존성이 필요하지 않다. java.lang.reflect 패키지에 이미 번들</div><div class="post-footer">
         <a href="/posts/feb2023/java-reflection-api%EC%97%90-%EB%8C%80%ED%95%B4/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/">Marble Diagram에 대해</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-17">2023-02-17</time></span></div><div class="content">Reactive Stream 공식 문서에 자주 나오는 구슬 같이 생긴 친구들의 정체는 뭘까? https://www.oreilly.com/library/view/reactive-programming-for/9781785882883/ch03s02.html Marble Diagram ReactiveX 프로젝트는 Observable한 스트림을 통한 비동기적 프로그래밍 API이다. 그</div><div class="post-footer">
-        <a href="/posts/feb2023/marble-diagram%EC%97%90-%EB%8C%80%ED%95%B4/">Read More</a></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -122,5 +154,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"data":{"id-1":" Redjen TIL 왜? 모음집"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"data":{"id-1":" Redjen TIL 왜? 모음집"},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>

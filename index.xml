@@ -2,10 +2,18 @@
     <channel>
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
-        <description>Redjen TIL 왜? 모음집</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 19 Apr 2023 20:50:50 &#43;0900</lastBuildDate>
+        <description>Make Maketh Install</description>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 21 Apr 2023 18:07:10 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>ZonedDateTime에 대해</title>
+    <link>http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Fri, 21 Apr 2023 18:07:10 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[엘라스틱서치의 기본 Date 타입 필드를 자바로 역직렬화하는 과정에서 ZonedDateTime에 대해서 알게 되었다. 뭔지 몰라서 찾아보다가 알게 된 내용을 정리한]]></description>
+</item>
+<item>
     <title>Elasticsearch Aggregation 성능 향상</title>
     <link>http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/</link>
     <pubDate>Wed, 19 Apr 2023 20:50:50 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/java-securerandom/</guid>
     <description><![CDATA[자바 프로젝트를 하다 보면 랜덤한 데이터를 즉석에서 만들어 뿌려줘야 할 때가 있다. 랜덤한 정수를 만들어내는 예제에서 많이 사용하는 SecureRandom은 내]]></description>
-</item>
-<item>
-    <title>Java Reactive Programming Flux Generate</title>
-    <link>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/</link>
-    <pubDate>Sat, 08 Apr 2023 22:32:27 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/java-reactive-programming-flux-generate/</guid>
-    <description><![CDATA[이전 강의에서는 Flux가 무엇인지에 대해 주로 알아봤었다. Flux를 언제, 어떻게 생성해야 할까? create를 사용한 Flux 생성 Flux.create(fluxSink -&gt; { fluxSink.next(1); fluxSink.next(2); fluxSink.complete(); }).subscribe(...) 처럼 cre]]></description>
 </item>
 </channel>
 </rss>

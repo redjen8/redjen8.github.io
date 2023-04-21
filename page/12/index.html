@@ -5,13 +5,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Redjen TIL</title><meta name="Description" content="Redjen TIL 왜? 모음집"><meta property="og:title" content="Redjen TIL" />
-<meta property="og:description" content="Redjen TIL 왜? 모음집" />
+        <title>Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="Redjen TIL" />
+<meta property="og:description" content="Make Maketh Install" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="http://redjen8.github.io/" /><meta property="og:site_name" content="왜? 모음집" />
+<meta property="og:url" content="http://redjen8.github.io/" /><meta property="og:site_name" content="Redjen TIL" />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Redjen TIL"/>
-<meta name="twitter:description" content="Redjen TIL 왜? 모음집"/>
+<meta name="twitter:description" content="Make Maketh Install"/>
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -22,7 +22,7 @@
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
-        "url": "http:\/\/redjen8.github.io\/","inLanguage": "ko-KR","description": "Redjen TIL 왜? 모음집","name": "Redjen TIL"
+        "url": "http:\/\/redjen8.github.io\/","inLanguage": "ko-KR","description": "Make Maketh Install","name": "Redjen TIL"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
@@ -33,7 +33,18 @@
             <a href="/" title="Redjen TIL">Redjen TIL</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                     <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
                 </a></div>
         </div>
@@ -48,13 +59,38 @@
                 <span></span><span></span><span></span>
             </div>
         </div>
-        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
-</header><main class="main">
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
                 <div class="container"><div class="page home" data-home="posts"><div class="home-profile"><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/redjen8" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/">Transfer Encoding에 대해</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-11">2023-02-11</time></span></div><div class="content">여느 때와 다름 없이 개발을 하던 중, ERR_CONTENT_LENGTH_MISMATCH 에러를 만나게 되었다. 찾아보니 response header의 content-length와 실제 body로 오는 응답의 길이가 상이</div><div class="post-footer">
+        <a href="/posts/feb2023/transfer-encoding%EC%97%90-%EB%8C%80%ED%95%B4/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/feb2023/python%EC%9D%98-__init__/">Python의 __Init__</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-10">2023-02-10</time></span></div><div class="content">파이썬에서도 클래스를 활용한 객체 지향 프로그래밍을 할 수 있다. 그런데 __init__함수가 계속 눈에 보인다. 이 함수는 어떤 역할을 할까? https://stackoverflow.com/questions/625083/what-do-init-and-self-do-in-python __init__ 함수의 역할 파</div><div class="post-footer">
         <a href="/posts/feb2023/python%EC%9D%98-__init__/">Read More</a></div>
@@ -74,10 +110,6 @@
         <a href="/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/">Optional Chaining 이란</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-05">2023-02-05</time></span></div><div class="content">자바스크립트를 사용해서 개발하다보면 undefined나 null에 대한 검사를 계속해서 하게 되는 경우가 많다. 좀 더 편하게 nullish 한지 체크하기 위해서 Optional Cha</div><div class="post-footer">
         <a href="/posts/feb2023/optional-chaining-%EC%9D%B4%EB%9E%80/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/">Cache Busting 이란</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-02-04">2023-02-04</time></span></div><div class="content">Cache Busting이란 무엇이고, 왜 발생할까? https://www.keycdn.com/support/what-is-cache-busting 정적 파일을 빠르게 제공하기 위해 고려할 수 있는 여러 방법 중 하나는 캐시이고, 실제로 많은 서비스들에서 빠르게 정</div><div class="post-footer">
-        <a href="/posts/feb2023/cache-busting-%EC%9D%B4%EB%9E%80/">Read More</a></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
@@ -122,5 +154,5 @@
             </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"data":{"id-1":" Redjen TIL 왜? 모음집"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.6.0/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"data":{"id-1":" Redjen TIL 왜? 모음집"},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
 </html>
