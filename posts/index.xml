@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 21 Apr 2023 18:07:10 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 22 Apr 2023 15:04:57 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>JER-425: 가상 쓰레드와 자바의 미래</title>
+    <link>http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/</link>
+    <pubDate>Sat, 22 Apr 2023 15:04:57 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/</guid>
+    <description><![CDATA[자바의 역사 자바는 1995년 발표되어 이제 곧 태어난지 30년이 되어가는 프로그래밍 언어이다. 20년 정도 더 빨랐던 C보다는 아니지만, 컴퓨터 공학의 역사를 오]]></description>
+</item>
+<item>
     <title>ZonedDateTime에 대해</title>
     <link>http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/</link>
     <pubDate>Fri, 21 Apr 2023 18:07:10 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/swagger-discriminator/</guid>
     <description><![CDATA[이전에는 oneOf, anyOf, allOf 등의 키워드를 통해서 어떻게 request 나 response에 해당하는 객체의 validation을 할지 간략히 알아봤었다. 사실 이전에 소개한 기능들]]></description>
-</item>
-<item>
-    <title>Java SecureRandom</title>
-    <link>http://redjen8.github.io/posts/apr2023/java-securerandom/</link>
-    <pubDate>Sun, 09 Apr 2023 21:18:31 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/java-securerandom/</guid>
-    <description><![CDATA[자바 프로젝트를 하다 보면 랜덤한 데이터를 즉석에서 만들어 뿌려줘야 할 때가 있다. 랜덤한 정수를 만들어내는 예제에서 많이 사용하는 SecureRandom은 내]]></description>
 </item>
 </channel>
 </rss>

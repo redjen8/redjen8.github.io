@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>JER-425: 가상 쓰레드와 자바의 미래 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="JER-425: 가상 쓰레드와 자바의 미래" />
+<meta property="og:description" content="자바의 역사 자바는 1995년 발표되어 이제 곧 태어난지 30년이 되어가는 프로그래밍 언어이다. 20년 정도 더 빨랐던 C보다는 아니지만, 컴퓨터 공학의 역사를 오" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-22T15:04:57+09:00" />
+<meta property="article:modified_time" content="2023-04-22T15:04:57+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JER-425: 가상 쓰레드와 자바의 미래"/>
+<meta name="twitter:description" content="자바의 역사 자바는 1995년 발표되어 이제 곧 태어난지 30년이 되어가는 프로그래밍 언어이다. 20년 정도 더 빨랐던 C보다는 아니지만, 컴퓨터 공학의 역사를 오"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/" /><link rel="prev" href="http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "JER-425: 가상 쓰레드와 자바의 미래",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/apr2023\/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98\/"
+        },"genre": "posts","wordcount":  5978 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/apr2023\/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98\/","datePublished": "2023-04-22T15:04:57+09:00","dateModified": "2023-04-22T15:04:57+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">JER-425: 가상 쓰레드와 자바의 미래</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-04-22">2023-04-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;5978 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#자바의-역사">자바의 역사</a></li>
+    <li><a href="#자바는-어떻게-발전해-왔나">자바는 어떻게 발전해 왔나</a>
+      <ul>
+        <li><a href="#jls-jsr-jep">JLS, JSR, JEP</a></li>
+        <li><a href="#정리와-예시">정리와 예시</a></li>
+      </ul>
+    </li>
+    <li><a href="#project-loom">Project Loom</a></li>
+    <li><a href="#jep-425--virtual-threads">JEP 425 : Virtual Threads</a>
+      <ul>
+        <li><a href="#공유-쓰레드-모델의-단점">공유 쓰레드 모델의 단점</a></li>
+        <li><a href="#해결책">해결책</a></li>
+        <li><a href="#가상-쓰레드의-풀링">가상 쓰레드의 풀링?</a></li>
+        <li><a href="#가상-쓰레드의-스케쥴링">가상 쓰레드의 스케쥴링</a></li>
+        <li><a href="#가상-쓰레드의-메모리-모델">가상 쓰레드의 메모리 모델</a></li>
+      </ul>
+    </li>
+    <li><a href="#한계점">한계점</a>
+      <ul>
+        <li><a href="#비동기-코드가-그랬던-것처럼-기존-api와-호환성-문제가-있다">(비동기 코드가 그랬던 것처럼) 기존 API와 호환성 문제가 있다.</a></li>
+        <li><a href="#javalangthread의-수정은"><code>java.lang.Thread</code>의 수정은&hellip;</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="자바의-역사">자바의 역사</h2>
+<p>자바는 1995년 발표되어 이제 곧 태어난지 30년이 되어가는 프로그래밍 언어이다.
+20년 정도 더 빨랐던 C보다는 아니지만, 컴퓨터 공학의 역사를 오랜 기간 함께 살아왔다고 할 수 있겠다.</p>
+<p>언어 목표가 객체 지향 방법론을 지향하다 보니, 초창기의 많은 디자인 패턴 책이 자바로 쓰여졌다.</p>
+<p>또한 바이트 코드로 변환된 코드는 VM 위에서 어느 환경에서던 개발자가 작성한 프로그램을 구동할 수 있게 했고, 이는 곧 자바의 가장 큰 장점이 되었다. 구동 환경에 대해 직접 일일이 빌드하지 않아도 바이트 코드라는 추상화된 프로그램이 어떤 환경에서던 동작한다는 장점은 지금도 많은 VM 기반 프로그래밍 언어에서 유효하다.
+(언어와는 별개로 오늘 날 웹 개발이 대세가 된 것도 비슷한 이유라고 생각한다)</p>
+<h2 id="자바는-어떻게-발전해-왔나">자바는 어떻게 발전해 왔나</h2>
+<p>자바의 버전이라고 말하는 것은 보통 JDK / JRE의 버전을 뜻한다.</p>
+<p><a href="https://ko.wikipedia.org/wiki/%EC%9E%90%EB%B0%94_%28%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%B0%8D_%EC%96%B8%EC%96%B4%29" target="_blank" rel="noopener noreffer ">위키 (자바)</a></p>
+<p>JDK가 버전이 변화하면 자바 표준 라이브러리가 확대되고, API가 변경된다.</p>
+<h3 id="jls-jsr-jep">JLS, JSR, JEP</h3>
+<p>자바는 어떻게 계속해서 변화하는 요구사항들을 관리 및 충족시키고, 이전 버전에서 개선한 사항들을 다음 버전에 릴리즈를 할 수 있었을까?</p>
+<p><a href="https://stackoverflow.com/questions/51282326/what-is-the-difference-or-relation-between-jls-jsr-and-jep" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/51282326/what-is-the-difference-or-relation-between-jls-jsr-and-jep</a></p>
+<ul>
+<li>Specification은 어떤 것을 정의하는 문서이다.</li>
+<li>Request는 어떤 것을 요청하는 선언이다.</li>
+<li>Proposal은 어떤 것을 고려해달라 요청하는 제안이다.</li>
+</ul>
+<h4 id="jls-java-language-specification">JLS (Java Language Specification)</h4>
+<p>JLS는 자바 언어에 대한 Specification이다. JLS는 자바 프로그래밍 언어의 문법을 명시하고, &lsquo;유효한 자바 프로그램이 어떤 것인지&rsquo;에 대한 다른 규칙들이 포함되어 있다.</p>
+<ul>
+<li>그러려면 &lsquo;프로그램이 어떤 것인지&rsquo;에 대한 정의도 되어있어야 할 것이고,</li>
+<li>(유효한) 프로그램을 구동할 때 어떤 일이 벌어지는지에 대한 명세도 되어 있어야 한다.</li>
+</ul>
+<h4 id="jsr-java-specification-request">JSR (Java Specification Request)</h4>
+<p>JSR은 Java Community Process (JCP)에 의해 새로운 spec을 발전시키기 위해 개진된 문서이다.
+보통 JSR에서는 비교적 성숙한 기술을 다음 spec으로 발전시키려는 시도를 한다. 너무 빨리 언어의 사양을 만들려하면 일반적으로 나쁜 spec이 되기 때문이다.</p>
+<h4 id="jep-java-enhancement-proposal">JEP (Java Enhancement Proposal)</h4>
+<p>JEP는 자바 코어 기술에 대한 개선점을 제안하는 문서이다. 이 제안들은 보통 아직 명세될 준비가 되지 않은 주제가 다뤄진다.</p>
+<p>JEP-0 문서에서는 JEP는 참신하고, 때로는 엉뚱한 아이디어에 대한 탐색을 요구할 수 있다.
+일반적으로 실행 가능한 아이디어와 실행 불가능한 아이디어를 구분하고 spec을 작성하는 것을 명확하게 하기 위해 프로토타이핑이 필요하다.</p>
+<h3 id="정리와-예시">정리와 예시</h3>
+<ul>
+<li>JEP는 아직 명세되지 못한 다소 실험적인 아이디어를 제안하고 발전시킨다.</li>
+<li>JSR은 성숙한 아이디어들을 받아들여서 새 spec을 만들거나 존재하는 spec에 대해 변경 사항을 만든다. 하지만 모든 JSR이 spec이 되는 것은 아니다.</li>
+<li>JSR의 결과물이 Specification이 된다. JLS는 Specification의 한 종류이고, 다른 명세들은 JVM specification이나 Servlet이나 JSP, EJB specification에 대한 내용을 다룬다.</li>
+</ul>
+<p>잘 알려진 예시로는</p>
+<ul>
+<li><a href="https://www.oracle.com/technical-resources/articles/java/jsr356.html" target="_blank" rel="noopener noreffer ">JSR 356</a> : 자바 6에서 추가되었던 웹 소켓 API Spec Request</li>
+<li><a href="https://en.wikipedia.org/wiki/Java_concurrency" target="_blank" rel="noopener noreffer ">JSR 166</a> : 자바 5에서 추가되었던 Java Concurrency Model에 대한 Spec Request가 있다.</li>
+</ul>
+<h2 id="project-loom">Project Loom</h2>
+<p><a href="https://developer.okta.com/blog/2022/08/26/state-of-java-project-loom" target="_blank" rel="noopener noreffer ">https://developer.okta.com/blog/2022/08/26/state-of-java-project-loom</a></p>
+<p>자바의 동시성 모델은 OS 쓰레드에 코어를 두고 있다.
+자바의 동시성 모델은 앞서 잠깐 언급했던 JSR 166으로부터 제안되어서 현재에 이르러 성숙한 모델이 되었지만, OS 쓰레드에 바운드되는 만큼 단점을 가지고 있는 것 또한 현실이다.</p>
+<p>가장 흔하게 사용되는 자바의 동시성 예시로는 웹 어플리케이션 서버에서 요청을 처리하는 경우가 있다. 이 경우에서 가장 쉽게 사용할 수 있는 모델은 요청 1개 당 - 쓰레드 1개를 처리하는 모델이다.</p>
+<p>이러한 시스템의 throughput은 리틀의 법칙에 의해 설명될 수 있다.</p>
+<blockquote>
+<p>재고 = 산출율 x 흐름 시간</p>
+</blockquote>
+<ul>
+<li>안정적인 시스템에서 평균 동시성 (서버에 의해 동시적으로 처리되는 요청의 개수)를 L,</li>
+<li>Throughput (평균적으로 요청이 처리되는 처리량)을  λ,</li>
+<li>평균적으로 각 요청을 처리하는데 소요되는 시간 (latency)를 W라고 하자.</li>
+</ul>
+<p>이 때 L =  λ x W 이기 때문에,  <strong>λ = L/W</strong> 가 성립한다.</p>
+<p>즉 요청 당 쓰레드 모델에서는 전체 처리량은 가용 가능한 OS 쓰레드에 의해 제약을 받는다. 이 모델을 최대한 활용하기 위해서 쓰레드 풀이라는 개념이 고안되었다. 덕분에 매 요청이 들어올 때마다 쓰레드를 만드는데 들어가는 오버헤드를 획기적으로 줄일 수 있었다.</p>
+<p>하지만 쓰레드 풀은 한계가 명확했다. 쓰레드 릭이 발생할 수도 있고, 데드락이 발생할 수 있고, 리소스 쓰래싱이 발생할 수도 있었다.</p>
+<p>스프링 웹플럭스로 대표되는 비동기 논블락킹 모델은 상황이 낫긴 하지만, 더 복잡한 프로그래밍 스타일과 데이터의 race condition을 조심스럽게 다루는 것에 익숙해져야 한다는 것을 의미한다. 더군다나 메모리 릭이나 쓰레드 락에 대한 위험성은 여전히 존재한다.</p>
+<p>또 다른 동시성에 대한 에시로는 큰 태스크를 작은 태스크로 쪼개서 다수의 쓰레드에서 이를 처리한 후에 합하는 방법론이 있다.</p>
+<p>이러한 시스템을 작성할 때 가장 주의해야 하는 것은, 데이터의 정합성을 유지하는 것과 + 데이터 간 race가 발생하지 않도록 회피하는 것이다. 어떤 경우에서는 쓰레드 동기화 (synchronization)를 통해 병렬 태스크를 다수의 분산 쓰레드에서 실행하도록 보장해줘야 한다. 이런 방식의 구현은 쓰레드 릭과 취소에 대한 딜레이와 같은 이슈를 방지하기 위해 개발자에게 훨씬 더 많은 책임이 뒤따르게 된다.</p>
+<p>Project Loom은 이런 이슈들을 아래에서 알아 볼 Virtual Thread와 <a href="https://openjdk.org/jeps/428" target="_blank" rel="noopener noreffer ">Structured Concurrency</a> 피쳐를 통해 해결하려는 프로젝트이다. (이 글에서는 Structured Concurrency 내용은 다루지 않는다)</p>
+<h2 id="jep-425--virtual-threads">JEP 425 : Virtual Threads</h2>
+<p><a href="https://openjdk.org/jeps/425" target="_blank" rel="noopener noreffer ">https://openjdk.org/jeps/425</a></p>
+<p>웹플럭스 이야기를 조금 더 해보겠다.</p>
+<ul>
+<li>자바 쓰레드 모델은 하드웨어의 리소스를 직접적으로 사용한다.</li>
+<li>하드웨어의 리소스는 비싸기 때문에 최대한 아껴써야 한다.</li>
+<li>자바 쓰레드를 효율적으로 써보자!</li>
+</ul>
+<p>그렇게 요청 당 쓰레드 스타일을 포기하고 쓰레드를 공유하는 모델이 만들어졌다.</p>
+<p>이런 모델에서 요청 처리 코드는 하나의 쓰레드에서 요청을 처음부터 씉까지 처리하는 대신 다른 작업이 완료될 때까지 기다리지 않고 해당 쓰레드를 반환하여 쓰레드가 다른 요청을 처리할 수 있도록 한다.</p>
+<p>코드가 IO 작업을 기다릴 때가 아니라 연산을 수행할 때에만 쓰레드를 점유하는 이러한 전략은 많은 수의 쓰레드를 사용하지 않고도 동시성을 크게 늘릴 수 있었다.</p>
+<h3 id="공유-쓰레드-모델의-단점">공유 쓰레드 모델의 단점</h3>
+<p>하지만..</p>
+<ul>
+<li>비동기 프로그래밍 스타일을 사용해야만 한다.</li>
+<li>IO 작업이 완료될 때까지 기다리지 않고 나중에 콜백을 통해 완료 신호를 보내는 별도의 메서드 셋을 사용해야 한다.</li>
+<li>전용 쓰레드가 없기 때문에 개발자는 람다 표현식으로 개별의 작은 요청 처리 로직을 작성하여 API를 사용해 순차적인 파이프라인을 구성한다.
+<ul>
+<li>때문에 루프나 try / catch와 같은 자바 언어의 순차적인 composition 연산자들을 사용하지 않는다.</li>
+</ul>
+</li>
+</ul>
+<p>비동기 스타일에서는 요청의 각 단계가 서로 다른 쓰레드에서 실행될 수 있으며, 모든 쓰레드가 서로 다른 요청에 속하는 단계를 interleaved한 방식으로 실행한다.</p>
+<p>그렇기 때문에</p>
+<ul>
+<li>Stack trace는 더 이상 사용가능한 컨텍스트를 제공하지 않고 (요청이 여기 저기 옮겨다니는 동안 유실되기 때문이다)</li>
+<li>디버거는 요청 초리 로직을 단계별로 순차적으로 살펴볼 수 없고</li>
+<li>프로파일러는 작업에 대한 비용을 caller와 연관시켜 계산할 수 없다.</li>
+</ul>
+<p>리액티브 프로그래밍 스타일은 애플리케이션의 동시성 단위인 비동기 파이프라인이 더 이상 플랫폼의 동시성 단위가 아니기 때문에 필연적으로 자바 생태계와 상충되는 부분이 존재한다.</p>
+<h3 id="해결책">해결책</h3>
+<blockquote>
+<p>쓰레드 당 요청 모델을 유지하자. 단, OS의 쓰레드를 직접적으로 사용하지 않으면 되지 않나?</p>
+</blockquote>
+<p>애플리케이션이 자바 플랫폼과 조화를 이루면서 확장할 수 있게 하려면 기존 쓰레드 모델을 보다 효율적으로 구현하고, 요청 당 쓰레드 스타일을 유지하여 더 많은 쓰레드를 많이 확보할 수 있도록 해야 한다.</p>
+<p>운영체제는 언어와 런타임마다 쓰레드 스택을 사용하는 방식이 다르기 때문에 (지금 사용하는 방식처럼) OS 쓰레드를 사용하게 된다면 더 이상 효율적으로 구현할 수는 없다.</p>
+<p>하지만 자바 런타임이 OS 쓰레드와 맺어지던 일대일 대응을 분리하는 방식으로 자바 쓰레드를 구현하는 것은 가능하다.</p>
+<p>OS가 많은 virtual memory 공간을 제한된 양의 RAM에 매핑해서 &lsquo;마치 RAM보다 더 많은 메모리를 사용할 수 있게 보이는 것&rsquo;처럼, 자바 런타임에서 많은 수의 가상 쓰레드를 보다 적은 수의 OS 쓰레드에 매핑해서 쓰레드가 넉넉한 것처럼 보이게 할 수 있지 않을까?</p>
+<p>그럼 가상 쓰레드는 어떤 형태가 될까?</p>
+<blockquote>
+<p>JEP 425가 제시하는 가상 쓰레드는 특정 OS 쓰레드에 연결되지 않은 <code>java.lang.Thread</code>의 인스턴스이다. 반면 플랫폼 쓰레드는 OS 쓰레드에 대한 전통적인 wrapper로, 우리가 아는 <code>java.lang.Thread</code>의 인스턴스이다.</p>
+</blockquote>
+<p>요청 당 쓰레드 스타일의 어플리케이션 코드는 요청의 전체 생명 주기 동안 가상 쓰레드 내부에서 실행될 수 있지만, 가상 쓰레드는 CPU에서 연산을 수행하는 동안에만 OS 쓰레드를 소비한다.</p>
+<p>그렇기 떄문에 비동기 스타일과 똑같은 확장성을 제공하지만, 가상 쓰레드는 이를 보다 투명하게 제공할 수 있다.</p>
+<ul>
+<li>가상 쓰레드에서 실행 중인 코드가 블로킹 IO 작업을 호출하면</li>
+<li>런타임은 논블로킹 OS 호출을 수행하고</li>
+<li>블로킹 작업이 끝난 후에 작업을 다시 시작할 수 있을 때까지 가상 쓰레드를 자동으로 pause 시킨다.</li>
+</ul>
+<p>자바 개발자에게 가상 쓰레드는 단순히 생성 비용이 싼, 무한대로 생성할 수 있는 쓰레드가 된다.</p>
+<p>가상 쓰레드를 사용한다면 하드웨어를 최적에 가깝게 사용할 수 있기 때문에 높은 동시성과 높은 처리량을 구현할 수 있으며, 어플리케이션은 자바 플랫폼의 멀티 쓰레드 설계 및 툴들과 조화롭게 유지된다.</p>
+<h3 id="가상-쓰레드의-풀링">가상 쓰레드의 풀링?</h3>
+<p>쓰레드 풀은 자바의 쓰레드 모델이 OS의 쓰레드과 매핑되기 때문에 이를 보다 효율적으로 사용하기 위해서 사용되어 왔다.</p>
+<p>그렇다면 가상 쓰레드를 사용할 때에도 <code>ExecutorService</code>를 사용한 쓰레드 풀을 사용해야 할까?</p>
+<p>그렇지 않다. 가상 쓰레드는 기존 쓰레드와는 달리 비싼 리소스가 아니기 때문이다.
+하지만 기존에 쓰레드 풀을 사용해서 제한된 리소스에 대한 동시 접근을 제한하는 경우라면 어떨까?</p>
+<p>예를 들어 서비스가 20개 이상의 동시 요청을 처리할 수 없는 경우 20개 크기의 풀에 작업을 제출해서 서비스에 대한 모든 접근을 수행하면서 이를 보장할 수 있는 경우가 있었을 것이다.</p>
+<p>JEP 425는 플랫폼 쓰레드의 높은 비용이 이러한 방법론을 널리 퍼뜨렸지만 여전히 가상 쓰레드의 풀링은 사용해서는 안된다는 입장이다. 쓰레드 풀의 등장은 제한된 리소스를 안전하게 사용하기 위해 고려해야 할 제약 사항이 많기 때문이다. (세마포어처럼</p>
+<p>가상 쓰레드를 쓰레드 풀 없이 사용한다면 더 효율적이고 편리하게 쓰레드를 사용할 수 있으며, <code>ThreadLocal</code>에 대한 데이터 걱정 없이 편리하게 사용할 수 있다는 장점이 있다.</p>
+<h3 id="가상-쓰레드의-스케쥴링">가상 쓰레드의 스케쥴링</h3>
+<p>가상 쓰레드를 사용해서 유용한 작업을 수행하려면 쓰레드를 스케쥴링해서 CPU에서 실행하도록 할당해야 한다.</p>
+<p>OS 쓰레드로 구현되는 플랫폼 쓰레드의 경우 JDK는 OS의 스케쥴러에 의존한다.
+가상 쓰레드는 JDK에 자체 스케쥴러를 둔다.</p>
+<p>JDK의 스케쥴러는 가상 쓰레드를 프로세서에 직접 할당하는 대신 가상 쓰레드를 플랫폼 쓰레드에 할당한다. (가상 쓰레드의 M:N 스케쥴링) 그 다음 플랫폼 쓰레드는 지금처럼 OS에 의해 스케쥴링된다.</p>
+<p>스케쥴러가 가상 쓰레드를 할당하는 플랫폼 쓰레드를 가상 쓰레드의 <code>carrier</code>라고 부른다.
+즉 스케쥴러는 가상 쓰레드와 특정 플랫폼 쓰레드 간의 선호도를 가지고 있지 않으며, 가상 쓰레드는 수명 기간 동안 다른 캐리어에서 스케쥴링 될 수 있다. 자바 코드의 관점에서 볼 때 실행 중인 가상 쓰레드는 현재 캐리어와는 논리적으로 독립적이다.</p>
+<ul>
+<li>때문에 코드 상으로 가상 쓰레드의 현재 캐리어를 확인할 수는 없다. <code>Thread.currentThread()</code>에 의해 반환되는 항상 가상 쓰레드 본인이기 때문이다.</li>
+<li>캐리어와 가상 쓰레드의 stack trace는 분리되어 있다. 가상 쓰레드에서 던져지는 exception에는 캐리어의 stack frame이 포함되어 있지 않다.
+<ul>
+<li>쓰레드 덤프는 가상 쓰레드의 스택에 캐리어의 stack frame을 표시하지 않으며, 그 반대의 경우 (캐리어 스택에 가상 쓰레드의 stack frame을 쌓는)도 마찬가지다.</li>
+</ul>
+</li>
+<li>캐리어의 <code>ThreadLocal</code> 변수는 가상 쓰레드에서 사용할 수 없으며, 그 반대도 마찬가지이다.</li>
+</ul>
+<h3 id="가상-쓰레드의-메모리-모델">가상 쓰레드의 메모리 모델</h3>
+<p>가상 쓰레드의 스택은 자바의 GC Heap에 스택 청크 객체로 저장된다.</p>
+<p>이 스택은 애플리케이션이 실행됨에 따라 메모리 표율을 높이고 임의 크기의 (JVM의 플랫폼 쓰레드 스택 크기까지) 스택을 수용하기 위해 grow 하거나 shrink 된다.  때문에 서버 애플리케이션에서 요청 당 쓰레드 스타일을 사용해도 메모리 문제가 없다.</p>
+<p>어떤 가상의 프레임워크가 새 가상 쓰레드를 생성하고 핸들러를 호출해 각 요청을 처리한다고 가정해보자.</p>
+<ul>
+<li>deep call stack의 마지막에 인증이나 트랜잭션과 같은 <code>handle</code>을 호출하더라도 <code>handle</code> 자체는 수명이 짧은 작업만 수행하는 여러 가상 쓰레드를 생성한다.</li>
+<li>따라서 deep call stack을 가진 각 가상 쓰레드에는 메모리를 거의 사용하지 않는 얕은 호출 스택을 가진 가상 쓰레드가 여러 개 존재하게 된다.</li>
+</ul>
+<p>가상 쓰레드에 필요한 힙 공간과 GC 활동의 양은 일반적으로 비동기 코드의 메모리 사용과 비교하기 어렵다.  요청을 처리하는 애플리케이션의 코드는 일반적으로 IO 작업 전반에 걸쳐 데이터를 관리한다.</p>
+<ul>
+<li>이 때 요청 별 쓰레드 코드는 해당 데이터는 힙에 저장되는 가상 쓰레드 스택 상 로컬 변수 (이를 테면 <code>VirtualThreadLocal</code>) 에 저장할 수 있지만</li>
+<li>비동기 코드는 동일한 데이터를 파이프라인의 한 단계에서 다음 단계로 전달되는 힙 객체에 보관해야 한다. (웹플럭스의 <code>Tuple2</code> 와 같은 개념을 말하는 것 같다)</li>
+</ul>
+<p>가상 쓰레드에 필요한 스택 프레임 레이아웃이 컴팩트한 객체보다 더 낭비적이지만, 비동기 파이프라인은 항상 새 객체를 할당해야 하는 반면 가상 쓰레드는 low level GC interaction을 통해 여러 상황에서 스택을 변경 및 재사용할 수 있다. 따라서 가상 쓰레드는 더 적은 할당이 필요하다.</p>
+<blockquote>
+<p>전반적으로 요청 당 쓰레드와 비동기 코드의 힙 메모리 소비량, GC 활동은 거의 비슷할 것이다.
+시간이 지남에 따라 가상 쓰레드 스택의 내부 표현이 더 간결해질 것이다.</p>
+</blockquote>
+<p>현재 가상 쓰레드의 한계는 G1 GC가 엄청나게 커다란 스택 청크 객체를 지원하지 않는다는 것이다.
+가상 쓰레드의 스택이 영역 크기의 절반에 도달하면 (512KB보다 작을 수 있는) <code>StackOverflowError</code>가 발생할 수 있다.</p>
+<p>그리고.. G1 GC를 수정하는 것은 절대로 쉬운 일이 아니다.</p>
+<h2 id="한계점">한계점</h2>
+<p>가상 쓰레드가 빠른 시일 내에 최신 버전 JDK의 피쳐가 되어도 실제로 사용되기에는 아직 부족한 부분이 많다.</p>
+<h3 id="비동기-코드가-그랬던-것처럼-기존-api와-호환성-문제가-있다">(비동기 코드가 그랬던 것처럼) 기존 API와 호환성 문제가 있다.</h3>
+<p>IO 메서드가 발생시킨 Stream에 동기화하는 <code>BufferedInputStream</code>, <code>BufferedOutputStream</code>, <code>BufferedReader</code>, <code>PrintStream</code> 등의 API는 호환 문제가 발생할 것이다.</p>
+<p>또한 가상 쓰레드는 <code>java.lang.ThreadGroup</code>가 더 이상 쓰레드 그룹을 소멸시키도록 허용하지 않을 것이다.</p>
+<h3 id="javalangthread의-수정은"><code>java.lang.Thread</code>의 수정은&hellip;</h3>
+<p>기존 존재하던 모든 소스파일의 <code>Thread</code>를 사용하는 코드들은 영향을 받을 것이다. 변경 없이는 컴파일 되지 않을 것이다.</p>
+<p>그 밖에 OS Thread를 직접 다루던 모든 메서드들은 가상 쓰레드에서 실행되었을 때 <code>UnsupportedOperationException</code>을 발생시킬 것이다. (<code>Thread.stop()</code>,  <code>suspend()</code> 등)</p>
+<p><code>java.net.Socket</code>, <code>ServerSocket</code>, <code>DatagramSocket</code>에 정의된 블록킹 IO 메서드들은 가상 쓰레드와 함께 사용할 수 없을 수 있다. 소켓 작업이 인터럽트되어 쓰레드가 블락킹되는 순간 기존 코드는 의도대로 동작하지 않을 수 있다. (그 순간 쓰레드를 wake하고 소켓을 닫는다)</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-04-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/" data-title="JER-425: 가상 쓰레드와 자바의 미래"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/" data-title="JER-425: 가상 쓰레드와 자바의 미래"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/" data-title="JER-425: 가상 쓰레드와 자바의 미래"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/" class="prev" rel="prev" title="ZonedDateTime에 대해"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>ZonedDateTime에 대해</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
