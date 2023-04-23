@@ -2,9 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>http://redjen8.github.io/posts/apr2023/data-consistency-vs-integrity/</loc><lastmod>2023-04-23T21:39:38&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-04-23T21:39:38&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2023-04-23T21:39:38&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/</loc><lastmod>2023-04-22T15:04:57&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-04-22T15:04:57&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2023-04-22T15:04:57&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/</loc><lastmod>2023-04-21T18:07:10&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/</loc><lastmod>2023-04-19T20:50:50&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/apr2023/%EC%95%B5%EA%B7%A4%EB%9F%AC-%EC%96%91%EB%B0%A9%ED%96%A5-%EB%B0%94%EC%9D%B8%EB%94%A9%EC%9D%98-%EC%9D%B4%ED%95%B4/</loc><lastmod>2023-04-17T20:31:31&#43;09:00</lastmod></url><url>

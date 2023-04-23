@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 22 Apr 2023 15:04:57 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 23 Apr 2023 21:39:38 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Data Consistency vs Integrity</title>
+    <link>http://redjen8.github.io/posts/apr2023/data-consistency-vs-integrity/</link>
+    <pubDate>Sun, 23 Apr 2023 21:39:38 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/data-consistency-vs-integrity/</guid>
+    <description><![CDATA[데이터 정합성에 대한 이야기는 많이 들어서 잘 알고 있다고 생각하고 있었다. 데이터 정합성은 데이터 무결성과는 어떻게 다를까? 헷갈리는 용어를 좀 정리해봤다. https://www.scaler.com/topics/data-consistency-in-dbms/ 데]]></description>
+</item>
+<item>
     <title>JER-425: 가상 쓰레드와 자바의 미래</title>
     <link>http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/</link>
     <pubDate>Sat, 22 Apr 2023 15:04:57 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/optional%EC%9D%98-%EC%98%AC%EB%B0%94%EB%A5%B8-%EC%82%AC%EC%9A%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/</guid>
     <description><![CDATA[자바를 맨 처음 배우고 프로그래밍을 하면서 가장 쉽게 접할 수 있는 에러를 꼽자면 바로 NullPointerException일 것이다. 자바의 객체들은 Heap 메모]]></description>
-</item>
-<item>
-    <title>Swagger Discriminator</title>
-    <link>http://redjen8.github.io/posts/apr2023/swagger-discriminator/</link>
-    <pubDate>Mon, 10 Apr 2023 19:58:30 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/swagger-discriminator/</guid>
-    <description><![CDATA[이전에는 oneOf, anyOf, allOf 등의 키워드를 통해서 어떻게 request 나 response에 해당하는 객체의 validation을 할지 간략히 알아봤었다. 사실 이전에 소개한 기능들]]></description>
 </item>
 </channel>
 </rss>
