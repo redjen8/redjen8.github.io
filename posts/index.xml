@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 23 Apr 2023 21:39:38 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 24 Apr 2023 19:22:18 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java Enum은 언제 써야할까</title>
+    <link>http://redjen8.github.io/posts/apr2023/java-enum%EC%9D%80-%EC%96%B8%EC%A0%9C-%EC%8D%A8%EC%95%BC%ED%95%A0%EA%B9%8C/</link>
+    <pubDate>Mon, 24 Apr 2023 19:22:18 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/java-enum%EC%9D%80-%EC%96%B8%EC%A0%9C-%EC%8D%A8%EC%95%BC%ED%95%A0%EA%B9%8C/</guid>
+    <description><![CDATA[많은 사람들이 enum 자체가 안티 패턴이고 사용을 신중하게 해야 한다고 말한다. 대부분의 경우에서는 enum은 종종 무분별하게 사용되기 떄문에 마치 사용을 지양해야 하]]></description>
+</item>
+<item>
     <title>Data Consistency vs Integrity</title>
     <link>http://redjen8.github.io/posts/apr2023/data-consistency-vs-integrity/</link>
     <pubDate>Sun, 23 Apr 2023 21:39:38 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/enablejparepositories-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[스프링 프로젝트 내부에서 다양한 레포지토리로 다양한 데이터 소스를 접근하기 위해서는 그에 알맞는 설정이 꼭 필요하다. 오늘은 @EnableJpaReposi]]></description>
-</item>
-<item>
-    <title>Optional의 올바른 사용법에 대한 고민</title>
-    <link>http://redjen8.github.io/posts/apr2023/optional%EC%9D%98-%EC%98%AC%EB%B0%94%EB%A5%B8-%EC%82%AC%EC%9A%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/</link>
-    <pubDate>Tue, 11 Apr 2023 19:35:59 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/optional%EC%9D%98-%EC%98%AC%EB%B0%94%EB%A5%B8-%EC%82%AC%EC%9A%A9%EB%B2%95%EC%97%90-%EB%8C%80%ED%95%9C-%EA%B3%A0%EB%AF%BC/</guid>
-    <description><![CDATA[자바를 맨 처음 배우고 프로그래밍을 하면서 가장 쉽게 접할 수 있는 에러를 꼽자면 바로 NullPointerException일 것이다. 자바의 객체들은 Heap 메모]]></description>
 </item>
 </channel>
 </rss>
