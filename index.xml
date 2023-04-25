@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 24 Apr 2023 19:22:18 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 25 Apr 2023 20:04:16 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>빠른 웹사이트 로딩을 위한 최적화 기술</title>
+    <link>http://redjen8.github.io/posts/apr2023/%EB%B9%A0%EB%A5%B8-%EC%9B%B9%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A1%9C%EB%94%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EC%88%A0/</link>
+    <pubDate>Tue, 25 Apr 2023 20:04:16 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/%EB%B9%A0%EB%A5%B8-%EC%9B%B9%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A1%9C%EB%94%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EC%88%A0/</guid>
+    <description><![CDATA[웹 서핑을 하면서 이 사이트 괜찮은데? 하고 느껴지는 여러 웹 사이트들은 어떻게 해서 사용자들을 만족시킬 수 있었을까? 빠르고, 반응성 있고, 사용자 친화적인 웹사이]]></description>
+</item>
+<item>
     <title>Java Enum은 언제 써야할까</title>
     <link>http://redjen8.github.io/posts/apr2023/java-enum%EC%9D%80-%EC%96%B8%EC%A0%9C-%EC%8D%A8%EC%95%BC%ED%95%A0%EA%B9%8C/</link>
     <pubDate>Mon, 24 Apr 2023 19:22:18 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/es-aggregation/</guid>
     <description><![CDATA[Elasticsearch 에서는 aggregation 연산을 지원한다. https://esbook.kimjmin.net/08-aggregations 이 기능은 _search API에서 aggregation 또는 aggs를 명시하고 임의의 aggregation 이름을 입력한 뒤 사용할 aggregation 종류와 옵션을 넣는다. aggregati]]></description>
-</item>
-<item>
-    <title>@EnableJpaRepositories 속성에 대해</title>
-    <link>http://redjen8.github.io/posts/apr2023/enablejparepositories-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Wed, 12 Apr 2023 21:00:34 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/enablejparepositories-%EC%86%8D%EC%84%B1%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[스프링 프로젝트 내부에서 다양한 레포지토리로 다양한 데이터 소스를 접근하기 위해서는 그에 알맞는 설정이 꼭 필요하다. 오늘은 @EnableJpaReposi]]></description>
 </item>
 </channel>
 </rss>
