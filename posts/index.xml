@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 25 Apr 2023 20:04:16 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 28 Apr 2023 18:57:19 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Angular Routermodule Directive 차이점</title>
+    <link>http://redjen8.github.io/posts/apr2023/angular-routermodule-directive-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
+    <pubDate>Fri, 28 Apr 2023 18:57:19 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/angular-routermodule-directive-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
+    <description><![CDATA[앵귤러 개발을 하던 중 앵귤러 라우터 관련하여 궁금한 점이 생겼다. component, loadChildren, redirectTo 는 어떻게 다를까? component component 속성은 컴포넌트로 직접 이동할 수 있는 링크 path를 제공한다. 단]]></description>
+</item>
+<item>
     <title>빠른 웹사이트 로딩을 위한 최적화 기술</title>
     <link>http://redjen8.github.io/posts/apr2023/%EB%B9%A0%EB%A5%B8-%EC%9B%B9%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A1%9C%EB%94%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EC%88%A0/</link>
     <pubDate>Tue, 25 Apr 2023 20:04:16 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/</guid>
     <description><![CDATA[spring data elasticsearch에서, 보다 복잡한 쿼리를 객체지향적으로 작성하고 보내보자. https://www.baeldung.com/spring-data-elasticsearch-queries Analyzer 모든 저장된 string 필드들은 기본적으로 analyzer에 의해]]></description>
-</item>
-<item>
-    <title>Es Aggregation</title>
-    <link>http://redjen8.github.io/posts/apr2023/es-aggregation/</link>
-    <pubDate>Thu, 13 Apr 2023 19:20:04 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/es-aggregation/</guid>
-    <description><![CDATA[Elasticsearch 에서는 aggregation 연산을 지원한다. https://esbook.kimjmin.net/08-aggregations 이 기능은 _search API에서 aggregation 또는 aggs를 명시하고 임의의 aggregation 이름을 입력한 뒤 사용할 aggregation 종류와 옵션을 넣는다. aggregati]]></description>
 </item>
 </channel>
 </rss>
