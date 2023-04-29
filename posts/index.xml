@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 28 Apr 2023 18:57:19 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 29 Apr 2023 21:13:34 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Typescript Type Class Interface 비교</title>
+    <link>http://redjen8.github.io/posts/apr2023/typescript-type-class-interface-%EB%B9%84%EA%B5%90/</link>
+    <pubDate>Sat, 29 Apr 2023 21:13:34 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/apr2023/typescript-type-class-interface-%EB%B9%84%EA%B5%90/</guid>
+    <description><![CDATA[Typescript를 사용하다 보니 interface와 type의 차이점이 헷갈리게 되었다. 또 이것들은 class 와는 어떻게 다를까? https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces Type Aliases 우리는 Object 타입과 union]]></description>
+</item>
+<item>
     <title>Angular Routermodule Directive 차이점</title>
     <link>http://redjen8.github.io/posts/apr2023/angular-routermodule-directive-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
     <pubDate>Fri, 28 Apr 2023 18:57:19 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/spring-data-jpa-findbyid-%EC%95%88%ED%8B%B0%ED%8C%A8%ED%84%B4/</guid>
     <description><![CDATA[Spring Data JPA는 가장 편리하게 자바 객체와 데이터베이스 간 ORM을 구성할 수 있게 해주는 편리한 방법 중 하나이다. 그런데, Spring Data JPA의 findById를 사용하]]></description>
-</item>
-<item>
-    <title>Spring Data Elasticsearch Query</title>
-    <link>http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/</link>
-    <pubDate>Fri, 14 Apr 2023 19:01:07 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/spring-data-elasticsearch-query/</guid>
-    <description><![CDATA[spring data elasticsearch에서, 보다 복잡한 쿼리를 객체지향적으로 작성하고 보내보자. https://www.baeldung.com/spring-data-elasticsearch-queries Analyzer 모든 저장된 string 필드들은 기본적으로 analyzer에 의해]]></description>
 </item>
 </channel>
 </rss>
