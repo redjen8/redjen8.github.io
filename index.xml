@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 01 May 2023 20:49:52 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 02 May 2023 22:09:41 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>E2E Test</title>
+    <link>http://redjen8.github.io/posts/may2023/e2e-test/</link>
+    <pubDate>Tue, 02 May 2023 22:09:41 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/e2e-test/</guid>
+    <description><![CDATA[e2e 테스트라는 용어를 처음 접하게 되었는데, 나는 해당 용어를 접해본 적이 없어서 맥락 이해에 시간이 걸렸던 경험을 했다. e2e 테스트란 무엇이고, 어떻게 해야 하는 것일]]></description>
+</item>
+<item>
     <title>Typescript Keyof Operator</title>
     <link>http://redjen8.github.io/posts/may2023/typescript-keyof-operator/</link>
     <pubDate>Mon, 01 May 2023 20:49:52 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[엘라스틱서치의 기본 Date 타입 필드를 자바로 역직렬화하는 과정에서 ZonedDateTime에 대해서 알게 되었다. 뭔지 몰라서 찾아보다가 알게 된 내용을 정리한]]></description>
-</item>
-<item>
-    <title>Elasticsearch Aggregation 성능 향상</title>
-    <link>http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/</link>
-    <pubDate>Wed, 19 Apr 2023 20:50:50 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/elasticsearch-aggregation-%EC%84%B1%EB%8A%A5-%ED%96%A5%EC%83%81/</guid>
-    <description><![CDATA[엘라스틱서치가 Full search 기능으로 잘 알려져 있긴하지만, 강력한 aggregation은 엘라스틱서치를 사용하는 또 다른 주요한 이유이기도 하다. Aggrega]]></description>
 </item>
 </channel>
 </rss>
