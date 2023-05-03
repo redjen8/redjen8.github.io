@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 02 May 2023 22:09:41 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 03 May 2023 21:14:12 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Ng Container에 대해</title>
+    <link>http://redjen8.github.io/posts/may2023/ng-container%EC%97%90-%EB%8C%80%ED%95%B4/</link>
+    <pubDate>Wed, 03 May 2023 21:14:12 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/ng-container%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
+    <description><![CDATA[FE 개발을 하다 보니 &lt;ng-container&gt; 요 녀석을 만나게 되었다. ng-container는 어떤 엘리먼트이고, 언제, 어떻게 사용해야 할까? https://angular.io/api/core/ng-container#description ng-container &lt;ng-container&gt; 는 별도의 element 추가 없이 structural di]]></description>
+</item>
+<item>
     <title>E2E Test</title>
     <link>http://redjen8.github.io/posts/may2023/e2e-test/</link>
     <pubDate>Tue, 02 May 2023 22:09:41 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/</guid>
     <description><![CDATA[자바의 역사 자바는 1995년 발표되어 이제 곧 태어난지 30년이 되어가는 프로그래밍 언어이다. 20년 정도 더 빨랐던 C보다는 아니지만, 컴퓨터 공학의 역사를 오]]></description>
-</item>
-<item>
-    <title>ZonedDateTime에 대해</title>
-    <link>http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Fri, 21 Apr 2023 18:07:10 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/zoneddatetime%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[엘라스틱서치의 기본 Date 타입 필드를 자바로 역직렬화하는 과정에서 ZonedDateTime에 대해서 알게 되었다. 뭔지 몰라서 찾아보다가 알게 된 내용을 정리한]]></description>
 </item>
 </channel>
 </rss>
