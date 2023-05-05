@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 03 May 2023 21:14:12 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 05 May 2023 21:54:21 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Redis는 어떻게 이렇게 빠를까</title>
+    <link>http://redjen8.github.io/posts/may2023/redis%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B9%A0%EB%A5%BC%EA%B9%8C/</link>
+    <pubDate>Fri, 05 May 2023 21:54:21 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/redis%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B9%A0%EB%A5%BC%EA%B9%8C/</guid>
+    <description><![CDATA[평소와 같이 medium을 탐방하던 중 재미있는 내용이 있어 공유해보고자 한다. https://medium.com/@iorilan/it-is-fast-may-not-be-a-good-answer-to-discuss-redis-during-an-interview-and-here-is-a-better-one-5bb3bc3cd37f 그동안 레디스, 레디스 하면서 사용 해왔었던 나이지만, 정작 왜 레디스가 빠른지]]></description>
+</item>
+<item>
     <title>Ng Container에 대해</title>
     <link>http://redjen8.github.io/posts/may2023/ng-container%EC%97%90-%EB%8C%80%ED%95%B4/</link>
     <pubDate>Wed, 03 May 2023 21:14:12 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/data-consistency-vs-integrity/</guid>
     <description><![CDATA[데이터 정합성에 대한 이야기는 많이 들어서 잘 알고 있다고 생각하고 있었다. 데이터 정합성은 데이터 무결성과는 어떻게 다를까? 헷갈리는 용어를 좀 정리해봤다. https://www.scaler.com/topics/data-consistency-in-dbms/ 데]]></description>
-</item>
-<item>
-    <title>JER-425: 가상 쓰레드와 자바의 미래</title>
-    <link>http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/</link>
-    <pubDate>Sat, 22 Apr 2023 15:04:57 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/jer425-%EA%B0%80%EC%83%81-%EC%93%B0%EB%A0%88%EB%93%9C%EC%99%80-%EC%9E%90%EB%B0%94%EC%9D%98-%EB%AF%B8%EB%9E%98/</guid>
-    <description><![CDATA[자바의 역사 자바는 1995년 발표되어 이제 곧 태어난지 30년이 되어가는 프로그래밍 언어이다. 20년 정도 더 빨랐던 C보다는 아니지만, 컴퓨터 공학의 역사를 오]]></description>
 </item>
 </channel>
 </rss>
