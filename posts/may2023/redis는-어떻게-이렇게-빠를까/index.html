@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/redjen8.github.io\/posts\/may2023\/redis%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B9%A0%EB%A5%BC%EA%B9%8C\/"
-        },"genre": "posts","wordcount":  4504 ,
+        },"genre": "posts","wordcount":  5845 ,
         "url": "http:\/\/redjen8.github.io\/posts\/may2023\/redis%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B9%A0%EB%A5%BC%EA%B9%8C\/","datePublished": "2023-05-05T21:54:21+09:00","dateModified": "2023-05-05T21:54:21+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
@@ -101,8 +101,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Redis는 어떻게 이렇게 빠를까</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-05">2023-05-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;4504 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;9 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-05">2023-05-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;5845 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;12 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#skip-list">Skip List</a>
+    <li><a href="#레디스의-특별한-자료구조">레디스의 특별한 자료구조</a>
       <ul>
         <li><a href="#skip-list의-특징">Skip List의 특징</a></li>
         <li><a href="#레디스는-어떤-최적화된-자료구조를-사용하는가">레디스는 어떤 최적화된 자료구조를 사용하는가</a></li>
@@ -125,6 +125,8 @@
         <li><a href="#epoll-모델">epoll 모델</a></li>
       </ul>
     </li>
+    <li><a href="#싱글-쓰레드-리액터-모델">싱글 쓰레드, 리액터 모델</a></li>
+    <li><a href="#인-메모리-스토리지">인 메모리 스토리지</a></li>
     <li><a href="#요약">요약</a></li>
   </ul>
 </nav></div>
@@ -134,7 +136,7 @@
 <blockquote>
 <p>레디스는 어떻게 이렇게 빠르고, 어떻게 커넥션들을 관리할까?</p>
 </blockquote>
-<h2 id="skip-list">Skip List</h2>
+<h2 id="레디스의-특별한-자료구조">레디스의 특별한 자료구조</h2>
 <p><a href="https://iorilan.medium.com/those-data-structures-can-not-be-learned-from-leetcode-skiplist-2b592d11e307" target="_blank" rel="noopener noreffer ">https://iorilan.medium.com/those-data-structures-can-not-be-learned-from-leetcode-skiplist-2b592d11e307</a></p>
 <p>B Tree는 (데이터베이스 인덱스 구조 등에서) 흔하게 사용되는 자료구조이다.</p>
 <p>그런데 B Tree는 여러 단점을 가지고 있다.</p>
@@ -226,6 +228,14 @@
 </li>
 <li>정렬된 리스트 자체를 획득하는 비용을 <code>O(N)</code>에 수행할 수 있다. (우선순위 큐에서는 <code>O(NlogN)</code> 비용이 소모된다)</li>
 </ol>
+<p>이외에도..</p>
+<ul>
+<li>레디스의 <code>Strings</code> 자료구조는 Simple Dynamic String을 사용한다.</li>
+<li>레디스의 <code>List</code> 자료구조는 링크드 리스트와 Zip List를 사용한다.</li>
+<li>레디스의 <code>Hashed</code> 자료구조는 Zip List와 해시 테이블을 사용한다.</li>
+<li>레디스의 <code>Set</code> 자료구조는 해시 테이블과 정수 집합을 사용한다.</li>
+<li>레디스의 <code>Sorted Set</code> 자료구조는 지금까지 설명했던 Skip List 이외에도, Zip List도 사용한다.</li>
+</ul>
 <h2 id="레디스는-어떻게-커넥션을-관리하는가">레디스는 어떻게 커넥션을 관리하는가</h2>
 <p>레디스는 소켓 기반 서버이기 때문에, 들어오는 요청에 대해서 listen 하고 있다가 커넥션을 생성한다.</p>
 <p>그럼 동시다발적인 10000개의 커넥션이 요청되면 어떻게 될까? 레디스는 10000개의 쓰레드를 핸들링할까? (매우 어렵다)</p>
@@ -315,19 +325,49 @@
 <p>그리고 레디스는 Edge-Triggered 모드를 사용하는 epoll 모델을 사용한다.</p>
 <p>여러 유명한 캐시들, 예를 들어 Memcached 또한 epoll 모델을 사용한다.
 Nginx, Cassandra, Kafka 모두 epoll 모델을 사용한다.</p>
+<h2 id="싱글-쓰레드-리액터-모델">싱글 쓰레드, 리액터 모델</h2>
+<p>레디스는 왜 멀티 쓰레드 기반으로 동작하는 이점을 포기하고 대신 싱글 쓰레드 기반으로 작성되었을까?</p>
+<p>멀티 쓰레드 어플리케이션에 비해 싱글 쓰레드 어플리케이션이 가지는 이점은 아래와 같다.</p>
+<ul>
+<li>쓰레드 생성과 회수에 소모되는 CPU 사용량을 최소화할 수 있다.</li>
+<li>쓰레드 간 컨텍스트 스위팅에 소모되는 CPU 사용량을 최소화할 수 있다.</li>
+<li>멀티 쓰레드 어플리케이션이 락이나 쓰레드 동기화와 같은 버그에 취약한 방어 로직이 필요한 반면 싱글 쓰레드 어플리케이션은 락에 대한 오버헤드가 없다.</li>
+<li>많은 시스템에서 쓰레드 세이프하지 않은 <code>lpush</code>와 같은 여러 연산을 지원할 수 있다.</li>
+</ul>
+<p>실제로 레디스를 사용하면서 가장 편했던 점은 쓰레드 세이프한 연산의 성능 문제에 대해서 깊게 생각할 필요가 없이 그저 연산을 수행하면 된다는 점이었다.</p>
+<h2 id="인-메모리-스토리지">인 메모리 스토리지</h2>
+<p>그리고 레디스는 다른 무엇보다도 인 메모리 스토리지이다.</p>
+<p>학부 운영 체제 시간에 배우듯이, 메모리 접근에는 계층 구조가 존재한다.
+그리고 랜덤 디스크에 행해지는 I/O보다는 RAM에 대한 데이터 접근이 훨씬 빠르다.</p>
+<p>순수하게 메모리에 접근하는 방식은 높은 읽기 / 쓰기 성능을 보장하기에 낮은 latency를 가져다 줄 수 있다는 이점이 있다.</p>
+<p>하지만 트레이드 오프로 데이터 셋의 크기 자체가 메모리 보다 커질 수 없다는 단점을 안고 있다.</p>
+<p>하지만 인 메모리 자료구조는 디스크의 자료구조들보다 훨씬 구현하기 쉽기 때문에 코드가 간결해질 수 있었고, 결과적으로 안정성에도 어느정도를 기여를 할 수 있었다.</p>
+<p>그렇다면 레디스는 큰 데이터를 저장하기 위해서 가상 메모리를 사용할까? 그렇지 않다는 것이다.
+레디스는 메모리보다 큰 크기의 데이터 셋들을 저장할 수 없다. 저장되는 데이터의 크기를 포기한 대신 빠른 성능을 보장해준다고 생각하면 될 것 같다.</p>
+<p><a href="https://redis.io/docs/getting-started/faq/" target="_blank" rel="noopener noreffer ">https://redis.io/docs/getting-started/faq/</a></p>
+<p>레디스 FAQ에 따르면, 64비트 인스턴스가 각각의 rough한 상황에 차지하는 메모리 사용량은 아래와 같다.</p>
+<ul>
+<li>빈 인스턴스는 최대 3MB의 메모리를 사용한다.</li>
+<li>백만 개의 작은 키를 가지는 인스턴스는: 문자열 값 쌍들을 사용하고, 최대 85MB의 메모리를 사용한다.</li>
+<li>백만 개의 키를 가지는 인스턴스는: 해시 값을 사용하여 5개의 필드를 가진 객체를 나타내고, 최대 160MB의 메모리를 사용한다.</li>
+</ul>
+<p>레디스의 이론 상 수용 가능한 최대 키 개수는 <code>2^32</code>개로, 인스턴스마다 최소 2억 5천만개의 키들을 수용할 수 있다. 당연하게도 시스템의 하드웨어 메모리가 먼저 한계를 맞이하기 때문에 시스템의 메모리에 맞춰서 사용하면 된다.</p>
+<p>레디스는 물론 시스템 하드웨어의 메모리를 전부 소모하지 않게 하기 위한 방어 로직도 가진다. <code>maxmemory</code> 옵션으로 대표되는 설정이 그 예시이다.</p>
+<p>이 제한값에 도달하게 되면 레디스는 모든 쓰기 연산에 대해 에러를 응답한다. 반면 읽기 전용 연산들은 여전히 잘 수행할 수 있다.</p>
+<p>레디스는 또한 최대 메모리 제한에 도달하게 되었을 떄 <a href="https://redis.io/docs/manual/eviction/" target="_blank" rel="noopener noreffer ">키를 evict하는 전략</a>도 사용한다.</p>
 <h2 id="요약">요약</h2>
 <ul>
 <li>
-<p>레디스는 확률 기반의 자료구조를 사용하여 특정 자료구조에 대한 효율성을 높일 수 있었다. (Skip List)</p>
+<p>레디스는 Skip List, Zip List와 같은 자료구조를 사용하여 대한 특정 연산에 대한 효율성을 높일 수 있었다.</p>
 </li>
 <li>
-<p>또한 레디스가 사용하는 epoll I/O 모델 떄문에 인입되는 각각의 요청에 대해 쓰레드를 생성하는 소모적인 작업 없이 요청을 처리할 수 있었다.</p>
+<p>또한 레디스가 사용하는 epoll I/O 모델 덕분에 인입되는 각각의 요청에 대해 쓰레드를 생성하는 소모적인 작업 없이 요청을 처리할 수 있었다. (여러 시스템이 epoll 모델을 사용하지만, epoll 모델을 사용한다고 시스템이 싱글 쓰레드 기반일 필요는 없다)</p>
 </li>
 <li>
-<p>여러 시스템이 epoll 모델을 사용하지만, epoll 모델을 사용한다고 시스템이 싱글 쓰레드 기반일 필요는 없다.</p>
+<p>레디스는 싱글 리액터, 싱글 쓰레드 기반의 리액터 패턴을 사용한 시스템이다. 때문에 모든 연산들은 비동기 논블락킹으로 쓰레드 세이프하게 실행된다.</p>
 </li>
 <li>
-<p>레디스는 싱글 리액터, 싱글 쓰레드 기반의 리액터 패턴을 사용한 시스템이다.</p>
+<p>레디스는 인 메모리 데이터베이스로, 데이터 스토리지가 가지는 계층 구조 덕분에 더 빠른 읽기 / 쓰기 성능을 가질 수 있었다.</p>
 </li>
 </ul>
 </div><div class="post-footer" id="post-footer">
