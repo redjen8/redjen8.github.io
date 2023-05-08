@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 05 May 2023 21:54:21 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 08 May 2023 21:59:09 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Elasticsearch Aggregation의 extended_bounds</title>
+    <link>http://redjen8.github.io/posts/may2023/elasticsearch-aggregation-extended-bounds/</link>
+    <pubDate>Mon, 08 May 2023 21:59:09 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/elasticsearch-aggregation-extended-bounds/</guid>
+    <description><![CDATA[ES의 aggregation은 기본적으로 aggregation 결과 중 데이터 버킷 count가 0이 아닌 녀석들만 리턴해준다. 그런데 만약 차트 등을 그리기 위해서 값이 0인 구간]]></description>
+</item>
+<item>
     <title>Redis는 어떻게 이렇게 빠를까</title>
     <link>http://redjen8.github.io/posts/may2023/redis%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B9%A0%EB%A5%BC%EA%B9%8C/</link>
     <pubDate>Fri, 05 May 2023 21:54:21 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/java-enum%EC%9D%80-%EC%96%B8%EC%A0%9C-%EC%8D%A8%EC%95%BC%ED%95%A0%EA%B9%8C/</guid>
     <description><![CDATA[많은 사람들이 enum 자체가 안티 패턴이고 사용을 신중하게 해야 한다고 말한다. 대부분의 경우에서는 enum은 종종 무분별하게 사용되기 떄문에 마치 사용을 지양해야 하]]></description>
-</item>
-<item>
-    <title>Data Consistency vs Integrity</title>
-    <link>http://redjen8.github.io/posts/apr2023/data-consistency-vs-integrity/</link>
-    <pubDate>Sun, 23 Apr 2023 21:39:38 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/data-consistency-vs-integrity/</guid>
-    <description><![CDATA[데이터 정합성에 대한 이야기는 많이 들어서 잘 알고 있다고 생각하고 있었다. 데이터 정합성은 데이터 무결성과는 어떻게 다를까? 헷갈리는 용어를 좀 정리해봤다. https://www.scaler.com/topics/data-consistency-in-dbms/ 데]]></description>
 </item>
 </channel>
 </rss>
