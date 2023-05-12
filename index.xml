@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 10 May 2023 21:56:55 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 12 May 2023 22:18:08 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Webclient Warmup과 blocking call</title>
+    <link>http://redjen8.github.io/posts/may2023/webclient-warmup%EA%B3%BC-blocking-call/</link>
+    <pubDate>Fri, 12 May 2023 22:18:08 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/webclient-warmup%EA%B3%BC-blocking-call/</guid>
+    <description><![CDATA[스프링을 사용해서 Http 요청을 할 때에는 이제 WebClient를 사용하는 것이 거의 표준이 되었다. 그런데, Spring Webflux 기반의 어플리케이션에서 WebClient를]]></description>
+</item>
+<item>
     <title>Spring Date Param Handling</title>
     <link>http://redjen8.github.io/posts/may2023/spring-date-param-handling/</link>
     <pubDate>Wed, 10 May 2023 21:56:55 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/angular-routermodule-directive-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
     <description><![CDATA[앵귤러 개발을 하던 중 앵귤러 라우터 관련하여 궁금한 점이 생겼다. component, loadChildren, redirectTo 는 어떻게 다를까? component component 속성은 컴포넌트로 직접 이동할 수 있는 링크 path를 제공한다. 단]]></description>
-</item>
-<item>
-    <title>빠른 웹사이트 로딩을 위한 최적화 기술</title>
-    <link>http://redjen8.github.io/posts/apr2023/%EB%B9%A0%EB%A5%B8-%EC%9B%B9%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A1%9C%EB%94%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EC%88%A0/</link>
-    <pubDate>Tue, 25 Apr 2023 20:04:16 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/%EB%B9%A0%EB%A5%B8-%EC%9B%B9%EC%82%AC%EC%9D%B4%ED%8A%B8-%EB%A1%9C%EB%94%A9%EC%9D%84-%EC%9C%84%ED%95%9C-%EC%B5%9C%EC%A0%81%ED%99%94-%EA%B8%B0%EC%88%A0/</guid>
-    <description><![CDATA[웹 서핑을 하면서 이 사이트 괜찮은데? 하고 느껴지는 여러 웹 사이트들은 어떻게 해서 사용자들을 만족시킬 수 있었을까? 빠르고, 반응성 있고, 사용자 친화적인 웹사이]]></description>
 </item>
 </channel>
 </rss>
