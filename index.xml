@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 12 May 2023 22:18:08 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 14 May 2023 20:54:03 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Javascript Math Min Max의 동작</title>
+    <link>http://redjen8.github.io/posts/may2023/javascript-math-min-max%EC%9D%98-%EB%8F%99%EC%9E%91/</link>
+    <pubDate>Sun, 14 May 2023 20:54:03 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/javascript-math-min-max%EC%9D%98-%EB%8F%99%EC%9E%91/</guid>
+    <description><![CDATA[자바스크립트의 내부 동작은 언뜻 보았을 때 잘 이해가 되지 않는 부분들이 많이 있는 것 같다. 오늘은 그 중 하나라고 생각되는, Math.min()과 Math.ma]]></description>
+</item>
+<item>
     <title>Webclient Warmup과 blocking call</title>
     <link>http://redjen8.github.io/posts/may2023/webclient-warmup%EA%B3%BC-blocking-call/</link>
     <pubDate>Fri, 12 May 2023 22:18:08 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/typescript-type-class-interface-%EB%B9%84%EA%B5%90/</guid>
     <description><![CDATA[Typescript를 사용하다 보니 interface와 type의 차이점이 헷갈리게 되었다. 또 이것들은 class 와는 어떻게 다를까? https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces Type Aliases 우리는 Object 타입과 union]]></description>
-</item>
-<item>
-    <title>Angular Routermodule Directive 차이점</title>
-    <link>http://redjen8.github.io/posts/apr2023/angular-routermodule-directive-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
-    <pubDate>Fri, 28 Apr 2023 18:57:19 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/angular-routermodule-directive-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
-    <description><![CDATA[앵귤러 개발을 하던 중 앵귤러 라우터 관련하여 궁금한 점이 생겼다. component, loadChildren, redirectTo 는 어떻게 다를까? component component 속성은 컴포넌트로 직접 이동할 수 있는 링크 path를 제공한다. 단]]></description>
 </item>
 </channel>
 </rss>
