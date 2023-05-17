@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 14 May 2023 20:54:03 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 17 May 2023 21:47:08 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Service Worker의 이해</title>
+    <link>http://redjen8.github.io/posts/may2023/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4/</link>
+    <pubDate>Wed, 17 May 2023 21:47:08 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4/</guid>
+    <description><![CDATA[개요 https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API 서비스 워커는 웹 애플리케이션, 브라우저, 네트워크 사이 프록시 서버 역할을 수행한다. 서비스 워커의 개발 의도는 여러 가지가 있지만, 그 중에서도 효과적인]]></description>
+</item>
+<item>
     <title>Javascript Math Min Max의 동작</title>
     <link>http://redjen8.github.io/posts/may2023/javascript-math-min-max%EC%9D%98-%EB%8F%99%EC%9E%91/</link>
     <pubDate>Sun, 14 May 2023 20:54:03 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/apr2023/typescript-mapped-types/</guid>
     <description><![CDATA[타입스크립트에서 제공하는 타입을 사용하다 보면 계속해서 사용되는 타입 자체를 공통화 하고 싶은 경우가 생긴다. 이럴 때 사용하는 것이 Mapped Type이라던데, 맵드 타]]></description>
-</item>
-<item>
-    <title>Typescript Type Class Interface 비교</title>
-    <link>http://redjen8.github.io/posts/apr2023/typescript-type-class-interface-%EB%B9%84%EA%B5%90/</link>
-    <pubDate>Sat, 29 Apr 2023 21:13:34 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/typescript-type-class-interface-%EB%B9%84%EA%B5%90/</guid>
-    <description><![CDATA[Typescript를 사용하다 보니 interface와 type의 차이점이 헷갈리게 되었다. 또 이것들은 class 와는 어떻게 다를까? https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces Type Aliases 우리는 Object 타입과 union]]></description>
 </item>
 </channel>
 </rss>
