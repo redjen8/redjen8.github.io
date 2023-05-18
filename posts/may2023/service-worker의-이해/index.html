@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/redjen8.github.io\/posts\/may2023\/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4\/"
-        },"genre": "posts","wordcount":  2658 ,
+        },"genre": "posts","wordcount":  2990 ,
         "url": "http:\/\/redjen8.github.io\/posts\/may2023\/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4\/","datePublished": "2023-05-17T21:47:08+09:00","dateModified": "2023-05-17T21:47:08+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
@@ -69,7 +69,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Service Worker의 이해</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-17">2023-05-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2658 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-17">2023-05-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2990 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -100,6 +100,7 @@
         <li><a href="#6-푸시-이벤트">6. 푸시 이벤트</a></li>
       </ul>
     </li>
+    <li><a href="#서비스-워커의-보안">서비스 워커의 보안</a></li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="개요">개요</h2>
@@ -262,6 +263,18 @@
 </span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">false</span>
 </span></span><span style="display:flex;"><span>);
 </span></span></code></pre></div><p>상기 예제는 간단한 JSON 데이터를 파싱해서 메시지에 따른 동작을 사전 정의한다.</p>
+<h2 id="서비스-워커의-보안">서비스 워커의 보안</h2>
+<p><a href="https://chromium.googlesource.com/chromium/src/&#43;/main/docs/security/service-worker-security-faq.md" target="_blank" rel="noopener noreffer ">https://chromium.googlesource.com/chromium/src/+/main/docs/security/service-worker-security-faq.md</a></p>
+<p>서비스 워커는 기존 웹 애플리케이션의 한계를 넘어 더 강력한 기능을 사용할 수 있도록 한다.</p>
+<p>그렇기 때문에 개발자가 더 많은 책임을 가지고 개발해야 한다는 단점도 분명 존재한다.
+서비스 워커는 마냥 위험하기만 한 물건일까??</p>
+<ul>
+<li>서비스 워커는 격리된 환경에서 돌아간다. DOM에 접근할 수 없을 뿐만 아니라 샌드박스 환경에서 실행됩</li>
+<li>서비스 워커는 영원히 동작하지도 않는다. 최대 24시간마다 HTTP 캐시가 재검증되기도 하고, 브라우저에서 동작하는 모든 서비스 워커의 쓰레드를 언제라도 종료할 수 있다. (크롬의 경우 30초 이상 유휴 상태인 서비스 워커를 종료시킨다)</li>
+<li>xss 취약점이 있는 사이트의 경우 공격자가 서비스 워커를 등록하여 임의의 스크립트를 실행시킬 수 있기 때문에 (!)
+clear-site-data와 같은 전략들을 사용한 서비스 워커를 개발해야 한다.
+(<a href="https://www.w3.org/TR/clear-site-data/" target="_blank" rel="noopener noreffer ">https://www.w3.org/TR/clear-site-data/</a>)</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
