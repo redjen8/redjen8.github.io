@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 17 May 2023 21:47:08 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 19 May 2023 16:05:02 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Angular View Encapsulation</title>
+    <link>http://redjen8.github.io/posts/may2023/angular-view-encapsulation/</link>
+    <pubDate>Fri, 19 May 2023 16:05:02 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/angular-view-encapsulation/</guid>
+    <description><![CDATA[앵귤러를 사용한 FE 개발을 하다가 도저히 컴포넌트에 먹인 scss 적용이 잘 되지 않아서 구글링을 열심히 했다. 그러다 나온 것이 바로 뷰 캡슐화 개념이다..! 이에 대해 알아]]></description>
+</item>
+<item>
     <title>Service Worker의 이해</title>
     <link>http://redjen8.github.io/posts/may2023/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4/</link>
     <pubDate>Wed, 17 May 2023 21:47:08 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/typescript-keyof-operator/</guid>
     <description><![CDATA[타입스크립트의 keyof 연산자는 무엇이고 언제, 어떻게 사용할 수 있을까? https://www.typescriptlang.org/docs/handbook/2/keyof-types.html keyof 연산자 keyof 연산자는 객체 타입을 입력 받아 &lsquo;객체의 키의 문자열이나 숫자 리터]]></description>
-</item>
-<item>
-    <title>Typescript Mapped Type</title>
-    <link>http://redjen8.github.io/posts/apr2023/typescript-mapped-types/</link>
-    <pubDate>Sun, 30 Apr 2023 13:28:37 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/apr2023/typescript-mapped-types/</guid>
-    <description><![CDATA[타입스크립트에서 제공하는 타입을 사용하다 보면 계속해서 사용되는 타입 자체를 공통화 하고 싶은 경우가 생긴다. 이럴 때 사용하는 것이 Mapped Type이라던데, 맵드 타]]></description>
 </item>
 </channel>
 </rss>
