@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 19 May 2023 16:05:02 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 20 May 2023 16:37:10 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Log Based vs Queue Based Message Brokers</title>
+    <link>http://redjen8.github.io/posts/may2023/log-based-vs-queue-based-message-brokers/</link>
+    <pubDate>Sat, 20 May 2023 16:37:10 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/log-based-vs-queue-based-message-brokers/</guid>
+    <description><![CDATA[대규모의 웹 애플리케이션을 MSA로 구성하는 예시에서 이제 메시지 브로커를 빼 놓고 이야기 하기는 섭섭한 존재가 되었다. 메시지 브로커의 종류와 그에 따른 특징을 한]]></description>
+</item>
+<item>
     <title>Angular View Encapsulation</title>
     <link>http://redjen8.github.io/posts/may2023/angular-view-encapsulation/</link>
     <pubDate>Fri, 19 May 2023 16:05:02 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/e2e-test/</guid>
     <description><![CDATA[e2e 테스트라는 용어를 처음 접하게 되었는데, 나는 해당 용어를 접해본 적이 없어서 맥락 이해에 시간이 걸렸던 경험을 했다. e2e 테스트란 무엇이고, 어떻게 해야 하는 것일]]></description>
-</item>
-<item>
-    <title>Typescript Keyof Operator</title>
-    <link>http://redjen8.github.io/posts/may2023/typescript-keyof-operator/</link>
-    <pubDate>Mon, 01 May 2023 20:49:52 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/typescript-keyof-operator/</guid>
-    <description><![CDATA[타입스크립트의 keyof 연산자는 무엇이고 언제, 어떻게 사용할 수 있을까? https://www.typescriptlang.org/docs/handbook/2/keyof-types.html keyof 연산자 keyof 연산자는 객체 타입을 입력 받아 &lsquo;객체의 키의 문자열이나 숫자 리터]]></description>
 </item>
 </channel>
 </rss>
