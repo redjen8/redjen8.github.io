@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 20 May 2023 16:37:10 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 22 May 2023 23:24:26 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Shadow Dom이란 무엇일까</title>
+    <link>http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/</link>
+    <pubDate>Mon, 22 May 2023 23:24:26 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/</guid>
+    <description><![CDATA[뷰 캡슐화를 위해 꼭 필요한 개념 중 하나인 shadow DOM은 무엇일까? https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM 목적 웹 컴포넌트의 가장 중요한 측면은 캡슐화이다. 캡슐화를 통해 마크업 구조, 스타일, 동작을 숨]]></description>
+</item>
+<item>
     <title>Log Based vs Queue Based Message Brokers</title>
     <link>http://redjen8.github.io/posts/may2023/log-based-vs-queue-based-message-brokers/</link>
     <pubDate>Sat, 20 May 2023 16:37:10 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/ng-container%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
     <description><![CDATA[FE 개발을 하다 보니 &lt;ng-container&gt; 요 녀석을 만나게 되었다. ng-container는 어떤 엘리먼트이고, 언제, 어떻게 사용해야 할까? https://angular.io/api/core/ng-container#description ng-container &lt;ng-container&gt; 는 별도의 element 추가 없이 structural di]]></description>
-</item>
-<item>
-    <title>E2E Test</title>
-    <link>http://redjen8.github.io/posts/may2023/e2e-test/</link>
-    <pubDate>Tue, 02 May 2023 22:09:41 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/e2e-test/</guid>
-    <description><![CDATA[e2e 테스트라는 용어를 처음 접하게 되었는데, 나는 해당 용어를 접해본 적이 없어서 맥락 이해에 시간이 걸렸던 경험을 했다. e2e 테스트란 무엇이고, 어떻게 해야 하는 것일]]></description>
 </item>
 </channel>
 </rss>

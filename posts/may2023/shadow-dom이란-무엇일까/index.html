@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Shadow Dom이란 무엇일까 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="Shadow Dom이란 무엇일까" />
+<meta property="og:description" content="뷰 캡슐화를 위해 꼭 필요한 개념 중 하나인 shadow DOM은 무엇일까? https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM 목적 웹 컴포넌트의 가장 중요한 측면은 캡슐화이다. 캡슐화를 통해 마크업 구조, 스타일, 동작을 숨" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-05-22T23:24:26+09:00" />
+<meta property="article:modified_time" content="2023-05-22T23:24:26+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Shadow Dom이란 무엇일까"/>
+<meta name="twitter:description" content="뷰 캡슐화를 위해 꼭 필요한 개념 중 하나인 shadow DOM은 무엇일까? https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM 목적 웹 컴포넌트의 가장 중요한 측면은 캡슐화이다. 캡슐화를 통해 마크업 구조, 스타일, 동작을 숨"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/" /><link rel="prev" href="http://redjen8.github.io/posts/may2023/log-based-vs-queue-based-message-brokers/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Shadow Dom이란 무엇일까",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/may2023\/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C\/"
+        },"genre": "posts","wordcount":  1378 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/may2023\/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C\/","datePublished": "2023-05-22T23:24:26+09:00","dateModified": "2023-05-22T23:24:26+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Shadow Dom이란 무엇일까</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-22">2023-05-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1378 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#목적">목적</a></li>
+    <li><a href="#핵심">핵심</a></li>
+    <li><a href="#용어-정리">용어 정리</a></li>
+    <li><a href="#특징">특징</a>
+      <ul>
+        <li><a href="#일반-dom-트리와-똑같아요">일반 DOM 트리와 똑같아요</a></li>
+        <li><a href="#일반-dom-트리와는-이게-조금-달라요">일반 DOM 트리와는 이게 조금 달라요</a></li>
+        <li><a href="#흔하게-접할-수-있는-예시로는">흔하게 접할 수 있는 예시로는?</a></li>
+      </ul>
+    </li>
+    <li><a href="#shadow-dom-맛보기">shadow DOM 맛보기</a>
+      <ul>
+        <li><a href="#mode-open일-경우의-shadow-dom">mode: open일 경우의 shadow DOM</a></li>
+        <li><a href="#mode-closed-일-경우의-shadow-dom">mode: closed 일 경우의 shadow DOM</a></li>
+        <li><a href="#외부에서-closed-mode의-shadow-dom-접근하기">외부에서 closed mode의 shadow DOM 접근하기</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>뷰 캡슐화를 위해 꼭 필요한 개념 중 하나인 shadow DOM은 무엇일까?</p>
+<p><a href="https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM</a></p>
+<h2 id="목적">목적</h2>
+<p>웹 컴포넌트의 가장 중요한 측면은 캡슐화이다.
+캡슐화를 통해 마크업 구조, 스타일, 동작을 숨기고 페이지의 다른 코드와 분리하여 서로 다른 컴포넌트와 충돌하는 일이 없도록 하고, 클린한 코드를 유지할 수 있다.</p>
+<blockquote>
+<p>Shadow DOM API는 캡슐화의 핵심 파트이고, &lsquo;숨겨진, 분리된&rsquo; 각각의 DOM을 요소에 부착하는 방법을 제공한다.</p>
+</blockquote>
+<h2 id="핵심">핵심</h2>
+<p>shadow DOM은 숨겨진 DOM 트리가 통상적인 DOM 트리에 속한 요소에 부착될 수 있도록 한다.</p>
+<ul>
+<li>shadow DOM 트리는 shadow root로부터 시작한다.</li>
+<li>shadow DOM 트리는 원하는 모든 element 안에 부착할 수 있다.</li>
+<li>shadow DOM 트리를 부착하는 방법은 일반 DOM을 부탁하는 방법과 동일하다.</li>
+</ul>
+<p><a href="https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM/shadowdom.svg" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM/shadowdom.svg</a></p>
+<h2 id="용어-정리">용어 정리</h2>
+<ul>
+<li>shadow host : shadow DOM이 부착되는 DOM 노드</li>
+<li>shadow tree : shadow DOM 내부의 DOM 트리</li>
+<li>shadow boundary : shadow DOM이 끝나고, 우리가 아는 통상적인 DOM이 시작되는 경계</li>
+<li>shadow root : shadow 트리의 root 노드</li>
+</ul>
+<h2 id="특징">특징</h2>
+<h3 id="일반-dom-트리와-똑같아요">일반 DOM 트리와 똑같아요</h3>
+<p>shadow DOM 노드에 대해, shadow가 아닌 DOM 트리의 노드에 가할 수 있는 똑같은 작업을 수행할 수 있다.</p>
+<ul>
+<li>append children</li>
+<li>property set</li>
+<li><code>element.style</code> 정의를 통한 노드 꾸미기</li>
+<li><code>&lt;style&gt;</code> 엘리먼트 내부에 있는 전체 shadow DOM 트리에 스타일 추가</li>
+</ul>
+<h3 id="일반-dom-트리와는-이게-조금-달라요">일반 DOM 트리와는 이게 조금 달라요</h3>
+<p>shadow DOM 내부의 코드 중 어떤 것도 shadow DOM 외부의 모든 것에 영향을 줄 수는 없다.</p>
+<p>즉 shadow DOM을 최소 단위의 컴포넌트로 구성하게 되면 캡슐화를 편리하게 달성할 수 있다.</p>
+<h3 id="흔하게-접할-수-있는-예시로는">흔하게 접할 수 있는 예시로는?</h3>
+<p><code>&lt;video&gt;</code> 태그를 생각해보자.</p>
+<p>DOM 내부에서 보이는 모든 것은 <code>&lt;video&gt;</code> 엘리먼트이지만,</p>
+<ul>
+<li>일련의 버튼들과는 완전히 다른 컨트롤 패널을 가진다.</li>
+<li>그리고 이 패널의 조작은 shadow DOM 내부에 포함되어 있다.</li>
+</ul>
+<p>shadow DOM spec은 아주 잘 정의되어 있기 때문에, 사용자 커스텀의 shadow DOM을 조작할 수 있다.</p>
+<h2 id="shadow-dom-맛보기">shadow DOM 맛보기</h2>
+<p><code>Element.attachShadow()</code>를 통해서 <code>document</code>의 어떤 엘리먼트에라도 shadow root를 붙일 후 있다.</p>
+<p><code>attachShadow()</code>는 인자로 <code>mode</code>라는 하나의 옵션을 받는데,</p>
+<ul>
+<li><code>mode: open</code></li>
+<li><code>mode: closed</code> 의 값을 가질 수 있다.</li>
+</ul>
+<h3 id="mode-open일-경우의-shadow-dom">mode: open일 경우의 shadow DOM</h3>
+<p>open mode의 shadow DOM은 shadow DOM 외부에서 자바스크립트를 사용하여 shadow DOM에 접근할 수 있다.</p>
+<p><code>someElementRef.shadowRoot</code> 와 같이 <code>shadowRoot</code> 속성을 통해 접근할 수 있는 것이다.</p>
+<h3 id="mode-closed-일-경우의-shadow-dom">mode: closed 일 경우의 shadow DOM</h3>
+<p>closed mode의 shadow DOM은 (명세 상으로는) 외부로부터 shadow DOM에 접근할 수 없다.</p>
+<p><code>someElementRef.shadowRoot</code>는 null을 반환한다.</p>
+<blockquote>
+<p>하지만 closed mode의 shadow DOM을 외부에서 우회 접근하는 것은 그리 어렵지는 않다..</p>
+</blockquote>
+<h3 id="외부에서-closed-mode의-shadow-dom-접근하기">외부에서 closed mode의 shadow DOM 접근하기</h3>
+<p><a href="https://blog.revillweb.com/open-vs-closed-shadow-dom-9f3d7427d1af" target="_blank" rel="noopener noreffer ">https://blog.revillweb.com/open-vs-closed-shadow-dom-9f3d7427d1af</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyWebComponent</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">constructor</span>() {  
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>();  
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">**</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_root</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">attachShadow</span>({ <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;closed&#34;</span> });<span style="color:#f92672">**</span>  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">connectedCallback</span>() {  
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">**</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_root</span><span style="color:#f92672">**</span>.<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;p&gt;I&#39;m in the closed Shadow Root!&lt;/p&gt;  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        `</span>;  
+</span></span><span style="display:flex;"><span>    }  
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#34;my-web-component&#34;</span>, <span style="color:#a6e22e">MyWebComponent</span>);
+</span></span></code></pre></div><p>위와 같은 예시에서..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">$myWebComponent</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;my-web-component&#34;</span>);  
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">$myWebComponent</span>.<span style="color:#a6e22e">shadowRoot</span> <span style="color:#75715e">// null  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">$myWebComponent</span>.<span style="color:#a6e22e">_root</span> <span style="color:#75715e">// shadow-root (closed)
+</span></span></span></code></pre></div><p>위와 같이 접근하게 되면 shadow root에 대한 ref를 대신 커스텀하게 가짐으로써 마치 open mode인 shadow DOM을 가진 것처럼 조작할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">$myWebComponent</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;my-web-component&#34;</span>);  
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">$myWebComponent</span>.<span style="color:#a6e22e">_root</span>.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;p&#34;</span>).<span style="color:#a6e22e">innerText</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Modified!&#34;</span>;
+</span></span></code></pre></div><p>이런 방식의 접근을 막기 위해서 <code>WeakMap</code>을 사용해 저장한 ref를 잃게 만드는 방식으로 shadow root를 저장하는 것을 막을 수는 있긴 한데,,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span>(){  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">_shadows</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">WeakMap</span>();
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MyWebComponent</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">HTMLElement</span> {  
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">constructor</span>() {  
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">super</span>();  
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">_shadows</span>.<span style="color:#a6e22e">set</span>(<span style="color:#66d9ef">this</span>, <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">attachShadow</span>({ <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;closed&#34;</span> }));  
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		 
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">connectedCallback</span>() {  
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">_shadows</span>.<span style="color:#a6e22e">get</span>(<span style="color:#66d9ef">this</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`&lt;p&gt;I&#39;m in the closed Shadow Root&lt;/p&gt;`</span>;  
+</span></span><span style="display:flex;"><span>		}  
+</span></span><span style="display:flex;"><span>	}  
+</span></span><span style="display:flex;"><span>  
+</span></span><span style="display:flex;"><span>	window.<span style="color:#a6e22e">customElements</span>.<span style="color:#a6e22e">define</span>(<span style="color:#e6db74">&#34;my-web-component&#34;</span>, <span style="color:#a6e22e">MyWebComponent</span>);  
+</span></span><span style="display:flex;"><span>})();
+</span></span></code></pre></div><p>아래와 같이 ref를 따로 저장하지 않고 객체의 prototype 속성을 재정의함으로써 shadow root 접근을 open mode로 접근하게 할 수도 있다. (즉 근본적으로 막기는 매우 힘들다)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">_attachShadow</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">attachShadow</span>;  
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">Element</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">attachShadow</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {  
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">_attachShadow</span>( { <span style="color:#a6e22e">mode</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;open&#34;</span> } );  
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>위 코드는 <code>attachShadow</code> 네이티브 메서드를 재정의함으로써 모든 <code>attachShadow</code> 메서드를 open mode로써 만들어버리게 한다.. ㅋㅋ</p>
+<p>기본적으로는 shadow DOM을 closed mode로 생성해 놓고, 다시 외부에서 접근할 일이 생긴다면 위와 같은 방법을 사용해서 내부 DOM 트리에 접근할 수 있을 것 같다.</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-05-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/" data-title="Shadow Dom이란 무엇일까"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/" data-title="Shadow Dom이란 무엇일까"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/" data-title="Shadow Dom이란 무엇일까"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/may2023/log-based-vs-queue-based-message-brokers/" class="prev" rel="prev" title="Log Based vs Queue Based Message Brokers"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Log Based vs Queue Based Message Brokers</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
