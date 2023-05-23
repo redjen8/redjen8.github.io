@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 22 May 2023 23:24:26 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 23 May 2023 22:07:21 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>리액티브 시스템에서의 카프카</title>
+    <link>http://redjen8.github.io/posts/may2023/%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90%EC%84%9C%EC%9D%98-%EC%B9%B4%ED%94%84%EC%B9%B4/</link>
+    <pubDate>Tue, 23 May 2023 22:07:21 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90%EC%84%9C%EC%9D%98-%EC%B9%B4%ED%94%84%EC%B9%B4/</guid>
+    <description><![CDATA[https://developer.ibm.com/articles/kafka-fit-reactive-system/ 위 아티클을 읽고 내용 정리.. 비동기 메시징 백본으로써의 카프카 다른 리액티브 애플리케이션들의 성능에 영향을 미치는 가장 중요한 기저는 통신에 있어서 비동기적]]></description>
+</item>
+<item>
     <title>Shadow Dom이란 무엇일까</title>
     <link>http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/</link>
     <pubDate>Mon, 22 May 2023 23:24:26 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/redis%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%9D%B4%EB%A0%87%EA%B2%8C-%EB%B9%A0%EB%A5%BC%EA%B9%8C/</guid>
     <description><![CDATA[평소와 같이 medium을 탐방하던 중 재미있는 내용이 있어 공유해보고자 한다. https://medium.com/@iorilan/it-is-fast-may-not-be-a-good-answer-to-discuss-redis-during-an-interview-and-here-is-a-better-one-5bb3bc3cd37f 그동안 레디스, 레디스 하면서 사용 해왔었던 나이지만, 정작 왜 레디스가 빠른지]]></description>
-</item>
-<item>
-    <title>Ng Container에 대해</title>
-    <link>http://redjen8.github.io/posts/may2023/ng-container%EC%97%90-%EB%8C%80%ED%95%B4/</link>
-    <pubDate>Wed, 03 May 2023 21:14:12 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/ng-container%EC%97%90-%EB%8C%80%ED%95%B4/</guid>
-    <description><![CDATA[FE 개발을 하다 보니 &lt;ng-container&gt; 요 녀석을 만나게 되었다. ng-container는 어떤 엘리먼트이고, 언제, 어떻게 사용해야 할까? https://angular.io/api/core/ng-container#description ng-container &lt;ng-container&gt; 는 별도의 element 추가 없이 structural di]]></description>
 </item>
 </channel>
 </rss>
