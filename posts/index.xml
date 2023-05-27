@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 24 May 2023 19:35:34 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 27 May 2023 13:31:31 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Angular Template Syntax</title>
+    <link>http://redjen8.github.io/posts/may2023/angular-template-syntax/</link>
+    <pubDate>Sat, 27 May 2023 13:31:31 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/angular-template-syntax/</guid>
+    <description><![CDATA[앵귤러에서는 HTML의 덩어리로써 템플릿을 사용한다. 그리고 앵귤러는 템플릿 안에서 사용할 수 있는 여러 기능들을 특별한 문법을 통해 지원한다. 이를 템플릿 문법]]></description>
+</item>
+<item>
     <title>Code Coverage</title>
     <link>http://redjen8.github.io/posts/may2023/code-coverage/</link>
     <pubDate>Wed, 24 May 2023 19:35:34 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/spring-date-param-handling/</guid>
     <description><![CDATA[스프링 컨트롤러 레벨에서 @RequestParam으로 날짜 객체를 파라미터로 입력 받고 싶었다. 단순히 스프링은 똑똑하니까~ 아래와 같이 설정해주면 부드럽]]></description>
-</item>
-<item>
-    <title>Elasticsearch Aggregation의 extended_bounds</title>
-    <link>http://redjen8.github.io/posts/may2023/elasticsearch-aggregation-extended-bounds/</link>
-    <pubDate>Mon, 08 May 2023 21:59:09 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/elasticsearch-aggregation-extended-bounds/</guid>
-    <description><![CDATA[ES의 aggregation은 기본적으로 aggregation 결과 중 데이터 버킷 count가 0이 아닌 녀석들만 리턴해준다. 그런데 만약 차트 등을 그리기 위해서 값이 0인 구간]]></description>
 </item>
 </channel>
 </rss>
