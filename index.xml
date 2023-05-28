@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 27 May 2023 13:31:31 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sun, 28 May 2023 21:30:00 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Markup Markdown의 차이점</title>
+    <link>http://redjen8.github.io/posts/may2023/markup-markdown%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
+    <pubDate>Sun, 28 May 2023 21:30:00 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/markup-markdown%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
+    <description><![CDATA[개발을 하면서 노션, 깃허브 등에서 흔히 사용하는 마크다운 문법이라는게 존재한다. 반면 FE 개발 시에 마크업 개발이라는 용어도 접할 수 있었다. 두 단어는 어떻게 다르]]></description>
+</item>
+<item>
     <title>Angular Template Syntax</title>
     <link>http://redjen8.github.io/posts/may2023/angular-template-syntax/</link>
     <pubDate>Sat, 27 May 2023 13:31:31 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/webclient-warmup%EA%B3%BC-blocking-call/</guid>
     <description><![CDATA[스프링을 사용해서 Http 요청을 할 때에는 이제 WebClient를 사용하는 것이 거의 표준이 되었다. 그런데, Spring Webflux 기반의 어플리케이션에서 WebClient를]]></description>
-</item>
-<item>
-    <title>Spring Date Param Handling</title>
-    <link>http://redjen8.github.io/posts/may2023/spring-date-param-handling/</link>
-    <pubDate>Wed, 10 May 2023 21:56:55 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/spring-date-param-handling/</guid>
-    <description><![CDATA[스프링 컨트롤러 레벨에서 @RequestParam으로 날짜 객체를 파라미터로 입력 받고 싶었다. 단순히 스프링은 똑똑하니까~ 아래와 같이 설정해주면 부드럽]]></description>
 </item>
 </channel>
 </rss>
