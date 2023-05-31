@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 29 May 2023 20:06:15 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 31 May 2023 19:14:25 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Xss의 종류와 대응방법</title>
+    <link>http://redjen8.github.io/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/</link>
+    <pubDate>Wed, 31 May 2023 19:14:25 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/</guid>
+    <description><![CDATA[XSS는 가장 오래되었지만 또 현재에도 가장 간단하게 웹 어플리케이션에 가해질 수 있는 공격 기법 중 하나이다. 고등학생 때에도 XSS 실습을 해봤었지만, 현재에도 여전]]></description>
+</item>
+<item>
     <title>Java Optional orElseGet</title>
     <link>http://redjen8.github.io/posts/may2023/java-optional-orelseget/</link>
     <pubDate>Mon, 29 May 2023 20:06:15 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4/</guid>
     <description><![CDATA[개요 https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API 서비스 워커는 웹 애플리케이션, 브라우저, 네트워크 사이 프록시 서버 역할을 수행한다. 서비스 워커의 개발 의도는 여러 가지가 있지만, 그 중에서도 효과적인]]></description>
-</item>
-<item>
-    <title>Javascript Math Min Max의 동작</title>
-    <link>http://redjen8.github.io/posts/may2023/javascript-math-min-max%EC%9D%98-%EB%8F%99%EC%9E%91/</link>
-    <pubDate>Sun, 14 May 2023 20:54:03 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/javascript-math-min-max%EC%9D%98-%EB%8F%99%EC%9E%91/</guid>
-    <description><![CDATA[자바스크립트의 내부 동작은 언뜻 보았을 때 잘 이해가 되지 않는 부분들이 많이 있는 것 같다. 오늘은 그 중 하나라고 생각되는, Math.min()과 Math.ma]]></description>
 </item>
 </channel>
 </rss>
