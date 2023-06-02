@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/redjen8.github.io\/posts\/may2023\/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95\/"
-        },"genre": "posts","wordcount":  3762 ,
+        },"genre": "posts","wordcount":  3865 ,
         "url": "http:\/\/redjen8.github.io\/posts\/may2023\/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95\/","datePublished": "2023-05-31T19:14:25+09:00","dateModified": "2023-05-31T19:14:25+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
@@ -69,7 +69,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Xss의 종류와 대응방법</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-31">2023-05-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3762 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-05-31">2023-05-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3865 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;8 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -88,7 +88,7 @@
     <li><a href="#dom-based-xss">DOM based XSS</a></li>
     <li><a href="#xss를-막아보자">XSS를 막아보자</a>
       <ul>
-        <li><a href="#based-xss를-방어하려면-어떻게-해야-할까">Based XSS를 방어하려면 어떻게 해야 할까?</a></li>
+        <li><a href="#dom-based-xss를-방어하려면-어떻게-해야-할까">DOM Based XSS를 방어하려면 어떻게 해야 할까?</a></li>
       </ul>
     </li>
     <li><a href="#요약해보자">요약해보자</a></li>
@@ -102,8 +102,8 @@
 <p>XSS는 인젝션 공격 중 하나로, 악의적인 스크립트가 상대적으로 신뢰성 있는 웹 사이트들에서 실행되어 웹 서비스를 정상적으로 사용하는 다른 사용자들이 공격자가 심어놓은 악의적인 스크립트를 실행하게 되는 공격이다.</p>
 <ul>
 <li>때문에 공격자는 다수의 익명의 사용자를 대상으로 공격을 실행할 수 있다.</li>
-<li>피해자는 스크립트가 실행되는지 자체를 눈치 못챌 수 있다. (상대적으로 익숙한 웹 사이트를 방문하므로)</li>
-<li>공격자는 피해자의 다양한 정보를 갈취할 수 있다. (쿠키, 세션, 토큰과 같은 계정 정보를 포함하는 다른 민감한 정보도 가능하다)</li>
+<li>피해자는 스크립트가 실행되는지에 대한 여부 자체를 눈치 못챌 수 있다. (상대적으로 익숙한 웹 사이트를 방문하므로)</li>
+<li>공격자는 피해자의 다양한 정보를 갈취할 수 있다. (쿠키, 세션, 토큰과 같은 계정 정보를 포함하는 다른 민감한 정보도 얼마든지 가능하다)</li>
 </ul>
 <h2 id="xss의-종류">XSS의 종류</h2>
 <p>종류에는 어떤 것들이 있을까?</p>
@@ -149,7 +149,8 @@
 </span></span></code></pre></div><p>선량한 사람들은 <code>http://somepage.com/page.html?default=English</code>와 같이 기본 언어를 설정하여 게시판을 사용한다.</p>
 <p>공격자는 피해자에게 <code>http://somepage.com/page.html?default=&lt;script&gt;alert(document.cookie&lt;/script&gt;</code>와 같은 링크를 전송하고, 피해자는 링크에 접속하였을 때 DOM Based XSS가 이뤄진다.</p>
 <p>서버에 공격이 이뤄지면 보다 탐지하기 쉽지만, DOM based XSS는 서버에 공격 여부를 전달하지 않기 위해서 꼼수를 쓸 수도 있다.</p>
-<p>URI 뒤에 <code>#</code> 프래그먼트를 붙이면 브라우저는 페이로드를 서버로 전송하지 않는다. 때문에 서버에서는 공격이 일어난 사실을 탐지할 수 없게 된다.</p>
+<p>URI 뒤에 <code>#</code> 프래그먼트를 붙이면 브라우저는 페이로드를 서버로 전송하지 않는다. 때문에 서버에서는 공격이 일어난 사실을 탐지할 수 없게 된다. 즉 Reflected XSS와 DOM Based XSS의 차이점은 서버를 거치느냐, 거치지 않느냐의 차이이다.
+공격자가 심은 스크립트가 서버를 거친다면 Reflected, 공격자가 심은 스크립트가 서버를 거치지 않고 FE 레벨에서만 실행된다면 DOM Based XSS이다.</p>
 <h2 id="xss를-막아보자">XSS를 막아보자</h2>
 <p>XSS 자체가 워낙 전통적인 공격 방법이다 보니 현대의 프레임워크 레벨에서도 막아주기도 한다. 앵귤러 컴포넌트 내부에서 <code>&lt;script&gt;</code> 태그의 삽입 자체는 불가능하다. (아마 뷰나 리액트도 비슷한 기능이 있을지도?)</p>
 <p>하지만 이런 프레임워크 레벨의 방어만 믿고 개발을 하다 보면 소홀해지는 요소가 있기 마련이다. 그 예시로는</p>
@@ -186,7 +187,7 @@
 </ol>
 </li>
 </ol>
-<h3 id="based-xss를-방어하려면-어떻게-해야-할까">Based XSS를 방어하려면 어떻게 해야 할까?</h3>
+<h3 id="dom-based-xss를-방어하려면-어떻게-해야-할까">DOM Based XSS를 방어하려면 어떻게 해야 할까?</h3>
 <h4 id="실행-컨텍스트-내에서-신뢰할-수-없는-데이터를-html-하위-컨텍스트에-삽입하기-전-html-이스케이프--자바스크립트-이스케이프-사용">실행 컨텍스트 내에서 신뢰할 수 없는 데이터를 HTML 하위 컨텍스트에 삽입하기 전 HTML 이스케이프 + 자바스크립트 이스케이프 사용</h4>
 <p>어려운 말 같지만 사실 <code>innerHTML</code>, <code>outerHTML</code> 애트리뷰트를 적용할 때나 <code>&lt;html&gt;</code> 태그를 삽입할 때 이스케이프를 하라는 말이다.</p>
 <p>나쁜 예</p>
