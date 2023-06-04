@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 31 May 2023 19:14:25 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 03 Jun 2023 23:15:15 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>z-index가 동작하지 않는 경우</title>
+    <link>http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/</link>
+    <pubDate>Sat, 03 Jun 2023 23:15:15 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/</guid>
+    <description><![CDATA[popover 등의 컴포넌트를 개발하다 보면 특정 html 엘리먼트를 다른 엘리먼트 위에 표시하고 싶을 때가 있다. 그럴 때 간편하게 사용할 수 있는 것이 css의 z-index 속성이다. z-index https://developer.mozilla.org/ko/docs/Web/CSS/z-index z-]]></description>
+</item>
+<item>
     <title>Xss의 종류와 대응방법</title>
     <link>http://redjen8.github.io/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/</link>
     <pubDate>Wed, 31 May 2023 19:14:25 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/angular-view-encapsulation/</guid>
     <description><![CDATA[앵귤러를 사용한 FE 개발을 하다가 도저히 컴포넌트에 먹인 scss 적용이 잘 되지 않아서 구글링을 열심히 했다. 그러다 나온 것이 바로 뷰 캡슐화 개념이다..! 이에 대해 알아]]></description>
-</item>
-<item>
-    <title>Service Worker의 이해</title>
-    <link>http://redjen8.github.io/posts/may2023/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4/</link>
-    <pubDate>Wed, 17 May 2023 21:47:08 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/service-worker%EC%9D%98-%EC%9D%B4%ED%95%B4/</guid>
-    <description><![CDATA[개요 https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API 서비스 워커는 웹 애플리케이션, 브라우저, 네트워크 사이 프록시 서버 역할을 수행한다. 서비스 워커의 개발 의도는 여러 가지가 있지만, 그 중에서도 효과적인]]></description>
 </item>
 </channel>
 </rss>

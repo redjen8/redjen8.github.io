@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>z-index가 동작하지 않는 경우 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="z-index가 동작하지 않는 경우" />
+<meta property="og:description" content="popover 등의 컴포넌트를 개발하다 보면 특정 html 엘리먼트를 다른 엘리먼트 위에 표시하고 싶을 때가 있다. 그럴 때 간편하게 사용할 수 있는 것이 css의 z-index 속성이다. z-index https://developer.mozilla.org/ko/docs/Web/CSS/z-index z-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-03T23:15:15+09:00" />
+<meta property="article:modified_time" content="2023-06-03T23:15:15+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="z-index가 동작하지 않는 경우"/>
+<meta name="twitter:description" content="popover 등의 컴포넌트를 개발하다 보면 특정 html 엘리먼트를 다른 엘리먼트 위에 표시하고 싶을 때가 있다. 그럴 때 간편하게 사용할 수 있는 것이 css의 z-index 속성이다. z-index https://developer.mozilla.org/ko/docs/Web/CSS/z-index z-"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/" /><link rel="prev" href="http://redjen8.github.io/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "z-index가 동작하지 않는 경우",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jun2023\/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0\/"
+        },"genre": "posts","wordcount":  1985 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jun2023\/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0\/","datePublished": "2023-06-03T23:15:15+09:00","dateModified": "2023-06-03T23:15:15+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">z-index가 동작하지 않는 경우</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-03">2023-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1985 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#z-index">z-index</a>
+      <ul>
+        <li><a href="#값-지정">값 지정</a></li>
+      </ul>
+    </li>
+    <li><a href="#z-index가-동작하지-않는-몇-가지-이유들">z-index가 동작하지 않는 몇 가지 이유들</a>
+      <ul>
+        <li><a href="#1-동일한-쌓임-맥락에-있는-요소들은-appearance-순서에-영향을-받는다">1. 동일한 쌓임 맥락에 있는 요소들은 appearance 순서에 영향을 받는다.</a></li>
+        <li><a href="#2-엘리먼트들의-position-설정-여부">2. 엘리먼트들의 position 설정 여부</a></li>
+        <li><a href="#3-opacity나-transform-적용-여부">3. opacity나 transform 적용 여부</a></li>
+        <li><a href="#4-낮은-쌓임-맥락에-있는-엘리먼트는-부모의-z-index-레벨을-따른다">4. 낮은 쌓임 맥락에 있는 엘리먼트는 부모의 z-index 레벨을 따른다</a></li>
+        <li><a href="#해결-방법-1">해결 방법</a></li>
+      </ul>
+    </li>
+    <li><a href="#요약">요약</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>popover 등의 컴포넌트를 개발하다 보면 특정 html 엘리먼트를 다른 엘리먼트 위에 표시하고 싶을 때가 있다.</p>
+<p>그럴 때 간편하게 사용할 수 있는 것이 css의 z-index 속성이다.</p>
+<h2 id="z-index">z-index</h2>
+<p><a href="https://developer.mozilla.org/ko/docs/Web/CSS/z-index" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/ko/docs/Web/CSS/z-index</a></p>
+<p>z-index를 지정함으로써 두 가지 항목을 지정할 수 있다.</p>
+<ol>
+<li>현재 쌓임 맥락에서 자신의 위치</li>
+<li>자신에 대한 쌓임 맥락 생성 여부</li>
+</ol>
+<h3 id="값-지정">값 지정</h3>
+<p>z-index 속성은 <code>auto</code> 키워드 또는 정수 값을 부여함으로써 지정할 수 있다.</p>
+<ul>
+<li><code>auto</code>로 지정할 경우, 해당 박스가 새로운 쌓임 맥락을 생성하지 않는다.
+<ul>
+<li>즉 현재 쌓임 맥락에서의 위치는 부모 엘리먼트와 동일하다 (위에 표시되지 않는다)</li>
+</ul>
+</li>
+<li>값을 정수로 지정할 경우, 현재 쌓임 맥락에서의 위치로 해당 값을 사용한다.
+<ul>
+<li>또한 자신 만의 쌓임 맥락을 생성하고, 해당 맥락에서 자신의 위치를 0으로 설정한다.</li>
+<li>이는 현재 엘리먼트의 자식 엘리먼트들의 z-index를 자신 외의 바깥 요소와 비교하여 영향을 미치는 일을 없애기 위해서이다.</li>
+</ul>
+</li>
+</ul>
+<p>보다 복잡한 쌓임 맥락에 대한 이해를 위해서는 아래 공식 문서를 참고해보면 좋다.
+<a href="https://developer.mozilla.org/ko/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/ko/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index</a></p>
+<h2 id="z-index가-동작하지-않는-몇-가지-이유들">z-index가 동작하지 않는 몇 가지 이유들</h2>
+<p><a href="https://coder-coder.com/z-index-isnt-working/" target="_blank" rel="noopener noreffer ">https://coder-coder.com/z-index-isnt-working/</a></p>
+<p>앞서 간단하게 언급만 하고 지나갔던 쌓임 맥락이 생각보다 복잡하게 동작하기 때문에, z-index를 999999와 같은 숫자로 설정한다고 항상 엘리먼트가 최상단에 위치하는 것은 아니다.</p>
+<h3 id="1-동일한-쌓임-맥락에-있는-요소들은-appearance-순서에-영향을-받는다">1. 동일한 쌓임 맥락에 있는 요소들은 appearance 순서에 영향을 받는다.</h3>
+<p>z-index 속성을 지정하지 않을 경우에는 웹 페이지의 natural한 쌓임 순서를 따른다. 즉 엘리먼트들의 z-index가 지정되지 않은 경우 엘리먼트들의 appearance 순서에 따라 쌓임 순서를 가지게 된다.</p>
+<blockquote>
+<p>마크업 상 나중에 등장하게 되는 엘리먼트들은 이전에 등장했던 엘리먼트보다 순서 상 위에 위치하게 된다.</p>
+</blockquote>
+<h3 id="2-엘리먼트들의-position-설정-여부">2. 엘리먼트들의 position 설정 여부</h3>
+<p>css position 속성이 정해져 있는지 여부에 따라 쌓임 순서가 정해지기도 한다.
+<code>static</code> position 값 보다는 <code>relative</code>, <code>absolute</code>와 같은 값으로 설정하는 것이 엘리먼트들의 위치를 고정시키기에는 더 좋다.</p>
+<blockquote>
+<p>position이 정해진 엘리먼트들은 항상 정해져 있지 않은 엘리먼트보다 더 위에 보이게 된다.</p>
+</blockquote>
+<p>때문에 하나의 엘리먼트를 <code>position: relative</code>로 설정해 놓고, 나머지 엘리먼트들은 unpositioned 상태로 두게 한다면 <code>relative</code>한 엘리먼트가 다른 엘리먼트보다 위에 보이게 된다.</p>
+<h3 id="3-opacity나-transform-적용-여부">3. opacity나 transform 적용 여부</h3>
+<p>흔히 하는 실수 중 하나가, <code>transform</code>이나 <code>opacity</code>는 단일 엘리먼트에 대한 속성이기 때문에 쌓임 순서에 영향을 미치지 않을 것이라는 것이다.</p>
+<p>하지만 <code>transform</code>이나 <code>opacity</code>를 설정하는 것은 엘리먼트들을 새로운 쌓임 맥락에 집어넣겠다는 의미와도 같다.</p>
+<p>즉 특정 엘리먼트에 <code>transform</code> 속성을 지정한다는 것은 <code>z-index</code>나 <code>position</code>을 지정하지 않았음에도 불구하고 <code>z-index</code>를 0으로 지정한다는 의미와 동일하다.</p>
+<h4 id="해결-방법">해결 방법</h4>
+<blockquote>
+<p>그렇다면 popover나 툴팁과 같은 엘리먼트들은 항상 최상단에 위치해야 할텐데, 어떻게 하면 좋을까?</p>
+</blockquote>
+<p>쌓임 맥락간의 간섭을 사전에 방지하고 올바른 <code>z-index</code> 설정을 먹이고 싶다면 최대한 동일한 컨텍스트 안에서 z-index 속성을 설정하는 것을 권고한다.</p>
+<p>만약 한 엘리먼트가 <code>position: relative</code> 속성이 설정되어 있고, 다른 엘리먼트는 unpositioned 상태에서 z-index 설정을 해야 한다면 나머지 엘리먼트들도 <code>position: relative</code> 속성을 추가해줘야 한다는 의미이다.</p>
+<h3 id="4-낮은-쌓임-맥락에-있는-엘리먼트는-부모의-z-index-레벨을-따른다">4. 낮은 쌓임 맥락에 있는 엘리먼트는 부모의 z-index 레벨을 따른다</h3>
+<p>웹 페이지 본문에서 모달 창을 띄우는데, footer나 header가 더 위로 위치하게 되어서 배경이 딤드되지 않는 경험을 겪어본 사람들이 적지는 않을 것이라 예상해본다.</p>
+<blockquote>
+<p>자식 엘리먼트들은 부모의 엘리먼트들의 쌓임 맥락에 제한 받기 때문이다.</p>
+</blockquote>
+<p>예를 들어..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">section</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;content&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;modal&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">section</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;side-tab&#34;</span>&gt;&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>위와 같은 마크업이 있다고 가정해보자.</p>
+<ul>
+<li>컨텐츠와 사이드 탭 엘리먼트들은 친척 관계이다 (depth가 동일)
+<ul>
+<li>즉 마크업 상에서 동일한 레벨에 위치해 있고, 이는 z-index level과는 다르다.</li>
+</ul>
+</li>
+<li>모달이 컨텐츠 엘리먼트 안에 위치해 있기 때문에, 모달에 적용된 z-index 속성은 부모 엘리먼트 컨텍스트 안에서만 의미 있고 content 엘리먼트에는 영향을 끼치지 않는다.
+<ul>
+<li>즉 content 다른 자식 엘리먼트들이 있었다면 모달은 그 엘리먼트 위에 보이게 된다.</li>
+<li>하지만 부모 엘리먼트 바깥에 위치한 side-tab에는 영향을 전혀 미치지 못하므로, 딤드되는 듯한 효과를 줄 수 없다 (z-index) 속성이 적용되지 않는다</li>
+</ul>
+</li>
+</ul>
+<h3 id="해결-방법-1">해결 방법</h3>
+<p>모달과 같이 컨텐츠 컨텍스트 안에서 논리적으로 가장 위에 위치해 있어야 하는 엘리먼트들은 마크업의 최상위 레벨로 이동시키면 된다.</p>
+<p>즉 z-index 레벨은 최상위 컨텍스트의 엘리먼트들끼리 비교 연산을 거치게 되고, 다른 엘리먼트들에 비해 z-index가 높다면 해당 엘리먼트는 무조건 최상위에 위치하게 된다. (올바르게 설정했다면)</p>
+<p>또 다른 해결 방법으로는, 컨텐츠에서 position 속성을 제거해서 모달의 z-index 속성을 제한하지 않도록 하는 방법도 있다.</p>
+<ul>
+<li>부모 엘리먼트의 position 속성이 지정되어 있지 않다면 자식 엘리먼트의 z-index 속성은 한 단계 상위의 엘리먼트에 적용된다.</li>
+<li>하지만 컨텐츠 엘리먼트의 position을 다시 지정해야 할 일이 생긴다면 모달의 순서가 다시 돌아갈 것이기 때문이다.</li>
+</ul>
+<h2 id="요약">요약</h2>
+<p>만약 z-index 속성이 예상처럼 잘 먹히지 않는다면,</p>
+<ol>
+<li>엘리먼트들의 position 속성을 확인하고, z-index 속성이 올바른 순서로 지정되었는지 확인해야 한다.</li>
+<li>부모 엘리먼트들이 자식 엘리먼트들의 z-index 속성을 제한하는 일이 없도록 해야 한다.</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/" data-title="z-index가 동작하지 않는 경우"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/" data-title="z-index가 동작하지 않는 경우"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/" data-title="z-index가 동작하지 않는 경우"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/" class="prev" rel="prev" title="Xss의 종류와 대응방법"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Xss의 종류와 대응방법</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
