@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Sat, 03 Jun 2023 23:15:15 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 07 Jun 2023 23:44:02 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>React Empty Fragments</title>
+    <link>http://redjen8.github.io/posts/jun2023/react-empty-fragments/</link>
+    <pubDate>Wed, 07 Jun 2023 23:44:02 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jun2023/react-empty-fragments/</guid>
+    <description><![CDATA[다른 분의 리액트를 코드를 보던 중 &lt;&gt;, &lt;/&gt;와 같은 코드 조각이 있어 저건 뭐지? 하고 찾아보게 되었다. https://medium.com/fasal-engineering/what-are-react-fragments-or-the-react-empty-tags-190253582905 React Fragment 리액트 컴포넌트를 작성하는 동안에는 컴포]]></description>
+</item>
+<item>
     <title>z-index가 동작하지 않는 경우</title>
     <link>http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/</link>
     <pubDate>Sat, 03 Jun 2023 23:15:15 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/log-based-vs-queue-based-message-brokers/</guid>
     <description><![CDATA[대규모의 웹 애플리케이션을 MSA로 구성하는 예시에서 이제 메시지 브로커를 빼 놓고 이야기 하기는 섭섭한 존재가 되었다. 메시지 브로커의 종류와 그에 따른 특징을 한]]></description>
-</item>
-<item>
-    <title>Angular View Encapsulation</title>
-    <link>http://redjen8.github.io/posts/may2023/angular-view-encapsulation/</link>
-    <pubDate>Fri, 19 May 2023 16:05:02 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/angular-view-encapsulation/</guid>
-    <description><![CDATA[앵귤러를 사용한 FE 개발을 하다가 도저히 컴포넌트에 먹인 scss 적용이 잘 되지 않아서 구글링을 열심히 했다. 그러다 나온 것이 바로 뷰 캡슐화 개념이다..! 이에 대해 알아]]></description>
 </item>
 </channel>
 </rss>
