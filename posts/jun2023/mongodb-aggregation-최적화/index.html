@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Mongodb Aggregation 최적화 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="Mongodb Aggregation 최적화" />
+<meta property="og:description" content="mongodb aggregation을 사용하다 보면 최적화에 대한 고민을 하지 않을 수 없다. 공식 문서에서는 어떤 방식으로 최적화를 안내하고 있을까? https://www.mongodb.com/docs/manual/core/aggregation-pipeline-optimization/ 실행 엔진에서의 최" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-09T11:22:37+09:00" />
+<meta property="article:modified_time" content="2023-06-09T11:22:37+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Mongodb Aggregation 최적화"/>
+<meta name="twitter:description" content="mongodb aggregation을 사용하다 보면 최적화에 대한 고민을 하지 않을 수 없다. 공식 문서에서는 어떤 방식으로 최적화를 안내하고 있을까? https://www.mongodb.com/docs/manual/core/aggregation-pipeline-optimization/ 실행 엔진에서의 최"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/" /><link rel="prev" href="http://redjen8.github.io/posts/jun2023/react-empty-fragments/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Mongodb Aggregation 최적화",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jun2023\/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94\/"
+        },"genre": "posts","wordcount":  1346 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jun2023\/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94\/","datePublished": "2023-06-09T11:22:37+09:00","dateModified": "2023-06-09T11:22:37+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Mongodb Aggregation 최적화</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-09">2023-06-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1346 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#실행-엔진에서의-최적화-수행">실행 엔진에서의 최적화 수행</a></li>
+    <li><a href="#aggregation-성능-향상-방법">Aggregation 성능 향상 방법</a>
+      <ul>
+        <li><a href="#인덱스-사용">인덱스 사용</a></li>
+        <li><a href="#다큐먼트-필터">다큐먼트 필터</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p>mongodb aggregation을 사용하다 보면 최적화에 대한 고민을 하지 않을 수 없다.</p>
+<p>공식 문서에서는 어떤 방식으로 최적화를 안내하고 있을까?</p>
+<p><a href="https://www.mongodb.com/docs/manual/core/aggregation-pipeline-optimization/" target="_blank" rel="noopener noreffer ">https://www.mongodb.com/docs/manual/core/aggregation-pipeline-optimization/</a></p>
+<h2 id="실행-엔진에서의-최적화-수행">실행 엔진에서의 최적화 수행</h2>
+<p>굳이 사용자가 최적화를 하지 않아도 데이터베이스 레벨에서 최적화를 적재 적소에 수행해준다면 아주 감사한 일이다.</p>
+<p>MongoDB의 실행 엔진은 다음 aggregation 쿼리에 대한 최적화를 자동으로 수행해준다.</p>
+<ol>
+<li>Projection 연산 최적화 : 데이터베이스가 자동으로 필요 없는 필드를 걸러서 쿼리를 수행하기 때문에, 파이프라인 중간에 필드의 개수를 줄이기 위해 <code>$project</code> 연산을 수행하는 것은 성능 향상에 사실상 거의 도움이 되지 않는다.</li>
+<li>파이프라인 순서 최적화 : aggregation 파이프라인에 <code>$match</code> 단계 다음 <code>$projection</code>, <code>$unset</code>, <code>$addFields</code>, <code>$set</code>과 같은 연산이 온다면 몽고DB는 projection 단계에서 사용되지 않는 필드를 필터 단계에서 걸러버린다.</li>
+<li>파이프라인 병합 최적화 : aggregation의 이전 단계로 특정 파이프라인 단계를 병합할 수 있다면, 실행 엔진이 이를 자동으로 최적화시켜준다. <code>$sort</code>이후 <code>$limit</code> 연산 수행을 하는 예시에서 <code>$limit</code>은 <code>$sort</code>에 병힙될 수 있는 예시가 있다.</li>
+<li>슬롯 기반 쿼리 실행 엔진 파이프라인 최적화 : 몽고DB는 슬롯 기반의 쿼리 실행 엔진을 사용하여 특별한 조건이 충족되었을 떄 특정 파이프라인 단계들을 수행한다. 대부분의 경우 성능 향상과 CPU, 메모리 사용량을 줄이기 위함이다. <code>$group</code>, <code>$lookup</code> aggregation 들이 이 엔진을 사용한다.</li>
+</ol>
+<h2 id="aggregation-성능-향상-방법">Aggregation 성능 향상 방법</h2>
+<p>엔진에서 자동으로 수행해주는 최적화 말고, 쿼리를 설계하는 개발자는 어떤 일을 할 수 있을까?</p>
+<h3 id="인덱스-사용">인덱스 사용</h3>
+<p>먼저 인덱스이다. 일반 <code>findOne</code>, <code>findAll</code>과 같이 aggregation 또한 인덱스를 탈 수 있다.</p>
+<p>이상적으로는 인덱스는 스테이지 쿼리를 커버할 수 있다. 커버된 쿼리는 인덱스가 일치하는 모든 다큐먼트를 리턴하기 때문에 높은 성능을 낼 수 있다.</p>
+<p>예를 들어 <code>$match</code>, <code>$sort</code>, <code>$group</code>으로 구성된 파이프라인은 모든 스테이지에서 인덱스의 이점을 활용할 수 있다.</p>
+<ul>
+<li><code>$match</code> 쿼리에 대한 인덱스는 관련된 데이터를 효과적으로 식별할 수 있다.</li>
+<li>정렬 대상인 필드에 대한 인덱스는 <code>$sort</code> 쿼리에 대해 정렬된 순서의 데이터를 리턴할 수 있다.</li>
+<li><code>$sort</code> 순서와 일치하는 그룹핑 필드에 대한 인덱스는 <code>$group</code> 스테이지를 실행하기 위한 모든 필드 값을 리턴할 수 있다.</li>
+</ul>
+<p>파이프라인이 인덱스를 사용하는지에 대한 여부를 확인하려면, 쿼리 플랜을 확인하고 <code>IXSCAN</code>이나 <code>DISTINCT_SCAN</code> 플랜이 있는지 확인하면 된다.</p>
+<ul>
+<li>어떤 경우에는 쿼리 플래너가 <code>DISTINCT_SCAN</code> 인덱스 계획을 사용한다.</li>
+<li><code>DISTINCT_SCAN</code> 은 인덱스 키 값에 단일 다큐먼트가 리턴되는 형태이다.</li>
+<li>키 값에 다수의 다큐먼트가 존재할 경우 <code>DISTINCT_SCAN</code>은 <code>IXSCAN</code>보다 빠르게 수행된다.</li>
+<li>하지만 인덱스 스캔 인자에 따라 <code>DISTINCT_SCAN</code>과 <code>IXSCAN</code>의 수행 시간이 달라질 수 있다.</li>
+</ul>
+<blockquote>
+<p>때문에 aggregation의 초기 스테이지에서 인덱스를 사용하는 것이 중요하다.</p>
+</blockquote>
+<p>파이프라인의 나중 단계에 존재하는, 다른 스테이지로부터 수정되지 않은 컬렉션 데이터를 받는 스테이지들 또한 최적화를 위해 인덱스를 사용할 수 있다. (<code>$lookup</code>, <code>$graphLookup</code>, <code>$unionWith</code>이 포함된다)</p>
+<h3 id="다큐먼트-필터">다큐먼트 필터</h3>
+<p>aggregation 연산이 컬렉션 다큐먼트들의 일부분만 필요하다면, 다큐먼트들에 대한 필터링을 먼저 수행하는 것이 좋다.</p>
+<ul>
+<li><code>$match</code>, <code>$limit</code>, <code>$skip</code> 스테이지들을 사용해서 파이프라인에 들어오는 다큐먼트들을 제한해라.</li>
+<li>가능하다면, <code>$match</code>를 파이프라인의 맨 처음에 두어서 컬렉션 내부의 일치하는 다큐먼트들을 가져올 때 인덱스를 사용할 수 있도록 해라.</li>
+<li>파이프라인의 맨 처음 <code>$sort</code> 다음에 오는 <code>$match</code>는 단일 sort 쿼리와 동일하기 때문에 인덱스를 사용할 수 있다.</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/" data-title="Mongodb Aggregation 최적화"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/" data-title="Mongodb Aggregation 최적화"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/" data-title="Mongodb Aggregation 최적화"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jun2023/react-empty-fragments/" class="prev" rel="prev" title="React Empty Fragments"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>React Empty Fragments</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

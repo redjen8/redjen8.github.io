@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 07 Jun 2023 23:44:02 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 09 Jun 2023 11:22:37 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>Mongodb Aggregation 최적화</title>
+    <link>http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/</link>
+    <pubDate>Fri, 09 Jun 2023 11:22:37 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/</guid>
+    <description><![CDATA[mongodb aggregation을 사용하다 보면 최적화에 대한 고민을 하지 않을 수 없다. 공식 문서에서는 어떤 방식으로 최적화를 안내하고 있을까? https://www.mongodb.com/docs/manual/core/aggregation-pipeline-optimization/ 실행 엔진에서의 최]]></description>
+</item>
+<item>
     <title>React Empty Fragments</title>
     <link>http://redjen8.github.io/posts/jun2023/react-empty-fragments/</link>
     <pubDate>Wed, 07 Jun 2023 23:44:02 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/</guid>
     <description><![CDATA[뷰 캡슐화를 위해 꼭 필요한 개념 중 하나인 shadow DOM은 무엇일까? https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM 목적 웹 컴포넌트의 가장 중요한 측면은 캡슐화이다. 캡슐화를 통해 마크업 구조, 스타일, 동작을 숨]]></description>
-</item>
-<item>
-    <title>Log Based vs Queue Based Message Brokers</title>
-    <link>http://redjen8.github.io/posts/may2023/log-based-vs-queue-based-message-brokers/</link>
-    <pubDate>Sat, 20 May 2023 16:37:10 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/log-based-vs-queue-based-message-brokers/</guid>
-    <description><![CDATA[대규모의 웹 애플리케이션을 MSA로 구성하는 예시에서 이제 메시지 브로커를 빼 놓고 이야기 하기는 섭섭한 존재가 되었다. 메시지 브로커의 종류와 그에 따른 특징을 한]]></description>
 </item>
 </channel>
 </rss>
