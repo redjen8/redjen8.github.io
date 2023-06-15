@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/redjen8.github.io\/posts\/jun2023\/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0\/"
-        },"genre": "posts","wordcount":  1985 ,
+        },"genre": "posts","wordcount":  2157 ,
         "url": "http:\/\/redjen8.github.io\/posts\/jun2023\/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0\/","datePublished": "2023-06-03T23:15:15+09:00","dateModified": "2023-06-03T23:15:15+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
@@ -69,8 +69,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">z-index가 동작하지 않는 경우</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-03">2023-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1985 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-03">2023-06-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2157 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>Contents</span>
@@ -185,6 +185,11 @@
 <li>엘리먼트들의 position 속성을 확인하고, z-index 속성이 올바른 순서로 지정되었는지 확인해야 한다.</li>
 <li>부모 엘리먼트들이 자식 엘리먼트들의 z-index 속성을 제한하는 일이 없도록 해야 한다.</li>
 </ol>
+<p>즉 popover 라이브러리 등을 사용해서 popover를 개발했는데, 만약 최상단에 위치해야 할 gnb나 lnb보다 위에 위치하게 되어서 이를 가린다면</p>
+<ul>
+<li>popover의 쌓임 맥락이 다른 엘리먼트들과 비교하였을 때 적절한 hierarchy에 위치해 있는지 확인한다. (자식 엘리먼트의 쌓임 맥락은 부모 엘리먼트의 쌓임 맥락 내에서 적용되기 때문이다)</li>
+<li>동일한 쌓임 맥락의 엘리먼트들의 position 속성을 조정한다.</li>
+</ul>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
