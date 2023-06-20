@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Fri, 09 Jun 2023 11:22:37 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 12 Jun 2023 22:07:17 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Rxjs를 소개합니다</title>
+    <link>http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/</link>
+    <pubDate>Mon, 12 Jun 2023 22:07:17 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/</guid>
+    <description><![CDATA[Reactive Streams와 ReactiveX에 대해 ReactiveX의 공식문서에서는 Observable한 시퀀스를 사용해 비동기적인, 이벤트 기반의 프로]]></description>
+</item>
+<item>
     <title>Mongodb Aggregation 최적화</title>
     <link>http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/</link>
     <pubDate>Fri, 09 Jun 2023 11:22:37 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/%EB%A6%AC%EC%95%A1%ED%8B%B0%EB%B8%8C-%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%97%90%EC%84%9C%EC%9D%98-%EC%B9%B4%ED%94%84%EC%B9%B4/</guid>
     <description><![CDATA[https://developer.ibm.com/articles/kafka-fit-reactive-system/ 위 아티클을 읽고 내용 정리.. 비동기 메시징 백본으로써의 카프카 다른 리액티브 애플리케이션들의 성능에 영향을 미치는 가장 중요한 기저는 통신에 있어서 비동기적]]></description>
-</item>
-<item>
-    <title>Shadow Dom이란 무엇일까</title>
-    <link>http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/</link>
-    <pubDate>Mon, 22 May 2023 23:24:26 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/shadow-dom%EC%9D%B4%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%BC%EA%B9%8C/</guid>
-    <description><![CDATA[뷰 캡슐화를 위해 꼭 필요한 개념 중 하나인 shadow DOM은 무엇일까? https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_shadow_DOM 목적 웹 컴포넌트의 가장 중요한 측면은 캡슐화이다. 캡슐화를 통해 마크업 구조, 스타일, 동작을 숨]]></description>
 </item>
 </channel>
 </rss>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Rxjs를 소개합니다 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="Rxjs를 소개합니다" />
+<meta property="og:description" content="Reactive Streams와 ReactiveX에 대해 ReactiveX의 공식문서에서는 Observable한 시퀀스를 사용해 비동기적인, 이벤트 기반의 프로" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-06-12T22:07:17+09:00" />
+<meta property="article:modified_time" content="2023-06-12T22:07:17+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Rxjs를 소개합니다"/>
+<meta name="twitter:description" content="Reactive Streams와 ReactiveX에 대해 ReactiveX의 공식문서에서는 Observable한 시퀀스를 사용해 비동기적인, 이벤트 기반의 프로"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/" /><link rel="prev" href="http://redjen8.github.io/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Rxjs를 소개합니다",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/jun2023\/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4\/"
+        },"genre": "posts","wordcount":  3270 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/jun2023\/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4\/","datePublished": "2023-06-12T22:07:17+09:00","dateModified": "2023-06-12T22:07:17+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Rxjs를 소개합니다</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-12">2023-06-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3270 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#reactive-streams와-reactivex에-대해">Reactive Streams와 ReactiveX에 대해</a>
+      <ul>
+        <li><a href="#iterator-패턴이-어떻게-적용되었나">Iterator 패턴이 어떻게 적용되었나</a></li>
+        <li><a href="#리액티브-프로그래밍의-장점">리액티브 프로그래밍의 장점</a></li>
+      </ul>
+    </li>
+    <li><a href="#fe에의-적용">FE에의 적용</a>
+      <ul>
+        <li><a href="#앵귤러에서의-활용">앵귤러에서의 활용</a></li>
+      </ul>
+    </li>
+    <li><a href="#be에의-적용">BE에의 적용</a>
+      <ul>
+        <li><a href="#nestjs에서-intercept를-사용하여-요청-처리-도중에-원하는-로직-넣기">Nestjs에서 <code>intercept</code>를 사용하여 요청 처리 도중에 원하는 로직 넣기</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="reactive-streams와-reactivex에-대해">Reactive Streams와 ReactiveX에 대해</h2>
+<p><a href="https://reactivex.io/" target="_blank" rel="noopener noreffer ">ReactiveX의 공식문서</a>에서는 <code>Observable</code>한 시퀀스를 사용해 비동기적인, 이벤트 기반의 프로그램들을 다루기 위한 라이브러리로써 ReactiveX로 소개한다.</p>
+<p>ReactiveX는 옵저버 패턴을 적용해서</p>
+<ul>
+<li>데이터나 이벤트의 시퀀스들을 지원하거나</li>
+<li>시퀀스들을 선언적으로 다룰 수 있는 연산자들을 지원하면서도</li>
+<li>로우 레벨에서 이뤄지는 쓰레드 제어, 동기화, thread safety, 동시성을 지원하는 자료구조, 논블락킹 IO에 대해 신경쓰지 않게 해준다. (개인적으로는 이게 가장 큰 장점이라고 생각한다)</li>
+</ul>
+<p>ReactiveX의 <code>Observable</code>은 여러 아이템의 비동기적인 시퀀스를 다룰 수 있는 이상적인 방법을 제공한다.</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>단일 아이템</th>
+<th>복수 아이템</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>동기</td>
+<td><code>T getData()</code></td>
+<td><code>Iterable&lt;T&gt; getData()</code></td>
+</tr>
+<tr>
+<td>비동기</td>
+<td><code>Future&lt;T&gt; getData()</code></td>
+<td><code>Observable&lt;T&gt; getData()</code></td>
+</tr>
+</tbody>
+</table>
+<p>ReactiveX 라이브러리들은 가끔 함수형 반응형 프로그래밍으로써 불리지만, 이건 잘못된 명명이라고 소개한다.</p>
+<blockquote>
+<p>ReactiveX may be functional, and it may be reactive, but “functional reactive programming” is a different animal. One main point of difference is that functional reactive programming operates on values that change continuously over time, while ReactiveX operates on discrete values that are emitted over time.</p>
+</blockquote>
+<blockquote>
+<p>ReactiveX는 함수형일수도 있고, 반응형일수도 있지만, &lsquo;함수형 반응형 프로그래밍&rsquo;은 전혀 다른 종류의 것이다. 한 가지 큰 차이점은 함수형 반응형 프로그래밍은 시간에 따라 지속적으로 변화하는 값을 다루지만, ReactiveX는 시간에 따라 방출되는 이산 값에 대해 작동한다는 것이다.</p>
+</blockquote>
+<p>ReactiveX의 <code>Observable</code>은 Java의 <code>Future</code>처럼 단일 스칼라 값의 emission이 아니라 값의 시퀀스 또는 무한한 스트림을 다룬다. <code>Observable</code>은 여러 유즈 케이스를 다룰 수 있도록 설계된 단일 추상화이다.</p>
+<h3 id="iterator-패턴이-어떻게-적용되었나">Iterator 패턴이 어떻게 적용되었나</h3>
+<blockquote>
+<p><code>Observable</code>은 비동기 / 푸시 방식을 활용하고, <code>Iterable</code>은 동기 / 풀 방식을 활용한다.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>이벤트</th>
+<th>Iterable (pull)</th>
+<th>Observable (push)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>데이터 수신</td>
+<td><code>T next()</code></td>
+<td><code>onNext(T)</code></td>
+</tr>
+<tr>
+<td>에러 처리</td>
+<td>throw <code>Exception</code></td>
+<td><code>onError(Exception)</code></td>
+</tr>
+<tr>
+<td>완료 처리</td>
+<td><code>!hasNext()</code></td>
+<td><code>onCompleted()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="리액티브-프로그래밍의-장점">리액티브 프로그래밍의 장점</h3>
+<p>ReactiveX는 이런 <code>Observable</code>들을 필터링하고, 선택하고, 변화시키고, 합칠 수 있는 연산자를 제공한다.</p>
+<p>Iterator 패턴에서 컨슈머가 프로듀서로부터 값을 풀하는 것과 반대로 <code>Observable</code>은 프로듀서가 값이 준비되자 마자 컨슈머에게 값을 밀어넣는 방식으로 동작한다.</p>
+<p><code>Observable</code> 타입은 GoF의 옵저버 패턴에 존재하지 않는 두가지 의미를 부여한다.</p>
+<ol>
+<li>프로듀셔가 더 이상 사용할 수 없는 데이터가 없는 상태임을 컨슈머에게 알려줄 수 있다.</li>
+<li>프로듀서가 컨슈머에게 값을 전달하던 중 오류가 발생했음를 알릴 수 있다. (Iterable은 iteration 도중 에러가 발생하면 Exception을 던지지만, Observable은 옵저버의 <code>onError</code> 메서드를 호출한다)</li>
+</ol>
+<p>RxJava, RxJS, Rx.NET, RxScala와 같이 다양한 언어들을 위한 포팅이 완료된 상태이다.</p>
+<h2 id="fe에의-적용">FE에의 적용</h2>
+<p><a href="https://yozm.wishket.com/magazine/detail/1753/" target="_blank" rel="noopener noreffer ">https://yozm.wishket.com/magazine/detail/1753/</a></p>
+<h3 id="앵귤러에서의-활용">앵귤러에서의 활용</h3>
+<p>앵귤러 프레임워크에서는 RxJS를 내부 상태 관리에 적극적으로 활용한다. (AngularJS가 아니다)</p>
+<p><a href="https://angular.io/guide/rx-library" target="_blank" rel="noopener noreffer ">https://angular.io/guide/rx-library</a></p>
+<h4 id="promise로-observable-만들기">Promise로 Observable 만들기</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#66d9ef">from</span>, <span style="color:#a6e22e">Observable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create an Observable out of a promise
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">from</span>(<span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;/api/endpoint&#39;</span>));
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Subscribe to begin listening for async result
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">subscribe</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">response</span>) { <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">response</span>); },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">err</span>) { <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#e6db74">&#39;Error: &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">err</span>); },
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">complete() {</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Completed&#39;</span>); }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>Promise와 Observable은 다르다..! (Observable이 Promise의 상위 호환이다)</p>
+<table>
+<thead>
+<tr>
+<th>구분</th>
+<th>동기</th>
+<th>비동기</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>단일 값</td>
+<td>value</td>
+<td>Promise</td>
+</tr>
+<tr>
+<td>복수 값</td>
+<td>Array</td>
+<td>Observable</td>
+</tr>
+</tbody>
+</table>
+<p>여러 개의 Promise를 (무한한 개수일 수도 있다), 미리 구성한 파이프라인을 통해 어떻게 처리할 것인지 약속해놓는 것이 Observable이다.</p>
+<h4 id="event로-observable-만들기">Event로 Observable 만들기</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">fromEvent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">el</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;my-element&#39;</span>)<span style="color:#f92672">!</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create an Observable that will publish mouse movements
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mouseMoves</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fromEvent</span>&lt;<span style="color:#f92672">MouseEvent</span>&gt;(<span style="color:#a6e22e">el</span>, <span style="color:#e6db74">&#39;mousemove&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Subscribe to start listening for mouse-move events
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">subscription</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">mouseMoves</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">evt</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Log coords of mouse movements
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Coords: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">evt</span>.<span style="color:#a6e22e">clientX</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> X </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">evt</span>.<span style="color:#a6e22e">clientY</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// When the mouse is over the upper-left of the screen,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// unsubscribe to stop listening for mouse movements
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">evt</span>.<span style="color:#a6e22e">clientX</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">40</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">evt</span>.<span style="color:#a6e22e">clientY</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">40</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">subscription</span>.<span style="color:#a6e22e">unsubscribe</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><h4 id="샘플-요구사항을-구현해보자">샘플 요구사항을 구현해보자</h4>
+<blockquote>
+<p>버튼을 한번 누를 때에는 아무 동작하지 않다가, 버튼을 3번째 누를 때마다 버튼을 몇 번 눌렀는지 alert하는 요구사항이 생겼다고 가정해보자.</p>
+</blockquote>
+<p>리액트로는 어떻게 할까? <code>useState</code>와 <code>useEffect</code>를 적절히 사용한다면..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>&lt;<span style="color:#f92672">number</span>&gt;(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleClick</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setCount</span>(<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">useEffect</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">count</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;!!!&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}, [<span style="color:#a6e22e">count</span>]);
+</span></span></code></pre></div><p>앵귤러와 rxjs를 적절히 사용한다면.. (절대 두 라이브러리 / 프레임워크 중 어떤 것이 더 좋다고 얘기하는 것이 아니다)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mySubject$</span>: <span style="color:#66d9ef">Subject</span>&lt;<span style="color:#f92672">number</span>&gt; <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Subject</span>&lt;<span style="color:#f92672">number</span>&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">get</span> <span style="color:#a6e22e">counter$</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">Observable</span>&lt;<span style="color:#f92672">number</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">mySubject$</span>.<span style="color:#a6e22e">pipe</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">scan</span>((<span style="color:#a6e22e">acc</span>, <span style="color:#a6e22e">delta</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">delta</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">acc</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">delta</span> : <span style="color:#66d9ef">0</span>, <span style="color:#ae81ff">0</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tap</span>((<span style="color:#a6e22e">value</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">you</span> <span style="color:#a6e22e">can</span> <span style="color:#a6e22e">use</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">total</span> <span style="color:#a6e22e">accumulator</span> <span style="color:#a6e22e">so</span> <span style="color:#a6e22e">far</span> <span style="color:#a6e22e">here</span><span style="color:#f92672">*</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">debounceTime</span>(<span style="color:#ae81ff">1000</span>),
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>FE 개발을 하다 보면 흔히 마주치게 되는 기능 구현에 대한 요구사항은 보통 다음과 같은 것들이다.</p>
+<ul>
+<li>채팅방에 5명 이상이 들어온다면 &lsquo;현재 인기 있는 채팅방&rsquo; 라벨을 표시하게 해주세요.</li>
+<li>실시간 차트에서 1분 단위로 실시간 데이터를 가져오고, 특정 값이 변화했을 때 토스트 팝업을 띄워주세요.</li>
+<li>마우스 스크롤 했을 때 새로운 아이템 목록을 불러오게 해주세요.</li>
+</ul>
+<p>공통점은 무엇인가? ~ 했을 때 (if) ~ 해주세요.
+js는 동기적인 언어이지만, 요구 사항들이 비동기처리로 이루어져야 하기 때문에 우리는 이벤트 + Promise의 조합을 써왔다.</p>
+<p>하지만 요구 사항이 복잡해지고, 인터랙션해야 하는 다양한 컴포넌트들이 화면에 계속해서 추가된다면 Promise에 + Promise에.. 코드가 복잡해지고 따라서 상태 관리도 복잡해지는 경우가 많다.</p>
+<p>이처럼 비동기 처리할 이벤트가 여러 개라면, rxjs를 사용해서 우아하게 요구사항을 처리할 수 있다.</p>
+<ul>
+<li>채팅방에 들어오는 이벤트를 <code>Observable</code>로 만들어, 현재 들어와 있는 인원이 5명이라면 (<code>filter</code>) 라벨 표시</li>
+<li>실시간 차트에서 1분 단위로 실시간 데이터를 가져오고 (counter를 통한 <code>Observable</code> 생성)+ 특정 값이 변화했을 때 (특정 값에 대한 <code>Observable</code>) 특정 동작 행하기</li>
+<li>마우스 스크롤 이벤트로부터 <code>Observable</code>을 만들어, <code>HttpService</code> 특정 메서드 실행</li>
+</ul>
+<p><a href="https://www.learnrxjs.io/learn-rxjs/recipes" target="_blank" rel="noopener noreffer ">https://www.learnrxjs.io/learn-rxjs/recipes</a></p>
+<p>앵귤러 + RxJS 폼 미쳤다!! 특수한 경우에 대한 예시도 이렇게 잘 구비되어 있다</p>
+<h4 id="앵귤러와-rxjs를-잘-사용해서-debounce-이벤트를-잘-구현한-예시">앵귤러와 RxJS를 잘 사용해서 debounce 이벤트를 잘 구현한 예시</h4>
+<p><a href="https://stove99.github.io/javascript/2020/06/29/rxjs-keyword-debounce/" target="_blank" rel="noopener noreffer ">https://stove99.github.io/javascript/2020/06/29/rxjs-keyword-debounce/</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Component</span>, <span style="color:#a6e22e">OnInit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Subject</span>, <span style="color:#a6e22e">Observable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">map</span>, <span style="color:#a6e22e">filter</span>, <span style="color:#a6e22e">debounceTime</span>, <span style="color:#a6e22e">distinctUntilChanged</span>, <span style="color:#a6e22e">switchMap</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs/operators&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HttpClient</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/common/http&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Component</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">selector</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;app-root&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;input type=&#34;text&#34; class=&#34;ml-2&#34; [ngModel]=&#34;&#39;&#39;&#34; (ngModelChange)=&#34;onTextChange($event)&#34; /&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;!-- async 파이프로 있어보이게 --&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;div *ngIf=&#34;(searchResult$ | async) as searchResult&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;h2&gt;저장소 목록&lt;/h2&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;ng-container [ngSwitch]=&#34;searchResult.items.length&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &lt;ng-container *ngSwitchCase=&#34;0&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    No results found
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &lt;/ng-container&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &lt;ng-container *ngSwitchDefault&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    &lt;div *ngFor=&#34;let result of searchResult.items&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                        
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                    &lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">                &lt;/ng-container&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;/ng-container&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;/div&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    `</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">styleUrls</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;./app.component.scss&#39;</span>]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppComponent</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">OnInit</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">queries$</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Subject</span>&lt;<span style="color:#f92672">string</span>&gt;();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">searchResult$</span>: <span style="color:#66d9ef">Observable</span>&lt;<span style="color:#f92672">any</span>&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">http</span>: <span style="color:#66d9ef">HttpClient</span>) { }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ngOnInit() {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">searchResult$</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">queries$</span>.<span style="color:#a6e22e">pipe</span>(
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">query</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">query</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">query</span>.<span style="color:#a6e22e">trim</span>() <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>),  <span style="color:#75715e">// 검색어 트림처리
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">filter</span>(Boolean),    <span style="color:#75715e">// 트림결과 문자가 있는 경우
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">debounceTime</span>(<span style="color:#ae81ff">500</span>),  <span style="color:#75715e">// 500ms debounce 처리
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">distinctUntilChanged</span>(), <span style="color:#75715e">// 이전 입력값과 다른경우
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#a6e22e">switchMap</span>((<span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">find</span>(<span style="color:#a6e22e">id</span>)) <span style="color:#75715e">// 검색 api 호출해서 결과값으로 Observable 변경
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        );
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">onTextChange</span>(<span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">queries$</span>.<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">id</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">find</span>(<span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Observable</span>&lt;<span style="color:#f92672">any</span>&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#66d9ef">get</span>&lt;<span style="color:#f92672">any</span>&gt;(<span style="color:#e6db74">&#39;https://api.github.com/search/repositories&#39;</span>, { <span style="color:#a6e22e">params</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">q</span>: <span style="color:#66d9ef">id</span> } });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="어떤-operator를-써야-할까">어떤 Operator를 써야 할까</h4>
+<p><a href="https://rxjs.dev/operator-decision-tree" target="_blank" rel="noopener noreffer ">https://rxjs.dev/operator-decision-tree</a></p>
+<p><a href="https://projectreactor.io/docs/core/release/reference/#which-operator" target="_blank" rel="noopener noreffer ">Reactor 공식 문서</a>에는 상당히 불친절하게 되어 있는 반면, rxjs는 원하는 연산자를 굉장히 쉽게 찾을 수 있도록 해놓은 모습이다 ㅠ</p>
+<h2 id="be에의-적용">BE에의 적용</h2>
+<p>내가 써봤던 JS 백엔드 라이브러리는 NestJS가 유일해서, 잘 정리되어 있었던 포스트를 소개한다.</p>
+<p><a href="https://blog-ko.superb-ai.com/nestjs-interceptor-and-lifecycle/" target="_blank" rel="noopener noreffer ">https://blog-ko.superb-ai.com/nestjs-interceptor-and-lifecycle/</a></p>
+<h3 id="nestjs에서-intercept를-사용하여-요청-처리-도중에-원하는-로직-넣기">Nestjs에서 <code>intercept</code>를 사용하여 요청 처리 도중에 원하는 로직 넣기</h3>
+<p><a href="https://docs.nestjs.com/interceptors" target="_blank" rel="noopener noreffer ">https://docs.nestjs.com/interceptors</a></p>
+<p>nestjs의 인터셉터는 AOP 기법을 사용해서 컨트롤러 / 서비스 / 도메인 간 공통된 로직을 분리 적용하기 아주 좋은 기능이다.</p>
+<p>모든 인터셉터들은 <code>intercept()</code> 메서드를 구현해야 한다. <code>intercept()</code> 메서드는 두 개의 인자를 받는다.</p>
+<ol>
+<li><code>ExecutionContext</code> 인스턴스 (가드가 사용하는, <code>ArgumentHost</code>를 상속받는 그 객체와 동일하다)</li>
+<li><code>CallHandler</code> 인터페이스</li>
+</ol>
+<ul>
+<li><code>CallHandler</code> 인터페이스는 <code>handle()</code> 메서드를 구현하여 인터셉터의 한 부분에서 라우트 핸들어 메서드를 사용할 수 있게 한다.</li>
+<li><code>handle()</code> 메서드를 구현하지 않는다면 라우트 핸들러 메서드는 아예 실행되지 않는다.</li>
+</ul>
+<p>즉 이는 <code>intercept()</code> 메서드를 통해 효과적으로 요청 / 응답 객체 스트림을 감쌀 수 있다는 것을 의미한다.
+요청과 응답을 감싸기 위한 커스텀 로직이 있다면, 최종 라우트 핸들러가 실행 되기 전이나 되고 난 후에 실행하도록 처리할 수 있는 것이다. 그리고 <strong>이는 <code>handle()</code> 메서드가 <code>Observable</code>을 반환하기 때문에 가능하다.</strong></p>
+<p>예를 들어 <code>POST /cats</code> 요청을 처리하는 API가 있다고 가정해보자.</p>
+<ul>
+<li>요청은 <code>CatsController</code> 내부의 <code>create()</code> 핸들러에 의해 처리된다.</li>
+<li>만약 인터셉터가 <code>handle()</code> 메서드를 정의하지 않는다면 <code>create()</code> 메서드는 실행되지 않는다.</li>
+<li><code>handle()</code> 메서드가 실행되고, <code>Observable</code>이 리턴된다면 <code>create()</code> 핸들러는 트리거된다.</li>
+<li>응답 스트림이 <code>Observable</code>로부터 수신된다면, 부가적인 연산이 스트림에 행해진 후 요청자에게 최종 결과가 리턴된다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Injectable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@nestjs/common&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Observable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">tap</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs/operators&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Injectable</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LoggingInterceptor</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intercept</span>(<span style="color:#a6e22e">context</span>, <span style="color:#a6e22e">next</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Before...&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">now</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">now</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">next</span>
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">handle</span>()
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">pipe</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tap</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`After... </span><span style="color:#e6db74">${</span>Date.<span style="color:#a6e22e">now</span>() <span style="color:#f92672">-</span> <span style="color:#a6e22e">now</span><span style="color:#e6db74">}</span><span style="color:#e6db74">ms`</span>)),
+</span></span><span style="display:flex;"><span>      );
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>Observable</code>을 사용한다면 매우 간단하게 로깅 인터셉터를 만들 수 있다.</p>
+<blockquote>
+<p>Reactive Stream의 가장 큰 장점은 비동기로 이뤄지는 여러 이벤트에 대한 복잡한 비즈니스 로직 구현을 보기 쉽게 처리할 수 있다는 것이다.</p>
+</blockquote>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-06-12</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/" data-title="Rxjs를 소개합니다"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/" data-title="Rxjs를 소개합니다"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/jun2023/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4/" data-title="Rxjs를 소개합니다"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jun2023/mongodb-aggregation-%EC%B5%9C%EC%A0%81%ED%99%94/" class="prev" rel="prev" title="Mongodb Aggregation 최적화"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Mongodb Aggregation 최적화</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
