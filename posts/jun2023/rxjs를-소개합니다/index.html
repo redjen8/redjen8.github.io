@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/redjen8.github.io\/posts\/jun2023\/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4\/"
-        },"genre": "posts","wordcount":  3270 ,
+        },"genre": "posts","wordcount":  3265 ,
         "url": "http:\/\/redjen8.github.io\/posts\/jun2023\/rxjs%EB%A5%BC-%EC%86%8C%EA%B0%9C%ED%95%A9%EB%8B%88%EB%8B%A4\/","datePublished": "2023-06-12T22:07:17+09:00","dateModified": "2023-06-12T22:07:17+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
@@ -69,7 +69,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Rxjs를 소개합니다</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-12">2023-06-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3270 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-06-12">2023-06-12</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;3265 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -172,7 +172,7 @@
 <li>프로듀셔가 더 이상 사용할 수 없는 데이터가 없는 상태임을 컨슈머에게 알려줄 수 있다.</li>
 <li>프로듀서가 컨슈머에게 값을 전달하던 중 오류가 발생했음를 알릴 수 있다. (Iterable은 iteration 도중 에러가 발생하면 Exception을 던지지만, Observable은 옵저버의 <code>onError</code> 메서드를 호출한다)</li>
 </ol>
-<p>RxJava, RxJS, Rx.NET, RxScala와 같이 다양한 언어들을 위한 포팅이 완료된 상태이다.</p>
+<p>RxJava, RxJS, Rx.NET, RxScala와 같이 다양한 언어들을 위한 포팅이 완료되어 널리 사용중이다.</p>
 <h2 id="fe에의-적용">FE에의 적용</h2>
 <p><a href="https://yozm.wishket.com/magazine/detail/1753/" target="_blank" rel="noopener noreffer ">https://yozm.wishket.com/magazine/detail/1753/</a></p>
 <h3 id="앵귤러에서의-활용">앵귤러에서의 활용</h3>
@@ -263,8 +263,8 @@
 <li>실시간 차트에서 1분 단위로 실시간 데이터를 가져오고, 특정 값이 변화했을 때 토스트 팝업을 띄워주세요.</li>
 <li>마우스 스크롤 했을 때 새로운 아이템 목록을 불러오게 해주세요.</li>
 </ul>
-<p>공통점은 무엇인가? ~ 했을 때 (if) ~ 해주세요.
-js는 동기적인 언어이지만, 요구 사항들이 비동기처리로 이루어져야 하기 때문에 우리는 이벤트 + Promise의 조합을 써왔다.</p>
+<p>공통점은 무엇인가? ~ 했을 때 (if) ~ 해주세요.</p>
+<p>js는 동기적인 언어이지만, 요구 사항들이 비동기처리로 이루어져야 하기 때문에 우리는 이벤트 + Promise의 조합을 써왔다.</p>
 <p>하지만 요구 사항이 복잡해지고, 인터랙션해야 하는 다양한 컴포넌트들이 화면에 계속해서 추가된다면 Promise에 + Promise에.. 코드가 복잡해지고 따라서 상태 관리도 복잡해지는 경우가 많다.</p>
 <p>이처럼 비동기 처리할 이벤트가 여러 개라면, rxjs를 사용해서 우아하게 요구사항을 처리할 수 있다.</p>
 <ul>
@@ -273,7 +273,7 @@ js는 동기적인 언어이지만, 요구 사항들이 비동기처리로 이�
 <li>마우스 스크롤 이벤트로부터 <code>Observable</code>을 만들어, <code>HttpService</code> 특정 메서드 실행</li>
 </ul>
 <p><a href="https://www.learnrxjs.io/learn-rxjs/recipes" target="_blank" rel="noopener noreffer ">https://www.learnrxjs.io/learn-rxjs/recipes</a></p>
-<p>앵귤러 + RxJS 폼 미쳤다!! 특수한 경우에 대한 예시도 이렇게 잘 구비되어 있다</p>
+<p>앵귤러 + RxJS 폼 미쳤다! 특수한 경우에 대한 예시도 이렇게 잘 구비되어 있다.</p>
 <h4 id="앵귤러와-rxjs를-잘-사용해서-debounce-이벤트를-잘-구현한-예시">앵귤러와 RxJS를 잘 사용해서 debounce 이벤트를 잘 구현한 예시</h4>
 <p><a href="https://stove99.github.io/javascript/2020/06/29/rxjs-keyword-debounce/" target="_blank" rel="noopener noreffer ">https://stove99.github.io/javascript/2020/06/29/rxjs-keyword-debounce/</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Component</span>, <span style="color:#a6e22e">OnInit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
@@ -286,7 +286,6 @@ js는 동기적인 언어이지만, 요구 사항들이 비동기처리로 이�
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">template</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;input type=&#34;text&#34; class=&#34;ml-2&#34; [ngModel]=&#34;&#39;&#39;&#34; (ngModelChange)=&#34;onTextChange($event)&#34; /&gt;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
-</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;!-- async 파이프로 있어보이게 --&gt;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &lt;div *ngIf=&#34;(searchResult$ | async) as searchResult&#34;&gt;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            &lt;h2&gt;저장소 목록&lt;/h2&gt;
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">
@@ -329,7 +328,7 @@ js는 동기적인 언어이지만, 요구 사항들이 비동기처리로 이�
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#66d9ef">get</span>&lt;<span style="color:#f92672">any</span>&gt;(<span style="color:#e6db74">&#39;https://api.github.com/search/repositories&#39;</span>, { <span style="color:#a6e22e">params</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">q</span>: <span style="color:#66d9ef">id</span> } });
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><h4 id="어떤-operator를-써야-할까">어떤 Operator를 써야 할까</h4>
+</span></span></code></pre></div><h4 id="참고-어떤-operator를-써야-할까">참고) 어떤 Operator를 써야 할까</h4>
 <p><a href="https://rxjs.dev/operator-decision-tree" target="_blank" rel="noopener noreffer ">https://rxjs.dev/operator-decision-tree</a></p>
 <p><a href="https://projectreactor.io/docs/core/release/reference/#which-operator" target="_blank" rel="noopener noreffer ">Reactor 공식 문서</a>에는 상당히 불친절하게 되어 있는 반면, rxjs는 원하는 연산자를 굉장히 쉽게 찾을 수 있도록 해놓은 모습이다 ㅠ</p>
 <h2 id="be에의-적용">BE에의 적용</h2>
