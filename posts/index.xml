@@ -3,7 +3,15 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 12 Jul 2023 21:54:33 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 09 Aug 2023 21:49:55 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>모던 자바스크립트 Deep Dive 7장 - 연산자</title>
+    <link>http://redjen8.github.io/posts/js-deepdive/operator/</link>
+    <pubDate>Wed, 09 Aug 2023 21:49:55 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/js-deepdive/operator/</guid>
+    <description><![CDATA[연산자의 정의 하나 이상의 표현식을 대상으로 연산을 수행해 하나의 값을 만드는 표현식 피연산자는 연산의 대상 -&gt; 값으로 평가 가능해야 결국 연산자는 피연산자에 대한 동]]></description>
+</item>
+<item>
     <title>커링의 개념과 이해</title>
     <link>http://redjen8.github.io/posts/jun2023/%EC%BB%A4%EB%A7%81%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%9D%B4%ED%95%B4/</link>
     <pubDate>Wed, 12 Jul 2023 21:54:33 &#43;0900</pubDate>
@@ -74,14 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/angular-template-syntax/</guid>
     <description><![CDATA[앵귤러에서는 HTML의 덩어리로써 템플릿을 사용한다. 그리고 앵귤러는 템플릿 안에서 사용할 수 있는 여러 기능들을 특별한 문법을 통해 지원한다. 이를 템플릿 문법]]></description>
-</item>
-<item>
-    <title>Code Coverage</title>
-    <link>http://redjen8.github.io/posts/may2023/code-coverage/</link>
-    <pubDate>Wed, 24 May 2023 19:35:34 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/code-coverage/</guid>
-    <description><![CDATA[sonarqube code coverage 관련 내용은 어떤 것인지 궁금해하다가 code coverage 개념에 대해 찾아보게 되었다. https://tecoble.techcourse.co.kr/post/2020-10-24-code-coverage/ 정의 코드 커버리지는 소프트웨어의 테스트 케이스가 얼마나 충족되었는지를 나타내]]></description>
 </item>
 </channel>
 </rss>

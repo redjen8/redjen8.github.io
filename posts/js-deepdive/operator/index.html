@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>모던 자바스크립트 Deep Dive 7장 - 연산자 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="모던 자바스크립트 Deep Dive 7장 - 연산자" />
+<meta property="og:description" content="연산자의 정의 하나 이상의 표현식을 대상으로 연산을 수행해 하나의 값을 만드는 표현식 피연산자는 연산의 대상 -&gt; 값으로 평가 가능해야 결국 연산자는 피연산자에 대한 동" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/js-deepdive/operator/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-09T21:49:55+09:00" />
+<meta property="article:modified_time" content="2023-08-09T21:49:55+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="모던 자바스크립트 Deep Dive 7장 - 연산자"/>
+<meta name="twitter:description" content="연산자의 정의 하나 이상의 표현식을 대상으로 연산을 수행해 하나의 값을 만드는 표현식 피연산자는 연산의 대상 -&gt; 값으로 평가 가능해야 결국 연산자는 피연산자에 대한 동"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/js-deepdive/operator/" /><link rel="prev" href="http://redjen8.github.io/posts/jun2023/%EC%BB%A4%EB%A7%81%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%9D%B4%ED%95%B4/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "모던 자바스크립트 Deep Dive 7장 - 연산자",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/operator\/"
+        },"genre": "posts","wordcount":  1515 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/operator\/","datePublished": "2023-08-09T21:49:55+09:00","dateModified": "2023-08-09T21:49:55+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">모던 자바스크립트 Deep Dive 7장 - 연산자</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-09">2023-08-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1515 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#연산자의-정의">연산자의 정의</a></li>
+    <li><a href="#연산자의-종류">연산자의 종류</a>
+      <ul>
+        <li><a href="#1-산술-연산자">1. 산술 연산자</a></li>
+        <li><a href="#2-할당-연산자">2. 할당 연산자</a></li>
+        <li><a href="#3-비교-연산자">3. 비교 연산자</a></li>
+        <li><a href="#4-삼항-조건-연산자-ternary-operator">4. 삼항 조건 연산자 (Ternary operator)</a></li>
+        <li><a href="#5-논리-연산자">5. 논리 연산자</a></li>
+        <li><a href="#6-쉼표-연산자">6. 쉼표 연산자</a></li>
+        <li><a href="#7-그룹-연산자">7. 그룹 연산자</a></li>
+        <li><a href="#8-typeof-연산자">8. <code>typeof</code> 연산자</a></li>
+        <li><a href="#9-지수-연산자">9. 지수 연산자</a></li>
+        <li><a href="#연산자의-side-effect">연산자의 side effect</a></li>
+        <li><a href="#연산자-우선순위">연산자 우선순위</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="연산자의-정의">연산자의 정의</h2>
+<p>하나 이상의 표현식을 대상으로 연산을 수행해 <strong>하나의 값</strong>을 만드는 표현식</p>
+<p>피연산자는 연산의 대상 -&gt; 값으로 평가 가능해야
+결국 연산자는 피연산자에 대한 동사</p>
+<h2 id="연산자의-종류">연산자의 종류</h2>
+<h3 id="1-산술-연산자">1. 산술 연산자</h3>
+<p>피연산자로 수학적 계산 수행 -&gt; 새로운 숫자 값 output</p>
+<ul>
+<li>이항 산술 연산자 (binary)
+<ul>
+<li>2 개의 피연산자 (input) -&gt; 새 숫자 값 (output)</li>
+<li>덧셈, 뺄셈, 곱셈, 나눗셈, 나머지</li>
+<li>side effect 없다 (피연산자 자체의 값이 바뀌는 일이 없다)</li>
+</ul>
+</li>
+<li>단항 산술 연산자 (unary)
+<ul>
+<li>1 개의 피연산자 (input) -&gt; 새 숫자 값 (output)</li>
+<li><code>++</code>, <code>--</code> : 피연산자에 대한 증가와 감소 수행, side effect 존재한다
+<ul>
+<li>즉 피연산자의 값을 변경 후 할당하는 side effect가 있다.</li>
+<li>피연산자에 대한 상대적 위치에 따라 의미가 달라진다
+<ul>
+<li><code>x++</code>, <code>x--</code> 는 선 할당 후 증감 수행</li>
+<li><code>++x</code>, <code>--x</code>는 선 증감 후 할당 수행</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>+</code> : 아무 효과도 없다</li>
+<li><code>-</code>: 양수 음수 변환</li>
+</ul>
+</li>
+<li>문자열 연결 연산자 (<code>+</code>)
+<ul>
+<li>피연산자 중 하나 이상이 문자열일 경우 <code>+</code>는 문자열 연결 연산자가 된다 (그 외는 산술)</li>
+<li><strong>개발자의 의도와는 무관하게 js 엔진은 암묵적 타입 자동 변환을 수행한다</strong> (type coercion)
+<ul>
+<li><code>1 + true = ?</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-할당-연산자">2. 할당 연산자</h3>
+<p>우항에 있는 피연산자의 eval 값을 좌항에 있는 변수에 할당하는 연산자. 모두 side effect가 존재한다</p>
+<ul>
+<li><code>=</code> : 가장 기본이 되는 할당 연산자</li>
+<li><code>+=</code> : <code>x += 5</code>는 <code>x = x + 5</code>와 동치</li>
+<li><code>-=</code> : <code>x -= 5</code>는 <code>x = x - 5</code>와 동치</li>
+<li><code>*=</code>: <code>x *= 5</code>는 <code>x = x * 5</code>와 동치</li>
+<li><code>/=</code>: <code>x /= 5</code>는 <code>x = x / 5</code>와 동치</li>
+<li><code>%=</code>: <code>x %= 5</code>는 <code>x = x % 5</code>와 동치</li>
+</ul>
+<p>할당문은 값으로 평가되는 표현식인 문 (statement)로써 할당된 값으로 평가된다.
+즉 할당문 <code>x = 10</code> 자체는 다른 변수에 할당 될 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">c</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">c</span>); <span style="color:#75715e">// 0 0 0 
+</span></span></span></code></pre></div><h3 id="3-비교-연산자">3. 비교 연산자</h3>
+<p>좌항과 우항의 피연산자를 비교한 후 결과를 boolean 값으로 return</p>
+<h4 id="동등-비교--loose-equality-연산자-vs-일치-비교-strict-equality-연산자">동등 비교  (loose equality) 연산자 vs 일치 비교 (strict equality) 연산자</h4>
+<blockquote>
+<p>동등 비교 연산자는 값만 비교, 일치 비교 연산자는 값과 타입 모두 비교한다.</p>
+</blockquote>
+<ul>
+<li><code>==</code>, <code>!=</code>는 동등 비교 연산자로 느슨한 비교 수행
+<ul>
+<li>때문에 좌항 우항 피연산자 비교 시 type coercion 수행한 뒤 같은 값인지 비교한다</li>
+<li>암묵적 타입 변환 후 같은 값일 수 있다면 true</li>
+</ul>
+</li>
+<li><code>===</code>, <code>!==</code> 는 일치 비교 연산자로 엄격한 비교 수행
+<ul>
+<li>웬만하면 이거 쓰자</li>
+<li><code>NaN</code>의 경우 자기 자신과의 일치 비교가 false 인 유일한 값 (<code>NaN === NaN</code>은 false)</li>
+</ul>
+</li>
+</ul>
+<h4 id="대소-비교-연산자------여러분이-아는-그거와-같습니다">대소 비교 연산자 (&gt;, &lt;, &lt;=, &gt;=) : 여러분이 아는 그거와 같습니다</h4>
+<h3 id="4-삼항-조건-연산자-ternary-operator">4. 삼항 조건 연산자 (Ternary operator)</h3>
+<p>조건식의 평가 결과에 따라 반환한 값을 결정</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#e6db74">`조건식`</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">`조건식이 true일 때 return할 값`</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">`조건식이 false일 때 return할 값`</span>
+</span></span></code></pre></div><p>이 표현식 또한 값으로 평가될 수 있는 statement -&gt; 다른 표현식의 일부가 될 수 있다.
+<code>let result = x % 2 ? 'odd' : 'even';</code></p>
+<h3 id="5-논리-연산자">5. 논리 연산자</h3>
+<p>우항과 좌항의 피연산자를 논리 연산 수행, 논리합 (OR), 논리곱 (AND), 부정 (NOT)이 존재</p>
+<ul>
+<li>논리 부정 연산자 (<code>!</code>)는 언제나 boolean 값을 반환한다 (<code>!true</code>, <code>!false</code>)</li>
+<li>하지만 논리 합, 논리 곱 연산자는 boolean 값을 반환하지 않을 수 있다.
+<ul>
+<li><code>'Cat' &amp;&amp; 'Dog'</code> 은 <code>'Dog'</code>를 리턴</li>
+</ul>
+</li>
+</ul>
+<h3 id="6-쉼표-연산자">6. 쉼표 연산자</h3>
+<p>왼쪽 피연산자부터 차례대로 피연산자 eval,
+마지막 피연산자의 eval 끝나면 마지막 피연산자 평가 결과 return</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>, <span style="color:#a6e22e">z</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">z</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// return 3
+</span></span></span></code></pre></div><h3 id="7-그룹-연산자">7. 그룹 연산자</h3>
+<p>소괄호로 감싸는 그룹 연산자를 통해 그룹 내 피연산자를 가장 먼저 eval
+연산자 우선 순위가 제일 높다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> ( <span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span> ); <span style="color:#75715e">// 50 
+</span></span></span></code></pre></div><h3 id="8-typeof-연산자">8. <code>typeof</code> 연산자</h3>
+<p>피연산자의 데이터 타입을 <strong>문자열</strong>로 반환..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">typeof</span> <span style="color:#e6db74">``</span>            <span style="color:#75715e">// &#34;string&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#ae81ff">1</span>             <span style="color:#75715e">// &#34;number&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">NaN</span>           <span style="color:#75715e">// &#34;number&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">true</span>          <span style="color:#75715e">// &#34;boolean&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">undefined</span>     <span style="color:#75715e">// &#34;undefined&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">Symbol</span>()      <span style="color:#75715e">// &#34;symbol&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">null</span>          <span style="color:#75715e">// &#34;object&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> []            <span style="color:#75715e">// &#34;object&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> {}            <span style="color:#75715e">// &#34;object&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">new</span> Date()    <span style="color:#75715e">// &#34;object&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#e6db74">/test/gi</span>      <span style="color:#75715e">// &#34;object&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">typeof</span> <span style="color:#66d9ef">function</span>() {} <span style="color:#75715e">// &#34;function&#34;
+</span></span></span></code></pre></div><p><code>typeof null</code> (js 뉴비 절단기) -&gt; 값이 null 인지 체크하려면 <code>===</code> 사용해야</p>
+<ul>
+<li>선언하지 않은 식별자를 <code>typeof</code> 연산 시 <code>ReferenceError</code> 발생 안하고 <code>undefined</code> 반환하는 것도 유의</li>
+</ul>
+<h3 id="9-지수-연산자">9. 지수 연산자</h3>
+<p>좌항의 피연산자를 밑으로, 우항의 피연산자를 지수로 거듭 제곱한 값을 반환</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// 8
+</span></span></span></code></pre></div><h3 id="연산자의-side-effect">연산자의 side effect</h3>
+<p>대부분의 연산자는 다른 코드에 영향을 주지 않지만, side effect 가 있는 연산자는 다른 코드에 영향을 준다. 다음의 연산자는 side effect가 있다.</p>
+<ul>
+<li>할당 연산자 (<code>=</code>)</li>
+<li>증가 / 감소 연산자 (<code>++</code>, <code>--</code>)</li>
+<li>delete 연산자</li>
+</ul>
+<h3 id="연산자-우선순위">연산자 우선순위</h3>
+<ol>
+<li><code>()</code> (그룹 연산자)</li>
+<li><code>new(something)</code>, <code>[]</code> (객체 속성 접근), 함수 호출, <code>?.</code></li>
+<li><code>new()</code></li>
+<li><code>x++</code>, <code>x--</code></li>
+<li><code>!x</code>, <code>+x</code>, <code>-x</code>, <code>++x</code>, <code>--x</code>, <code>typeof</code>, <code>delete</code></li>
+<li><code>**</code> (이항 연산자 중 제일 높다)</li>
+<li><code>*</code>, <code>/</code>, <code>%</code></li>
+<li><code>+</code>, <code>-</code></li>
+<li><code>&lt;</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>in</code>, <code>instanceof</code></li>
+<li><code>==</code>, <code>!=</code>, <code>===</code>, <code>!==</code></li>
+<li><code>??</code> (null 병합 연산자)</li>
+<li><code>&amp;&amp;</code></li>
+<li><code>||</code></li>
+<li><code>condition ? 'true value' : 'false value'</code></li>
+<li>할당 연산자</li>
+<li>쉼표 연산자</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-08-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/js-deepdive/operator/" data-title="모던 자바스크립트 Deep Dive 7장 - 연산자"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/js-deepdive/operator/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/js-deepdive/operator/" data-title="모던 자바스크립트 Deep Dive 7장 - 연산자"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/js-deepdive/operator/" data-title="모던 자바스크립트 Deep Dive 7장 - 연산자"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/jun2023/%EC%BB%A4%EB%A7%81%EC%9D%98-%EA%B0%9C%EB%85%90%EA%B3%BC-%EC%9D%B4%ED%95%B4/" class="prev" rel="prev" title="커링의 개념과 이해"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>커링의 개념과 이해</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
