@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 09 Aug 2023 21:49:55 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 22 Aug 2023 22:24:08 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성</title>
+    <link>http://redjen8.github.io/posts/js-deepdive/object-constructor-function/</link>
+    <pubDate>Tue, 22 Aug 2023 22:24:08 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/js-deepdive/object-constructor-function/</guid>
+    <description><![CDATA[Object 생성자 함수 new 연산자 + Object 생성자 함수 호출 -&gt; 빈 객체 생성해서 반환 JS는 String, Number, Boolean, Function, Array, Date, RegExp, Promise 등의 빌트인 생성자 함수 제공 객체 리터럴을 사용하는 것이 더 간편해서 별]]></description>
+</item>
+<item>
     <title>모던 자바스크립트 Deep Dive 7장 - 연산자</title>
     <link>http://redjen8.github.io/posts/js-deepdive/operator/</link>
     <pubDate>Wed, 09 Aug 2023 21:49:55 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/markup-markdown%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
     <description><![CDATA[개발을 하면서 노션, 깃허브 등에서 흔히 사용하는 마크다운 문법이라는게 존재한다. 반면 FE 개발 시에 마크업 개발이라는 용어도 접할 수 있었다. 두 단어는 어떻게 다르]]></description>
-</item>
-<item>
-    <title>Angular Template Syntax</title>
-    <link>http://redjen8.github.io/posts/may2023/angular-template-syntax/</link>
-    <pubDate>Sat, 27 May 2023 13:31:31 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/angular-template-syntax/</guid>
-    <description><![CDATA[앵귤러에서는 HTML의 덩어리로써 템플릿을 사용한다. 그리고 앵귤러는 템플릿 안에서 사용할 수 있는 여러 기능들을 특별한 문법을 통해 지원한다. 이를 템플릿 문법]]></description>
 </item>
 </channel>
 </rss>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성" />
+<meta property="og:description" content="Object 생성자 함수 new 연산자 &#43; Object 생성자 함수 호출 -&gt; 빈 객체 생성해서 반환 JS는 String, Number, Boolean, Function, Array, Date, RegExp, Promise 등의 빌트인 생성자 함수 제공 객체 리터럴을 사용하는 것이 더 간편해서 별" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/js-deepdive/object-constructor-function/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-08-22T22:24:08+09:00" />
+<meta property="article:modified_time" content="2023-08-22T22:24:08+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성"/>
+<meta name="twitter:description" content="Object 생성자 함수 new 연산자 &#43; Object 생성자 함수 호출 -&gt; 빈 객체 생성해서 반환 JS는 String, Number, Boolean, Function, Array, Date, RegExp, Promise 등의 빌트인 생성자 함수 제공 객체 리터럴을 사용하는 것이 더 간편해서 별"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/js-deepdive/object-constructor-function/" /><link rel="prev" href="http://redjen8.github.io/posts/js-deepdive/operator/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/object-constructor-function\/"
+        },"genre": "posts","wordcount":  1830 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/object-constructor-function\/","datePublished": "2023-08-22T22:24:08+09:00","dateModified": "2023-08-22T22:24:08+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-08-22">2023-08-22</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1830 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#object-생성자-함수">Object 생성자 함수</a>
+      <ul>
+        <li><a href="#생성자-함수">생성자 함수</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="object-생성자-함수">Object 생성자 함수</h2>
+<p><code>new</code> 연산자 + <code>Object</code> 생성자 함수 호출 -&gt; 빈 객체 생성해서 반환</p>
+<p>JS는 <code>String</code>, <code>Number</code>, <code>Boolean</code>, <code>Function</code>, <code>Array</code>, <code>Date</code>, <code>RegExp</code>, <code>Promise</code> 등의 빌트인 생성자 함수 제공</p>
+<p>객체 리터럴을 사용하는 것이 더 간편해서 별 이점 X</p>
+<h3 id="생성자-함수">생성자 함수</h3>
+<h4 id="객체-리터럴에-의한-객체-생성-방식의-문제점">객체 리터럴에 의한 객체 생성 방식의 문제점</h4>
+<blockquote>
+<p>단 하나의 객체만 생성할 수 있다.</p>
+</blockquote>
+<p>때문에 똑같은 프로퍼티를 가지는 객체 여러 개 생성할 때 비효율적</p>
+<ul>
+<li>객체의 상태 = 프로퍼티</li>
+<li>객체의 상태 데이터를 참조 및 조작 = 메서드</li>
+</ul>
+<p>따라서 객체마다 프로퍼티는 다를 수 있지만 메서드는 동일한 경우가 일반적</p>
+<h4 id="생성자-함수에-의한-객체-생성-방식의-장점">생성자 함수에 의한 객체 생성 방식의 장점</h4>
+<blockquote>
+<p>프로퍼티 구조가 동일한 객체 여러 개를 간편하게 생성할 수 있다.</p>
+</blockquote>
+<p>객체 인스턴스를 생성하기 위한 템플릿처럼 생성자 함수를 사용할 수 있다.</p>
+<ul>
+<li>클래스 기반 객체 지향 언어의 생성자와는 다르게 형식이 정해져 있지 않다</li>
+<li>일반 함수와 동일한 방법으로 생성자 함수를 정의 가능</li>
+<li><code>new</code> 연산자와 함께 호출하면 해당 함수는 생성자 함수로 동작</li>
+</ul>
+<h4 id="생성자-함수의-인스턴스-생성-과정">생성자 함수의 인스턴스 생성 과정</h4>
+<blockquote>
+<p>생성자 함수는 1) 인스턴스 생성과 2) 생성된 인스턴스를 초기화 시키는 역할을 한다.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Circle</span> (<span style="color:#a6e22e">radius</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getDiameter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">circleInstance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#ae81ff">5</span>);
+</span></span></code></pre></div><p>js 엔진은 암묵적인 처리를 통해 인스턴스를 생성하고 반환하는 점에 유의.
+(인스턴스를 명시적으로 생성하고 반환하지 않는다)</p>
+<p>인스턴스 생성 -&gt; 초기화 -&gt; 반환은 다음의 과정을 거친다.</p>
+<h5 id="1-인스턴스-생성과-this-바인딩">1. 인스턴스 생성과 this 바인딩</h5>
+<ul>
+<li>암묵적으로 빈 객체가 생성된다.</li>
+<li>이 빈 객체는 this에 바인딩된다.
+<ul>
+<li>이 처리는 함수 내부 코드가 실제로 한 줄씩 실행되는 런타임 이전에 실행된다.</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-인스턴스-초기화">2. 인스턴스 초기화</h5>
+<p>생성자 함수에 기술된 코드가 실제로 한 줄씩 실행되어 this에 바인딩되어 있는 인스턴스를 초기화한다.</p>
+<ul>
+<li>개발자가 작성하는 부분이다.</li>
+<li>개발자가 프로퍼티 및 메서드를 추가한다.</li>
+</ul>
+<h5 id="3-인스턴스-반환">3. 인스턴스 반환</h5>
+<p>생성자 함수의 모든 처리가 끝나면 완성된 인스턴스가 바인딩된 this를 암묵적으로 반환한다.
+즉 this가 아닌</p>
+<ul>
+<li>다른 객체를 명시적으로 반환하면 return 문에 명시된 객체가 반환된다.</li>
+<li>primitive를 명시적으로 반환하면 무시되고, this가 암묵적으로 반환된다.</li>
+<li>뭐가 됐던 생성자 함수 내에서 다른 값을 반환하는 것은 지양해야</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Circle</span> (<span style="color:#a6e22e">radius</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getDiameter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   };
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> {};
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">circleInstance</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">circleInstance</span>); <span style="color:#75715e">// {}
+</span></span></span></code></pre></div><h4 id="함수-호출의-내부-동작">함수 호출의 내부 동작</h4>
+<p>함수는 특별한 객체</p>
+<ul>
+<li>일반 객체는 호출할 수 없지만 함수는 호출이 가능하다 (Callable)</li>
+<li>따라서 함수는 일반 객체가 가지고 있는 내부 슬롯 + 메서드에 추가적으로 함수 객체만 가지는
+<ul>
+<li><code>[[Environment]]</code>, <code>[[FormalParameters]]</code> 등의 내부 슬롯과</li>
+<li><code>[[Call]]</code>, <code>[[Construct]]</code>와 같은 내부 메서드를 추가로 가진다.</li>
+</ul>
+</li>
+</ul>
+<p>함수는 내부적으로</p>
+<ol>
+<li>일반 함수로써 호출되면 내부 메서드 <code>[[Call]]</code>이 호출된다
+<ol>
+<li>이런 함수 객체를 callable이라 부른다</li>
+</ol>
+</li>
+<li><code>new</code> 연산자와 함께 호출되면 내부 메서드 <code>[[Construct]]</code>가 호출된다
+<ol>
+<li>이런 함수 객체를 constructor라 부른다</li>
+<li>내부 메서드 <code>[[Construct]]</code>를 가지지 않는 함수 객체, 즉 생성자 함수로써 호출할 수 없는 함수를 non-constructor 이라 부른다</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>모든 함수는 호출 가능하다 (Callable).</p>
+<p>따라서 모든 함수 객체는 내부 메서드 <code>[[Call]]</code>을 가진다.</p>
+<p>하지만 모든 함수 객체가 <code>[[Construct]]</code>를 가지지는 않는다.</p>
+</blockquote>
+<h4 id="constructor와-non-constructor의-구분">constructor와 non-constructor의 구분</h4>
+<p>ECMAScript 사양에서는</p>
+<ul>
+<li>(1) 함수 선언문 (2) 함수 표현식으로 정의된 함수만 constructor이다.
+<ul>
+<li>따라서 주의할 점은 이런 함수에 <code>new</code> 연산자를 붙여 호출하면 생성자 함수처럼 동작할 수 있다</li>
+</ul>
+</li>
+<li>(1) ES6의 화살표 함수와 (2) 메서드 축약 표현으로 정의된 함수는 non-constructor이다.
+<ul>
+<li>따라서 이런 함수를 생성자 함수로써 호출하면 에러 발생</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">x</span>, <span style="color:#a6e22e">y</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">y</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 생성자 함수가 아닌 (값을 반환하는) 일반 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">inst</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">add</span>(); <span style="color:#75715e">// 일반 함수를 생성자 함수처럼 동작 시킬 수 있음에 유의
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">inst</span>); <span style="color:#75715e">// {}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createUser</span>(<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">role</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">role</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 객체를 반환하는 일반 함수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">inst</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">createUser</span>(<span style="color:#e6db74">&#39;Lee&#39;</span>, <span style="color:#e6db74">&#39;admin&#39;</span>); <span style="color:#75715e">// 객체를 반환하는 함수이기 때문에 생성자로 기능
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">inst</span>); <span style="color:#75715e">// {name: &#34;Lee&#34;, role: &#34;admin&#34;}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#a6e22e">radius</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getDiameter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">circle</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#ae81ff">5</span>); <span style="color:#75715e">// [[Construct]]가 호출되는 것이 아니라 [[Call]]이 호출된다
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">circle</span>); <span style="color:#75715e">// undefined
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">radius</span>); <span style="color:#75715e">// 5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">getDiameter</span>()); <span style="color:#75715e">// 10
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">circle</span>.<span style="color:#a6e22e">getDiameter</span>(); <span style="color:#75715e">// TypeError
+</span></span></span></code></pre></div><h4 id="newtarget">new.target</h4>
+<p>IE에서는 지원 X</p>
+<blockquote>
+<p>함수 내부에서 new.target을 사용하면 함수가 new 연산자와 같이 생성자 함수로써 호출되었는지 확인할 수 있다.</p>
+</blockquote>
+<ul>
+<li><code>new</code> 연산자와 함께 생성자 함수로써 호출되면 함수 내부의 <code>new.target</code>은 함수 자신을 가르킨다.</li>
+<li><code>new</code> 연산자 없이 일반 함수로써 호출된 함수 내부의 <code>new.target</code>은 undefined</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#a6e22e">radius</span>) {
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>(<span style="color:#66d9ef">this</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">Circle</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#a6e22e">radius</span>);
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>   <span style="color:#75715e">// new와 함께 호출되지 않았을 때의 방어로직
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getDiameter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">radius</span>;
+</span></span><span style="display:flex;"><span>   }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>대부분의 빌트인 생성자 함수는 <code>new</code> 연산자와 함께 호출하지 않아도 동일하게 동작한다 (착한 js)</p>
+<p>그런데 아래 빌트인 생성자 함수는 <code>new</code> 연산자와 함께 안 쓰면 다른 값을 반환한다 (나쁜 js)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">str</span> <span style="color:#f92672">=</span> String(<span style="color:#ae81ff">123</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">str</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">str</span>); <span style="color:#75715e">// 123 string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">=</span> Number(<span style="color:#e6db74">&#39;123&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">num</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">num</span>); <span style="color:#75715e">// 123 number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">bool</span> <span style="color:#f92672">=</span> Boolean(<span style="color:#e6db74">&#39;true&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">bool</span>, <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">bool</span>); <span style="color:#75715e">// true boolean
+</span></span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-08-22</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/js-deepdive/object-constructor-function/" data-title="모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/js-deepdive/object-constructor-function/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/js-deepdive/object-constructor-function/" data-title="모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/js-deepdive/object-constructor-function/" data-title="모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/js-deepdive/operator/" class="prev" rel="prev" title="모던 자바스크립트 Deep Dive 7장 - 연산자"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>모던 자바스크립트 Deep Dive 7장 - 연산자</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
