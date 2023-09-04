@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 22 Aug 2023 22:24:08 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 04 Sep 2023 23:26:52 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>모던 자바스크립트 Deep Dive 23장 - 실행 컨텍스트</title>
+    <link>http://redjen8.github.io/posts/js-deepdive/execution-context/</link>
+    <pubDate>Mon, 04 Sep 2023 23:26:52 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/js-deepdive/execution-context/</guid>
+    <description><![CDATA[소스코드의 타입 전역 코드 (global code): 전역에 존재하는 소스코드. 전역에 정의된 함수, 클래스의 내부 코드는 포함 X 전역 코드는 전역 변수를 관리하기 위해 최상위 전역 스코프]]></description>
+</item>
+<item>
     <title>모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성</title>
     <link>http://redjen8.github.io/posts/js-deepdive/object-constructor-function/</link>
     <pubDate>Tue, 22 Aug 2023 22:24:08 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/java-optional-orelseget/</guid>
     <description><![CDATA[Optional을 사용할 때, Optional 내부의 값이 null이 될 때에 대한 처리를 하고 싶을 때가 빈번하게 일어나는 것 같다. 그럴 때마다 나는 orElse를 쓰면 되지~]]></description>
-</item>
-<item>
-    <title>Markup Markdown의 차이점</title>
-    <link>http://redjen8.github.io/posts/may2023/markup-markdown%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</link>
-    <pubDate>Sun, 28 May 2023 21:30:00 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/markup-markdown%EC%9D%98-%EC%B0%A8%EC%9D%B4%EC%A0%90/</guid>
-    <description><![CDATA[개발을 하면서 노션, 깃허브 등에서 흔히 사용하는 마크다운 문법이라는게 존재한다. 반면 FE 개발 시에 마크업 개발이라는 용어도 접할 수 있었다. 두 단어는 어떻게 다르]]></description>
 </item>
 </channel>
 </rss>
