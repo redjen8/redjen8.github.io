@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Mon, 04 Sep 2023 23:26:52 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 26 Oct 2023 19:19:05 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>모던 자바스크립트 Deep Dive 32장 - 문자열 객체</title>
+    <link>http://redjen8.github.io/posts/js-deepdive/string/</link>
+    <pubDate>Thu, 26 Oct 2023 19:19:05 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/js-deepdive/string/</guid>
+    <description><![CDATA[생성자 함수를 통한 문자열 객체 생성 const strObj = new String(); console.log(strObj); // String {length: 0, [[primitiveValue]]: &#34;&#34;} [[primitiveValue]] : [[StringData]] 내부 슬롯에 접근할 수 있는 프로퍼티 (es5) const strObj = new String(&#39;Lee&#39;); console.log(strObj); // String {0: &#34;L&#34;, 1: &#34;e&#34;, 2: &#34;e&#34;, length: 3, [[primitiveValue]]: &#34;Lee&#34;} String 객체는 각 문]]></description>
+</item>
+<item>
     <title>모던 자바스크립트 Deep Dive 23장 - 실행 컨텍스트</title>
     <link>http://redjen8.github.io/posts/js-deepdive/execution-context/</link>
     <pubDate>Mon, 04 Sep 2023 23:26:52 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/</guid>
     <description><![CDATA[XSS는 가장 오래되었지만 또 현재에도 가장 간단하게 웹 어플리케이션에 가해질 수 있는 공격 기법 중 하나이다. 고등학생 때에도 XSS 실습을 해봤었지만, 현재에도 여전]]></description>
-</item>
-<item>
-    <title>Java Optional orElseGet</title>
-    <link>http://redjen8.github.io/posts/may2023/java-optional-orelseget/</link>
-    <pubDate>Mon, 29 May 2023 20:06:15 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/java-optional-orelseget/</guid>
-    <description><![CDATA[Optional을 사용할 때, Optional 내부의 값이 null이 될 때에 대한 처리를 하고 싶을 때가 빈번하게 일어나는 것 같다. 그럴 때마다 나는 orElse를 쓰면 되지~]]></description>
 </item>
 </channel>
 </rss>
