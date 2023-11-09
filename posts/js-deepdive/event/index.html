@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>모던 자바스크립트 Deep Dive 40장 - 이벤트 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="모던 자바스크립트 Deep Dive 40장 - 이벤트" />
+<meta property="og:description" content="이벤트 드리븐 프로그래밍 사용자와의 상호작용을 더 풍부하게 하기 위해 브라우저는 다음의 시퀀스를 지원 처리할 사건이 발생했음을 인지 특정 타입의 이벤트 발생 특정 타" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/js-deepdive/event/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-09T19:19:15+09:00" />
+<meta property="article:modified_time" content="2023-11-09T19:19:15+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="모던 자바스크립트 Deep Dive 40장 - 이벤트"/>
+<meta name="twitter:description" content="이벤트 드리븐 프로그래밍 사용자와의 상호작용을 더 풍부하게 하기 위해 브라우저는 다음의 시퀀스를 지원 처리할 사건이 발생했음을 인지 특정 타입의 이벤트 발생 특정 타"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/js-deepdive/event/" /><link rel="prev" href="http://redjen8.github.io/posts/js-deepdive/string/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "모던 자바스크립트 Deep Dive 40장 - 이벤트",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/event\/"
+        },"genre": "posts","wordcount":  2551 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/event\/","datePublished": "2023-11-09T19:19:15+09:00","dateModified": "2023-11-09T19:19:15+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">모던 자바스크립트 Deep Dive 40장 - 이벤트</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-09">2023-11-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2551 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#이벤트-드리븐-프로그래밍">이벤트 드리븐 프로그래밍</a></li>
+        <li><a href="#이벤트-타입">이벤트 타입</a></li>
+        <li><a href="#이벤트-핸들러-등록">이벤트 핸들러 등록</a></li>
+        <li><a href="#이벤트-객체">이벤트 객체</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="이벤트-드리븐-프로그래밍">이벤트 드리븐 프로그래밍</h3>
+<p>사용자와의 상호작용을 더 풍부하게 하기 위해 브라우저는 다음의 시퀀스를 지원</p>
+<ul>
+<li>처리할 사건이 발생했음을 인지</li>
+<li>특정 타입의 이벤트 발생</li>
+</ul>
+<p>특정 타입의 이벤트에 반응해서 어떤 일을 하고 싶다면 이벤트 핸들러를 등록해야 함</p>
+<blockquote>
+<p>이벤트가 발생했을 때 호출할 함수를 이벤트 핸들러라고 한다.</p>
+</blockquote>
+<blockquote>
+<p>이벤트가 발생했을 때 <strong>브라우저에게 이벤트 핸들러의 호출을 위임</strong>하는 것을 이벤트 핸들러 등록이라 한다.</p>
+</blockquote>
+<p>시퀀셜한 프로그래밍 방식에서는 사용자와 언제 상호작용을 할 지 알 수 없기 때문에 <strong>언제 함수를 호출해야 하는지</strong>를 모른다.</p>
+<p>하지만 브라우저가 이벤트 핸들러 등록을 통해 이벤트가 발생했을 때 행동할 내용을 사전에 정의함으로써, 상호작용이 발생함을 기다리지 않고 상호작용이 발생한 즉시 프로그램의 흐름을 제어할 수 있다.</p>
+<p>즉 프로그램의 흐름을 이벤트 중심으로 제어하는 프로그래밍 방식을 이벤트 드리븐 프로그래밍이라 한다.</p>
+<h3 id="이벤트-타입">이벤트 타입</h3>
+<p>종류가 굉장히 많다</p>
+<p>상세 내용은 <a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" target="_blank" rel="noopener noreffer ">https://developer.mozilla.org/en-US/docs/Web/API/Event</a> 참고</p>
+<h3 id="이벤트-핸들러-등록">이벤트 핸들러 등록</h3>
+<h4 id="1-이벤트-핸들러-어트리뷰트-방식">1. 이벤트 핸들러 어트리뷰트 방식</h4>
+<p>HTML 엘리먼트의 어트리뷰트 중에는 이벤트에 대응하기 위한 이벤트 핸들러 어트리뷰트가 있다.</p>
+<p>요러한 어트리뷰트의 특징은 <code>on</code> 접두사를 가지고, 이벤트 타입이 그 후에 붙는다.</p>
+<p>즉 <code>onclick</code> 어트리뷰트는 클릭했을 때의 이벤트에 대응하는 이벤트 핸들러 어트리뷰트라고 짐작할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sayHi(&#39;Lee&#39;)&#34;</span>&gt;Click me!&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sayHi</span>(<span style="color:#a6e22e">name</span>) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Hi! </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.`</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>주의할 점은 이벤트 핸들러 어트리뷰트 값으로는 <strong>함수 호출문 등의 statement를 할당한다</strong>는 것이다.</p>
+<ul>
+<li>이벤트 핸들러 등록 === 함수 호출을 브라우저에게 위임</li>
+<li>함수 호출문을 이벤트 핸들러로 등록하면 함수 호출문의 eval 결과가 이벤트 핸들러로 등록된다</li>
+<li>값을 반환하는 함수 호출문을 이벤트 핸들러로 등록하면 브라우저는 호출할 함수가 아닌 값을 참조하게 되어 동작하지 않는다</li>
+<li>때문에 함수 참조를 등록해야 브라우저가 이벤트 핸들러를 호출할 수 있다.</li>
+</ul>
+<p>앗 그런데 위 예시에서는 어트리뷰트 값으로 함수 호출문 <code>sayHi('Lee')</code>를 썼는데?</p>
+<ul>
+<li>사실 이 때 이벤트 핸들러 어트리뷰트 값은 암묵적으로 생성될 이벤트 핸들러의 함수 body를 의미한다.</li>
+<li>즉 <code>onclick = &quot;sayHi('Lee')&quot;</code> 어트리뷰트는 파싱되어서 다음의 함수를 암묵적으로 생성한 후  이벤트 핸들러 어트리뷰트 이름과 동일한 <code>onclick</code> 이벤트 핸들러 프로퍼티에 할당한다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span>  <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">onclick</span>(<span style="color:#a6e22e">event</span>) {
+</span></span><span style="display:flex;"><span>     <span style="color:#a6e22e">sayHi</span>(<span style="color:#e6db74">&#39;Lee&#39;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span></code></pre></div><p>왜 암묵적으로 함수를 생성하는 일을 할까? (사실 자바스크립트에서 함수를 암묵적으로 생성하는 일은 많긴 하지만)</p>
+<ul>
+<li>이벤트 핸들러 등록 === 함수 호출을 브라우저에게 위임</li>
+<li>브라우저는 즉 호출할 함수의 참조 값을 가지고 있어야 한다</li>
+<li>그런데 함수 참조 값을 넘기는 건 좋은데, 인수를 어떻게 전달하지?</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onclick</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;sayHi&#34;</span>&gt;Click me!&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span></code></pre></div><blockquote>
+<p>즉 이벤트 핸들러 어트리뷰트 값으로 할당한 문자열은 암묵적으로 생성되는 이벤트 핸들러의 함수 몸체가 된다.</p>
+</blockquote>
+<p>하지만 HTML과 자바스크립트는 <a href="https://en.wikipedia.org/wiki/Unobtrusive_JavaScript" target="_blank" rel="noopener noreffer ">관심사가 다르다</a>.</p>
+<ul>
+<li>때문에 <strong>HTML + Vanlia JS를 사용한 웹 개발에서는 이를 분리하는 것이 좋다.</strong></li>
+<li>프레임워크 / 라이브러리를 사용한 웹 개발에서는 HTML, CSS, JS를 서로 다른 요소가 아닌 뷰를 구성하기 위한 요소로 본다
+<ul>
+<li>관심사가 컴포넌트를 구성하기 위한 것이라는 점에서 똑같다.</li>
+<li>때문에 <strong>프레임워크 / 라이브러리를 사용한 웹 개발에서는 이벤트 핸들러 어트리뷰트를 사용해서 이벤트를 처리한다.</strong></li>
+</ul>
+</li>
+</ul>
+<p>앵귤러에선..</p>
+<pre tabindex="0"><code>&lt;button (click) = &#34;handleClick($event)&#34;&gt;Save&lt;/button&gt;
+</code></pre><h4 id="2-이벤트-핸들러-프로퍼티-방식">2. 이벤트 핸들러 프로퍼티 방식</h4>
+<p>DOM 노드 객체는 이벤트 핸들러 프로퍼티를 가지고 있다.</p>
+<p>이벤트 핸들러 프로퍼티의 키는 어트리뷰트와 마찬가지로 <code>on</code> 접두사 + 이벤트 타입으로 구성된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">button</span>&gt;Click me!&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">$button</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;button&#39;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$button</span>.<span style="color:#a6e22e">onclick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;click!&#39;</span>);
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><ul>
+<li>이벤트 핸들러는 대부분 이벤트를 발생 시킬 이벤트 타깃에 바인딩한다.</li>
+<li>하지만 반드시 이벤트 타깃에 이벤트 핸들러를 바인딩해야 하는 것은 아니다.</li>
+<li>이벤트 핸들러는 이벤트 타깃 또는 전파된 이벤트를 캐치할 DOM 노드 객체에서 바인딩한다.</li>
+</ul>
+<p>앞서 살펴본 이벤트 핸들러 어트리뷰트 방식과 거의 동일하지만,</p>
+<ul>
+<li>HTML과 JS가 섞이는 문제를 해결 할 수 있다.</li>
+<li>하지만 이벤트 핸들러 프로퍼티에 하나의 이벤트 핸들러만 바인딩할 수 있다는 단점이 있다.
+<ul>
+<li>동일한 이벤트 핸들러 프로퍼티에 이벤트 핸들러를 재정의할 경우 덮어씌워진다.</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">button</span>&gt;Click me!&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">$button</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;button&#39;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$button</span>.<span style="color:#a6e22e">onclick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;click!&#39;</span>);
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$button</span>.<span style="color:#a6e22e">onclick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;click2!&#39;</span>);
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h4 id="3-addeventlistener-메서드-방식">3. <code>addEventListener</code> 메서드 방식</h4>
+<p>추후에 등장한 방식
+<code>EventTarget.addEventListener('eventType', functionName[, useCapture]);</code> 으로 사용</p>
+<ol>
+<li>첫 번째 매개변수에는 이벤트 타입을 전달한다.
+<ol>
+<li>이 때 <code>on</code> 접두사를 붙이지 않음에 유의</li>
+</ol>
+</li>
+<li>두 번째 매개변수에는 이벤트 핸들러 함수를 전달한다.</li>
+<li>마지막 매개변수에는 이벤트를 캐치할 이벤트 전파 단계를 지정한다.
+<ol>
+<li>생략 또는 false인 경우 버블링 단게에서 이벤트를 캐치</li>
+<li>true인 경우 캡처링 단계에서 이밴트를 캐치</li>
+</ol>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">button</span>&gt;Click me!&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">$button</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;button&#39;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$button</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;click!&#39;</span>);
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><h5 id="두-개를-동시에-쓰면">두 개를 동시에 쓰면?</h5>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">button</span>&gt;Click me!&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">$button</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;button&#39;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$button</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;click&#39;</span>, <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;click!&#39;</span>);
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">$button</span>.<span style="color:#a6e22e">onclick</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;click 2!&#39;</span>);
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>버튼에서 클릭 이벤트가 발생하면 2개의 이벤트 핸들러가 모두 호출된다.</p>
+<blockquote>
+<p>즉 <code>addEventListener()</code> 메서드는 하나 이상의 이벤트 핸들러를 등록할 수 있다. (핸들러는 등록된 순서대로 호출된다)</p>
+</blockquote>
+<h5 id="이벤트-핸들러-제거">이벤트 핸들러 제거</h5>
+<p><code>EventTarget.prototype.removeEventListener</code> 메서드 사용</p>
+<p>전달할 인수는 <code>addEventListener</code> 메서드와 동일하지만, 메서드에 전달된 인수가 서로 일치하지 않는다면 이벤트 핸들러가 제거되지 않음에 유의</p>
+<blockquote>
+<p>즉 이벤트 핸들러를 제거하기 위해서는 이벤트 핸들러의 참조를 별도로 저장하고 있어야 한다.</p>
+</blockquote>
+<p>이벤트 핸들러 프로퍼티에 등록한 이벤트 핸들러는 프로퍼티에 다시 null을 할당해서만 제거가 가능함에 유의</p>
+<h3 id="이벤트-객체">이벤트 객체</h3>
+<p>이벤트 핸들러 어트리뷰트 방식의 경우 이벤트 객체를 인수로 전달받으려면 첫 매개변수 이름이 반드시 <code>event</code> 여야 함에 유의</p>
+<ul>
+<li>암묵적으로 함수를 생성하는 과정에서 첫 매개변수 이름이 <code>event</code>가 아니면 바보가 된다</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span><span style="color:#75715e">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">p</span>&gt;클릭 한 곳 좌표 표시&lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">em</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;message&#34;</span>&gt;&lt;/<span style="color:#f92672">em</span>&gt;
+</span></span><span style="display:flex;"><span>   &lt;<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">$msg</span> <span style="color:#f92672">=</span> document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#39;.message&#39;</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">showCoords</span>(<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>         <span style="color:#a6e22e">$msg</span>.<span style="color:#a6e22e">textContent</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`x: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">clientX</span><span style="color:#e6db74">}</span><span style="color:#e6db74">, y: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">clientY</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      document.<span style="color:#a6e22e">onclick</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">showCoords</span>;
+</span></span><span style="display:flex;"><span>   &lt;/<span style="color:#f92672">script</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">html</span>&gt;
+</span></span></code></pre></div><p>이벤트가 발생 -&gt; 암묵적으로 이벤트 객체 생성 -&gt; 이 때 이벤트 객체는 생성자 함수에 의해 생성</p>
+<ul>
+<li>때문에 이벤트 객체는 프로토타입으로 구성된 프로토타입 체인의 일원이 된다.</li>
+<li><code>Event</code> 인터페이스는 DOM 내에서 발생한 이벤트에 의해 생성되는 이벤트 객체를 표현한다.</li>
+<li><code>MouseEvent</code>와 같은 하위 인터페이스에는 이벤트 타입에 따라 고유한 프로퍼티가 정의되어 있다</li>
+</ul>
+<blockquote>
+<p>즉 이벤트 객체의 프로퍼티는 발생한 이벤트의 타입에 따라 달라진다.</p>
+</blockquote>
+<h4 id="이벤트-객체의-공통-프로퍼티">이벤트 객체의 공통 프로퍼티</h4>
+<table>
+<thead>
+<tr>
+<th>공통 프로퍼티</th>
+<th>설명</th>
+<th>타입</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>type</td>
+<td>이벤트 타입</td>
+<td>string</td>
+</tr>
+<tr>
+<td>target</td>
+<td>이벤트를 발생시킨 DOM 요소</td>
+<td>DOM 요소 노드</td>
+</tr>
+<tr>
+<td>currentTarget</td>
+<td>이벤트 핸들러가 바인딩된 DOM 요소</td>
+<td>DOM 요소 노드</td>
+</tr>
+<tr>
+<td>eventPhase</td>
+<td>이벤트 전파 단계</td>
+<td>number</td>
+</tr>
+<tr>
+<td>bubbles</td>
+<td>이벤트를 버블링으로 전파하는지 여부</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>cancelable</td>
+<td>이벤트의 기본 동작을 취소할 수 있는지 여부</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>defaultPrevented</td>
+<td>preventDefault 메서드를 호출해서 이벤트를 취소했는지 여부</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>isTrusted</td>
+<td>사용자의 행위에 의해 발생한 이벤트인지 여부</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>timeStamp</td>
+<td>이벤트가 발생한 시각</td>
+<td>number</td>
+</tr>
+</tbody>
+</table>
+<p>target 프로퍼티와 currentTarget 프로퍼티는 동일한 DOM 요소를 가르키지만,
+이벤트 위임을 사용한다면 서로 다른 DOM 요소를 가르킬 수 있음에 유의</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-11-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/js-deepdive/event/" data-title="모던 자바스크립트 Deep Dive 40장 - 이벤트"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/js-deepdive/event/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/js-deepdive/event/" data-title="모던 자바스크립트 Deep Dive 40장 - 이벤트"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/js-deepdive/event/" data-title="모던 자바스크립트 Deep Dive 40장 - 이벤트"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/js-deepdive/string/" class="prev" rel="prev" title="모던 자바스크립트 Deep Dive 32장 - 문자열 객체"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>모던 자바스크립트 Deep Dive 32장 - 문자열 객체</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -3,9 +3,17 @@
         <title>Redjen TIL</title>
         <link>http://redjen8.github.io/</link>
         <description>Make Maketh Install</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 26 Oct 2023 19:19:05 &#43;0900</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Thu, 09 Nov 2023 19:19:15 &#43;0900</lastBuildDate>
             <atom:link href="http://redjen8.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>모던 자바스크립트 Deep Dive 40장 - 이벤트</title>
+    <link>http://redjen8.github.io/posts/js-deepdive/event/</link>
+    <pubDate>Thu, 09 Nov 2023 19:19:15 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/js-deepdive/event/</guid>
+    <description><![CDATA[이벤트 드리븐 프로그래밍 사용자와의 상호작용을 더 풍부하게 하기 위해 브라우저는 다음의 시퀀스를 지원 처리할 사건이 발생했음을 인지 특정 타입의 이벤트 발생 특정 타]]></description>
+</item>
+<item>
     <title>모던 자바스크립트 Deep Dive 32장 - 문자열 객체</title>
     <link>http://redjen8.github.io/posts/js-deepdive/string/</link>
     <pubDate>Thu, 26 Oct 2023 19:19:05 &#43;0900</pubDate>
@@ -76,14 +84,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/jun2023/z-index%EA%B0%80-%EB%8F%99%EC%9E%91%ED%95%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B2%BD%EC%9A%B0/</guid>
     <description><![CDATA[popover 등의 컴포넌트를 개발하다 보면 특정 html 엘리먼트를 다른 엘리먼트 위에 표시하고 싶을 때가 있다. 그럴 때 간편하게 사용할 수 있는 것이 css의 z-index 속성이다. z-index https://developer.mozilla.org/ko/docs/Web/CSS/z-index z-]]></description>
-</item>
-<item>
-    <title>Xss의 종류와 대응방법</title>
-    <link>http://redjen8.github.io/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/</link>
-    <pubDate>Wed, 31 May 2023 19:14:25 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/may2023/xss%EC%9D%98-%EC%A2%85%EB%A5%98%EC%99%80-%EB%8C%80%EC%9D%91%EB%B0%A9%EB%B2%95/</guid>
-    <description><![CDATA[XSS는 가장 오래되었지만 또 현재에도 가장 간단하게 웹 어플리케이션에 가해질 수 있는 공격 기법 중 하나이다. 고등학생 때에도 XSS 실습을 해봤었지만, 현재에도 여전]]></description>
 </item>
 </channel>
 </rss>

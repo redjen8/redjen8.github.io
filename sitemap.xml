@@ -2,8 +2,9 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-10-26T19:19:05&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2023-10-26T19:19:05&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2023-11-09T19:19:15&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2023-11-09T19:19:15&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/js-deepdive/event/</loc><lastmod>2023-11-09T19:19:15&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/js-deepdive/string/</loc><lastmod>2023-10-26T19:19:05&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/js-deepdive/execution-context/</loc><lastmod>2023-09-04T23:26:52&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/js-deepdive/object-constructor-function/</loc><lastmod>2023-08-22T22:24:08&#43;09:00</lastmod></url><url>
