@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍" />
+<meta property="og:description" content="동기 처리와 비동기 처리 이전에 정리했던 함수 실행 컨텍스트내용 참고.. 함수 호출 함수 코드 평가 (eval) 함수 실행 컨텍스트 생성 생성된 컨텍스트를 실행 컨텍스트 스택에 push" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-11-14T23:33:59+09:00" />
+<meta property="article:modified_time" content="2023-11-14T23:33:59+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍"/>
+<meta name="twitter:description" content="동기 처리와 비동기 처리 이전에 정리했던 함수 실행 컨텍스트내용 참고.. 함수 호출 함수 코드 평가 (eval) 함수 실행 컨텍스트 생성 생성된 컨텍스트를 실행 컨텍스트 스택에 push"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/" /><link rel="prev" href="http://redjen8.github.io/posts/js-deepdive/event/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/asynchronous-programming\/"
+        },"genre": "posts","wordcount":  1959 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/js-deepdive\/asynchronous-programming\/","datePublished": "2023-11-14T23:33:59+09:00","dateModified": "2023-11-14T23:33:59+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-11-14">2023-11-14</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1959 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#동기-처리와-비동기-처리">동기 처리와 비동기 처리</a></li>
+        <li><a href="#이벤트-루프와-태스크-큐">이벤트 루프와 태스크 큐</a></li>
+        <li><a href="#참고-자료-이벤트-루프의-동작-방식에-대해">(참고 자료) 이벤트 루프의 동작 방식에 대해</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h3 id="동기-처리와-비동기-처리">동기 처리와 비동기 처리</h3>
+<p>이전에 정리했던 <a href="https://redjen8.github.io/posts/js-deepdive/execution-context/" target="_blank" rel="noopener noreffer ">함수 실행 컨텍스트</a>내용 참고..</p>
+<ol>
+<li>함수 호출</li>
+<li>함수 코드 평가 (eval)</li>
+<li>함수 실행 컨텍스트 생성</li>
+<li>생성된 컨텍스트를 실행 컨텍스트 스택에 push</li>
+<li>함수 코드가 실행</li>
+<li>함수 코드 실행 종료 시 해당 실행 컨텍스트가 스택에서 pop</li>
+</ol>
+<blockquote>
+<p>즉 함수가 실행되기 위해서는 함수 실행 컨텍스트가 실행 컨텍스트 스택에 푸시되어야 한다.</p>
+</blockquote>
+<p>그리고 <strong>자바스크립트 엔진은 단 하나의 실행 컨텍스트 스택을 가진다</strong>.  (동시에 두 개 이상의 함수를 실행할 수 없다)</p>
+<p>동기, 비동기, 블로킹, 논블로킹의 차이는 매우 중요하기 때문에 아래에서 알아보고 가자.</p>
+<h4 id="동기--비동기">동기 / 비동기</h4>
+<p>동기 / 비동기는 <strong>호출하는 함수와 호출된 함수의 관심사</strong>에 차이가 있다.</p>
+<ul>
+<li>동기 (synchronous): 호출하는 함수가 호출된 함수의 완료 상태를 신경 쓴다</li>
+<li>비동기 (asynchronous): 호출하는 함수가 호출된 함수의 완료 상태를 신경쓰지 않는다.</li>
+</ul>
+<h4 id="블로킹--논블로킹">블로킹 / 논블로킹</h4>
+<p>블로킹 / 논블로킹은 <strong>호출된 함수의 제어권</strong>에 차이가 있다.</p>
+<ul>
+<li>블로킹 (blocking): 호출된 함수가 작업 종료될 때까지 제어권을 가진다. 호출한 함수는 그 동안 다른 작업을 진행할 수 없다.
+<ul>
+<li>호출된 함수는 작업에 대한 결과를 작업이 끝날 때 반환한다.</li>
+</ul>
+</li>
+<li>논블로킹 (nonblocking): 호출된 함수가 작업 종료되지 않아도 제어권을 호출한 함수로 넘겨줄 수 있다.
+<ul>
+<li>호출된 함수는 작업에 대한 결과를 작업이 끝나지 않아도 반환할 수 있다 (아직 완료 안됐음을 리턴)</li>
+</ul>
+</li>
+</ul>
+<h4 id="4가지-각-조합-별-특징">4가지 각 조합 별 특징</h4>
+<p><a href="https://velog.io/@redjen/java-reactive-programming-1-Introduction" target="_blank" rel="noopener noreffer ">https://velog.io/@redjen/java-reactive-programming-1-Introduction</a></p>
+<h5 id="커널-레벨에서-네트워크-통신이-실제로-어떻게-이뤄질까">커널 레벨에서 네트워크 통신이 실제로 어떻게 이뤄질까?</h5>
+<ul>
+<li><a href="https://black7375.tistory.com/90#i/o-%EB%AA%A8%EB%8D%B8%EB%93%A4" target="_blank" rel="noopener noreffer ">운영체제, File Descriptor를 다루는 IO 모델들</a></li>
+<li><a href="https://nima101.github.io/io_multiplexing" target="_blank" rel="noopener noreffer ">IO Multiplexing을 다루는 함수들</a></li>
+<li><a href="https://jongmin92.github.io/2019/02/28/Java/java-with-non-blocking-io/" target="_blank" rel="noopener noreffer ">IO Multiplexing을 사용해 저수준 다중 접속 서버 만들기</a></li>
+</ul>
+<h4 id="자바스크립트로-돌아와서">자바스크립트로 돌아와서</h4>
+<blockquote>
+<p>자바스크립트는 싱글 쓰레드로 동작한다.</p>
+</blockquote>
+<p>멀티 쓰레드로 동작하면 더 좋은 거 아닌가? <strong>왜 자바스크립트는 싱글 쓰레드로 동작하게 만들었을까</strong>?</p>
+<ul>
+<li>멀티 쓰레드로 동작하기 위해서는 많은 것들을 신경써야 한다.
+<ul>
+<li>공유 자원으로 인한 동시성 문제와 그를 해결하기 위한 락의 구현이 필수적</li>
+<li>이런 것들을 고려하지 않아도 되는 싱글 쓰레드 기반 언어는 구현하기 무척 쉬워진다는 장점</li>
+</ul>
+</li>
+<li>JS는 웹 브라우저 내에서 스크립팅을 위해 고도화된 언어
+<ul>
+<li>웹 브라우저는 동시에 많은 사용자를 고려하지 않아도 되는 클라이언트 프로그램</li>
+</ul>
+</li>
+</ul>
+<p>자바스크립트는 싱글 쓰레드로 동작하기 때문에, 동시에 한 가지의 일 밖에 처리하지 못한다.</p>
+<ul>
+<li>껌 씹으면서 횡단보도 못 건넘</li>
+<li>껌 다 씹고 횡단보도 건너야</li>
+<li>만약 동시에 하고 싶다면?
+<ul>
+<li>HTTP 요청을 통해 서버로부터 데이터를 가지고 오는 동시에 렌더링을 한다던가</li>
+<li>HTML 요소가 막 애니메이션으로 움직이는 동시에 사용자 이벤트를 처리한다던가</li>
+</ul>
+</li>
+</ul>
+<h3 id="이벤트-루프와-태스크-큐">이벤트 루프와 태스크 큐</h3>
+<p>대부분의 JS 엔진 (V8로 대표되는)은 크게 두 가지 영역으로 구분된다</p>
+<ul>
+<li>콜 스택
+<ul>
+<li>실행 컨텍스트 스택</li>
+<li>소스 코드가 평가되면서 생성된 실행 컨텍스트가 스택에 막 추가된다</li>
+</ul>
+</li>
+<li>힙
+<ul>
+<li>객체가 저장되는 메모리 공간</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>JS 엔진은 태스크 요청 시 콜 스택에 있는 작업을 순차적으로 처리만 한다.</p>
+</blockquote>
+<p>즉 비동기 처리에서 소스코드의 평가, 실행을 제외한 모든 처리는 JS 엔진을 구동하는 환경에서 담당한다.</p>
+<ul>
+<li><code>setTimeout</code> 콜백 함수의 평가와 실행: JS 엔진이 수행</li>
+<li>호출 스케줄링을 위한 타이머 설정, 콜백 함수 등록: JS엔진이 구동되는 환경인 브라우저 또는 Node에서</li>
+</ul>
+<p>브라우저(또는 Node)에서는 JS 엔진이 넘겨준 잡다한 일들을 수행하기 위해 다음의 환경을 제공한다.</p>
+<ul>
+<li>태스크 큐: 비동기 함수의 콜백 함수 또는 이벤트 핸들러가 잠시 보관되는 영역
+<ul>
+<li>프로미스의 콜백 함수가 잠시 보관되는 마이크로 태스크 큐는 여기선 잠시 논외로..</li>
+<li><a href="https://262.ecma-international.org/6.0/#sec-promise-constructor" target="_blank" rel="noopener noreffer ">https://262.ecma-international.org/6.0/#sec-promise-constructor</a></li>
+<li><a href="https://chromium.googlesource.com/v8/v8.git/&#43;/refs/tags/7.4.136/src/microtask-queue.cc" target="_blank" rel="noopener noreffer ">https://chromium.googlesource.com/v8/v8.git/+/refs/tags/7.4.136/src/microtask-queue.cc</a></li>
+</ul>
+</li>
+<li>이벤트 루프: 다음의 일을 수행하는 아주 중요한 녀석
+<ul>
+<li>콜 스택에 현재 실행 중인 실행 컨텍스트가 있는지</li>
+<li>태스크 큐에 대기 중인 함수가 있는지</li>
+<li>계속 반복적으로 확인하다가
+<ul>
+<li>콜 스택이 비어 있고 &amp;&amp; 태스크 큐에 대기 중인 함수가 있다면</li>
+<li>태스크 큐에 대기 중인 함수를 콜 스택으로 이동시킨다</li>
+<li>이렇게 이동된 함수는 곧 실행된다</li>
+</ul>
+</li>
+<li>즉 <strong>태스크 큐에 잠시 보관되는 함수는 비동기 처리 방식으로 동작한다.</strong></li>
+</ul>
+</li>
+</ul>
+<h4 id="예시-코드의-실행-방식을-보자">예시 코드의 실행 방식을 보자</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;foo&#39;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">bar</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;bar&#39;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">foo</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">bar</span>();
+</span></span></code></pre></div><ol>
+<li>전역 코드 실행 시점에 <code>setTimeout</code> 함수 호출</li>
+<li>콜백 함수(<code>foo</code>)를 호출 스케줄링하고 종료되어 콜 스택에서 pop
+<ol>
+<li>타이머는 누가 재냐? &ndash;&gt; 브라우저</li>
+<li>콜백 함수를 태스크 큐에 넣는 놈은 누구냐? &ndash;&gt; 브라우저</li>
+</ol>
+</li>
+<li>다음의 일이 병렬로 처리된다
+<ol>
+<li>브라우저: 타이머 끝날때까지 기다린다. 타이머 땡하면 <code>foo</code> 함수가 태스크 큐에 푸시
+<ol>
+<li>푸시된 함수는 태스크 큐에 있기 때문에 콜 스택이 차 있다면 비워지는 걸 계속 바라만 보고 있어야 한다</li>
+<li>때문에 <code>setTimeout</code>을 사용해서는 정확히 delay 만큼 기다린 이후에 수행되는 것을 절대 보장할 수 없는 구조</li>
+</ol>
+</li>
+<li><code>bar</code> 함수가 호출되어 실행 컨텍스트 생성 및 콜 스택에 푸시된다. 종료 된다면 다시 pop된다</li>
+</ol>
+</li>
+<li>전역 코드 실행 종료, 전역 실행 컨텍스트가 콜 스택에서 pop 된다</li>
+<li>이벤트 루프: 콜 스택 비어 있으니까 이제 태스크 큐 꺼내야지
+<ol>
+<li>대기 중인 콜백함수 <code>foo</code>가 이제서야 콜 스택에 들어가서 실행된다</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<p>JS 엔진은 싱글 쓰레드로 동작하지만, JS 엔진이 수행되는 환경인 브라우저, Node는 멀티 쓰레드로 동작한다.</p>
+</blockquote>
+<h3 id="참고-자료-이벤트-루프의-동작-방식에-대해">(참고 자료) 이벤트 루프의 동작 방식에 대해</h3>
+<ul>
+<li><a href="https://github.com/atotic/event-loop" target="_blank" rel="noopener noreffer ">브라우저 이벤트 루프에 대한 더 깊은 이해</a></li>
+<li><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/" target="_blank" rel="noopener noreffer ">Node.js 이벤트 루프에 대한 더 깊은 이해</a>
+<ul>
+<li><a href="https://docs.libuv.org/en/v1.x/design.html" target="_blank" rel="noopener noreffer ">libuv 시스템 디자인</a></li>
+<li><a href="https://github.com/libuv/libuv/blob/v1.x/src/unix/loop.c" target="_blank" rel="noopener noreffer ">libuv loop 코드</a></li>
+</ul>
+</li>
+<li><a href="https://www.baeldung.com/spring-webflux-concurrency" target="_blank" rel="noopener noreffer ">스프링 웹플럭스에서의 동시성 처리</a></li>
+<li><a href="https://vertx.io/docs/vertx-core/java/" target="_blank" rel="noopener noreffer ">vert.x에서의 이벤트 루프</a></li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-11-14</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/" data-title="모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/" data-title="모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/" data-title="모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/js-deepdive/event/" class="prev" rel="prev" title="모던 자바스크립트 Deep Dive 40장 - 이벤트"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>모던 자바스크립트 Deep Dive 40장 - 이벤트</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
