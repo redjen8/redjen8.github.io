@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>타입스크립트 핸드북 1장 - 기본 타입 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 1장 - 기본 타입" />
+<meta property="og:description" content="https://typescript-kr.github.io/pages/basic-types.html Number 모든 숫자는 js 처럼 부동 소수값 16진수 리터럴, 10진수 리터럴, 2진수 리터럴, 8진수 리터럴을 지원 String 큰 따옴표 &quot; 나 작은 따옴표 &#39; 로 문자열 데이터를 감싸" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/ts-handbook/basic-type/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-20T22:16:43+09:00" />
+<meta property="article:modified_time" content="2023-12-20T22:16:43+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="타입스크립트 핸드북 1장 - 기본 타입"/>
+<meta name="twitter:description" content="https://typescript-kr.github.io/pages/basic-types.html Number 모든 숫자는 js 처럼 부동 소수값 16진수 리터럴, 10진수 리터럴, 2진수 리터럴, 8진수 리터럴을 지원 String 큰 따옴표 &quot; 나 작은 따옴표 &#39; 로 문자열 데이터를 감싸"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/ts-handbook/basic-type/" /><link rel="prev" href="http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/" /><link rel="next" href="http://redjen8.github.io/posts/ts-handbook/interface/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "타입스크립트 핸드북 1장 - 기본 타입",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/basic-type\/"
+        },"genre": "posts","wordcount":  841 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/basic-type\/","datePublished": "2023-12-20T22:16:43+09:00","dateModified": "2023-12-20T22:16:43+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 1장 - 기본 타입</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-20">2023-12-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;841 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#number">Number</a></li>
+        <li><a href="#string">String</a></li>
+        <li><a href="#array">Array</a></li>
+        <li><a href="#tuple">Tuple</a></li>
+        <li><a href="#enum">Enum</a></li>
+        <li><a href="#any">Any</a></li>
+        <li><a href="#void">Void</a></li>
+        <li><a href="#null과-undefined">Null과 Undefined</a></li>
+        <li><a href="#never">Never</a></li>
+        <li><a href="#type-assertions">Type Assertions</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://typescript-kr.github.io/pages/basic-types.html" target="_blank" rel="noopener noreffer ">https://typescript-kr.github.io/pages/basic-types.html</a></p>
+<h3 id="number">Number</h3>
+<ul>
+<li>모든 숫자는 js 처럼 부동 소수값</li>
+<li>16진수 리터럴, 10진수 리터럴, 2진수 리터럴, 8진수 리터럴을 지원</li>
+</ul>
+<h3 id="string">String</h3>
+<ul>
+<li>큰 따옴표 <code>&quot;</code> 나 작은 따옴표 <code>'</code> 로 문자열 데이터를 감싸서 사용</li>
+<li>템플릿 문자열 (<code>${expr}</code>) 을 사용해 표현식을 포함시킬 수 있음</li>
+</ul>
+<h3 id="array">Array</h3>
+<ul>
+<li>배열 요소들을 나타내는 타입 뒤에 <code>[]</code> 사용해서 선언
+<ul>
+<li><code>let list: number[]</code></li>
+</ul>
+</li>
+<li>제네릭 배열 타입으로 사용
+<ul>
+<li><code>let list: Array&lt;number&gt;</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="tuple">Tuple</h3>
+<blockquote>
+<p>요소의 타입과 개수가 고정된 배열</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> [<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">number</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;hello&#34;</span>, <span style="color:#ae81ff">10</span>];
+</span></span></code></pre></div><h3 id="enum">Enum</h3>
+<blockquote>
+<p>값의 집합에 이름을 붙여준다</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Color</span> {<span style="color:#a6e22e">Red</span>, <span style="color:#a6e22e">Green</span>, <span style="color:#a6e22e">Blue</span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">c</span>: <span style="color:#66d9ef">Color</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Color</span>.<span style="color:#a6e22e">green</span>;
+</span></span></code></pre></div><ul>
+<li>기본 값은 0부터 시작</li>
+<li>값을 수동으로 설정 가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Color</span> {<span style="color:#a6e22e">Red</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">Green</span>, <span style="color:#a6e22e">Blue</span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">colorName</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Color</span>[<span style="color:#ae81ff">2</span>]; <span style="color:#75715e">//Green
+</span></span></span></code></pre></div><h3 id="any">Any</h3>
+<ul>
+<li>알지 못하는 타입을 표현해야 하는 경우에 사용</li>
+<li>이 경우 타입 검사를 하지 않음
+<ul>
+<li>해당 값은 컴파일 시간에 검사를 skip</li>
+</ul>
+</li>
+<li>js에서 하는 것처럼 <code>Object</code>를 할당할 경우 메서드 호출이 불가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">anyVar</span>: <span style="color:#66d9ef">any</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">obj</span>: <span style="color:#66d9ef">Object</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">anyVar</span>.<span style="color:#a6e22e">toFixed</span>(); <span style="color:#75715e">//성공
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">toFixed</span>(); <span style="color:#75715e">//오류
+</span></span></span></code></pre></div><h3 id="void">Void</h3>
+<blockquote>
+<p>어떤 타입도 존재할 수 없음을 나타냄</p>
+</blockquote>
+<ul>
+<li>메서드의 반환 타입이 void인 경우
+<ul>
+<li>일반적인 아무 것도 반환하지 않는 함수의 타입으로 사용</li>
+</ul>
+</li>
+<li>변수의 타입으로 void를 사용하는 경우
+<ul>
+<li>해당 변수에는 <code>null</code> 또는 <code>undefined</code>만 할당 가능</li>
+</ul>
+</li>
+</ul>
+<h3 id="null과-undefined">Null과 Undefined</h3>
+<ul>
+<li>기본적으로 <code>null</code>과 <code>undefined</code>는 모든 타입의 서브 타입
+<ul>
+<li>즉 <code>null</code>과 <code>undefined</code>는 <code>number</code>와 같은 타입에 할당 가능</li>
+</ul>
+</li>
+<li><code>--strictNullChecks</code>를 사용하면 <code>null</code> 과 <code>undefined</code>는 오직 <code>any</code>와 각자의 타입에만 할당 가능
+<ul>
+<li>예외적으로 <code>undefined</code>는 <code>void</code>에 할당 가능</li>
+</ul>
+</li>
+</ul>
+<h3 id="never">Never</h3>
+<blockquote>
+<p>절대 발생할 수 없는 타입</p>
+</blockquote>
+<ul>
+<li>함수 표현식이나 화살표 함수 표현식에서 항상 오류를 발생시키거나 절대 반환하지 않는 반환 타입으로 사용됨</li>
+<li>변수에서는 타입 가드에 의해 아무 타입도 얻지 못하게 되는 경우 <code>never</code> 타입이 될 수 있음</li>
+<li>마찬가지로 <code>never</code> 타입은 모든 타입에 할당 가능한 하위 타입
+<ul>
+<li>하지만 반대로 어떤 타입도 <code>never</code>에 할당 불가능하고, 서브 타입이 아니다 (any도)</li>
+</ul>
+</li>
+</ul>
+<h3 id="type-assertions">Type Assertions</h3>
+<ul>
+<li>개발자가 ts보다 값에 대해 더 잘 알고 있는 경우가 있을 수 있다
+<ul>
+<li>어떤 엔티티의 실제 타입이 현재 타입보다 더 구체적인 경우</li>
+</ul>
+</li>
+<li>다른 언어의 타입 변환과 유사하지만 다른 검사를 하거나 데이터를 재구성하지는 않음</li>
+<li>런타임에 영향을 끼치지 않고, 컴파일 단계에서만 이를 활용한다</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">someValue</span>: <span style="color:#66d9ef">any</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;this is a string&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">strLength1</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> (&lt;<span style="color:#f92672">string</span>&gt;<span style="color:#a6e22e">someValue</span>).<span style="color:#a6e22e">length</span>; <span style="color:#75715e">// angle-bracket 문법
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">strLength2</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">someValue</span> <span style="color:#66d9ef">as</span> <span style="color:#66d9ef">string</span>).<span style="color:#a6e22e">length</span>; <span style="color:#75715e">// as 문법
+</span></span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-12-20</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/basic-type/" data-title="타입스크립트 핸드북 1장 - 기본 타입"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/basic-type/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/basic-type/" data-title="타입스크립트 핸드북 1장 - 기본 타입"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/basic-type/" data-title="타입스크립트 핸드북 1장 - 기본 타입"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/js-deepdive/asynchronous-programming/" class="prev" rel="prev" title="모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍</a>
+            <a href="/posts/ts-handbook/interface/" class="next" rel="next" title="타입스크립트 핸드북 2장 - 인터페이스">타입스크립트 핸드북 2장 - 인터페이스<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

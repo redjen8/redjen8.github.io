@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>타입스크립트 핸드북 3장 - 함수 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 3장 - 함수" />
+<meta property="og:description" content="https://typescript-kr.github.io/pages/functions.html Function JS와 마찬가지로 named function과 anonymous function을 제공 함수는 외부 변수를 참조 (변수 캡쳐) 가능 Typing the Function 함수의 타입은 매개변수의 타입과 반환 타" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/ts-handbook/function/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-20T22:19:51+09:00" />
+<meta property="article:modified_time" content="2023-12-20T22:19:51+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="타입스크립트 핸드북 3장 - 함수"/>
+<meta name="twitter:description" content="https://typescript-kr.github.io/pages/functions.html Function JS와 마찬가지로 named function과 anonymous function을 제공 함수는 외부 변수를 참조 (변수 캡쳐) 가능 Typing the Function 함수의 타입은 매개변수의 타입과 반환 타"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/ts-handbook/function/" /><link rel="prev" href="http://redjen8.github.io/posts/ts-handbook/interface/" /><link rel="next" href="http://redjen8.github.io/posts/ts-handbook/literal-types/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "타입스크립트 핸드북 3장 - 함수",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/function\/"
+        },"genre": "posts","wordcount":  1581 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/function\/","datePublished": "2023-12-20T22:19:51+09:00","dateModified": "2023-12-20T22:19:51+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 3장 - 함수</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-20">2023-12-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1581 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#function">Function</a></li>
+        <li><a href="#typing-the-function">Typing the Function</a></li>
+        <li><a href="#optional-and-default-parameter">Optional and Default Parameter</a></li>
+        <li><a href="#rest-parameters">Rest Parameters</a></li>
+        <li><a href="#this와-arrow-function">this와 arrow function</a></li>
+        <li><a href="#this-parameter">this parameter</a></li>
+        <li><a href="#this-parameters-in-callback">this parameters in callback</a></li>
+        <li><a href="#overloading">Overloading</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://typescript-kr.github.io/pages/functions.html" target="_blank" rel="noopener noreffer ">https://typescript-kr.github.io/pages/functions.html</a></p>
+<h3 id="function">Function</h3>
+<p>JS와 마찬가지로 named function과 anonymous function을 제공</p>
+<ul>
+<li>함수는 외부 변수를 참조 (변수 캡쳐) 가능</li>
+</ul>
+<h3 id="typing-the-function">Typing the Function</h3>
+<ul>
+<li>함수의 타입은 매개변수의 타입과 반환 타입이 존재
+<ul>
+<li>캡쳐된 변수는 타입에 반영 불가</li>
+</ul>
+</li>
+<li>매개변수 타입과 반환 타입 사이에 <code>=&gt;</code>를 사용해 반환 타입을 명시가능
+<ul>
+<li>함수가 값을 반환하지 않을 경우 <code>void</code> 사용</li>
+</ul>
+</li>
+</ul>
+<h3 id="optional-and-default-parameter">Optional and Default Parameter</h3>
+<blockquote>
+<p>모든 매개변수는 함수에 필요하다</p>
+</blockquote>
+<p>하지만 <code>null</code> 값이나 <code>undefined</code>를 줄 수 없는 것은 아니다.</p>
+<ul>
+<li>함수의 호출 시점에 컴파일러는 각 매개변수에 값이 채워졌는지 검사</li>
+<li>함수에 주어진 인자의 수 === 받아야 할 매개변수의 수 (이 점이 JS와 다르다)</li>
+</ul>
+<p><strong>선택적으로 매개변수 전달을 원한다면 <code>?</code>를 붙여서 전달 가능</strong> (선택적 매개변수)</p>
+<p>이 친구는 반드시 순서 상 필수 매개변수 뒤에 와야 한다</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#a6e22e">firstName</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">lastName?</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">lastName</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">firstName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">lastName</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">firstName</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>);                  <span style="color:#75715e">// 지금은 바르게 동작
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#e6db74">&#34;Adams&#34;</span>, <span style="color:#e6db74">&#34;Sr.&#34;</span>);  <span style="color:#75715e">// 오류, 너무 많은 매개변수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#e6db74">&#34;Adams&#34;</span>);         <span style="color:#75715e">// 정확함
+</span></span></span></code></pre></div><p><strong>매개변수에 기본 값을 채워서 전달 가능</strong> (기본 - 초기화 매개변수)</p>
+<p>이 친구는 필수 매개변수 뒤에 오는 것이 강요되지는 않는다.</p>
+<ul>
+<li>하지만 이 경우 사용자가 명시적으로 <code>undefined</code>를 전달해야 기본 값을 사용할 수 있다</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#a6e22e">firstName</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">lastName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Smith&#34;</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">firstName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">lastName</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>);                  <span style="color:#75715e">// 올바르게 동작, &#34;Bob Smith&#34; 반환
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#66d9ef">undefined</span>);       <span style="color:#75715e">// 여전히 동작, 역시 &#34;Bob Smith&#34; 반환
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#e6db74">&#34;Adams&#34;</span>, <span style="color:#e6db74">&#34;Sr.&#34;</span>);  <span style="color:#75715e">// 오류, 너무 많은 매개변수
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">result4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Bob&#34;</span>, <span style="color:#e6db74">&#34;Adams&#34;</span>);         <span style="color:#75715e">// 정확함
+</span></span></span></code></pre></div><h3 id="rest-parameters">Rest Parameters</h3>
+<ul>
+<li>다수의 매개변수를 그룹 지어 작업하는 경우</li>
+<li>얼마나 많은 매개변수를 최종적으로 취하는지 모르는 경우</li>
+<li>JS에서는 <code>arguments</code> 변수를 사용할 수 있지만</li>
+<li>TS에서는 이들을 하나의 변수로 모을 수 있다</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#a6e22e">firstName</span>: <span style="color:#66d9ef">string</span>, ...<span style="color:#a6e22e">restOfName</span>: <span style="color:#66d9ef">string</span>[]) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">firstName</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">restOfName</span>.<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34; &#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// employeeName 은 &#34;Joseph Samuel Lucas MacKinzie&#34; 가 될것입니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">employeeName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">buildName</span>(<span style="color:#e6db74">&#34;Joseph&#34;</span>, <span style="color:#e6db74">&#34;Samuel&#34;</span>, <span style="color:#e6db74">&#34;Lucas&#34;</span>, <span style="color:#e6db74">&#34;MacKinzie&#34;</span>);
+</span></span></code></pre></div><h3 id="this와-arrow-function">this와 arrow function</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">deck</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">suits</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;hearts&#34;</span>, <span style="color:#e6db74">&#34;spades&#34;</span>, <span style="color:#e6db74">&#34;clubs&#34;</span>, <span style="color:#e6db74">&#34;diamonds&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cards</span><span style="color:#f92672">:</span> Array(<span style="color:#ae81ff">52</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">createCardPicker</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">52</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedSuit</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">13</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">suit</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">suits</span>[<span style="color:#a6e22e">pickedSuit</span>], <span style="color:#a6e22e">card</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">13</span>};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cardPicker</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">deck</span>.<span style="color:#a6e22e">createCardPicker</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cardPicker</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;card: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard</span>.<span style="color:#a6e22e">card</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; of &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard</span>.<span style="color:#a6e22e">suit</span>);
+</span></span></code></pre></div><ul>
+<li>JS에서, 최상위 컨텍스트에서의 non method 문법의 호출은 <code>this</code>를 <code>window</code>로 설정한다.</li>
+<li>때문에 <code>createCardPicker</code> 내부에서 <code>this</code>의 <code>suits</code> 참조 호출은 오류를 발생시킨다</li>
+<li>아래와 같은 사용은 괜찮다
+<ul>
+<li>화살표 함수는 함수가 호출된 곳이 아닌 함수가 생성된 쪽읜 <code>this</code>를 캡쳐하기 때문</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">deck</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">suits</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;hearts&#34;</span>, <span style="color:#e6db74">&#34;spades&#34;</span>, <span style="color:#e6db74">&#34;clubs&#34;</span>, <span style="color:#e6db74">&#34;diamonds&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cards</span><span style="color:#f92672">:</span> Array(<span style="color:#ae81ff">52</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">createCardPicker</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">function</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// NOTE: 아랫줄은 화살표 함수로써, &#39;this&#39;를 이곳에서 캡처할 수 있도록 합니다
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> () =&gt; {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">52</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedSuit</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">13</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">suit</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">suits</span>[<span style="color:#a6e22e">pickedSuit</span>], <span style="color:#a6e22e">card</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">13</span>};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cardPicker</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">deck</span>.<span style="color:#a6e22e">createCardPicker</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cardPicker</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;card: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard</span>.<span style="color:#a6e22e">card</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; of &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard</span>.<span style="color:#a6e22e">suit</span>);
+</span></span></code></pre></div><h3 id="this-parameter">this parameter</h3>
+<blockquote>
+<p><code>this</code> 매개변수는 매개변수 목록에서 가장 먼저 나오는 가짜 매개변수이다.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Card</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">suit</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Deck</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">suits</span>: <span style="color:#66d9ef">string</span>[];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cards</span>: <span style="color:#66d9ef">number</span>[];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">createCardPicker</span>(<span style="color:#66d9ef">this</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Deck</span>)<span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Card</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">deck</span>: <span style="color:#66d9ef">Deck</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">suits</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#34;hearts&#34;</span>, <span style="color:#e6db74">&#34;spades&#34;</span>, <span style="color:#e6db74">&#34;clubs&#34;</span>, <span style="color:#e6db74">&#34;diamonds&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cards</span>: <span style="color:#66d9ef">Array</span>(<span style="color:#ae81ff">52</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// NOTE: 아래 함수는 이제 callee가 반드시 Deck 타입이어야 함을 명시적으로 지정합니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">createCardPicker</span>: <span style="color:#66d9ef">function</span>(<span style="color:#66d9ef">this</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Deck</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">52</span>);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedSuit</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">13</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {<span style="color:#a6e22e">suit</span>: <span style="color:#66d9ef">this.suits</span>[<span style="color:#a6e22e">pickedSuit</span>], <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">pickedCard</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">13</span>};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">cardPicker</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">deck</span>.<span style="color:#a6e22e">createCardPicker</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">cardPicker</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;card: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard</span>.<span style="color:#a6e22e">card</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; of &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard</span>.<span style="color:#a6e22e">suit</span>);
+</span></span></code></pre></div><p><code>createCardPicker</code> 함수는 반드시 <code>Deck</code> 타입에 대해서 호출된다는 것을 명시적으로 전달할 수 있다</p>
+<h3 id="this-parameters-in-callback">this parameters in callback</h3>
+<p>콜백 함수를 라이브러리에 전달할 때는 몇 가지 어려움이 존재한다.</p>
+<ul>
+<li>라이브러리는 콜백을 일반 함수처럼 호출한다.</li>
+<li><code>this</code> = <code>undefined</code>가 된다.</li>
+<li>이를 방지하기 위해 <code>this</code> 매개변수를 사용할 수 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">UIElement</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">addClickListener</span>(<span style="color:#a6e22e">onclick</span><span style="color:#f92672">:</span> (<span style="color:#66d9ef">this</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>, <span style="color:#a6e22e">e</span>: <span style="color:#66d9ef">Event</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><code>this</code>가 <code>void</code> 타입 매개변수로 전달되면 <code>this</code> 타입을 요구하지 않는 함수라고 알려주는 것</p>
+<h3 id="overloading">Overloading</h3>
+<ul>
+<li>JS는 기본적으로 오버로딩을 지원하지 않음</li>
+<li>하지만 JS에서 마치 오버로딩 처럼 함수 내에서 <code>typeof</code>를 사용해 구현을 할 수는 있다</li>
+<li>TS의 타입 시스템에서는 오버로드 목록을 통해 이를 구현할 수 있다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">suits</span> <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;hearts&#34;</span>, <span style="color:#e6db74">&#34;spades&#34;</span>, <span style="color:#e6db74">&#34;clubs&#34;</span>, <span style="color:#e6db74">&#34;diamonds&#34;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pickCard</span>(<span style="color:#a6e22e">x</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">suit</span>: <span style="color:#66d9ef">string</span>; <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">number</span>; }[])<span style="color:#f92672">:</span> <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pickCard</span>(<span style="color:#a6e22e">x</span>: <span style="color:#66d9ef">number</span>)<span style="color:#f92672">:</span> {<span style="color:#a6e22e">suit</span>: <span style="color:#66d9ef">string</span>; <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">number</span>; };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pickCard</span>(<span style="color:#a6e22e">x</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">any</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 인자가 배열 또는 객체인지 확인
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 만약 그렇다면, deck이 주어지고 card를 선택합니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;object&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">length</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">pickedCard</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 그렇지 않다면 그냥 card를 선택합니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;number&#34;</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedSuit</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">floor</span>(<span style="color:#a6e22e">x</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">13</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">suit</span>: <span style="color:#66d9ef">suits</span>[<span style="color:#a6e22e">pickedSuit</span>], <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">x</span> <span style="color:#f92672">%</span> <span style="color:#ae81ff">13</span> };
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">myDeck</span> <span style="color:#f92672">=</span> [{ <span style="color:#a6e22e">suit</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;diamonds&#34;</span>, <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">2</span> }, { <span style="color:#a6e22e">suit</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;spades&#34;</span>, <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">10</span> }, { <span style="color:#a6e22e">suit</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;hearts&#34;</span>, <span style="color:#a6e22e">card</span>: <span style="color:#66d9ef">4</span> }];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">myDeck</span>[<span style="color:#a6e22e">pickCard</span>(<span style="color:#a6e22e">myDeck</span>)];
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;card: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard1</span>.<span style="color:#a6e22e">card</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; of &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard1</span>.<span style="color:#a6e22e">suit</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">pickedCard2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pickCard</span>(<span style="color:#ae81ff">15</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">alert</span>(<span style="color:#e6db74">&#34;card: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard2</span>.<span style="color:#a6e22e">card</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; of &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">pickedCard2</span>.<span style="color:#a6e22e">suit</span>);
+</span></span></code></pre></div><ul>
+<li>컴파일러는 오버로드 목록에서 첫 번째 오버로드를 진행하면서 함수 호출을 시도</li>
+<li>일치하는 경우 해당 오버로드를 사용하여 작업 수행</li>
+<li>때문에 가장 구체적인 것부터 오버로드 목록을 구성하는 것이 효율적</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-12-20</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/function/" data-title="타입스크립트 핸드북 3장 - 함수"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/function/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/function/" data-title="타입스크립트 핸드북 3장 - 함수"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/function/" data-title="타입스크립트 핸드북 3장 - 함수"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ts-handbook/interface/" class="prev" rel="prev" title="타입스크립트 핸드북 2장 - 인터페이스"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>타입스크립트 핸드북 2장 - 인터페이스</a>
+            <a href="/posts/ts-handbook/literal-types/" class="next" rel="next" title="타입스크립트 핸드북 4장 - 리터럴 타입">타입스크립트 핸드북 4장 - 리터럴 타입<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2023</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
