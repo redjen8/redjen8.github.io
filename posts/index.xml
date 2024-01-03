@@ -3,7 +3,23 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 20 Dec 2023 22:20:21 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 03 Jan 2024 22:11:09 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>타입스크립트 핸드북 7장 - 열거형</title>
+    <link>http://redjen8.github.io/posts/ts-handbook/enums/</link>
+    <pubDate>Wed, 03 Jan 2024 22:11:09 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/ts-handbook/enums/</guid>
+    <description><![CDATA[https://typescript-kr.github.io/pages/enums.html Numeric Enums enum Direction { Up = 1, Down, Left, Right, } Up이 1부터 초기화되기 시작했기 때문에 그 뒤의 값들은 auto increment 된 값을 가진다 (각각 1, 2, 3, 4) 멤버를 전부 초기화하지 않는다면 0부터 시]]></description>
+</item>
+<item>
+    <title>타입스크립트 핸드북 6장 - 클래스</title>
+    <link>http://redjen8.github.io/posts/ts-handbook/classes/</link>
+    <pubDate>Fri, 29 Dec 2023 18:32:39 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/ts-handbook/classes/</guid>
+    <description><![CDATA[https://typescript-kr.github.io/pages/classes.html 컴포넌트의 재사용: 생산성을 높이기 위한 매우 중요하고 유용한 방법 ES6 이전 JS에서는 이를 위해 함수 프로토타입 기반 상속을 사용 ES6 이후 JS에서는 객체 지향적 클]]></description>
+</item>
+<item>
     <title>타입스크립트 핸드북 4장 - 리터럴 타입</title>
     <link>http://redjen8.github.io/posts/ts-handbook/literal-types/</link>
     <pubDate>Wed, 20 Dec 2023 22:20:21 &#43;0900</pubDate>
@@ -66,22 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/js-deepdive/execution-context/</guid>
     <description><![CDATA[소스코드의 타입 전역 코드 (global code): 전역에 존재하는 소스코드. 전역에 정의된 함수, 클래스의 내부 코드는 포함 X 전역 코드는 전역 변수를 관리하기 위해 최상위 전역 스코프]]></description>
-</item>
-<item>
-    <title>모던 자바스크립트 Deep Dive 17장 - 생성자 함수에 의한 객체 생성</title>
-    <link>http://redjen8.github.io/posts/js-deepdive/object-constructor-function/</link>
-    <pubDate>Tue, 22 Aug 2023 22:24:08 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/js-deepdive/object-constructor-function/</guid>
-    <description><![CDATA[Object 생성자 함수 new 연산자 + Object 생성자 함수 호출 -&gt; 빈 객체 생성해서 반환 JS는 String, Number, Boolean, Function, Array, Date, RegExp, Promise 등의 빌트인 생성자 함수 제공 객체 리터럴을 사용하는 것이 더 간편해서 별]]></description>
-</item>
-<item>
-    <title>모던 자바스크립트 Deep Dive 7장 - 연산자</title>
-    <link>http://redjen8.github.io/posts/js-deepdive/operator/</link>
-    <pubDate>Wed, 09 Aug 2023 21:49:55 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/js-deepdive/operator/</guid>
-    <description><![CDATA[연산자의 정의 하나 이상의 표현식을 대상으로 연산을 수행해 하나의 값을 만드는 표현식 피연산자는 연산의 대상 -&gt; 값으로 평가 가능해야 결국 연산자는 피연산자에 대한 동]]></description>
 </item>
 </channel>
 </rss>

@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>타입스크립트 핸드북 6장 - 클래스 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 6장 - 클래스" />
+<meta property="og:description" content="https://typescript-kr.github.io/pages/classes.html 컴포넌트의 재사용: 생산성을 높이기 위한 매우 중요하고 유용한 방법 ES6 이전 JS에서는 이를 위해 함수 프로토타입 기반 상속을 사용 ES6 이후 JS에서는 객체 지향적 클" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/ts-handbook/classes/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-12-29T18:32:39+09:00" />
+<meta property="article:modified_time" content="2023-12-29T18:32:39+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="타입스크립트 핸드북 6장 - 클래스"/>
+<meta name="twitter:description" content="https://typescript-kr.github.io/pages/classes.html 컴포넌트의 재사용: 생산성을 높이기 위한 매우 중요하고 유용한 방법 ES6 이전 JS에서는 이를 위해 함수 프로토타입 기반 상속을 사용 ES6 이후 JS에서는 객체 지향적 클"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/ts-handbook/classes/" /><link rel="prev" href="http://redjen8.github.io/posts/ts-handbook/literal-types/" /><link rel="next" href="http://redjen8.github.io/posts/ts-handbook/enums/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "타입스크립트 핸드북 6장 - 클래스",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/classes\/"
+        },"genre": "posts","wordcount":  2461 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/classes\/","datePublished": "2023-12-29T18:32:39+09:00","dateModified": "2023-12-29T18:32:39+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 6장 - 클래스</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2023-12-29">2023-12-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;2461 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#클래스">클래스</a></li>
+        <li><a href="#클래스의-상속">클래스의 상속</a></li>
+        <li><a href="#접근-지정자">접근 지정자</a></li>
+        <li><a href="#매개변수-프로퍼티">매개변수 프로퍼티</a></li>
+        <li><a href="#접근자">접근자</a></li>
+        <li><a href="#전역-프로퍼티">전역 프로퍼티</a></li>
+        <li><a href="#추상-클래스">추상 클래스</a></li>
+        <li><a href="#생성자-함수">생성자 함수</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://typescript-kr.github.io/pages/classes.html" target="_blank" rel="noopener noreffer ">https://typescript-kr.github.io/pages/classes.html</a></p>
+<ul>
+<li>컴포넌트의 재사용: 생산성을 높이기 위한 매우 중요하고 유용한 방법</li>
+<li>ES6 이전 JS에서는 이를 위해 함수 프로토타입 기반 상속을 사용</li>
+<li>ES6 이후 JS에서는 객체 지향적 클래스 기반의 접근 방식을 사용 가능</li>
+<li>TS는 JS 버전과 무관히 클래스 기반의 접근 기법을 사용할 수 있게 함</li>
+</ul>
+<h3 id="클래스">클래스</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Greeter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">greeting</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">message</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">message</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">greet() {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello, &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">greeter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#34;world&#34;</span>);
+</span></span></code></pre></div><ul>
+<li>클래스 내부에서 클래스 멤버 참조 시 <code>this</code> 를 통해 참조 가능</li>
+<li><code>new</code>를 사용해 클래스를 인스턴스화 한다.</li>
+<li>사전 정의한 생성자를 호출해
+<ul>
+<li>클래스 형태의 새로운 객체를 생성하고</li>
+<li>생성자를 실행해 생성된 객체를 초기화한다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="클래스의-상속">클래스의 상속</h3>
+<blockquote>
+<p>상속은 클래스 기반 프로그래밍의 가장 기본적인 패턴이다.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">move</span>(<span style="color:#a6e22e">distanceInMeters</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Animal moved </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">distanceInMeters</span><span style="color:#e6db74">}</span><span style="color:#e6db74">m.`</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Dog</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Animal</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bark() {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Woof! Woof!&#39;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dog</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Dog</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">bark</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">move</span>(<span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dog</span>.<span style="color:#a6e22e">bark</span>();
+</span></span></code></pre></div><ul>
+<li><code>Animal</code>은 기반이 되는, 슈퍼 클래스이다.</li>
+<li><code>Animal</code>로부터 파생된 <code>Dog</code> 클래스는 서브 클래스이다.</li>
+<li>서브 클래스의 생성자 함수는 슈퍼 클래스의 생성자를 <code>super()</code>를 통해 호출해야 한다.
+<ul>
+<li>이 때 생성자의 <code>this</code> 를 통해 프로퍼티에 접근하기 전에 <code>super()</code>를 먼저 호출해야 함에 유의해야 한다.</li>
+<li><a href="https://stackoverflow.com/questions/60689986/why-super-should-come-before-accessing-this" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/60689986/why-super-should-come-before-accessing-this</a></li>
+<li>서브 클래스에서 슈퍼 클래스의 초기화되지 않은 멤버를 참조하는 것을 막기 위함</li>
+<li>슈퍼 클래스는 서브 클래스의 존재를 몰라야 한다.
+<ul>
+<li>서브 클래스에서 프로퍼티 설정 후 <code>super()</code> 호출 시 JS의 작동 방식 때문에 슈퍼 클래스 생성자가 서브 클래스의 프로퍼티에 접근 가능하다.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="접근-지정자">접근 지정자</h3>
+<blockquote>
+<p>TS의 클래스는 기본적으로 public으로 지정된다.</p>
+</blockquote>
+<h4 id="ecmascript-비공개-필드">ECMAScript 비공개 필드</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Animal</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">theName</span>: <span style="color:#66d9ef">string</span>) { <span style="color:#66d9ef">this</span>.<span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">theName</span>; }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Animal</span>(<span style="color:#e6db74">&#34;Cat&#34;</span>).<span style="color:#960050;background-color:#1e0010">#</span><span style="color:#a6e22e">name</span>; <span style="color:#75715e">// 프로퍼티 &#39;#name&#39;은 비공개 식별자이기 때문에 &#39;Animal&#39; 클래스 외부에선 접근할 수 없습니다.
+</span></span></span></code></pre></div><ul>
+<li>JS 런타임에 내장되어 있는 문법</li>
+<li>각각의 비공개 필드의 isolation을 잘 보장할 수 있는 방법</li>
+</ul>
+<h4 id="private-지정자"><code>private</code> 지정자</h4>
+<blockquote>
+<p><code>private</code> 지정자를 통해 클래스 외부에서 멤버에 접근 불가능하도록 설정할 수 있다.</p>
+</blockquote>
+<ul>
+<li>TS는 구조적인 타입 시스템
+<ul>
+<li>두 타입을 비교할 때 모든 멤버의 타입이 호환된다면 <strong>서로 호환가능한 타입이다</strong>.</li>
+</ul>
+</li>
+<li>하지만 이는 <code>private</code> 또는 <code>protected</code> 접근 지정자가 붙은 타입 비교시 다르게 처리된다.
+<ul>
+<li>호환된다고 판단되는 두 타입 중 하나가 <code>private</code> 멤버를 가지고 있다고 가정</li>
+<li>다른 한 쪽도 무조건 동일하게 <code>private</code> 멤버를 가지고 있어야 한다.</li>
+<li><code>protected</code>도 마찬가지</li>
+</ul>
+</li>
+</ul>
+<h4 id="protected-지정자"><code>protected</code> 지정자</h4>
+<blockquote>
+<p><code>protected</code> 지정자는 <code>protected</code>로 선언된 멤버를 파생된 서브 클래스 내에서 접근 가능하다는 점을 빼곤 <code>private</code> 지정자와 거의 똑같다.</p>
+</blockquote>
+<p>생성자가 <code>protected</code>로 지정될 수 있음이 특이했다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">theName</span>: <span style="color:#66d9ef">string</span>) { <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">theName</span>; }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Employee는 Person을 확장할 수 있습니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Person</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">department</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">department</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>(<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">department</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">department</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">getElevatorPitch() {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">`Hello, my name is </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> and I work in </span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">department</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.`</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">howard</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Employee</span>(<span style="color:#e6db74">&#34;Howard&#34;</span>, <span style="color:#e6db74">&#34;Sales&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">john</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Person</span>(<span style="color:#e6db74">&#34;John&#34;</span>); <span style="color:#75715e">// 오류: &#39;Person&#39;의 생성자는 protected 입니다
+</span></span></span></code></pre></div><ul>
+<li>클래스를 포함하는 클래스 외부에서 인스턴스화는 불가능 (<code>new</code>를 사용한`)</li>
+<li>클래스 외부에서 확장은 가능하다. (<code>extends</code>를 통한)</li>
+</ul>
+<h4 id="readonly-지정자"><code>readonly</code> 지정자</h4>
+<blockquote>
+<p><code>readonly</code> 지정자를 사용해서 프로퍼티를 읽기 전용으로 만들 수 있다. (해당 프로퍼티들은 선언 또는 생성자에서 초기화 필요)</p>
+</blockquote>
+<h3 id="매개변수-프로퍼티">매개변수 프로퍼티</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Octopus</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">numberOfLegs</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span> (<span style="color:#a6e22e">theName</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">theName</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">dad</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Octopus</span>(<span style="color:#e6db74">&#34;Man with the 8 strong legs&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">dad</span>.<span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Man with the 3-piece suit&#34;</span>; <span style="color:#75715e">// 오류! name은 읽기전용 입니다.
+</span></span></span></code></pre></div><p>위 예시는 다음과 같이 프로퍼티의 선언과 초기화를 동시에 할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Octopus</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">numberOfLegs</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">readonly</span> <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>매개변수 프로퍼티는 접근 지정자 또는 <code>readonly</code> 또는 둘 모두를 생성자 매개변수에 prefix로 붙여서 선언 가능</li>
+<li>매개변수 프로퍼티에 <code>private</code>를 붙이면 <code>private</code> 멤버를 선언과 동시에 초기화</li>
+<li>마찬가지로 <code>public</code>, <code>protected</code>, <code>readonly</code>도 동일하게 동작함</li>
+</ul>
+<h3 id="접근자">접근자</h3>
+<blockquote>
+<p>TS는 각 객체의 멤버에 대한 접근자를 지원한다.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> fullNameMaxLength <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> _fullName<span style="color:#f92672">:</span> string<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    get <span style="color:#a6e22e">fullName</span><span style="color:#f92672">():</span> string <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">_fullName</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    set <span style="color:#a6e22e">fullName</span><span style="color:#f92672">(</span>newName<span style="color:#f92672">:</span> string<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>newName <span style="color:#f92672">&amp;&amp;</span> newName<span style="color:#f92672">.</span><span style="color:#a6e22e">length</span> <span style="color:#f92672">&gt;</span> fullNameMaxLength<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;fullName has a max length of &#34;</span> <span style="color:#f92672">+</span> fullNameMaxLength<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">_fullName</span> <span style="color:#f92672">=</span> newName<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>let employee <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Employee<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>employee<span style="color:#f92672">.</span><span style="color:#a6e22e">fullName</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Bob Smith&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>employee<span style="color:#f92672">.</span><span style="color:#a6e22e">fullName</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    console<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>employee<span style="color:#f92672">.</span><span style="color:#a6e22e">fullName</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><ul>
+<li>TS가 기본적으로 지원하는 getter / setter를 통해서 입력에 대한 validation을 수행할 수 있다.</li>
+<li>접근자는 ES5 이상을 출력하도록 컴파일 옵션을 설정해야 함에 유의</li>
+<li><code>get</code> 또는 <code>set</code>이 없는 접근자는 자동으로 <code>readonly</code>로 유추된다.
+<ul>
+<li>프로퍼티 내 사용자들이 변경할 수 없음을 알게 해주기 때문에 <code>.d.ts</code> 파일 생성시 유용</li>
+</ul>
+</li>
+</ul>
+<h3 id="전역-프로퍼티">전역 프로퍼티</h3>
+<blockquote>
+<p>TS는 <code>static</code> 지정자를 통해 인스턴스가 아닌 클래스 자체에서 보이는 전역 멤버 생성 가능</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Grid</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> origin <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>x<span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> y<span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">};</span>
+</span></span><span style="display:flex;"><span>    calculateDistanceFromOrigin<span style="color:#f92672">(</span>point<span style="color:#f92672">:</span> <span style="color:#f92672">{</span>x<span style="color:#f92672">:</span> number<span style="color:#f92672">;</span> y<span style="color:#f92672">:</span> number<span style="color:#f92672">;})</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        let xDist <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>point<span style="color:#f92672">.</span><span style="color:#a6e22e">x</span> <span style="color:#f92672">-</span> Grid<span style="color:#f92672">.</span><span style="color:#a6e22e">origin</span><span style="color:#f92672">.</span><span style="color:#a6e22e">x</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        let yDist <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>point<span style="color:#f92672">.</span><span style="color:#a6e22e">y</span> <span style="color:#f92672">-</span> Grid<span style="color:#f92672">.</span><span style="color:#a6e22e">origin</span><span style="color:#f92672">.</span><span style="color:#a6e22e">y</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> Math<span style="color:#f92672">.</span><span style="color:#a6e22e">sqrt</span><span style="color:#f92672">(</span>xDist <span style="color:#f92672">*</span> xDist <span style="color:#f92672">+</span> yDist <span style="color:#f92672">*</span> yDist<span style="color:#f92672">)</span> <span style="color:#f92672">/</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">scale</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    constructor <span style="color:#f92672">(</span><span style="color:#66d9ef">public</span> scale<span style="color:#f92672">:</span> number<span style="color:#f92672">)</span> <span style="color:#f92672">{</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>let grid1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Grid<span style="color:#f92672">(</span><span style="color:#ae81ff">1.0</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 1x scale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>let grid2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Grid<span style="color:#f92672">(</span><span style="color:#ae81ff">5.0</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// 5x scale
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>console<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>grid1<span style="color:#f92672">.</span><span style="color:#a6e22e">calculateDistanceFromOrigin</span><span style="color:#f92672">({</span>x<span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">,</span> y<span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">}));</span>
+</span></span><span style="display:flex;"><span>console<span style="color:#f92672">.</span><span style="color:#a6e22e">log</span><span style="color:#f92672">(</span>grid2<span style="color:#f92672">.</span><span style="color:#a6e22e">calculateDistanceFromOrigin</span><span style="color:#f92672">({</span>x<span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">,</span> y<span style="color:#f92672">:</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">}));</span>
+</span></span></code></pre></div><h3 id="추상-클래스">추상 클래스</h3>
+<ul>
+<li>추상 클래스는 다른 클래스들이 파생될 수 있는 기초 클래스</li>
+<li>직접 인스턴스화 불가능</li>
+<li>인터페이스와는 달리 멤버에 대한 세부 구현 정보 포함 가능</li>
+<li><code>abstract</code> 키워드를 통해 추상 클래스를 선언하고, 추상 메서드를 정의하는데 사용가능</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Department</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printName</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Department name: &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">name</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">abstract</span> <span style="color:#a6e22e">printMeeting</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>; <span style="color:#75715e">// 반드시 파생된 클래스에서 구현되어야 합니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AccountingDepartment</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Department</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span>(<span style="color:#e6db74">&#34;Accounting and Auditing&#34;</span>); <span style="color:#75715e">// 파생된 클래스의 생성자는 반드시 super()를 호출해야 합니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">printMeeting</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;The Accounting Department meets each Monday at 10am.&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">generateReports</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#34;Generating accounting reports...&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">department</span>: <span style="color:#66d9ef">Department</span>; <span style="color:#75715e">// 추상 타입의 레퍼런스를 생성합니다
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">department</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Department</span>(); <span style="color:#75715e">// 오류: 추상 클래스는 인스턴스화 할 수 없습니다
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">department</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AccountingDepartment</span>(); <span style="color:#75715e">// 추상이 아닌 하위 클래스를 생성하고 할당합니다
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">department</span>.<span style="color:#a6e22e">printName</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">department</span>.<span style="color:#a6e22e">printMeeting</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">department</span>.<span style="color:#a6e22e">generateReports</span>(); <span style="color:#75715e">// 오류: 선언된 추상 타입에 메서드가 존재하지 않습니다
+</span></span></span></code></pre></div><p><a href="https://stackoverflow.com/questions/50110844/what-is-the-difference-between-interface-and-abstract-class-in-typescript" target="_blank" rel="noopener noreffer ">인터페이스 vs 추상 클래스의 차이점</a></p>
+<ul>
+<li>인터페이스는 프로퍼티들과 인터페이스를 구현하는 객체가 할 수 있는 행동을 사전에 정의하는 것
+<ul>
+<li>인터페이스를 구현하는 것은 자유이다. 때문에 런타임에 존재하지 않는다. (<code>instanceof</code>로도 당연히 검사 불가능하다)</li>
+</ul>
+</li>
+<li>추상 클래스는 온전하지 못한 구현체이다.
+<ul>
+<li>추상 클래스는 (추상 메서드만 존재하더라도) 런타임에 존재한다.</li>
+</ul>
+</li>
+</ul>
+<h3 id="생성자-함수">생성자 함수</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Greeter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">greeting</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">constructor</span>(<span style="color:#a6e22e">message</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">message</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">greet() {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello, &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">greeter</span>: <span style="color:#66d9ef">Greeter</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">greeter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#34;world&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">greeter</span>.<span style="color:#a6e22e">greet</span>()); <span style="color:#75715e">// &#34;Hello, world&#34;
+</span></span></span></code></pre></div><p>위 타입스크립트 코드는 아래와 같은 자바스크립트 코드로 트랜스파일된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">Greeter</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">Greeter</span>(<span style="color:#a6e22e">message</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">message</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Greeter</span>.<span style="color:#a6e22e">prototype</span>.<span style="color:#a6e22e">greet</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">function</span> () {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello, &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span>;
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Greeter</span>;
+</span></span><span style="display:flex;"><span>})();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">greeter</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">greeter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Greeter</span>(<span style="color:#e6db74">&#34;world&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">greeter</span>.<span style="color:#a6e22e">greet</span>()); <span style="color:#75715e">// &#34;Hello, world&#34;
+</span></span></span></code></pre></div><p>위 타입스크립트 코드를 조금 수정해보면 재밌는 것을 알 수 있는데,</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Greeter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#a6e22e">standardGreeting</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello, there&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">greeting</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">greet() {</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Hello, &#34;</span> <span style="color:#f92672">+</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">greeting</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Greeter</span>.<span style="color:#a6e22e">standardGreeting</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">greeter1</span>: <span style="color:#66d9ef">Greeter</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">greeter1</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Greeter</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">greeter1</span>.<span style="color:#a6e22e">greet</span>()); <span style="color:#75715e">// &#34;Hello, there&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">greeterMaker</span>: <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">Greeter</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Greeter</span>;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">greeterMaker</span>.<span style="color:#a6e22e">standardGreeting</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hey there!&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">greeter2</span>: <span style="color:#66d9ef">Greeter</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">greeterMaker</span>();
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">greeter2</span>.<span style="color:#a6e22e">greet</span>()); <span style="color:#75715e">// &#34;Hey there!&#34;
+</span></span></span></code></pre></div><p><code>greeterMaker</code> 변수는 <code>Greeter</code> 라는 심볼의 타입을 제공한다.</p>
+<ul>
+<li>해당 타입은 <code>Greeter</code> 클래스 인스턴스를 만드는 생성자를 포함한다.</li>
+<li>아울러 <code>Greeter</code>의 모든 static 멤버를 포함한다. (때문에 static 멤버는 생성자 없이 호출 가능하다)</li>
+<li><code>new</code>를 사용한다면 새로운 인스턴스를 호출할 수 있다.</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2023-12-29</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/classes/" data-title="타입스크립트 핸드북 6장 - 클래스"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/classes/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/classes/" data-title="타입스크립트 핸드북 6장 - 클래스"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/classes/" data-title="타입스크립트 핸드북 6장 - 클래스"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ts-handbook/literal-types/" class="prev" rel="prev" title="타입스크립트 핸드북 4장 - 리터럴 타입"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>타입스크립트 핸드북 4장 - 리터럴 타입</a>
+            <a href="/posts/ts-handbook/enums/" class="next" rel="next" title="타입스크립트 핸드북 7장 - 열거형">타입스크립트 핸드북 7장 - 열거형<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

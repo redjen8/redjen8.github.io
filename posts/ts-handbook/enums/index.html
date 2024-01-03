@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>타입스크립트 핸드북 7장 - 열거형 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 7장 - 열거형" />
+<meta property="og:description" content="https://typescript-kr.github.io/pages/enums.html Numeric Enums enum Direction { Up = 1, Down, Left, Right, } Up이 1부터 초기화되기 시작했기 때문에 그 뒤의 값들은 auto increment 된 값을 가진다 (각각 1, 2, 3, 4) 멤버를 전부 초기화하지 않는다면 0부터 시" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/ts-handbook/enums/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-01-03T22:11:09+09:00" />
+<meta property="article:modified_time" content="2024-01-03T22:11:09+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="타입스크립트 핸드북 7장 - 열거형"/>
+<meta name="twitter:description" content="https://typescript-kr.github.io/pages/enums.html Numeric Enums enum Direction { Up = 1, Down, Left, Right, } Up이 1부터 초기화되기 시작했기 때문에 그 뒤의 값들은 auto increment 된 값을 가진다 (각각 1, 2, 3, 4) 멤버를 전부 초기화하지 않는다면 0부터 시"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/ts-handbook/enums/" /><link rel="prev" href="http://redjen8.github.io/posts/ts-handbook/classes/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "타입스크립트 핸드북 7장 - 열거형",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/enums\/"
+        },"genre": "posts","wordcount":  1451 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/enums\/","datePublished": "2024-01-03T22:11:09+09:00","dateModified": "2024-01-03T22:11:09+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 7장 - 열거형</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1451 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#numeric-enums">Numeric Enums</a></li>
+        <li><a href="#string-enums">String Enums</a></li>
+        <li><a href="#heterogeneous-enums">Heterogeneous Enums</a></li>
+        <li><a href="#computed-and-constant-members">Computed and Constant Members</a></li>
+        <li><a href="#union-enums-and-enum-member-types">Union Enums and Enum Member Types</a></li>
+        <li><a href="#enums-at-runtime-and-compile-time">Enums at runtime and compile time</a></li>
+        <li><a href="#reverse-mappings">Reverse Mappings</a></li>
+        <li><a href="#const-enums"><code>const</code> Enums</a></li>
+        <li><a href="#ambient-enums">Ambient Enums</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://typescript-kr.github.io/pages/enums.html" target="_blank" rel="noopener noreffer ">https://typescript-kr.github.io/pages/enums.html</a></p>
+<h3 id="numeric-enums">Numeric Enums</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Direction</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Up</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Down</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Left</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Right</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><code>Up</code>이 1부터 초기화되기 시작했기 때문에 그 뒤의 값들은 auto increment 된 값을 가진다 (각각 1, 2, 3, 4)</li>
+<li>멤버를 전부 초기화하지 않는다면 0부터 시작한다.</li>
+<li>숫자 열거형은 아래에서 언급할 computed and constant member를 섞어서 사용할 수 있다.
+<ul>
+<li>computed member가 먼저 온다면 뒤의 값은 계산 전 초기화가 필요한 상태이기 때문에 오류 발생</li>
+</ul>
+</li>
+</ul>
+<h3 id="string-enums">String Enums</h3>
+<p>문자열 열거형은 런타임에서 동작이 조금 상이하다.</p>
+<blockquote>
+<p>문자열 열거형에서 각 멤버들은 문자열 리터럴 또는 다른 문자열 열거형의 멤버로 상수 초기화가 반드시 필요하다.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Direction</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Up</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;UP&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Down</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;DOWN&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Left</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;LEFT&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Right</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;RIGHT&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>numeric enum처럼 auto increment 하지는 않지만 직렬화에 유리</li>
+<li>가독성에 보다 유리</li>
+</ul>
+<h3 id="heterogeneous-enums">Heterogeneous Enums</h3>
+<p>Numeric + String Enum을 동시에 사용하는 것. 권장하지 않는다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">BooleanLikeHeterogeneousEnum</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">No</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Yes</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;YES&#34;</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="computed-and-constant-members">Computed and Constant Members</h3>
+<p>각 열거형의 멤버는 1) 상수이거나 2) 계산된 값일 수 있다.</p>
+<p>아래의 경우는 상수 열거형 표현식이다.</p>
+<ol>
+<li>리터럴 열거형 표현식인 경우</li>
+<li>이전에 정의된 다른 상수 열거형 멤버에 대한 참조</li>
+<li>괄호로 묶인 상수 열거형 표현식</li>
+<li>상수 열거형 표현식에 단항 연산자를 사용한 경우</li>
+<li>상수 열거형 표현식을 이중 연산자의 피연산자로 사용할 경우 (표현식 값이 <code>NaN</code>이거나 <code>Infinity</code>이면 컴파일 시점에 오류 발생)</li>
+</ol>
+<p>이외의 모든 열거형 멤버는 계산된 것으로 간주한다. (computed)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">FileAccess</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 상수 멤버
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">None</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Read</span>    <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Write</span>   <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">2</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ReadWrite</span>  <span style="color:#f92672">=</span> <span style="color:#a6e22e">Read</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">Write</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 계산된 멤버
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">G</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;123&#34;</span>.<span style="color:#a6e22e">length</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="union-enums-and-enum-member-types">Union Enums and Enum Member Types</h3>
+<p>리터럴 열거형 멤버는 초기화 값이 존재하지 않거나 아래 값들로 초기화 되는 멤버들</p>
+<ul>
+<li>문자 리터럴 (<code>&quot;foo&quot;</code>)</li>
+<li>숫자 리터럴 (<code>1</code>)</li>
+<li>숫자 리터럴에 단항 연산자 <code>-</code>가 적용된 경우 (<code>-100</code>)</li>
+</ul>
+<blockquote>
+<p>열거형의 모든 멤버가 리터럴 열거형 값을 가지면 특별한 의미로 쓰이게 된다.</p>
+</blockquote>
+<h4 id="열거형-멤버를-타입처럼-사용하기">열거형 멤버를 타입처럼 사용하기</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">ShapeKind</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Circle</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Square</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Circle</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">kind</span>: <span style="color:#66d9ef">ShapeKind.Circle</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">radius</span>: <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Square</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">kind</span>: <span style="color:#66d9ef">ShapeKind.Square</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sideLength</span>: <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">c</span>: <span style="color:#66d9ef">Circle</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">kind</span>: <span style="color:#66d9ef">ShapeKind.Square</span>, <span style="color:#75715e">// 오류! &#39;ShapeKind.Circle&#39; 타입에 &#39;ShapeKind.Square&#39; 타입을 할당할 수 없습니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">radius</span>: <span style="color:#66d9ef">100</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>특정 멤버는 열거형 멤버의 값만 가지게 할 수 있다. 마치 타입처럼&hellip;</li>
+</ul>
+<h4 id="열거형-타입-자체를-열거형-멤버의-유니언으로-사용하기">열거형 타입 자체를 열거형 멤버의 유니언으로 사용하기</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">E</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Foo</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Bar</span>,
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">x</span>: <span style="color:#66d9ef">E</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">x</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">E</span>.<span style="color:#a6e22e">Foo</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">E</span>.<span style="color:#a6e22e">Bar</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//             ~~~~~~~~~~~
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 에러! E 타입은 Foo, Bar 둘 중 하나이기 때문에 이 조건은 항상 true를 반환합니다.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>유니언 타입 열거형을 사용하면 열거형 자체에 존재하는 값들의 목록을 컴파일러한테 알려주는 셈</li>
+<li>때문에 값을 잘못 비교하는 버그를 컴파일 시점에 방지할 수 있다</li>
+<li><code>x</code>가 <code>E.Foo</code> 가 아니라면 (short circuit) if 안의 코드가 무조건 실행된다</li>
+</ul>
+<h3 id="enums-at-runtime-and-compile-time">Enums at runtime and compile time</h3>
+<blockquote>
+<p>열거형은 런타임에 존재한다.</p>
+</blockquote>
+<blockquote>
+<p>열거형이 런타임에 존재하는 실제 객체여도 <code>keyof</code> 키워드를 사용할 때에는 객체와 다르게 동작하기 때문에 조심해야 한다.</p>
+</blockquote>
+<ul>
+<li><code>keyof typeof</code>를 사용한다면 모든 열거형의 키를 문자열로 나타내는 타입을 가져온다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">LogLevel</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ERROR</span>, <span style="color:#a6e22e">WARN</span>, <span style="color:#a6e22e">INFO</span>, <span style="color:#a6e22e">DEBUG</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * 이것은 아래와 동일합니다. :
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * type LogLevelStrings = &#39;ERROR&#39; | &#39;WARN&#39; | &#39;INFO&#39; | &#39;DEBUG&#39;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LogLevelStrings</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">keyof</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">LogLevel</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">printImportant</span>(<span style="color:#a6e22e">key</span>: <span style="color:#66d9ef">LogLevelStrings</span>, <span style="color:#a6e22e">message</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">num</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">LogLevel</span>[<span style="color:#a6e22e">key</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">num</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">LogLevel</span>.<span style="color:#a6e22e">WARN</span>) {
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Log level key is: &#39;</span>, <span style="color:#a6e22e">key</span>);
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Log level value is: &#39;</span>, <span style="color:#a6e22e">num</span>);
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Log level message is: &#39;</span>, <span style="color:#a6e22e">message</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">printImportant</span>(<span style="color:#e6db74">&#39;ERROR&#39;</span>, <span style="color:#e6db74">&#39;This is a message&#39;</span>);
+</span></span></code></pre></div><h3 id="reverse-mappings">Reverse Mappings</h3>
+<blockquote>
+<p>숫자 열거형 멤버는 정방향과 역방향 매핑 정보를 모두 저장하는 객체로 컴파일된다.</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Enum</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">A</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span>.<span style="color:#a6e22e">A</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">nameOfA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span>[<span style="color:#a6e22e">a</span>]; <span style="color:#75715e">// &#34;A&#34;
+</span></span></span></code></pre></div><p>위 타입스크립트 코드는 아래 자바스크립트 코드로 컴파일된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Enum</span>;
+</span></span><span style="display:flex;"><span>(<span style="color:#66d9ef">function</span> (<span style="color:#a6e22e">Enum</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Enum</span>[<span style="color:#a6e22e">Enum</span>[<span style="color:#e6db74">&#34;A&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;A&#34;</span>;
+</span></span><span style="display:flex;"><span>})(<span style="color:#a6e22e">Enum</span> <span style="color:#f92672">||</span> (<span style="color:#a6e22e">Enum</span> <span style="color:#f92672">=</span> {}));
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span>.<span style="color:#a6e22e">A</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">nameOfA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span>[<span style="color:#a6e22e">a</span>]; <span style="color:#75715e">// &#34;A&#34;
+</span></span></span></code></pre></div><p>문자열 열거형은 역매핑을 생성하지 않는다! 유의하자</p>
+<h3 id="const-enums"><code>const</code> Enums</h3>
+<p>열거형 값에 접근할 때 추가 생성된 코드 또는 추가 간접 참조를 피하기 위해 <code>const</code> 열거형을 사용할 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Enum</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">A</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">B</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">A</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>컴파일 될 때, 일반적인 열거형과는 달리 완전히 제거된다.</li>
+<li>컴파일 될 때 사용하는 공간에 인라인됨으로써 기능한다. (계산된 멤버를 가지고 있지 않기 때문에 이게 가능)</li>
+</ul>
+<h3 id="ambient-enums">Ambient Enums</h3>
+<blockquote>
+<p>이미 존재하는 열거형 타입의 모습을 묘사하기 위해 사용</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Enum</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">A</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">B</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">C</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>일반적인 열거형에서 초기화되지 않은 멤버가 상수로 간주하는 멤버 뒤에 있다면 해당 멤버도 상수로 간주</li>
+<li>하지만 ambient 열거형에서 초기화되지 않은 멤버는 항상 계산된 멤버로 간주된다</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-01-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/enums/" data-title="타입스크립트 핸드북 7장 - 열거형"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/enums/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/enums/" data-title="타입스크립트 핸드북 7장 - 열거형"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/enums/" data-title="타입스크립트 핸드북 7장 - 열거형"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ts-handbook/classes/" class="prev" rel="prev" title="타입스크립트 핸드북 6장 - 클래스"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>타입스크립트 핸드북 6장 - 클래스</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
