@@ -27,7 +27,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/enums\/"
-        },"genre": "posts","wordcount":  1695 ,
+        },"genre": "posts","wordcount":  1713 ,
         "url": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/enums\/","datePublished": "2024-01-03T22:11:09+09:00","dateModified": "2024-01-03T22:11:09+09:00","publisher": {
             "@type": "Organization",
             "name": "redjen8"},"author": {
@@ -69,7 +69,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 7장 - 열거형</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1695 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-01-03">2024-01-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1713 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -270,6 +270,8 @@
 </span></span></code></pre></div><ul>
 <li>일반적인 열거형에서 초기화되지 않은 멤버가 상수로 간주하는 멤버 뒤에 있다면 해당 멤버도 상수로 간주</li>
 <li>하지만 ambient 열거형에서 초기화되지 않은 멤버는 항상 계산된 멤버로 간주된다</li>
+<li>값 집합을 열거형으로 <code>export</code> 할 때 사용한다.</li>
+<li><a href="https://dev.to/zapkub/how-to-proper-use-ambient-enum-from-definition-file-5ddg" target="_blank" rel="noopener noreffer ">https://dev.to/zapkub/how-to-proper-use-ambient-enum-from-definition-file-5ddg</a></li>
 </ul>
 <h3 id="java-enum과의-비교">Java Enum과의 비교</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> InstanceType <span style="color:#f92672">{</span>
