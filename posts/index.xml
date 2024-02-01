@@ -3,7 +3,23 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 24 Jan 2024 19:19:27 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 31 Jan 2024 20:18:09 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>타입스크립트 핸드북 11장 - 널러블 타입</title>
+    <link>http://redjen8.github.io/posts/ts-handbook/nullable-types/</link>
+    <pubDate>Wed, 31 Jan 2024 20:18:09 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/ts-handbook/nullable-types/</guid>
+    <description><![CDATA[https://typescript-kr.github.io/pages/advanced-types.html#%EB%84%90%EB%9F%AC%EB%B8%94-%ED%83%80%EC%9E%85-nullable-types Nullable Types null과 undefined는 아무 것에나 할당 가능하다. 이를 방지하기 위한 tsconfig 플래그 값이 --strictNullChecks TS 3.7 이후부터는 optional chaining을 사용할 수 있다. 타]]></description>
+</item>
+<item>
+    <title>타입스크립트 핸드북 10장 - 타입 가드와 차별 타입</title>
+    <link>http://redjen8.github.io/posts/ts-handbook/type-guards-and-differentiating-types/</link>
+    <pubDate>Wed, 31 Jan 2024 19:45:26 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/ts-handbook/type-guards-and-differentiating-types/</guid>
+    <description><![CDATA[https://typescript-kr.github.io/pages/advanced-types.html#%ED%83%80%EC%9E%85-%EA%B0%80%EB%93%9C%EC%99%80-%EC%B0%A8%EB%B3%84-%ED%83%80%EC%9E%85-type-guards-and-differentiating-types 유니언 타입: 타입들을 겹치는 상황에서 사용, 하지만 한 타입이 명시적으로 존재하는지 구체적으로 알고 싶다면? let pet = getSmallPet(); if (pet.swim) { pet.swim(); } else if (pet.fly) { pet.fly(); } 위 코드는 아래]]></description>
+</item>
+<item>
     <title>타입스크립트 핸드북 9장 - (고급 타입) 교차 타입, 유니언 타입</title>
     <link>http://redjen8.github.io/posts/ts-handbook/advanced-union-type-and-intersection-type/</link>
     <pubDate>Wed, 24 Jan 2024 19:19:27 &#43;0900</pubDate>
@@ -66,22 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/ts-handbook/interface/</guid>
     <description><![CDATA[https://typescript-kr.github.io/pages/interfaces.html 타입스크립트의 핵심 원칙 중 하나는 타입 검사가 값의 형태에 초점을 맞춘다는 것 (duck typing) 타입 검사는 프로퍼티들의 순서를 요구하지 않고, 아래 2가지만 검사한다. 인터]]></description>
-</item>
-<item>
-    <title>타입스크립트 핸드북 1장 - 기본 타입</title>
-    <link>http://redjen8.github.io/posts/ts-handbook/basic-type/</link>
-    <pubDate>Wed, 20 Dec 2023 22:16:43 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/ts-handbook/basic-type/</guid>
-    <description><![CDATA[https://typescript-kr.github.io/pages/basic-types.html Number 모든 숫자는 js 처럼 부동 소수값 16진수 리터럴, 10진수 리터럴, 2진수 리터럴, 8진수 리터럴을 지원 String 큰 따옴표 &quot; 나 작은 따옴표 ' 로 문자열 데이터를 감싸]]></description>
-</item>
-<item>
-    <title>모던 자바스크립트 Deep Dive 42장 - 비동기 프로그래밍</title>
-    <link>http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/</link>
-    <pubDate>Tue, 14 Nov 2023 23:33:59 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/js-deepdive/asynchronous-programming/</guid>
-    <description><![CDATA[동기 처리와 비동기 처리 이전에 정리했던 함수 실행 컨텍스트내용 참고.. 함수 호출 함수 코드 평가 (eval) 함수 실행 컨텍스트 생성 생성된 컨텍스트를 실행 컨텍스트 스택에 push]]></description>
 </item>
 </channel>
 </rss>
