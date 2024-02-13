@@ -2,8 +2,10 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2024-01-31T20:18:09&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2024-01-31T20:18:09&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2024-02-13T22:21:31&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2024-02-13T22:21:31&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/ts-handbook/polymorphic-this-types/</loc><lastmod>2024-02-13T22:21:31&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/ts-handbook/discriminated-unions/</loc><lastmod>2024-02-13T21:58:17&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/ts-handbook/nullable-types/</loc><lastmod>2024-01-31T20:18:09&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/ts-handbook/type-guards-and-differentiating-types/</loc><lastmod>2024-01-31T19:45:26&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/ts-handbook/advanced-union-type-and-intersection-type/</loc><lastmod>2024-01-24T19:19:27&#43;09:00</lastmod></url><url>

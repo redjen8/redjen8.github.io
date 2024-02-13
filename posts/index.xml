@@ -3,7 +3,23 @@
         <title>All Posts - Redjen TIL</title>
         <link>http://redjen8.github.io/posts/</link>
         <description>All Posts | Redjen TIL</description>
-        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Wed, 31 Jan 2024 20:18:09 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>ko-KR</language><lastBuildDate>Tue, 13 Feb 2024 22:21:31 &#43;0900</lastBuildDate><atom:link href="http://redjen8.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>타입스크립트 핸드북 13장 - 다형성 this 타입</title>
+    <link>http://redjen8.github.io/posts/ts-handbook/polymorphic-this-types/</link>
+    <pubDate>Tue, 13 Feb 2024 22:21:31 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/ts-handbook/polymorphic-this-types/</guid>
+    <description><![CDATA[https://typescript-kr.github.io/pages/advanced-types.html#%EB%8B%A4%ED%98%95%EC%84%B1-this-%ED%83%80%EC%9E%85-polymorphic-this-types class BasicCalculator { public constructor(protected value: number = 0) { } public currentValue(): number { return this.value; } public add(operand: number): this { this.value += operand; return this; } public multiply(operand: number): this { this.value *= operand; return this; } // ... 다른 연산들은 여기에 작성 ... } let v = new BasicCalculator(2) .multiply(5) .add(1) .currentValue(); class ScientificCalculator extends BasicCalculator { public]]></description>
+</item>
+<item>
+    <title>타입스크립트 12장 - 판별 유니온</title>
+    <link>http://redjen8.github.io/posts/ts-handbook/discriminated-unions/</link>
+    <pubDate>Tue, 13 Feb 2024 21:58:17 &#43;0900</pubDate>
+    <author>redjen</author>
+    <guid>http://redjen8.github.io/posts/ts-handbook/discriminated-unions/</guid>
+    <description><![CDATA[https://typescript-kr.github.io/pages/advanced-types.html#%ED%8C%90%EB%B3%84-%EC%9C%A0%EB%8B%88%EC%96%B8-discriminated-unions 싱글톤 패턴 + 유니언 타입 + 타입 가드 + type alias의 짬뽕 아래의 3가지 요소로 구성된다. 공통 싱글톤 타입 프로퍼티를 가지는 타입 해당 타입들의 유니언으로써]]></description>
+</item>
+<item>
     <title>타입스크립트 핸드북 11장 - 널러블 타입</title>
     <link>http://redjen8.github.io/posts/ts-handbook/nullable-types/</link>
     <pubDate>Wed, 31 Jan 2024 20:18:09 &#43;0900</pubDate>
@@ -66,22 +82,6 @@
     <author>redjen</author>
     <guid>http://redjen8.github.io/posts/ts-handbook/literal-types/</guid>
     <description><![CDATA[https://typescript-kr.github.io/pages/literal-types.html 리터럴 타입은 enum 타입의 하위 타입이다. 문자열과 숫자 두 가지 리터럴 타입이 존재하고, 이를 사용할 경우 문자열이나 숫자에 정확한 값을 지정할 수 있다. Literal Narrowing var 또는]]></description>
-</item>
-<item>
-    <title>타입스크립트 핸드북 3장 - 함수</title>
-    <link>http://redjen8.github.io/posts/ts-handbook/function/</link>
-    <pubDate>Wed, 20 Dec 2023 22:19:51 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/ts-handbook/function/</guid>
-    <description><![CDATA[https://typescript-kr.github.io/pages/functions.html Function JS와 마찬가지로 named function과 anonymous function을 제공 함수는 외부 변수를 참조 (변수 캡쳐) 가능 Typing the Function 함수의 타입은 매개변수의 타입과 반환 타]]></description>
-</item>
-<item>
-    <title>타입스크립트 핸드북 2장 - 인터페이스</title>
-    <link>http://redjen8.github.io/posts/ts-handbook/interface/</link>
-    <pubDate>Wed, 20 Dec 2023 22:19:12 &#43;0900</pubDate>
-    <author>redjen</author>
-    <guid>http://redjen8.github.io/posts/ts-handbook/interface/</guid>
-    <description><![CDATA[https://typescript-kr.github.io/pages/interfaces.html 타입스크립트의 핵심 원칙 중 하나는 타입 검사가 값의 형태에 초점을 맞춘다는 것 (duck typing) 타입 검사는 프로퍼티들의 순서를 요구하지 않고, 아래 2가지만 검사한다. 인터]]></description>
 </item>
 </channel>
 </rss>
