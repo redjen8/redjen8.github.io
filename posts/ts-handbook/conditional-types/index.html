@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>타입스크립트 핸드북 16장 - 인덱스 타입 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 16장 - 인덱스 타입" />
+        <title>타입스크립트 핸드북 16장 - 조건부 타입 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 16장 - 조건부 타입" />
 <meta property="og:description" content="https://typescript-kr.github.io/pages/advanced-types.html#%EC%A1%B0%EA%B1%B4%EB%B6%80-%ED%83%80%EC%9E%85-conditional-types T extends U ? X : Y T가 U에 할당될 수 있다면 X 타입이 된다. T가 U에 할당 불가능한 경우 Y 타입이 된다. 조건부 타입은 다음의 특징을 가진다. 타입이 X 또는 Y로 결" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://redjen8.github.io/posts/ts-handbook/conditional-types/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-02-23T21:11:45+09:00" />
 <meta property="article:modified_time" content="2024-02-23T21:11:45+09:00" /><meta property="og:site_name" content="Redjen TIL" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="타입스크립트 핸드북 16장 - 인덱스 타입"/>
+<meta name="twitter:title" content="타입스크립트 핸드북 16장 - 조건부 타입"/>
 <meta name="twitter:description" content="https://typescript-kr.github.io/pages/advanced-types.html#%EC%A1%B0%EA%B1%B4%EB%B6%80-%ED%83%80%EC%9E%85-conditional-types T extends U ? X : Y T가 U에 할당될 수 있다면 X 타입이 된다. T가 U에 할당 불가능한 경우 Y 타입이 된다. 조건부 타입은 다음의 특징을 가진다. 타입이 X 또는 Y로 결"/>
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -22,7 +22,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "타입스크립트 핸드북 16장 - 인덱스 타입",
+        "headline": "타입스크립트 핸드북 16장 - 조건부 타입",
         "inLanguage": "ko-KR",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -67,7 +67,7 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 16장 - 인덱스 타입</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 16장 - 조건부 타입</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-23">2024-02-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1840 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
@@ -328,7 +328,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 인덱스 타입"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 인덱스 타입"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 인덱스 타입"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 조건부 타입"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 조건부 타입"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 조건부 타입"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
