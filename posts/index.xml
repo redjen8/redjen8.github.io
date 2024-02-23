@@ -36,7 +36,7 @@
     <description><![CDATA[https://typescript-kr.github.io/pages/advanced-types.html#%EB%8B%A4%ED%98%95%EC%84%B1-this-%ED%83%80%EC%9E%85-polymorphic-this-types class BasicCalculator { public constructor(protected value: number = 0) { } public currentValue(): number { return this.value; } public add(operand: number): this { this.value += operand; return this; } public multiply(operand: number): this { this.value *= operand; return this; } // ... 다른 연산들은 여기에 작성 ... } let v = new BasicCalculator(2) .multiply(5) .add(1) .currentValue(); class ScientificCalculator extends BasicCalculator { public]]></description>
 </item>
 <item>
-    <title>타입스크립트 12장 - 판별 유니온</title>
+    <title>타입스크립트 핸드북 12장 - 판별 유니온</title>
     <link>http://redjen8.github.io/posts/ts-handbook/discriminated-unions/</link>
     <pubDate>Tue, 13 Feb 2024 21:58:17 &#43;0900</pubDate>
     <author>redjen</author>

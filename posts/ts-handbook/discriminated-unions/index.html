@@ -4,14 +4,14 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>타입스크립트 12장 - 판별 유니온 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 12장 - 판별 유니온" />
+        <title>타입스크립트 핸드북 12장 - 판별 유니온 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 12장 - 판별 유니온" />
 <meta property="og:description" content="https://typescript-kr.github.io/pages/advanced-types.html#%ED%8C%90%EB%B3%84-%EC%9C%A0%EB%8B%88%EC%96%B8-discriminated-unions 싱글톤 패턴 &#43; 유니언 타입 &#43; 타입 가드 &#43; type alias의 짬뽕 아래의 3가지 요소로 구성된다. 공통 싱글톤 타입 프로퍼티를 가지는 타입 해당 타입들의 유니언으로써" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2024-02-13T21:58:17+09:00" />
 <meta property="article:modified_time" content="2024-02-13T21:58:17+09:00" /><meta property="og:site_name" content="Redjen TIL" />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="타입스크립트 12장 - 판별 유니온"/>
+<meta name="twitter:title" content="타입스크립트 핸드북 12장 - 판별 유니온"/>
 <meta name="twitter:description" content="https://typescript-kr.github.io/pages/advanced-types.html#%ED%8C%90%EB%B3%84-%EC%9C%A0%EB%8B%88%EC%96%B8-discriminated-unions 싱글톤 패턴 &#43; 유니언 타입 &#43; 타입 가드 &#43; type alias의 짬뽕 아래의 3가지 요소로 구성된다. 공통 싱글톤 타입 프로퍼티를 가지는 타입 해당 타입들의 유니언으로써"/>
 <meta name="application-name" content="Redjen TIL">
 <meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -22,7 +22,7 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "타입스크립트 12장 - 판별 유니온",
+        "headline": "타입스크립트 핸드북 12장 - 판별 유니온",
         "inLanguage": "ko-KR",
         "mainEntityOfPage": {
             "@type": "WebPage",
@@ -67,7 +67,7 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 12장 - 판별 유니온</h1><div class="post-meta">
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 12장 - 판별 유니온</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-13">2024-02-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;923 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
@@ -187,7 +187,7 @@
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/" data-title="타입스크립트 12장 - 판별 유니온"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/" data-title="타입스크립트 12장 - 판별 유니온"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/" data-title="타입스크립트 12장 - 판별 유니온"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/" data-title="타입스크립트 핸드북 12장 - 판별 유니온"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/" data-title="타입스크립트 핸드북 12장 - 판별 유니온"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/discriminated-unions/" data-title="타입스크립트 핸드북 12장 - 판별 유니온"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
