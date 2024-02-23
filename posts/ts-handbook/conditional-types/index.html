@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>타입스크립트 핸드북 16장 - 인덱스 타입 - Redjen TIL</title><meta name="Description" content="Make Maketh Install"><meta property="og:title" content="타입스크립트 핸드북 16장 - 인덱스 타입" />
+<meta property="og:description" content="https://typescript-kr.github.io/pages/advanced-types.html#%EC%A1%B0%EA%B1%B4%EB%B6%80-%ED%83%80%EC%9E%85-conditional-types T extends U ? X : Y T가 U에 할당될 수 있다면 X 타입이 된다. T가 U에 할당 불가능한 경우 Y 타입이 된다. 조건부 타입은 다음의 특징을 가진다. 타입이 X 또는 Y로 결" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://redjen8.github.io/posts/ts-handbook/conditional-types/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2024-02-23T21:11:45+09:00" />
+<meta property="article:modified_time" content="2024-02-23T21:11:45+09:00" /><meta property="og:site_name" content="Redjen TIL" />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="타입스크립트 핸드북 16장 - 인덱스 타입"/>
+<meta name="twitter:description" content="https://typescript-kr.github.io/pages/advanced-types.html#%EC%A1%B0%EA%B1%B4%EB%B6%80-%ED%83%80%EC%9E%85-conditional-types T extends U ? X : Y T가 U에 할당될 수 있다면 X 타입이 된다. T가 U에 할당 불가능한 경우 Y 타입이 된다. 조건부 타입은 다음의 특징을 가진다. 타입이 X 또는 Y로 결"/>
+<meta name="application-name" content="Redjen TIL">
+<meta name="apple-mobile-web-app-title" content="Redjen TIL"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="http://redjen8.github.io/posts/ts-handbook/conditional-types/" /><link rel="prev" href="http://redjen8.github.io/posts/ts-handbook/mapping-types/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "타입스크립트 핸드북 16장 - 인덱스 타입",
+        "inLanguage": "ko-KR",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/conditional-types\/"
+        },"genre": "posts","wordcount":  1840 ,
+        "url": "http:\/\/redjen8.github.io\/posts\/ts-handbook\/conditional-types\/","datePublished": "2024-02-23T21:11:45+09:00","dateModified": "2024-02-23T21:11:45+09:00","publisher": {
+            "@type": "Organization",
+            "name": "redjen8"},"author": {
+                "@type": "Person",
+                "name": "redjen"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Redjen TIL">Redjen TIL</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Redjen TIL">Redjen TIL</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">타입스크립트 핸드북 16장 - 인덱스 타입</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-02-23">2024-02-23</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1840 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#distributive-conditional-types">Distributive conditional types</a></li>
+        <li><a href="#type-inference-in-conditional-types">Type inference in conditional types</a></li>
+        <li><a href="#predefined-conditional-types">Predefined conditional types</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><a href="https://typescript-kr.github.io/pages/advanced-types.html#%EC%A1%B0%EA%B1%B4%EB%B6%80-%ED%83%80%EC%9E%85-conditional-types" target="_blank" rel="noopener noreffer ">https://typescript-kr.github.io/pages/advanced-types.html#%EC%A1%B0%EA%B1%B4%EB%B6%80-%ED%83%80%EC%9E%85-conditional-types</a></p>
+<p><code>T extends U ? X : Y</code></p>
+<ul>
+<li>T가 U에 할당될 수 있다면 X 타입이 된다.</li>
+<li>T가 U에 할당 불가능한 경우 Y 타입이 된다.</li>
+</ul>
+<p>조건부 타입은 다음의 특징을 가진다.</p>
+<ul>
+<li>타입이 <code>X</code> 또는 <code>Y</code>로 결정되는 것처럼 보이지만 지연될 수도 있다
+<ul>
+<li>조건이 하나 이상의 타입 변수에 의존하기 때문 (<code>T extends U</code>)</li>
+</ul>
+</li>
+<li>즉, 타입이 즉시 결정되지 못하는 경우가 있다</li>
+</ul>
+<h4 id="타입이-즉시-결정되는-예시">타입이 즉시 결정되는 예시</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>&lt;<span style="color:#f92672">T</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">boolean</span>&gt;(<span style="color:#a6e22e">x</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">true</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 타입은 &#39;string | number&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.5</span>)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">TypeName</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;string&#34;</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">number</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;number&#34;</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;boolean&#34;</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;undefined&#34;</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> Function <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;function&#34;</span> <span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;object&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T0</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypeName</span>&lt;<span style="color:#f92672">string</span>&gt;;  <span style="color:#75715e">// &#34;string&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypeName</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74">&#34;a&#34;</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// &#34;string&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypeName</span>&lt;<span style="color:#f92672">true</span>&gt;;  <span style="color:#75715e">// &#34;boolean&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypeName</span><span style="color:#f92672">&lt;</span>() <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// &#34;function&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">TypeName</span>&lt;<span style="color:#f92672">string</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;;  <span style="color:#75715e">// &#34;object&#34;
+</span></span></span></code></pre></div><h4 id="타입이-분기되지-않고-고정되는-예시">타입이 분기되지 않고 고정되는 예시</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Foo</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">propA</span>: <span style="color:#66d9ef">boolean</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">propB</span>: <span style="color:#66d9ef">boolean</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">x</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Foo</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">string</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">foo</span>&lt;<span style="color:#f92672">U</span>&gt;(<span style="color:#a6e22e">x</span>: <span style="color:#66d9ef">U</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// &#39;U extends Foo ? string : number&#39; 타입을 가지고 있습니다
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">f</span>(<span style="color:#a6e22e">x</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 이 할당은 허용됩니다!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">b</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">a</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li><code>a</code>는 아직 분기 선택되지 못한 조건부 타입을 가진다.
+<ul>
+<li><code>foo()</code> 의 인자로 입력된 타입이 결정되어야 분기가 결정되어 조건부 타입이 결정</li>
+</ul>
+</li>
+<li>하지만 조건부 타입이 평가되지 않아도 결국 <code>string</code> 타입 또는 <code>number</code> 타입 중에서 선택한다는 사실은 변하지 않는다
+<ul>
+<li>때문에 <code>string | number</code> 유니언 타입으로 할당이 가능하다</li>
+</ul>
+</li>
+</ul>
+<h3 id="distributive-conditional-types">Distributive conditional types</h3>
+<p><a href="https://stackoverflow.com/questions/51651499/typescript-what-is-a-naked-type-parameter" target="_blank" rel="noopener noreffer ">https://stackoverflow.com/questions/51651499/typescript-what-is-a-naked-type-parameter</a></p>
+<h4 id="naked-type-parameter">naked type parameter</h4>
+<blockquote>
+<p>naked type parameter는 다른 타입 / 제네릭으로 감싸지지 않은 타입</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">NakedUsage</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">T</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;YES&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;NO&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">WrappedUsage</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">T</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> [<span style="color:#a6e22e">T</span>] <span style="color:#66d9ef">extends</span> [<span style="color:#66d9ef">boolean</span>] <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;YES&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;NO&#34;</span>;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Distributed</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NakedUsage</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">number</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">&gt;</span> <span style="color:#75715e">// = NakedUsage&lt;number&gt; | NakedUsage&lt;boolean&gt; =  &#34;NO&#34; | &#34;YES&#34; 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">NotDistributed</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">WrappedUsage</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">number</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">&gt;</span> <span style="color:#75715e">// &#34;NO&#34;    
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">NotDistributed2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">WrappedUsage</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">boolean</span> <span style="color:#f92672">&gt;</span> <span style="color:#75715e">// &#34;YES&#34;
+</span></span></span></code></pre></div><p>naked vs non naked (래핑된) 타입 인수의 차이는 다음과 같다.</p>
+<ul>
+<li>naked 타입 인수의 경우 유니언에 대해 <strong>분산된다</strong>.
+<ul>
+<li>때문에 조건부 타입이 유니언의 각 멤버에 대해 적용된다.</li>
+</ul>
+</li>
+<li>즉 검사 대상 타입이 naked type parameter인 조건부 타입 == 분산 조건부 타입</li>
+</ul>
+<h4 id="조건부-타입을-유니언-타입으로-분산시키는-예제">조건부 타입을 유니언 타입으로 분산시키는 예제</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BoxedValue</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> { <span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">T</span> };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">BoxedArray</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> { <span style="color:#a6e22e">array</span>: <span style="color:#66d9ef">T</span>[] };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Boxed</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">any</span>[] <span style="color:#f92672">?</span> <span style="color:#a6e22e">BoxedArray</span>&lt;<span style="color:#f92672">T</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">number</span><span style="color:#960050;background-color:#1e0010">]</span>&gt; <span style="color:#f92672">:</span> <span style="color:#a6e22e">BoxedValue</span>&lt;<span style="color:#f92672">T</span>&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T20</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Boxed</span>&lt;<span style="color:#f92672">string</span>&gt;;  <span style="color:#75715e">// BoxedValue&lt;string&gt;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T21</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Boxed</span>&lt;<span style="color:#f92672">number</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;;  <span style="color:#75715e">// BoxedArray&lt;number&gt;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T22</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Boxed</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;;  <span style="color:#75715e">// BoxedValue&lt;string&gt; | BoxedArray&lt;number&gt;;
+</span></span></span></code></pre></div><h4 id="유니언-타입을-필터링하기-위한-분산-조건부-타입의-예제">유니언 타입을 필터링하기 위한 분산 조건부 타입의 예제</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Diff</span>&lt;<span style="color:#f92672">T</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">U</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">U</span> <span style="color:#f92672">?</span> <span style="color:#66d9ef">never</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>;  <span style="color:#75715e">// U에 할당할 수 있는 타입을 T에서 제거
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Filter</span>&lt;<span style="color:#f92672">T</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">U</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">U</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">T</span> : <span style="color:#66d9ef">never</span>;  <span style="color:#75715e">// U에 할당할 수 없는 타입을 T에서 제거
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T30</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Diff</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;d&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;f&#34;</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// &#34;b&#34; | &#34;d&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T31</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Filter</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;d&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;f&#34;</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// &#34;a&#34; | &#34;c&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T32</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Diff</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">(()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">void</span>), Function<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// string | number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T33</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Filter</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">(()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">void</span>), Function<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// () =&gt; void
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NonNullable</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">Diff</span>&lt;<span style="color:#f92672">T</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">null</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">undefined</span>&gt;;  <span style="color:#75715e">// T에서 null과 undefined를 제거
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T34</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NonNullable</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">undefined</span>&gt;;  <span style="color:#75715e">// string | number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T35</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NonNullable</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">string</span><span style="color:#960050;background-color:#1e0010">[]</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">null</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">undefined</span>&gt;;  <span style="color:#75715e">// string | string[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">x</span>: <span style="color:#66d9ef">T</span>, <span style="color:#a6e22e">y</span>: <span style="color:#66d9ef">NonNullable</span>&lt;<span style="color:#f92672">T</span>&gt;) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>;  <span style="color:#75715e">// 성공
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>;  <span style="color:#75715e">// 오류
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f2</span>&lt;<span style="color:#f92672">T</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">undefined</span>&gt;(<span style="color:#a6e22e">x</span>: <span style="color:#66d9ef">T</span>, <span style="color:#a6e22e">y</span>: <span style="color:#66d9ef">NonNullable</span>&lt;<span style="color:#f92672">T</span>&gt;) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>;  <span style="color:#75715e">// 성공
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>;  <span style="color:#75715e">// 오류
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s1</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">x</span>;  <span style="color:#75715e">// 오류
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">s2</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">y</span>;  <span style="color:#75715e">// 성공
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><h4 id="매핑-타입과-결합된-조건부-타입의-예제">매핑 타입과 결합된 조건부 타입의 예제</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FunctionPropertyNames</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> { [<span style="color:#a6e22e">K</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">keyof</span> <span style="color:#a6e22e">T</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>[<span style="color:#a6e22e">K</span>] <span style="color:#66d9ef">extends</span> Function <span style="color:#f92672">?</span> <span style="color:#a6e22e">K</span> : <span style="color:#66d9ef">never</span> }[<span style="color:#66d9ef">keyof</span> <span style="color:#a6e22e">T</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FunctionProperties</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">Pick</span>&lt;<span style="color:#f92672">T</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">FunctionPropertyNames</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">T</span>&gt;<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NonFunctionPropertyNames</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> { [<span style="color:#a6e22e">K</span> <span style="color:#66d9ef">in</span> <span style="color:#66d9ef">keyof</span> <span style="color:#a6e22e">T</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>[<span style="color:#a6e22e">K</span>] <span style="color:#66d9ef">extends</span> Function <span style="color:#f92672">?</span> <span style="color:#66d9ef">never</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">K</span> }[<span style="color:#66d9ef">keyof</span> <span style="color:#a6e22e">T</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NonFunctionProperties</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">Pick</span>&lt;<span style="color:#f92672">T</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">NonFunctionPropertyNames</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">T</span>&gt;<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Part</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">subparts</span>: <span style="color:#66d9ef">Part</span>[];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">updatePart</span>(<span style="color:#a6e22e">newName</span>: <span style="color:#66d9ef">string</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T40</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">FunctionPropertyNames</span>&lt;<span style="color:#f92672">Part</span>&gt;;  <span style="color:#75715e">// &#34;updatePart&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T41</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NonFunctionPropertyNames</span>&lt;<span style="color:#f92672">Part</span>&gt;;  <span style="color:#75715e">// &#34;id&#34; | &#34;name&#34; | &#34;subparts&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T42</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">FunctionProperties</span>&lt;<span style="color:#f92672">Part</span>&gt;;  <span style="color:#75715e">// { updatePart(newName: string): void }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T43</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NonFunctionProperties</span>&lt;<span style="color:#f92672">Part</span>&gt;;  <span style="color:#75715e">// { id: number, name: string, subparts: Part[] }
+</span></span></span></code></pre></div><h3 id="type-inference-in-conditional-types">Type inference in conditional types</h3>
+<p><a href="https://medium.com/@developer.olly/understanding-typescript-infer-ac42bd018f3" target="_blank" rel="noopener noreffer ">https://medium.com/@developer.olly/understanding-typescript-infer-ac42bd018f3</a></p>
+<blockquote>
+<p><code>infer</code> 키워드는 조건부 타입에서 타입으로부터 다른 타입을 찾기 위해서 사용된다.</p>
+</blockquote>
+<ul>
+<li><code>infer</code> 선언을 통해 타입의 그룹으로부터 타입을 뽑아서 다른 타입의 정의에 사용할 수 있다.</li>
+<li>서로 다른 여러 입력 타입이 존재하는 제너럴한 타입을 만들 때 유용하다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">UnArray</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#66d9ef">any</span>[] <span style="color:#f92672">?</span> <span style="color:#a6e22e">T</span>[<span style="color:#66d9ef">number</span>] <span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>
+</span></span></code></pre></div><p>위와 같은 방식으로 unwrap 하는 타입을 만들수도 있지만</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">UnArray</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> Array&lt;<span style="color:#f92672">infer</span> <span style="color:#a6e22e">U</span>&gt; <span style="color:#f92672">?</span> <span style="color:#a6e22e">U</span> : <span style="color:#66d9ef">T</span>;
+</span></span></code></pre></div><p>위와 같이 사용한다면 더 깔끔한 접근 방법이 된다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Unpacked</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> (<span style="color:#66d9ef">infer</span> <span style="color:#a6e22e">U</span>)[] <span style="color:#f92672">?</span> <span style="color:#a6e22e">U</span> :
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">T</span> <span style="color:#66d9ef">extends</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>[]) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">infer</span> <span style="color:#a6e22e">U</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">U</span> :
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">T</span> <span style="color:#66d9ef">extends</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">infer</span> <span style="color:#a6e22e">U</span>&gt; <span style="color:#f92672">?</span> <span style="color:#a6e22e">U</span> :
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">T</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T0</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Unpacked</span>&lt;<span style="color:#f92672">string</span>&gt;;  <span style="color:#75715e">// string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Unpacked</span>&lt;<span style="color:#f92672">string</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;;  <span style="color:#75715e">// string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Unpacked</span><span style="color:#f92672">&lt;</span>() <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">string</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T3</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Unpacked</span>&lt;<span style="color:#f92672">Promise</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">string</span>&gt;<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T4</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Unpacked</span>&lt;<span style="color:#f92672">Promise</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">string</span>&gt;[]<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// Promise&lt;string&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T5</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Unpacked</span>&lt;<span style="color:#f92672">Unpacked</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">Promise</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">string</span>&gt;[]<span style="color:#f92672">&gt;&gt;</span>;  <span style="color:#75715e">// string
+</span></span></span></code></pre></div><p>즉 하나의 타입 안에서 하나의 타입을 콕 꼽아서 다른 제너럴한 타입을 만드는 좋은 도구가 될 수 있다.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">T</span> <span style="color:#a6e22e">extends</span> <span style="color:#960050;background-color:#1e0010">(</span><span style="color:#a6e22e">...args</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">any</span><span style="color:#960050;background-color:#1e0010">[])</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">infer</span> <span style="color:#a6e22e">R</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">R</span>;
+</span></span></code></pre></div><ul>
+<li>하지만 위와 같이 <strong>조건부 타입이 아닌, 일반 타입 인수에 대한 constraint 절에서 <code>infer</code>를 사용할 수는 없다.</strong></li>
+<li>일반 타입 인수의 제약 조건에서 타입 변수를 지우고 조건부 타입을 지정하면 비슷하긴 하다.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">AnyFunction</span> <span style="color:#f92672">=</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>[]) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">any</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">T</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">AnyFunction</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">T</span> <span style="color:#66d9ef">extends</span> (...<span style="color:#a6e22e">args</span>: <span style="color:#66d9ef">any</span>[]) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">infer</span> <span style="color:#a6e22e">R</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">R</span> : <span style="color:#66d9ef">any</span>;
+</span></span></code></pre></div><h3 id="predefined-conditional-types">Predefined conditional types</h3>
+<p>ts 2.8에서는 자주 사용되는 조건부 타입이 추가되었다.</p>
+<ul>
+<li><code>Exclude&lt;T, U&gt;</code>
+<ul>
+<li>U에 할당할 수 있는 타입은 T에서 제외</li>
+<li><code>type Exclude&lt;T, U&gt; = T extends U ? never : T;</code></li>
+</ul>
+</li>
+<li><code>Extract&lt;T, U&gt;</code>
+<ul>
+<li>U에 할당할 수 있는 타입만 T에서 추출</li>
+<li><code>type Filter&lt;T, U&gt; = T extends U ? T : never;</code></li>
+</ul>
+</li>
+<li><code>NonNullable&lt;T&gt;</code>
+<ul>
+<li>T에서 <code>null</code> 과 <code>undefined</code>를 제외</li>
+<li><code>type NonNullable&lt;T&gt; = Exclude&lt;T, null | undefined&gt;;</code></li>
+</ul>
+</li>
+<li><code>ReturnType&lt;T&gt;</code>
+<ul>
+<li>함수 타입의 반환 타입을 추출</li>
+<li>`type ReturnType<!-- raw HTML omitted --> = T extends (&hellip;a: any[]) =&gt; infer R ? R : any;</li>
+</ul>
+</li>
+<li><code>InstanceType&lt;T&gt;</code>
+<ul>
+<li>생성자 함수 타입의 인스턴스 타입을 추출</li>
+<li>`type InstanceType<!-- raw HTML omitted --> = T extends new (&hellip;args: any[]) =&gt; infer R ? R : any;</li>
+</ul>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T00</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Exclude</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;d&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;f&#34;</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// &#34;b&#34; | &#34;d&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T01</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Extract</span><span style="color:#f92672">&lt;</span><span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;b&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;d&#34;</span>, <span style="color:#e6db74">&#34;a&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;c&#34;</span> <span style="color:#f92672">|</span> <span style="color:#e6db74">&#34;f&#34;</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// &#34;a&#34; | &#34;c&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T02</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Exclude</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">(()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">void</span>), Function<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// string | number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T03</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Extract</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#960050;background-color:#1e0010">(()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#66d9ef">void</span>), Function<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// () =&gt; void
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T04</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NonNullable</span>&lt;<span style="color:#f92672">string</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">number</span> <span style="color:#960050;background-color:#1e0010">|</span> <span style="color:#a6e22e">undefined</span>&gt;;  <span style="color:#75715e">// string | number
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T05</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">NonNullable</span><span style="color:#f92672">&lt;</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">string</span>) <span style="color:#f92672">|</span> <span style="color:#66d9ef">string</span>[] <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// (() =&gt; string) | string[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">f1</span>(<span style="color:#a6e22e">s</span>: <span style="color:#66d9ef">string</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">a</span>: <span style="color:#66d9ef">1</span>, <span style="color:#a6e22e">b</span>: <span style="color:#66d9ef">s</span> };
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">y</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T10</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span><span style="color:#f92672">&lt;</span>() <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">string</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// string
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T11</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span><span style="color:#f92672">&lt;</span>(<span style="color:#a6e22e">s</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// void
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T12</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span><span style="color:#f92672">&lt;</span>(&lt;<span style="color:#f92672">T</span>&gt;() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">T</span>)<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// {}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T13</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span><span style="color:#f92672">&lt;</span>(&lt;<span style="color:#f92672">T</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">U</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">U</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">number</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">T</span>)<span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// number[]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T14</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">typeof</span> <span style="color:#a6e22e">f1</span>&gt;;  <span style="color:#75715e">// { a: number, b: string }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T15</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">any</span>&gt;;  <span style="color:#75715e">// any
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T16</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">never</span>&gt;;  <span style="color:#75715e">// never
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T17</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">string</span>&gt;;  <span style="color:#75715e">// 오류
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T18</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span>&lt;<span style="color:#f92672">Function</span>&gt;;  <span style="color:#75715e">// 오류
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T20</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">InstanceType</span>&lt;<span style="color:#f92672">typeof</span> <span style="color:#a6e22e">C</span>&gt;;  <span style="color:#75715e">// C
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T21</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">InstanceType</span>&lt;<span style="color:#f92672">any</span>&gt;;  <span style="color:#75715e">// any
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T22</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">InstanceType</span>&lt;<span style="color:#f92672">never</span>&gt;;  <span style="color:#75715e">// never
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T23</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">InstanceType</span>&lt;<span style="color:#f92672">string</span>&gt;;  <span style="color:#75715e">// 오류
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">T24</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">InstanceType</span>&lt;<span style="color:#f92672">Function</span>&gt;;  <span style="color:#75715e">// 오류
+</span></span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-02-23</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 인덱스 타입"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 인덱스 타입"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="http://redjen8.github.io/posts/ts-handbook/conditional-types/" data-title="타입스크립트 핸드북 16장 - 인덱스 타입"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/ts-handbook/mapping-types/" class="prev" rel="prev" title="타입스크립트 핸드북 15장 - 매핑 타입"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>타입스크립트 핸드북 15장 - 매핑 타입</a></div>
+</div>
+<div id="comments"><div id="utterances" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://utteranc.es/">utterances</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.109.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.2.11"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2024</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank"></a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{"utterances":{"darkTheme":"github-dark","issueTerm":"title","label":"","lightTheme":"github-light","repo":"redjen8/TIL-utterances"}}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

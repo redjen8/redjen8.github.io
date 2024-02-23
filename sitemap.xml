@@ -2,8 +2,11 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>http://redjen8.github.io/posts/</loc><lastmod>2024-02-13T22:21:31&#43;09:00</lastmod></url><url>
-            <loc>http://redjen8.github.io/</loc><lastmod>2024-02-13T22:21:31&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/</loc><lastmod>2024-02-23T21:11:45&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/</loc><lastmod>2024-02-23T21:11:45&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/ts-handbook/conditional-types/</loc><lastmod>2024-02-23T21:11:45&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/ts-handbook/mapping-types/</loc><lastmod>2024-02-21T20:49:40&#43;09:00</lastmod></url><url>
+            <loc>http://redjen8.github.io/posts/ts-handbook/index-types/</loc><lastmod>2024-02-20T23:53:02&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/ts-handbook/polymorphic-this-types/</loc><lastmod>2024-02-13T22:21:31&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/ts-handbook/discriminated-unions/</loc><lastmod>2024-02-13T21:58:17&#43;09:00</lastmod></url><url>
             <loc>http://redjen8.github.io/posts/ts-handbook/nullable-types/</loc><lastmod>2024-01-31T20:18:09&#43;09:00</lastmod></url><url>

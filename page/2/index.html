@@ -55,6 +55,18 @@
 </header><main class="main">
                 <div class="container"><div class="page home" data-home="posts"><div class="home-profile"><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/redjen8" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github fa-fw" aria-hidden="true"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/ts-handbook/type-guards-and-differentiating-types/">타입스크립트 핸드북 10장 - 타입 가드와 차별 타입</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-01-31">2024-01-31</time></span></div><div class="content">https://typescript-kr.github.io/pages/advanced-types.html#%ED%83%80%EC%9E%85-%EA%B0%80%EB%93%9C%EC%99%80-%EC%B0%A8%EB%B3%84-%ED%83%80%EC%9E%85-type-guards-and-differentiating-types 유니언 타입: 타입들을 겹치는 상황에서 사용, 하지만 한 타입이 명시적으로 존재하는지 구체적으로 알고 싶다면? let pet = getSmallPet(); if (pet.swim) { pet.swim(); } else if (pet.fly) { pet.fly(); } 위 코드는 아래</div><div class="post-footer">
+        <a href="/posts/ts-handbook/type-guards-and-differentiating-types/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/ts-handbook/advanced-union-type-and-intersection-type/">타입스크립트 핸드북 9장 - (고급 타입) 교차 타입, 유니언 타입</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-01-24">2024-01-24</time></span></div><div class="content">교차 타입 https://typescript-kr.github.io/pages/advanced-types.html#%EA%B5%90%EC%B0%A8-%ED%83%80%EC%9E%85-intersection-types 여러 타입을 하나로 결합한 타입. 즉 기존의 타입들을 하나로 합쳐 필요한 모든 기능을 가진 하나의 타입을 얻을 수 있다. 믹스인이란 https://en.wikipedia.org/wiki/Mixin 객체 지향 프로그래밍에</div><div class="post-footer">
+        <a href="/posts/ts-handbook/advanced-union-type-and-intersection-type/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/posts/ts-handbook/generic/">타입스크립트 핸드북 8장 - 제네릭</a>
+    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-01-10">2024-01-10</time></span></div><div class="content">https://typescript-kr.github.io/pages/generics.html 재사용 가능한 컴포넌트를 생성하는 하나의 유용한 방법 제네릭 처음 접하기 function identity(arg: number): number { return arg; } number 말고도 다른 타입을 인자로 받는 함수를 만들고 싶어~ function identity(arg: any): any { return arg;</div><div class="post-footer">
+        <a href="/posts/ts-handbook/generic/">Read More</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/posts/ts-handbook/union-and-intersection/">타입스크립트 핸드북 5장 - 유니언과 교차 타입</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2024-01-10">2024-01-10</time></span></div><div class="content">https://typescript-kr.github.io/pages/unions-and-intersections.html Union Types any를 사용하기 보단 예상되는 타입의 개수를 줄인다 function padLeft(value: string, padding: string | number) { // ... } let indentedString = padLeft(&#34;Hello world&#34;, true); | 로 타입을 구분 number | string | boolean은 값 타입이 number, string, boolean 중</div><div class="post-footer">
         <a href="/posts/ts-handbook/union-and-intersection/">Read More</a></div>
@@ -66,18 +78,6 @@
         <a href="/posts/ts-handbook/classes/">타입스크립트 핸드북 6장 - 클래스</a>
     </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-12-29">2023-12-29</time></span></div><div class="content">https://typescript-kr.github.io/pages/classes.html 컴포넌트의 재사용: 생산성을 높이기 위한 매우 중요하고 유용한 방법 ES6 이전 JS에서는 이를 위해 함수 프로토타입 기반 상속을 사용 ES6 이후 JS에서는 객체 지향적 클</div><div class="post-footer">
         <a href="/posts/ts-handbook/classes/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/ts-handbook/literal-types/">타입스크립트 핸드북 4장 - 리터럴 타입</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-12-20">2023-12-20</time></span></div><div class="content">https://typescript-kr.github.io/pages/literal-types.html 리터럴 타입은 enum 타입의 하위 타입이다. 문자열과 숫자 두 가지 리터럴 타입이 존재하고, 이를 사용할 경우 문자열이나 숫자에 정확한 값을 지정할 수 있다. Literal Narrowing var 또는</div><div class="post-footer">
-        <a href="/posts/ts-handbook/literal-types/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/ts-handbook/function/">타입스크립트 핸드북 3장 - 함수</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-12-20">2023-12-20</time></span></div><div class="content">https://typescript-kr.github.io/pages/functions.html Function JS와 마찬가지로 named function과 anonymous function을 제공 함수는 외부 변수를 참조 (변수 캡쳐) 가능 Typing the Function 함수의 타입은 매개변수의 타입과 반환 타</div><div class="post-footer">
-        <a href="/posts/ts-handbook/function/">Read More</a></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
-        <a href="/posts/ts-handbook/interface/">타입스크립트 핸드북 2장 - 인터페이스</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>redjen</a></span>&nbsp;<span class="post-publish">published on <time datetime="2023-12-20">2023-12-20</time></span></div><div class="content">https://typescript-kr.github.io/pages/interfaces.html 타입스크립트의 핵심 원칙 중 하나는 타입 검사가 값의 형태에 초점을 맞춘다는 것 (duck typing) 타입 검사는 프로퍼티들의 순서를 요구하지 않고, 아래 2가지만 검사한다. 인터</div><div class="post-footer">
-        <a href="/posts/ts-handbook/interface/">Read More</a></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
                         <a href="/">1</a>
